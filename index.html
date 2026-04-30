@@ -479,9 +479,14 @@ function buildCharts() {
   const prevNass = RAW.nass[RAW.nass.length-2];
   const latestC4 = RAW.c4[RAW.c4.length-1];
 
-  const cme30 = filterByDays(RAW.cme, 30);
-  const nass30 = filterByDays(RAW.nass, 30);
-  const joined30 = joinCmeNass(cme30, nass30);
+  var basisWindow = 30;
+  var joined30 = [];
+  while (basisWindow <= 90 && !joined30.length) {
+    var cmeBW = filterByDays(RAW.cme, basisWindow);
+    var nassBW = filterByDays(RAW.nass, basisWindow);
+    joined30 = joinCmeNass(cmeBW, nassBW);
+    if (!joined30.length) basisWindow += 15;
+  }
   const avg30basis = joined30.length ? joined30.reduce(function(s,d){return s+d.basis;}, 0) / joined30.length : 0;
   const latestJoined = joined30[joined30.length-1];
 
@@ -507,11 +512,11 @@ function buildCharts() {
   if (latestJoined) {
     const cb = latestJoined.basis;
     setText('kpi-basis', '$' + (cb >= 0 ? '+' : '') + cb.toFixed(4));
-    setText('kpi-basis-avg', '30-day avg $' + avg30basis.toFixed(4));
+    setText('kpi-basis-avg', basisWindow + '-day avg $' + avg30basis.toFixed(4));
     const be = document.getElementById('kpi-basis-delta');
     if (be) {
       be.className = 'kpi-delta warn';
-      be.textContent = '↗ ' + Math.abs(cb - avg30basis).toFixed(4) + ' · vs 30-day';
+      be.textContent = '↗ ' + Math.abs(cb - avg30basis).toFixed(4) + ' · vs ' + basisWindow + '-day';
     }
   }
   if (latestC4) {
