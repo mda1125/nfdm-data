@@ -150,7 +150,7 @@ a{color:#58a6ff}
 
     <div id="view-overview" class="view active">
       <div class="kpi-grid">
-        <div class="kpi"><div class="kpi-tag tag-cme">CME</div><div class="kpi-val" id="kpi-cme">—</div><div class="kpi-meta" id="kpi-cme-date">as of —</div><div class="kpi-delta" id="kpi-cme-delta"></div></div>
+        <div class="kpi"><div class="kpi-tag tag-cme">CME</div><div class="kpi-val" id="kpi-cme">—</div><div class="kpi-meta" id="kpi-cme-date">as of —</div><div class="kpi-delta" id="kpi-cme-delta"></div><div class="kpi-meta" id="kpi-cme-mtd" style="margin-top:4px;color:#f472b6"></div></div>
         <div class="kpi"><div class="kpi-tag tag-nass">NASS</div><div class="kpi-val" id="kpi-nass">—</div><div class="kpi-meta" id="kpi-nass-date">week ending —</div><div class="kpi-delta" id="kpi-nass-delta"></div></div>
         <div class="kpi"><div class="kpi-tag tag-basis">BASIS</div><div class="kpi-val" id="kpi-basis">—</div><div class="kpi-meta" id="kpi-basis-avg">30-day avg —</div><div class="kpi-delta" id="kpi-basis-delta"></div></div>
         <div class="kpi"><div class="kpi-tag tag-class4">CLASS IV</div><div class="kpi-val" id="kpi-c4">—</div><div class="kpi-meta" id="kpi-c4-implied">Implied —</div><div class="kpi-delta" id="kpi-c4-delta"></div></div>
@@ -162,6 +162,7 @@ a{color:#58a6ff}
           <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:3px;background:#e6a817;display:inline-block;border-radius:2px"></span>CME spot</span>
           <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:3px;background:#60a5fa;display:inline-block;border-radius:2px"></span>NASS weekly</span>
           <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:2px;border-top:2px dashed #a78bfa;display:inline-block"></span>20-day MA</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:2px;border-top:2px dashed #f472b6;display:inline-block"></span>Month avg</span>
         </div>
         <div class="chart-wrap" style="height:280px"><canvas id="chart-main" role="img" aria-label="CME vs NASS prices"></canvas></div>
       </div>
@@ -190,6 +191,7 @@ a{color:#58a6ff}
           <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:3px;background:#e6a817;display:inline-block;border-radius:2px"></span>CME spot</span>
           <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:3px;background:#60a5fa;display:inline-block;border-radius:2px"></span>NASS weekly</span>
           <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:2px;border-top:2px dashed #a78bfa;display:inline-block"></span>20-day MA</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:2px;border-top:2px dashed #f472b6;display:inline-block"></span>Month avg</span>
         </div>
         <div class="chart-wrap" style="height:340px"><canvas id="chart-cme-nass-full" role="img" aria-label="CME vs NASS detail"></canvas></div>
       </div>
@@ -428,6 +430,18 @@ function movingAvg(data, n) {
   });
 }
 
+function monthlyAvg(data) {
+  var result = [];
+  var sum = 0, count = 0, curM = -1, curY = -1;
+  for (var i = 0; i < data.length; i++) {
+    var m = data[i].date.getMonth(), y = data[i].date.getFullYear();
+    if (m !== curM || y !== curY) { sum = 0; count = 0; curM = m; curY = y; }
+    sum += data[i].price; count++;
+    result.push(+(sum / count).toFixed(4));
+  }
+  return result;
+}
+
 function joinCmeNass(cme, nass) {
   return nass.map(function(n){
     const weekStart = new Date(n.date.getTime() - 6*86400000);
@@ -487,7 +501,8 @@ function buildCharts() {
         datasets: [
           {label: 'CME spot', data: cmeFilt.map(function(d){return d.price;}), borderColor: COLORS.cme, borderWidth: 1.5, pointRadius: 0, tension: 0.3, fill: {target: 'origin', above: 'rgba(230,168,23,0.06)'}},
           {label: 'NASS weekly', data: nassAlignedToCme(cmeFilt), borderColor: COLORS.nass, borderWidth: 1.5, pointRadius: 0, tension: 0.3, spanGaps: true},
-          {label: '20-day MA', data: movingAvg(cmeFilt), borderColor: COLORS.ma, borderWidth: 1.5, pointRadius: 0, tension: 0.3, borderDash: [4,3]}
+          {label: '20-day MA', data: movingAvg(cmeFilt), borderColor: COLORS.ma, borderWidth: 1.5, pointRadius: 0, tension: 0.3, borderDash: [4,3]},
+          {label: 'Month avg', data: monthlyAvg(cmeFilt), borderColor: '#f472b6', borderWidth: 1.5, pointRadius: 0, tension: 0, borderDash: [2,2]}
         ]
       },
       options: baseOpts('$/lb')
@@ -503,7 +518,8 @@ function buildCharts() {
         datasets: [
           {label: 'CME spot', data: cmeFilt.map(function(d){return d.price;}), borderColor: COLORS.cme, borderWidth: 1.5, pointRadius: 0, tension: 0.3},
           {label: 'NASS weekly', data: nassAlignedToCme(cmeFilt), borderColor: COLORS.nass, borderWidth: 1.5, pointRadius: 0, tension: 0.3, spanGaps: true},
-          {label: '20-day MA', data: movingAvg(cmeFilt), borderColor: COLORS.ma, borderWidth: 1.5, pointRadius: 0, tension: 0.3, borderDash: [4,3]}
+          {label: '20-day MA', data: movingAvg(cmeFilt), borderColor: COLORS.ma, borderWidth: 1.5, pointRadius: 0, tension: 0.3, borderDash: [4,3]},
+          {label: 'Month avg', data: monthlyAvg(cmeFilt), borderColor: '#f472b6', borderWidth: 1.5, pointRadius: 0, tension: 0, borderDash: [2,2]}
         ]
       },
       options: baseOpts('$/lb')
@@ -676,6 +692,13 @@ function buildCharts() {
     setText('kpi-cme', '$' + latestCme.price.toFixed(4));
     setText('kpi-cme-date', 'as of ' + fmtDate(latestCme.date) + ' · $/lb');
     if (prevCme) setDelta('kpi-cme-delta', latestCme.price - prevCme.price, 'day');
+    var mtdM = latestCme.date.getMonth(), mtdY = latestCme.date.getFullYear();
+    var mtdPrices = RAW.cme.filter(function(d){return d.date.getMonth() === mtdM && d.date.getFullYear() === mtdY;});
+    if (mtdPrices.length) {
+      var mtdAvg = mtdPrices.reduce(function(s,d){return s+d.price;},0) / mtdPrices.length;
+      var monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      setText('kpi-cme-mtd', monthNames[mtdM] + ' MTD avg $' + mtdAvg.toFixed(4) + ' (' + mtdPrices.length + ' obs)');
+    }
   }
   if (latestNass) {
     setText('kpi-nass', '$' + latestNass.price.toFixed(4));
