@@ -43,6 +43,18 @@ def parse_num(val):
     return float(str(val).replace(",", ""))
 
 
+def normalize_date(date_str):
+    """Convert MM/DD/YYYY (with optional time) to YYYY-MM-DD for correct sorting."""
+    if not date_str:
+        return ""
+    date_part = date_str.split(" ")[0]
+    try:
+        dt = datetime.strptime(date_part, "%m/%d/%Y")
+        return dt.strftime("%Y-%m-%d")
+    except ValueError:
+        return date_str
+
+
 def fetch_ndpsr_nfdm():
     """NDPSR report 2993, NFDM section — weekly prices and sales volumes."""
     raw = fetch_mpr("2993/Final Nonfat Dry Milk Prices and Sales")
@@ -50,13 +62,13 @@ def fetch_ndpsr_nfdm():
     for row in raw.get("results", []):
         try:
             out.append({
-                "date": row.get("week_ending_date"),
+                "date": normalize_date(row.get("week_ending_date")),
                 "price": parse_num(row.get("nonfat_milk_Price")),
                 "volume": parse_num(row.get("nonfat_milk_Sales")),
             })
         except (TypeError, ValueError):
             continue
-    out.sort(key=lambda x: x["date"] or "")
+    out.sort(key=lambda x: x["date"])
     return out
 
 
@@ -78,7 +90,7 @@ def fetch_class_iv():
             butterfat = parse_num(row.get("butterfat_Price"))
             announced = parse_num(row.get("class_4_Price"))
             out.append({
-                "date": row.get("week_ending_date"),
+                "date": normalize_date(row.get("week_ending_date")),
                 "month": row.get("report_month"),
                 "year": row.get("report_year"),
                 "announced": announced,
@@ -90,7 +102,7 @@ def fetch_class_iv():
             })
         except (TypeError, ValueError):
             continue
-    out.sort(key=lambda x: x["date"] or "")
+    out.sort(key=lambda x: x["date"])
     return out
 
 
@@ -116,7 +128,7 @@ def fetch_cme_spot():
             commodity = str(row).lower()
             if "nonfat" not in commodity and "nfdm" not in commodity:
                 continue
-            date = row.get("report_date") or row.get("published_date") or row.get("date")
+            date = normalize_date(row.get("report_date") or row.get("published_date") or row.get("date"))
             price = None
             for key in row:
                 if key.lower() in ("date", "report_date", "published_date", "commodity",
@@ -140,7 +152,7 @@ def fetch_cme_spot():
                 out.append({"date": date, "price": price})
         except (TypeError, ValueError):
             continue
-    out.sort(key=lambda x: x["date"] or "")
+    out.sort(key=lambda x: x["date"])
     return out
 
 
