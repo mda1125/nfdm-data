@@ -97,16 +97,47 @@ def fetch_class_iv():
 def fetch_cme_spot():
     """Report 1603 (CME Group Daily Cash Trading WTD) via MMN API — requires DATAMART_API_KEY."""
     raw = fetch_mars("1603")
+    results = raw.get("results", [])
+
+    if results:
+        print(f"[DEBUG] Report 1603 first row keys: {list(results[0].keys())}")
+        print(f"[DEBUG] Report 1603 first row: {json.dumps(results[0], indent=2)}")
+        nfdm_rows = [r for r in results if "nonfat" in str(r).lower() or "nfdm" in str(r).lower()]
+        if nfdm_rows:
+            print(f"[DEBUG] First NFDM-matching row: {json.dumps(nfdm_rows[0], indent=2)}")
+        else:
+            print(f"[DEBUG] No rows contain 'nonfat' or 'nfdm'. Sample values from first 3 rows:")
+            for r in results[:3]:
+                print(f"[DEBUG]   {json.dumps(r, indent=2)}")
+
     out = []
-    for row in raw.get("results", []):
+    for row in results:
         try:
-            commodity = (row.get("commodity") or "").lower()
+            commodity = str(row).lower()
             if "nonfat" not in commodity and "nfdm" not in commodity:
                 continue
-            out.append({
-                "date": row.get("report_date") or row.get("published_date"),
-                "price": parse_num(row.get("current_price") or row.get("price")),
-            })
+            date = row.get("report_date") or row.get("published_date") or row.get("date")
+            price = None
+            for key in row:
+                if key.lower() in ("date", "report_date", "published_date", "commodity",
+                                    "report_title", "slug_name", "slug_id", "narrative",
+                                    "office_name", "office_code", "office_city", "office_state",
+                                    "market_location_name", "market_location_city",
+                                    "market_location_state", "market_type", "market_type_category",
+                                    "created_date"):
+                    continue
+                val = row[key]
+                if val is not None:
+                    try:
+                        p = parse_num(val)
+                        if p > 0:
+                            price = p
+                            print(f"[DEBUG] Using field '{key}' = {p} for price")
+                            break
+                    except (ValueError, TypeError):
+                        continue
+            if date and price:
+                out.append({"date": date, "price": price})
         except (TypeError, ValueError):
             continue
     out.sort(key=lambda x: x["date"] or "")
