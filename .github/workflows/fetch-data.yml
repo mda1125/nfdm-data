@@ -1,0 +1,38 @@
+name: Fetch NFDM data
+
+on:
+  schedule:
+    - cron: '0 13 * * 1-5'   # 1pm UTC = 6am PT, weekdays only
+  workflow_dispatch:          # lets you trigger manually from GitHub UI
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Run fetch script
+        env:
+          DATAMART_API_KEY: ${{ secrets.DATAMART_API_KEY }}
+        run: python scripts/fetch_data.py
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update NFDM data $(date -u +%Y-%m-%d)"
+            git push
+          fi
