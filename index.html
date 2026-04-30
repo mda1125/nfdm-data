@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>NFDM Price Tracker</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#0d1117;color:#e6edf3;display:flex;min-height:100vh;font-size:13px}
+a{color:#58a6ff}
+#sidebar{width:200px;min-width:200px;background:#161b22;border-right:1px solid #30363d;display:flex;flex-direction:column}
+.sb-logo{padding:16px;border-bottom:1px solid #30363d}
+.sb-logo .logo-icon{width:32px;height:32px;border-radius:8px;background:#e6a817;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#0d1117;margin-bottom:8px}
+.sb-logo .logo-title{font-size:14px;font-weight:600}
+.sb-logo .logo-sub{font-size:11px;color:#8b949e}
+.sb-nav{padding:8px 0;flex:1}
+.nav-item{display:flex;align-items:center;gap:8px;padding:8px 16px;cursor:pointer;color:#8b949e;font-size:12px;border-left:2px solid transparent}
+.nav-item:hover{background:#1f2937;color:#e6edf3}
+.nav-item.active{background:#1f2937;color:#e6edf3;border-left-color:#e6a817}
+.nav-icon{font-size:14px;width:16px;text-align:center}
+.sb-sources{padding:12px 16px;border-top:1px solid #30363d;font-size:10px;color:#6e7681}
+.sb-sources a{color:#58a6ff;text-decoration:none}
+#main{flex:1;overflow-y:auto}
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid #30363d;background:#161b22;position:sticky;top:0;z-index:10}
+.hdr-left h1{font-size:16px;font-weight:600}
+.hdr-left p{font-size:11px;color:#8b949e;margin-top:2px}
+.hdr-right{display:flex;align-items:center;gap:8px}
+.range-btn{padding:4px 10px;border:1px solid #30363d;background:transparent;color:#8b949e;border-radius:6px;cursor:pointer;font-size:12px;font-family:inherit}
+.range-btn:hover{background:#21262d;color:#e6edf3}
+.range-btn.active{background:#e6a817;border-color:#e6a817;color:#0d1117;font-weight:600}
+.export-btn{padding:4px 10px;border:1px solid #30363d;background:transparent;color:#8b949e;border-radius:6px;cursor:pointer;font-size:12px;font-family:inherit;display:flex;align-items:center;gap:4px}
+.export-btn:hover{background:#21262d;color:#e6edf3}
+.export-btn.loading{opacity:.5;pointer-events:none}
+.status-pill{display:inline-block;margin-left:8px;padding:1px 7px;border-radius:4px;font-size:10px;font-weight:600}
+.status-live{background:#15803d22;color:#4ade80;border:1px solid #15803d44}
+.status-sim{background:#e6a81722;color:#e6a817;border:1px solid #e6a81744}
+.status-err{background:#dc262622;color:#f87171;border:1px solid #dc262644}
+.toast{position:fixed;bottom:20px;right:20px;background:#161b22;border:1px solid #30363d;border-radius:8px;padding:12px 16px;font-size:12px;color:#e6edf3;max-width:340px;z-index:100}
+.toast.error{border-color:#dc262666}
+#content{padding:20px 24px}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.kpi{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:14px 16px}
+.kpi-tag{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.4px;margin-bottom:8px}
+.tag-cme{background:#7c3aed22;color:#a78bfa;border:1px solid #7c3aed44}
+.tag-nass{background:#1d4ed822;color:#60a5fa;border:1px solid #1d4ed844}
+.tag-basis{background:#dc262622;color:#f87171;border:1px solid #dc262644}
+.tag-class4{background:#15803d22;color:#4ade80;border:1px solid #15803d44}
+.kpi-val{font-size:26px;font-weight:700;line-height:1;margin-bottom:6px;letter-spacing:-.5px}
+.kpi-meta{font-size:10px;color:#6e7681}
+.kpi-delta{font-size:11px;margin-top:4px}
+.kpi-delta.up{color:#4ade80}
+.kpi-delta.down{color:#f87171}
+.kpi-delta.warn{color:#e6a817}
+.panel{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:16px 20px;margin-bottom:16px}
+.panel-hdr h2{font-size:13px;font-weight:600}
+.panel-hdr p{font-size:11px;color:#6e7681;margin-top:2px}
+.chart-wrap{position:relative;width:100%}
+.formula-box{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:14px 16px;font-family:monospace;font-size:12px;color:#a5d6ff;line-height:2}
+.formula-var{color:#ffa657}
+.formula-num{color:#79c0ff}
+.formula-op{color:#ff7b72}
+.sens-row{display:flex;align-items:center;gap:12px;margin-top:12px;padding:10px 14px;background:#0d1117;border-radius:8px;border:1px solid #30363d}
+.sens-label{font-size:11px;color:#6e7681;flex:1}
+.sens-val{font-size:16px;font-weight:700;color:#e6a817}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.class4-compare{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.c4-card{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:12px;text-align:center}
+.c4-label{font-size:10px;color:#6e7681;margin-bottom:6px}
+.c4-val{font-size:20px;font-weight:700}
+.c4-sub{font-size:10px;color:#6e7681;margin-top:4px}
+.data-table{width:100%;border-collapse:collapse;font-size:12px}
+.data-table th{text-align:left;padding:6px 10px;color:#6e7681;border-bottom:1px solid #30363d;font-weight:500}
+.data-table td{padding:6px 10px;border-bottom:1px solid #21262d}
+.view{display:none}
+.view.active{display:block}
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <div class="sb-logo">
+    <div class="logo-icon">N</div>
+    <div class="logo-title">NFDM Tracker</div>
+    <div class="logo-sub">CME · NASS · Class IV</div>
+  </div>
+  <nav class="sb-nav">
+    <div class="nav-item active" data-view="overview"><span class="nav-icon">◈</span>Overview</div>
+    <div class="nav-item" data-view="cme_nass"><span class="nav-icon">↗</span>CME vs NASS</div>
+    <div class="nav-item" data-view="basis"><span class="nav-icon">≈</span>Basis spread</div>
+    <div class="nav-item" data-view="class4"><span class="nav-icon">⊞</span>Class IV impact</div>
+    <div class="nav-item" data-view="recent"><span class="nav-icon">≡</span>Recent prices</div>
+  </nav>
+  <div class="sb-sources">
+    <div style="margin-bottom:4px">Sources</div>
+    <div>CME spot via <a href="https://mymarketnews.ams.usda.gov" target="_blank">USDA MMN</a></div>
+    <div>NDPSR via <a href="https://mpr.datamart.ams.usda.gov" target="_blank">USDA DPMRP</a></div>
+    <div>Class IV via <a href="https://mpr.datamart.ams.usda.gov" target="_blank">USDA FMMO</a></div>
+  </div>
+</div>
+
+<div id="main">
+  <div class="hdr">
+    <div class="hdr-left">
+      <h1>NFDM Price Tracker</h1>
+      <p>CME spot vs NASS survey · FMMO Class IV impact <span id="status-pill"></span></p>
+    </div>
+    <div class="hdr-right">
+      <button class="range-btn" data-days="90">3M</button>
+      <button class="range-btn active" data-days="180">6M</button>
+      <button class="range-btn" data-days="365">1Y</button>
+      <button class="range-btn" data-days="99999">All</button>
+      <button class="export-btn" id="refresh-btn">↻ Refresh</button>
+      <button class="export-btn" id="export-btn">⬇ Export CSV</button>
+    </div>
+  </div>
+
+  <div id="content">
+
+    <div id="view-overview" class="view active">
+      <div class="kpi-grid">
+        <div class="kpi"><div class="kpi-tag tag-cme">CME</div><div class="kpi-val" id="kpi-cme">—</div><div class="kpi-meta" id="kpi-cme-date">as of —</div><div class="kpi-delta" id="kpi-cme-delta"></div></div>
+        <div class="kpi"><div class="kpi-tag tag-nass">NASS</div><div class="kpi-val" id="kpi-nass">—</div><div class="kpi-meta" id="kpi-nass-date">week ending —</div><div class="kpi-delta" id="kpi-nass-delta"></div></div>
+        <div class="kpi"><div class="kpi-tag tag-basis">BASIS</div><div class="kpi-val" id="kpi-basis">—</div><div class="kpi-meta" id="kpi-basis-avg">30-day avg —</div><div class="kpi-delta" id="kpi-basis-delta"></div></div>
+        <div class="kpi"><div class="kpi-tag tag-class4">CLASS IV</div><div class="kpi-val" id="kpi-c4">—</div><div class="kpi-meta" id="kpi-c4-implied">Implied —</div><div class="kpi-delta" id="kpi-c4-delta"></div></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-hdr"><h2>CME daily spot vs NASS weekly survey</h2><p>NASS NDPSR is a weighted-average of prior-week sales — it lags CME spot.</p></div>
+        <div style="display:flex;gap:16px;margin:10px 0;font-size:11px;color:#6e7681">
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:3px;background:#e6a817;display:inline-block;border-radius:2px"></span>CME spot</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:3px;background:#60a5fa;display:inline-block;border-radius:2px"></span>NASS weekly</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:2px;border-top:2px dashed #a78bfa;display:inline-block"></span>20-day MA</span>
+        </div>
+        <div class="chart-wrap" style="height:280px"><canvas id="chart-main" role="img" aria-label="CME vs NASS prices"></canvas></div>
+      </div>
+
+      <div class="two-col">
+        <div class="panel">
+          <div class="panel-hdr"><h2>Basis (CME − NASS)</h2><p>Positive = CME above survey</p></div>
+          <div class="chart-wrap" style="height:180px"><canvas id="chart-basis" role="img" aria-label="Basis spread"></canvas></div>
+        </div>
+        <div class="panel">
+          <div class="panel-hdr"><h2>Class IV — announced vs implied</h2><p>Implied uses monthly CME avg + butter</p></div>
+          <div class="chart-wrap" style="height:180px"><canvas id="chart-c4-mini" role="img" aria-label="Class IV mini chart"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="view-cme_nass" class="view">
+      <div class="panel">
+        <div class="panel-hdr"><h2>CME daily spot vs NASS weekly survey — detail</h2><p>All data in $/lb NFDM</p></div>
+        <div style="display:flex;gap:16px;margin:10px 0;font-size:11px;color:#6e7681">
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:3px;background:#e6a817;display:inline-block;border-radius:2px"></span>CME spot</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:3px;background:#60a5fa;display:inline-block;border-radius:2px"></span>NASS weekly</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:2px;border-top:2px dashed #a78bfa;display:inline-block"></span>20-day MA</span>
+        </div>
+        <div class="chart-wrap" style="height:340px"><canvas id="chart-cme-nass-full" role="img" aria-label="CME vs NASS detail"></canvas></div>
+      </div>
+    </div>
+
+    <div id="view-basis" class="view">
+      <div class="panel">
+        <div class="panel-hdr"><h2>Basis spread — CME minus NASS ($/lb)</h2><p>Positive = CME leading; negative = CME below survey</p></div>
+        <div class="chart-wrap" style="height:320px"><canvas id="chart-basis-full" role="img" aria-label="Basis full"></canvas></div>
+        <div class="sens-row">
+          <div class="sens-label">Class IV sensitivity constant<br><span style="color:#4e5967;font-size:10px">From 0.99 × 9 × 0.965 — every ¢/lb move in NFDM shifts Class IV by:</span></div>
+          <div class="sens-val">$0.0860 / cwt</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="view-class4" class="view">
+      <div class="panel">
+        <div class="panel-hdr"><h2>FMMO Class IV formula</h2><p>Applied monthly with CME NFDM spot avg and NASS butter avg</p></div>
+        <div class="formula-box">
+          <span class="formula-var">Class IV</span> <span class="formula-op">=</span> (<span class="formula-var">Skim</span> <span class="formula-op">×</span> <span class="formula-num">0.965</span>) <span class="formula-op">+</span> (<span class="formula-var">BFat</span> <span class="formula-op">×</span> <span class="formula-num">3.5</span>)<br>
+          <span class="formula-var">Skim</span> <span class="formula-op">=</span> ((<span class="formula-var">NFDM</span> <span class="formula-op">−</span> <span class="formula-num">$0.1678</span>) <span class="formula-op">×</span> <span class="formula-num">0.99</span>) <span class="formula-op">×</span> <span class="formula-num">9</span><br>
+          <span class="formula-var">BFat</span> <span class="formula-op">=</span> (<span class="formula-var">Butter</span> <span class="formula-op">−</span> <span class="formula-num">$0.1715</span>) <span class="formula-op">×</span> <span class="formula-num">1.211</span><br>
+          <span style="color:#6e7681;font-size:11px">Make allowances: NFDM $0.1678/lb · Butter $0.1715/lb · Yields: Skim ×9 · BFat ×1.211</span>
+        </div>
+        <div class="class4-compare" id="c4-cards"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-hdr"><h2>Announced vs implied Class IV ($/cwt)</h2><p>Announced from USDA FMMO; Implied from CME monthly + butter</p></div>
+        <div style="display:flex;gap:16px;margin:10px 0;font-size:11px;color:#6e7681">
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:3px;background:#4ade80;display:inline-block;border-radius:2px"></span>Announced</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:2px;border-top:2px dashed #e6a817;display:inline-block"></span>Implied</span>
+        </div>
+        <div class="chart-wrap" style="height:280px"><canvas id="chart-c4-full" role="img" aria-label="Class IV full"></canvas></div>
+      </div>
+    </div>
+
+    <div id="view-recent" class="view">
+      <div class="two-col">
+        <div class="panel"><div class="panel-hdr"><h2>Recent CME daily spot ($/lb)</h2></div><table class="data-table" id="tbl-cme"></table></div>
+        <div class="panel"><div class="panel-hdr"><h2>Recent NASS weekly survey ($/lb)</h2></div><table class="data-table" id="tbl-nass"></table></div>
+      </div>
+      <div class="panel"><div class="panel-hdr"><h2>Class IV announced prices ($/cwt)</h2></div><table class="data-table" id="tbl-c4"></table></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const DATA_URLS = {
+  cme:  'https://mda1125.github.io/nfdm-data/data/cme.json',
+  nass: 'https://mda1125.github.io/nfdm-data/data/nass.json',
+  c4:   'https://mda1125.github.io/nfdm-data/data/class_iv.json'
+};
+
+let RAW = null;
+let activeDays = 180;
+let charts = {};
+let lastUpdated = null;
+let dataMode = 'simulated';
+
+function showToast(msg, isError) {
+  const t = document.createElement('div');
+  t.className = 'toast' + (isError ? ' error' : '');
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(function(){ t.remove(); }, 4500);
+}
+
+function setStatusPill() {
+  const el = document.getElementById('status-pill');
+  if (!el) return;
+  if (dataMode === 'live') {
+    const t = lastUpdated ? new Date(lastUpdated).toLocaleString() : '';
+    el.innerHTML = '<span class="status-pill status-live">● LIVE</span> <span style="color:#6e7681;font-size:10px">updated ' + t + '</span>';
+  } else if (dataMode === 'error') {
+    el.innerHTML = '<span class="status-pill status-err">● OFFLINE</span> <span style="color:#6e7681;font-size:10px">using simulated data</span>';
+  } else {
+    el.innerHTML = '<span class="status-pill status-sim">● DEMO</span> <span style="color:#6e7681;font-size:10px">simulated data</span>';
+  }
+}
+
+function genData() {
+  const MS = 86400000;
+  const cme = [], nass = [], c4 = [];
+  const cmeSeeds = [[0,1.08],[30,1.12],[60,1.09],[90,1.15],[120,1.28],[150,1.35],[180,1.55],[210,1.72],[240,1.90],[270,2.05],[300,2.15],[330,2.20],[360,2.26]];
+  let tradingDay = 0;
+  for (let d = new Date('2024-10-14'); d <= new Date('2026-04-29'); d = new Date(d.getTime()+MS)) {
+    const dow = d.getDay();
+    if (dow === 0 || dow === 6) continue;
+    const pct = tradingDay/403*360;
+    let price = 1.08;
+    for (let i = 0; i < cmeSeeds.length-1; i++) {
+      if (pct >= cmeSeeds[i][0] && pct <= cmeSeeds[i+1][0]) {
+        const t = (pct - cmeSeeds[i][0]) / (cmeSeeds[i+1][0] - cmeSeeds[i][0]);
+        price = cmeSeeds[i][1] + (cmeSeeds[i+1][1] - cmeSeeds[i][1]) * t;
+        break;
+      }
+    }
+    price += (Math.random() - 0.45) * 0.012;
+    cme.push({date: new Date(d), price: +price.toFixed(4)});
+    tradingDay++;
+  }
+  const nassSeeds = [['2012-03-01',0.95],['2014-07-01',2.05],['2016-07-01',0.72],['2018-01-01',0.97],['2020-01-01',0.88],['2022-07-01',1.95],['2024-01-01',1.10],['2025-07-01',1.72],['2026-03-27',1.96]];
+  const ns = nassSeeds.map(function(x){return {t: new Date(x[0]).getTime(), p: x[1]};});
+  function interpNass(t) {
+    for (let i = 0; i < ns.length-1; i++) {
+      if (t >= ns[i].t && t <= ns[i+1].t) {
+        const f = (t - ns[i].t) / (ns[i+1].t - ns[i].t);
+        return ns[i].p + (ns[i+1].p - ns[i].p) * f;
+      }
+    }
+    return ns[ns.length-1].p;
+  }
+  let nd = new Date('2012-03-03');
+  while (nd <= new Date('2026-03-27')) {
+    const base = interpNass(nd.getTime());
+    nass.push({date: new Date(nd), price: +(base + (Math.random()-0.5)*0.008).toFixed(4)});
+    nd = new Date(nd.getTime() + 7*MS);
+  }
+  const c4Seeds = [['2012-04',15.80],['2014-07',24.60],['2016-07',12.50],['2020-07',13.50],['2022-07',23.40],['2024-07',15.80],['2026-04',22.10]];
+  const cs = c4Seeds.map(function(x){const p=x[0].split('-');return {t: new Date(+p[0],+p[1]-1,1).getTime(), p: x[1]};});
+  function interpC4(t) {
+    for (let i = 0; i < cs.length-1; i++) {
+      if (t >= cs[i].t && t <= cs[i+1].t) {
+        const f = (t - cs[i].t) / (cs[i+1].t - cs[i].t);
+        return cs[i].p + (cs[i+1].p - cs[i].p) * f;
+      }
+    }
+    return cs[cs.length-1].p;
+  }
+  let cd = new Date('2012-04-01');
+  while (cd <= new Date('2026-04-01')) {
+    const announced = +interpC4(cd.getTime()).toFixed(2);
+    const nfdmM = interpNass(cd.getTime()) + (Math.random()-0.3)*0.06;
+    const butter = 1.80 + Math.random()*0.80;
+    const skim = ((nfdmM - 0.1678) * 0.99) * 9;
+    const bfat = (butter - 0.1715) * 1.211;
+    const implied = +((skim*0.965 + bfat*3.5) * 100).toFixed(2);
+    c4.push({date: new Date(cd), announced: announced, implied: Math.max(10, implied), nfdm: +nfdmM.toFixed(4), butter: +butter.toFixed(4), skim: +(skim*100).toFixed(2), bfat: +(bfat*100).toFixed(2)});
+    cd = new Date(cd.getFullYear(), cd.getMonth()+1, 1);
+  }
+  return {cme: cme, nass: nass, c4: c4};
+}
+
+async function fetchLiveData() {
+  const btn = document.getElementById('refresh-btn');
+  if (btn) btn.classList.add('loading');
+  try {
+    const responses = await Promise.all([
+      fetch(DATA_URLS.cme, {cache: 'no-store'}),
+      fetch(DATA_URLS.nass, {cache: 'no-store'}),
+      fetch(DATA_URLS.c4, {cache: 'no-store'})
+    ]);
+    if (!responses[0].ok || !responses[1].ok || !responses[2].ok) {
+      throw new Error('HTTP ' + responses[0].status + '/' + responses[1].status + '/' + responses[2].status);
+    }
+    const jsons = await Promise.all(responses.map(function(r){return r.json();}));
+    const cmeJ = jsons[0], nassJ = jsons[1], c4J = jsons[2];
+    const cme = (cmeJ.data || cmeJ).map(function(d){return {date: new Date(d.date), price: +d.price};});
+    const nass = (nassJ.data || nassJ).map(function(d){return {date: new Date(d.date), price: +d.price};});
+    const c4 = (c4J.data || c4J).map(function(d){
+      return {
+        date: new Date(d.date),
+        announced: +d.announced,
+        implied: +(d.implied || 0),
+        nfdm: +(d.nfdm_avg || d.nfdm || 0),
+        butter: +(d.butter_avg || d.butter || 0),
+        skim: +(d.skim || 0),
+        bfat: +(d.butterfat || d.bfat || 0)
+      };
+    });
+    const stamps = [cmeJ.updated_at, nassJ.updated_at, c4J.updated_at].filter(Boolean);
+    lastUpdated = stamps.sort().reverse()[0] || new Date().toISOString();
+    dataMode = 'live';
+    showToast('Live data loaded · ' + cme.length + ' CME · ' + nass.length + ' NASS · ' + c4.length + ' months');
+    return {cme: cme, nass: nass, c4: c4};
+  } catch (err) {
+    console.warn('Live fetch failed:', err);
+    dataMode = 'error';
+    showToast("Couldn't reach live data (" + err.message + ") — using simulated", true);
+    return genData();
+  } finally {
+    if (btn) btn.classList.remove('loading');
+  }
+}
+
+function filterByDays(arr, days) {
+  if (days >= 99999) return arr;
+  const cutoff = new Date(Date.now() - days * 86400000);
+  return arr.filter(function(d){return d.date >= cutoff;});
+}
+
+function movingAvg(data, n) {
+  n = n || 20;
+  return data.map(function(d, i){
+    if (i < n-1) return null;
+    const slice = data.slice(i-n+1, i+1);
+    return +(slice.reduce(function(s,x){return s+x.price;}, 0) / n).toFixed(4);
+  });
+}
+
+function joinCmeNass(cme, nass) {
+  return nass.map(function(n){
+    const weekStart = new Date(n.date.getTime() - 6*86400000);
+    const weekCme = cme.filter(function(c){return c.date >= weekStart && c.date <= n.date;});
+    const avg = weekCme.length ? weekCme.reduce(function(s,c){return s+c.price;}, 0) / weekCme.length : null;
+    return Object.assign({}, n, {cmeavg: avg ? +avg.toFixed(4) : null, basis: avg ? +(avg - n.price).toFixed(4) : null});
+  }).filter(function(n){return n.cmeavg !== null;});
+}
+
+const COLORS = {cme:'#e6a817', nass:'#60a5fa', ma:'#a78bfa', c4a:'#4ade80', c4i:'#e6a817', grid:'rgba(48,54,61,0.8)', tick:'#6e7681'};
+
+function baseOpts(yLabel) {
+  return {
+    responsive: true, maintainAspectRatio: false,
+    interaction: {mode: 'index', intersect: false},
+    plugins: {
+      legend: {display: false},
+      tooltip: {backgroundColor: '#1f2937', borderColor: '#374151', borderWidth: 1, titleColor: '#e6edf3', bodyColor: '#9ca3af', padding: 10}
+    },
+    scales: {
+      x: {ticks: {color: COLORS.tick, maxTicksLimit: 8, maxRotation: 0}, grid: {color: COLORS.grid}},
+      y: {ticks: {color: COLORS.tick, callback: function(v){return '$' + v.toFixed(2);}}, grid: {color: COLORS.grid}, title: {display: true, text: yLabel, color: COLORS.tick}}
+    }
+  };
+}
+
+function fmtDate(d) {
+  return d.toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: '2-digit'});
+}
+function fmtMonth(d) {
+  return d.toLocaleDateString('en-US', {month: 'short', year: '2-digit'});
+}
+
+function buildCharts() {
+  if (!RAW) return;
+  const cmeFilt = filterByDays(RAW.cme, activeDays);
+  const nassFilt = filterByDays(RAW.nass, activeDays);
+  const joined = joinCmeNass(cmeFilt, nassFilt);
+  const c4Filt = filterByDays(RAW.c4, activeDays);
+
+  Object.values(charts).forEach(function(c){try{c.destroy();}catch(e){}});
+  charts = {};
+
+  function nassAlignedToCme(cmeArr) {
+    return cmeArr.map(function(cd){
+      const near = RAW.nass.reduce(function(a,b){return Math.abs(b.date - cd.date) < Math.abs(a.date - cd.date) ? b : a;});
+      return Math.abs(near.date - cd.date) < 4*86400000 ? near.price : null;
+    });
+  }
+
+  const ctxM = document.getElementById('chart-main');
+  if (ctxM && cmeFilt.length) {
+    charts.main = new Chart(ctxM, {
+      type: 'line',
+      data: {
+        labels: cmeFilt.map(function(d){return fmtDate(d.date);}),
+        datasets: [
+          {label: 'CME spot', data: cmeFilt.map(function(d){return d.price;}), borderColor: COLORS.cme, borderWidth: 1.5, pointRadius: 0, tension: 0.3, fill: {target: 'origin', above: 'rgba(230,168,23,0.06)'}},
+          {label: 'NASS weekly', data: nassAlignedToCme(cmeFilt), borderColor: COLORS.nass, borderWidth: 1.5, pointRadius: 0, tension: 0.3, spanGaps: true},
+          {label: '20-day MA', data: movingAvg(cmeFilt), borderColor: COLORS.ma, borderWidth: 1.5, pointRadius: 0, tension: 0.3, borderDash: [4,3]}
+        ]
+      },
+      options: baseOpts('$/lb')
+    });
+  }
+
+  const ctxCN = document.getElementById('chart-cme-nass-full');
+  if (ctxCN && cmeFilt.length) {
+    charts.cn = new Chart(ctxCN, {
+      type: 'line',
+      data: {
+        labels: cmeFilt.map(function(d){return fmtDate(d.date);}),
+        datasets: [
+          {label: 'CME spot', data: cmeFilt.map(function(d){return d.price;}), borderColor: COLORS.cme, borderWidth: 1.5, pointRadius: 0, tension: 0.3},
+          {label: 'NASS weekly', data: nassAlignedToCme(cmeFilt), borderColor: COLORS.nass, borderWidth: 1.5, pointRadius: 0, tension: 0.3, spanGaps: true},
+          {label: '20-day MA', data: movingAvg(cmeFilt), borderColor: COLORS.ma, borderWidth: 1.5, pointRadius: 0, tension: 0.3, borderDash: [4,3]}
+        ]
+      },
+      options: baseOpts('$/lb')
+    });
+  }
+
+  function basisData() {
+    return {
+      labels: joined.map(function(d){return fmtDate(d.date);}),
+      datasets: [{
+        label: 'Basis',
+        data: joined.map(function(d){return d.basis;}),
+        backgroundColor: joined.map(function(d){return d.basis >= 0 ? 'rgba(74,222,128,0.7)' : 'rgba(248,113,113,0.7)';}),
+        borderRadius: 2, borderSkipped: false
+      }]
+    };
+  }
+
+  const ctxB = document.getElementById('chart-basis');
+  if (ctxB && joined.length) charts.basis = new Chart(ctxB, {type: 'bar', data: basisData(), options: baseOpts('$/lb')});
+
+  const ctxBF = document.getElementById('chart-basis-full');
+  if (ctxBF && joined.length) charts.basisFull = new Chart(ctxBF, {type: 'bar', data: basisData(), options: baseOpts('$/lb')});
+
+  function c4Data() {
+    return {
+      labels: c4Filt.map(function(d){return fmtMonth(d.date);}),
+      datasets: [
+        {label: 'Announced', data: c4Filt.map(function(d){return d.announced;}), borderColor: COLORS.c4a, borderWidth: 2, pointRadius: 2, tension: 0.3},
+        {label: 'Implied', data: c4Filt.map(function(d){return d.implied;}), borderColor: COLORS.c4i, borderWidth: 1.5, pointRadius: 0, tension: 0.3, borderDash: [4,3]}
+      ]
+    };
+  }
+
+  const ctxCm = document.getElementById('chart-c4-mini');
+  if (ctxCm && c4Filt.length) charts.c4mini = new Chart(ctxCm, {type: 'line', data: c4Data(), options: baseOpts('$/cwt')});
+
+  const ctxCF = document.getElementById('chart-c4-full');
+  if (ctxCF && c4Filt.length) charts.c4full = new Chart(ctxCF, {type: 'line', data: c4Data(), options: baseOpts('$/cwt')});
+
+  // KPIs
+  const latestCme = RAW.cme[RAW.cme.length-1];
+  const prevCme = RAW.cme[RAW.cme.length-2];
+  const latestNass = RAW.nass[RAW.nass.length-1];
+  const prevNass = RAW.nass[RAW.nass.length-2];
+  const latestC4 = RAW.c4[RAW.c4.length-1];
+
+  const cme30 = filterByDays(RAW.cme, 30);
+  const nass30 = filterByDays(RAW.nass, 30);
+  const joined30 = joinCmeNass(cme30, nass30);
+  const avg30basis = joined30.length ? joined30.reduce(function(s,d){return s+d.basis;}, 0) / joined30.length : 0;
+  const latestJoined = joined30[joined30.length-1];
+
+  function setText(id, v) { const e = document.getElementById(id); if (e) e.textContent = v; }
+  function setDelta(id, v, suffix) {
+    const e = document.getElementById(id);
+    if (!e) return;
+    const up = v >= 0;
+    e.className = 'kpi-delta ' + (up ? 'up' : 'down');
+    e.textContent = (up ? '↑ +' : '↓ ') + v.toFixed(4) + ' · ' + (suffix || '');
+  }
+
+  if (latestCme) {
+    setText('kpi-cme', '$' + latestCme.price.toFixed(4));
+    setText('kpi-cme-date', 'as of ' + fmtDate(latestCme.date) + ' · $/lb');
+    if (prevCme) setDelta('kpi-cme-delta', latestCme.price - prevCme.price, 'day');
+  }
+  if (latestNass) {
+    setText('kpi-nass', '$' + latestNass.price.toFixed(4));
+    setText('kpi-nass-date', 'week ending ' + fmtDate(latestNass.date) + ' · $/lb');
+    if (prevNass) setDelta('kpi-nass-delta', latestNass.price - prevNass.price, 'week');
+  }
+  if (latestJoined) {
+    const cb = latestJoined.basis;
+    setText('kpi-basis', '$' + (cb >= 0 ? '+' : '') + cb.toFixed(4));
+    setText('kpi-basis-avg', '30-day avg $' + avg30basis.toFixed(4));
+    const be = document.getElementById('kpi-basis-delta');
+    if (be) {
+      be.className = 'kpi-delta warn';
+      be.textContent = '↗ ' + Math.abs(cb - avg30basis).toFixed(4) + ' · vs 30-day';
+    }
+  }
+  if (latestC4) {
+    setText('kpi-c4', '$' + latestC4.announced.toFixed(2));
+    setText('kpi-c4-implied', 'Implied from CME $' + latestC4.implied.toFixed(2) + ' · $/cwt');
+    const cd = latestC4.implied - latestC4.announced;
+    const ce = document.getElementById('kpi-c4-delta');
+    if (ce) {
+      ce.className = 'kpi-delta ' + (cd >= 0 ? 'up' : 'down');
+      ce.textContent = (cd >= 0 ? '↗ +' : '↘ ') + cd.toFixed(2) + ' · implied vs actual';
+    }
+  }
+
+  const c4c = document.getElementById('c4-cards');
+  if (c4c && latestC4) {
+    const delta = latestC4.implied - latestC4.announced;
+    c4c.innerHTML = [
+      {l: 'Announced Class IV', v: '$' + latestC4.announced.toFixed(2) + '/cwt', s: 'USDA FMMO – latest', col: '#4ade80'},
+      {l: 'Implied Class IV', v: '$' + latestC4.implied.toFixed(2) + '/cwt', s: 'From CME avg + butter', col: '#e6a817'},
+      {l: 'Delta', v: (delta >= 0 ? '+' : '') + '$' + delta.toFixed(2) + '/cwt', s: 'Positive = CME leading', col: delta >= 0 ? '#4ade80' : '#f87171'}
+    ].map(function(x){return '<div class="c4-card"><div class="c4-label">' + x.l + '</div><div class="c4-val" style="color:' + x.col + '">' + x.v + '</div><div class="c4-sub">' + x.s + '</div></div>';}).join('');
+  }
+
+  // Tables
+  function buildTable(id, rows, cols) {
+    const t = document.getElementById(id);
+    if (!t) return;
+    t.innerHTML = '<tr>' + cols.map(function(c){return '<th' + (c.right ? ' style="text-align:right"' : '') + '>' + c.h + '</th>';}).join('') + '</tr>' +
+      rows.map(function(r){return '<tr>' + cols.map(function(c){return '<td' + (c.right ? ' style="text-align:right' + (c.color ? ';color:' + c.color(r) : '') + '"' : '') + '>' + c.f(r) + '</td>';}).join('') + '</tr>';}).join('');
+  }
+
+  const cmeRecent = RAW.cme.slice(-20).reverse();
+  buildTable('tbl-cme', cmeRecent, [
+    {h: 'Date', f: function(r){return fmtDate(r.date);}},
+    {h: 'Price', right: true, f: function(r){return '$' + r.price.toFixed(4);}},
+    {h: 'Chg', right: true, f: function(r,i){const idx = cmeRecent.indexOf(r); const next = cmeRecent[idx+1]; if (!next) return '—'; const d = r.price - next.price; return (d >= 0 ? '+' : '') + d.toFixed(4);}, color: function(r){const idx = cmeRecent.indexOf(r); const next = cmeRecent[idx+1]; if (!next) return '#6e7681'; return r.price >= next.price ? '#4ade80' : '#f87171';}}
+  ]);
+
+  const nassRecent = RAW.nass.slice(-20).reverse();
+  buildTable('tbl-nass', nassRecent, [
+    {h: 'Week ending', f: function(r){return fmtDate(r.date);}},
+    {h: 'Price', right: true, f: function(r){return '$' + r.price.toFixed(4);}},
+    {h: 'Chg', right: true, f: function(r){const idx = nassRecent.indexOf(r); const next = nassRecent[idx+1]; if (!next) return '—'; const d = r.price - next.price; return (d >= 0 ? '+' : '') + d.toFixed(4);}, color: function(r){const idx = nassRecent.indexOf(r); const next = nassRecent[idx+1]; if (!next) return '#6e7681'; return r.price >= next.price ? '#4ade80' : '#f87171';}}
+  ]);
+
+  buildTable('tbl-c4', RAW.c4.slice(-18).reverse(), [
+    {h: 'Month', f: function(r){return fmtMonth(r.date);}},
+    {h: 'Announced', right: true, f: function(r){return '$' + r.announced.toFixed(2);}},
+    {h: 'Implied', right: true, f: function(r){return '$' + r.implied.toFixed(2);}, color: function(){return '#e6a817';}},
+    {h: 'Delta', right: true, f: function(r){const d = r.implied - r.announced; return (d >= 0 ? '+' : '') + '$' + d.toFixed(2);}, color: function(r){return r.implied - r.announced >= 0 ? '#4ade80' : '#f87171';}},
+    {h: 'NFDM', right: true, f: function(r){return '$' + r.nfdm.toFixed(4);}},
+    {h: 'Butter', right: true, f: function(r){return '$' + r.butter.toFixed(4);}}
+  ]);
+}
+
+function showView(name, el) {
+  document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');});
+  document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
+  const v = document.getElementById('view-' + name);
+  if (v) v.classList.add('active');
+  if (el) el.classList.add('active');
+  setTimeout(buildCharts, 50);
+}
+
+function setRange(days, btn) {
+  activeDays = days;
+  document.querySelectorAll('.range-btn').forEach(function(b){b.classList.remove('active');});
+  if (btn) btn.classList.add('active');
+  buildCharts();
+}
+
+async function refreshData() {
+  RAW = await fetchLiveData();
+  setStatusPill();
+  buildCharts();
+}
+
+function exportCSV() {
+  if (!RAW) return;
+  let csv = 'date,cme_spot,nass_weekly,basis,c4_announced,c4_implied\n';
+  const cmeFilt = filterByDays(RAW.cme, activeDays);
+  const joined = joinCmeNass(cmeFilt, filterByDays(RAW.nass, activeDays));
+  cmeFilt.forEach(function(c){
+    const n = joined.find(function(j){return Math.abs(j.date - c.date) < 4*86400000;});
+    const c4 = RAW.c4.find(function(x){return x.date.getFullYear() === c.date.getFullYear() && x.date.getMonth() === c.date.getMonth();});
+    csv += c.date.toISOString().slice(0,10) + ',' + c.price + ',' + (n ? n.price : '') + ',' + (n ? n.basis : '') + ',' + (c4 ? c4.announced : '') + ',' + (c4 ? c4.implied : '') + '\n';
+  });
+  const blob = new Blob([csv], {type: 'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'nfdm_prices.csv'; a.click();
+}
+
+// Wire up event listeners (no inline onclick)
+document.querySelectorAll('.nav-item').forEach(function(item){
+  item.addEventListener('click', function(){ showView(item.dataset.view, item); });
+});
+document.querySelectorAll('.range-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){ setRange(parseInt(btn.dataset.days, 10), btn); });
+});
+document.getElementById('refresh-btn').addEventListener('click', refreshData);
+document.getElementById('export-btn').addEventListener('click', exportCSV);
+
+// Initial load
+(async function(){
+  RAW = await fetchLiveData();
+  setStatusPill();
+  buildCharts();
+})();
+</script>
+</body>
+</html>
