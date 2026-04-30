@@ -115,6 +115,7 @@ a{color:#58a6ff}
     <div class="nav-item" data-view="basis"><span class="nav-icon">≈</span>Basis spread</div>
     <div class="nav-item" data-view="class4"><span class="nav-icon">⊞</span>Class IV impact</div>
     <div class="nav-item" data-view="futures"><span class="nav-icon">⌇</span>Futures curve</div>
+    <div class="nav-item" data-view="seasonals"><span class="nav-icon">⛅</span>Seasonals</div>
     <div class="nav-item" data-view="recent"><span class="nav-icon">≡</span>Recent prices</div>
   </nav>
   <div class="sb-sources">
@@ -246,6 +247,19 @@ a{color:#58a6ff}
       <div class="panel">
         <div class="panel-hdr"><h2>Settlement detail</h2><p id="futures-trade-date">—</p></div>
         <table class="data-table" id="tbl-futures"></table>
+      </div>
+    </div>
+
+    <div id="view-seasonals" class="view">
+      <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="kpi"><div class="kpi-tag tag-nass">CURRENT</div><div class="kpi-val" id="kpi-seas-cur">—</div><div class="kpi-meta" id="kpi-seas-cur-label">—</div></div>
+        <div class="kpi"><div class="kpi-tag" style="background:#7c3aed22;color:#a78bfa;border:1px solid #7c3aed44">5Y AVG</div><div class="kpi-val" id="kpi-seas-avg">—</div><div class="kpi-meta" id="kpi-seas-avg-label">same week, 5-year avg</div></div>
+        <div class="kpi"><div class="kpi-tag" id="kpi-seas-pct-tag" style="background:#15803d22;color:#4ade80;border:1px solid #15803d44">PERCENTILE</div><div class="kpi-val" id="kpi-seas-pct">—</div><div class="kpi-meta" id="kpi-seas-pct-label">within 5-year range</div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-hdr"><h2>NASS NFDM seasonal overlay</h2><p>Current year vs prior years — shaded band = 5-year min/max range</p></div>
+        <div id="seasonal-legend" style="display:flex;flex-wrap:wrap;gap:12px;margin:10px 0;font-size:11px;color:#6e7681"></div>
+        <div class="chart-wrap" style="height:360px"><canvas id="chart-seasonals" role="img" aria-label="Seasonal price comparison"></canvas></div>
       </div>
     </div>
 
@@ -485,6 +499,15 @@ function buildCharts() {
   Object.values(charts).forEach(function(c){try{c.destroy();}catch(e){}});
   charts = {};
 
+  function setText(id, v) { const e = document.getElementById(id); if (e) e.textContent = v; }
+  function setDelta(id, v, suffix) {
+    const e = document.getElementById(id);
+    if (!e) return;
+    const up = v >= 0;
+    e.className = 'kpi-delta ' + (up ? 'up' : 'down');
+    e.textContent = (up ? '↑ +' : '↓ ') + v.toFixed(4) + ' · ' + (suffix || '');
+  }
+
   function nassAlignedToCme(cmeArr) {
     return cmeArr.map(function(cd){
       const near = RAW.nass.reduce(function(a,b){return Math.abs(b.date - cd.date) < Math.abs(a.date - cd.date) ? b : a;});
@@ -661,6 +684,121 @@ function buildCharts() {
     }
   }
 
+  // Seasonals
+  var ctxSeas = document.getElementById('chart-seasonals');
+  if (ctxSeas && RAW.nass.length) {
+    var curYear = new Date().getFullYear();
+    function weekOfYear(d) { var start = new Date(d.getFullYear(),0,1); return Math.ceil(((d - start) / 86400000 + start.getDay() + 1) / 7); }
+
+    var byYear = {};
+    RAW.nass.forEach(function(d) {
+      var y = d.date.getFullYear(), w = weekOfYear(d.date);
+      if (!byYear[y]) byYear[y] = [];
+      byYear[y].push({week: w, price: d.price});
+    });
+    Object.keys(byYear).forEach(function(y) {
+      byYear[y].sort(function(a,b){return a.week - b.week;});
+    });
+
+    var rangeYears = [];
+    for (var ry = curYear - 5; ry < curYear; ry++) { if (byYear[ry]) rangeYears.push(ry); }
+
+    var weekLabels = [];
+    var rangeMin = [], rangeMax = [], rangeAvg = [];
+    var weekMonths = ['','Jan','','','','Feb','','','','Mar','','','','Apr','','','','May','','','','Jun','','','','Jul','','','','Aug','','','','Sep','','','','Oct','','','','Nov','','','','Dec','','','','','','',''];
+    for (var wk = 1; wk <= 52; wk++) {
+      weekLabels.push(weekMonths[wk] || '');
+      var vals = [];
+      rangeYears.forEach(function(yr) {
+        var match = byYear[yr] && byYear[yr].find(function(d){return d.week === wk;});
+        if (match) vals.push(match.price);
+      });
+      rangeMin.push(vals.length ? Math.min.apply(null, vals) : null);
+      rangeMax.push(vals.length ? Math.max.apply(null, vals) : null);
+      rangeAvg.push(vals.length ? +(vals.reduce(function(s,v){return s+v;},0) / vals.length).toFixed(4) : null);
+    }
+
+    var curYearData = new Array(52).fill(null);
+    if (byYear[curYear]) {
+      byYear[curYear].forEach(function(d) { if (d.week >= 1 && d.week <= 52) curYearData[d.week - 1] = d.price; });
+    }
+
+    var priorYearColors = ['#6b7280','#9ca3af','#4b5563','#d1d5db'];
+    var showYears = [];
+    for (var sy = curYear - 1; sy >= curYear - 4; sy--) { if (byYear[sy]) showYears.push(sy); }
+
+    var datasets = [
+      {label: '5Y max', data: rangeMax, borderColor: 'transparent', backgroundColor: 'rgba(167,139,250,0.12)', pointRadius: 0, fill: '+1', tension: 0.3, order: 10},
+      {label: '5Y min', data: rangeMin, borderColor: 'transparent', backgroundColor: 'rgba(167,139,250,0.12)', pointRadius: 0, fill: false, tension: 0.3, order: 10},
+      {label: '5Y avg', data: rangeAvg, borderColor: '#a78bfa', borderWidth: 1.5, pointRadius: 0, tension: 0.3, borderDash: [6,3], fill: false, order: 5}
+    ];
+    showYears.forEach(function(yr, idx) {
+      var yd = new Array(52).fill(null);
+      byYear[yr].forEach(function(d) { if (d.week >= 1 && d.week <= 52) yd[d.week - 1] = d.price; });
+      datasets.push({label: '' + yr, data: yd, borderColor: priorYearColors[idx % priorYearColors.length], borderWidth: 1, pointRadius: 0, tension: 0.3, fill: false, order: 3});
+    });
+    datasets.push({label: '' + curYear, data: curYearData, borderColor: COLORS.cme, borderWidth: 2.5, pointRadius: 2, pointBackgroundColor: COLORS.cme, tension: 0.3, fill: false, order: 1});
+
+    charts.seasonals = new Chart(ctxSeas, {
+      type: 'line',
+      data: {labels: weekLabels, datasets: datasets},
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        interaction: {mode: 'index', intersect: false},
+        plugins: {
+          legend: {display: false},
+          tooltip: {backgroundColor: '#1f2937', borderColor: '#374151', borderWidth: 1, titleColor: '#e6edf3', bodyColor: '#9ca3af', padding: 10,
+            filter: function(item) { return item.raw !== null; },
+            callbacks: {label: function(ctx) { return ctx.dataset.label + ': $' + ctx.parsed.y.toFixed(4); }}}
+        },
+        scales: {
+          x: {ticks: {color: COLORS.tick, maxRotation: 0, autoSkip: true, maxTicksLimit: 12}, grid: {color: COLORS.grid}},
+          y: {ticks: {color: COLORS.tick, callback: function(v){return '$' + v.toFixed(2);}}, grid: {color: COLORS.grid}, title: {display: true, text: '$/lb', color: COLORS.tick}}
+        }
+      }
+    });
+
+    var legendEl = document.getElementById('seasonal-legend');
+    if (legendEl) {
+      var items = [
+        {color: COLORS.cme, dash: false, width: 2.5, label: curYear},
+        {color: '#a78bfa', dash: true, width: 1.5, label: '5Y avg'}
+      ];
+      showYears.forEach(function(yr, idx) { items.push({color: priorYearColors[idx], dash: false, width: 1, label: yr}); });
+      items.push({color: 'rgba(167,139,250,0.35)', dash: false, width: 8, label: '5Y range'});
+      legendEl.innerHTML = items.map(function(it) {
+        var sty = 'width:12px;height:' + (it.width > 4 ? '6px;background:' + it.color : it.width + 'px;border-top:' + it.width + 'px ' + (it.dash ? 'dashed' : 'solid') + ' ' + it.color) + ';display:inline-block;border-radius:1px';
+        return '<span style="display:flex;align-items:center;gap:4px"><span style="' + sty + '"></span>' + it.label + '</span>';
+      }).join('');
+    }
+
+    var latestWeek = byYear[curYear] ? byYear[curYear][byYear[curYear].length - 1] : null;
+    if (latestWeek) {
+      setText('kpi-seas-cur', '$' + latestWeek.price.toFixed(4));
+      setText('kpi-seas-cur-label', curYear + ' week ' + latestWeek.week + ' · $/lb');
+      var wkAvg = rangeAvg[latestWeek.week - 1];
+      var wkMin = rangeMin[latestWeek.week - 1];
+      var wkMax = rangeMax[latestWeek.week - 1];
+      if (wkAvg !== null) {
+        setText('kpi-seas-avg', '$' + wkAvg.toFixed(4));
+        setText('kpi-seas-avg-label', 'week ' + latestWeek.week + ' · 5-year avg');
+      }
+      if (wkMin !== null && wkMax !== null && wkMax > wkMin) {
+        var pct = Math.round(((latestWeek.price - wkMin) / (wkMax - wkMin)) * 100);
+        pct = Math.max(0, Math.min(100, pct));
+        setText('kpi-seas-pct', pct + 'th');
+        setText('kpi-seas-pct-label', 'percentile in 5Y range');
+        var ptag = document.getElementById('kpi-seas-pct-tag');
+        if (ptag) {
+          var isHigh = pct >= 75;
+          ptag.style.background = isHigh ? '#dc262622' : '#15803d22';
+          ptag.style.color = isHigh ? '#f87171' : '#4ade80';
+          ptag.style.borderColor = isHigh ? '#dc262644' : '#15803d44';
+        }
+      }
+    }
+  }
+
   // KPIs
   const latestCme = RAW.cme[RAW.cme.length-1];
   const prevCme = RAW.cme[RAW.cme.length-2];
@@ -678,15 +816,6 @@ function buildCharts() {
   }
   const avg30basis = joined30.length ? joined30.reduce(function(s,d){return s+d.basis;}, 0) / joined30.length : 0;
   const latestJoined = joined30[joined30.length-1];
-
-  function setText(id, v) { const e = document.getElementById(id); if (e) e.textContent = v; }
-  function setDelta(id, v, suffix) {
-    const e = document.getElementById(id);
-    if (!e) return;
-    const up = v >= 0;
-    e.className = 'kpi-delta ' + (up ? 'up' : 'down');
-    e.textContent = (up ? '↑ +' : '↓ ') + v.toFixed(4) + ' · ' + (suffix || '');
-  }
 
   if (latestCme) {
     setText('kpi-cme', '$' + latestCme.price.toFixed(4));
