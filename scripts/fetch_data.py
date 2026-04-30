@@ -4,49 +4,74 @@ import base64
 import requests
 from datetime import datetime, timedelta
 from pathlib import Path
+from urllib.parse import quote
 
-API_KEY = os.environ['DATAMART_API_KEY']
+API_KEY = os.environ.get('DATAMART_API_KEY', '')
 AUTH = base64.b64encode(f"{API_KEY}:".encode()).decode()
-HEADERS = {"Authorization": f"Basic {AUTH}"}
-BASE = "https://marsapi.ams.usda.gov/services/v1.2/reports"
+MARS_HEADERS = {"Authorization": f"Basic {AUTH}"}
+
+# Two separate USDA APIs:
+# LMPR/DPMRP (public) — dairy mandatory reporting, FMMOS
+MPR_BASE = "https://mpr.datamart.ams.usda.gov/services/v1.1/reports"
+# MMN (requires API key) — regional market news
+MARS_BASE = "https://marsapi.ams.usda.gov/services/v1.2/reports"
 
 DATA_DIR = Path(__file__).parent.parent / "data"
 DATA_DIR.mkdir(exist_ok=True)
 
-def fetch_report(slug, start_date=None):
-    params = {}
-    if start_date:
-        params["q"] = f"report_begin_date={start_date}"
-    r = requests.get(f"{BASE}/{slug}", headers=HEADERS, params=params, timeout=30)
+
+def fetch_mpr(path, params=None):
+    """Fetch from the LMPR/DPMRP public API (mpr.datamart)."""
+    url = f"{MPR_BASE}/{quote(path, safe='/')}"
+    r = requests.get(url, params=params, timeout=30)
     r.raise_for_status()
     return r.json()
 
-def fetch_nass():
-    raw = fetch_report("2993")
+
+def fetch_mars(slug, params=None):
+    """Fetch from the MMN API (marsapi) — requires DATAMART_API_KEY."""
+    url = f"{MARS_BASE}/{quote(str(slug), safe='/')}"
+    r = requests.get(url, headers=MARS_HEADERS, params=params, timeout=30)
+    r.raise_for_status()
+    return r.json()
+
+
+def fetch_ndpsr_nfdm():
+    """NDPSR report 2993, NFDM section — weekly prices and sales volumes."""
+    raw = fetch_mpr("2993/Final Nonfat Dry Milk Prices and Sales")
     out = []
     for row in raw.get("results", []):
-        out.append({
-            "date": row.get("week_ending_date"),
-            "price": float(row.get("weighted_price", 0)),
-            "volume": float(row.get("sales_volume", 0)),
-        })
-    out.sort(key=lambda x: x["date"])
+        try:
+            out.append({
+                "date": row.get("week_ending_date") or row.get("published_date"),
+                "price": float(row.get("weighted_price", 0) or 0),
+                "volume": float(row.get("sales", 0) or 0),
+            })
+        except (TypeError, ValueError):
+            continue
+    out.sort(key=lambda x: x["date"] or "")
     return out
 
+
 def fetch_class_iv():
-    raw = fetch_report("2991")
+    """Report 2991, detail section — announced class and component prices."""
+    raw = fetch_mpr("2991/detail")
     out = []
     for row in raw.get("results", []):
-        out.append({
-            "date": row.get("report_date"),
-            "announced": float(row.get("class_iv_price", 0)),
-            "skim": float(row.get("skim_price", 0)),
-            "butterfat": float(row.get("butterfat_price", 0)),
-            "nfdm_avg": float(row.get("nfdm_monthly_avg", 0)),
-            "butter_avg": float(row.get("butter_monthly_avg", 0)),
-        })
-    out.sort(key=lambda x: x["date"])
+        try:
+            out.append({
+                "date": row.get("report_date") or row.get("published_date"),
+                "announced": float(row.get("class_iv_price", 0) or 0),
+                "skim": float(row.get("skim_price", 0) or 0),
+                "butterfat": float(row.get("butterfat_price", 0) or 0),
+                "nfdm_avg": float(row.get("nfdm_monthly_avg", 0) or 0),
+                "butter_avg": float(row.get("butter_monthly_avg", 0) or 0),
+            })
+        except (TypeError, ValueError):
+            continue
+    out.sort(key=lambda x: x["date"] or "")
     return out
+
 
 def fetch_cme_cheese_reporter():
     from bs4 import BeautifulSoup
@@ -65,6 +90,7 @@ def fetch_cme_cheese_reporter():
                 continue
     return out
 
+
 def write_json(name, data):
     path = DATA_DIR / f"{name}.json"
     payload = {
@@ -75,11 +101,12 @@ def write_json(name, data):
     path.write_text(json.dumps(payload, indent=2))
     print(f"Wrote {len(data)} rows to {path}")
 
-if __name__ == "__main__":
-    print("Fetching NASS NDPSR...")
-    write_json("nass", fetch_nass())
 
-    print("Fetching Class IV...")
+if __name__ == "__main__":
+    print("Fetching NDPSR NFDM (report 2993)...")
+    write_json("nass", fetch_ndpsr_nfdm())
+
+    print("Fetching Class IV (report 2991)...")
     write_json("class_iv", fetch_class_iv())
 
     print("Fetching CME spot from Cheese Reporter...")
