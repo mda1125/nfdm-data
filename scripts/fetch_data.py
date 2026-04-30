@@ -60,21 +60,33 @@ def fetch_ndpsr_nfdm():
     return out
 
 
+def compute_implied_class_iv(nfdm, butter):
+    """FMMO Class IV formula: Skim = ((NFDM - 0.1678) * 0.99) * 9, BFat = (Butter - 0.1715) * 1.211"""
+    skim = ((nfdm - 0.1678) * 0.99) * 9
+    bfat = (butter - 0.1715) * 1.211
+    return round((skim * 0.965 + bfat * 3.5), 2)
+
+
 def fetch_class_iv():
     """Report 2991, detail section — announced class and component prices."""
     raw = fetch_mpr("2991/detail")
     out = []
     for row in raw.get("results", []):
         try:
+            nfdm = parse_num(row.get("nfdm_monthly_avg_Price"))
+            butter = parse_num(row.get("butter_monthly_avg_Price"))
+            butterfat = parse_num(row.get("butterfat_Price"))
+            announced = parse_num(row.get("class_4_Price"))
             out.append({
                 "date": row.get("week_ending_date"),
                 "month": row.get("report_month"),
                 "year": row.get("report_year"),
-                "class_iv": parse_num(row.get("class_4_Price")),
-                "class_iv_skim": parse_num(row.get("class_4_skim_milk_Price")),
-                "butterfat": parse_num(row.get("butterfat_Price")),
-                "nfdm_avg": parse_num(row.get("nfdm_monthly_avg_Price")),
-                "butter_avg": parse_num(row.get("butter_monthly_avg_Price")),
+                "announced": announced,
+                "implied": compute_implied_class_iv(nfdm, butter) if nfdm and butter else 0.0,
+                "skim": parse_num(row.get("class_4_skim_milk_Price")),
+                "butterfat": butterfat,
+                "nfdm_avg": nfdm,
+                "butter_avg": butter,
             })
         except (TypeError, ValueError):
             continue
@@ -82,21 +94,22 @@ def fetch_class_iv():
     return out
 
 
-def fetch_cme_cheese_reporter():
-    from bs4 import BeautifulSoup
-    url = "https://www.cheesereporter.com/cme-nfdm-prices/"
-    r = requests.get(url, timeout=30, headers={"User-Agent": "Mozilla/5.0"})
-    soup = BeautifulSoup(r.text, "html.parser")
+def fetch_cme_spot():
+    """Report 1603 (CME Group Daily Cash Trading WTD) via MMN API — requires DATAMART_API_KEY."""
+    raw = fetch_mars("1603")
     out = []
-    for row in soup.select("table tr"):
-        cells = [c.text.strip() for c in row.select("td")]
-        if len(cells) >= 2:
-            try:
-                date_str = cells[0]
-                price = float(cells[1].replace("$", "").replace(",", ""))
-                out.append({"date": date_str, "price": price})
-            except (ValueError, IndexError):
+    for row in raw.get("results", []):
+        try:
+            commodity = (row.get("commodity") or "").lower()
+            if "nonfat" not in commodity and "nfdm" not in commodity:
                 continue
+            out.append({
+                "date": row.get("report_date") or row.get("published_date"),
+                "price": parse_num(row.get("current_price") or row.get("price")),
+            })
+        except (TypeError, ValueError):
+            continue
+    out.sort(key=lambda x: x["date"] or "")
     return out
 
 
@@ -118,7 +131,11 @@ if __name__ == "__main__":
     print("Fetching Class IV (report 2991)...")
     write_json("class_iv", fetch_class_iv())
 
-    print("Fetching CME spot from Cheese Reporter...")
-    write_json("cme", fetch_cme_cheese_reporter())
+    print("Fetching CME spot (report 1603)...")
+    try:
+        write_json("cme", fetch_cme_spot())
+    except Exception as e:
+        print(f"CME fetch failed: {e}")
+        write_json("cme", [])
 
     print("Done.")
