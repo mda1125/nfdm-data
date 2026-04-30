@@ -175,6 +175,61 @@ def fetch_cme_spot():
     return out
 
 
+MONTH_CODES = "FGHJKMNQUVXZ"
+MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+               "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+YAHOO_BASE = "https://query1.finance.yahoo.com/v8/finance/chart"
+
+
+def fetch_futures():
+    """Fetch NFDM futures curve from Yahoo Finance (GNF contracts on CME)."""
+    now = datetime.utcnow()
+    symbols = []
+    for offset in range(24):
+        m = (now.month - 1 + offset) % 12
+        y = now.year + (now.month - 1 + offset) // 12
+        code = MONTH_CODES[m]
+        sym = f"GNF{code}{y % 100:02d}.CME"
+        symbols.append((sym, f"{y}-{m + 1:02d}", MONTH_NAMES[m], y))
+
+    out = []
+    spot_price = None
+    for sym, iso_month, month_name, year in symbols:
+        try:
+            r = requests.get(
+                f"{YAHOO_BASE}/{sym}",
+                params={"interval": "1d", "range": "1d"},
+                headers={"User-Agent": "Mozilla/5.0"},
+                timeout=10,
+            )
+            if r.status_code != 200:
+                continue
+            data = r.json()
+            result = data.get("chart", {}).get("result", [])
+            if not result:
+                continue
+            meta = result[0].get("meta", {})
+            price = meta.get("regularMarketPrice")
+            if not price or price <= 0:
+                continue
+            volume = meta.get("regularMarketVolume", 0)
+            settle = round(price / 100, 4)
+            out.append({
+                "month": iso_month,
+                "label": f"{month_name} {year % 100:02d}",
+                "settle": settle,
+                "volume": volume or 0,
+            })
+            if spot_price is None:
+                spot_price = settle
+        except Exception as e:
+            print(f"  Skipping {sym}: {e}")
+            continue
+
+    out.sort(key=lambda x: x["month"])
+    return out, spot_price
+
+
 def write_json(name, data):
     path = DATA_DIR / f"{name}.json"
     payload = {
@@ -199,5 +254,21 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"CME fetch failed: {e}")
         write_json("cme", [])
+
+    print("Fetching NFDM futures curve (Yahoo Finance)...")
+    try:
+        curve, spot = fetch_futures()
+        path = DATA_DIR / "futures.json"
+        payload = {
+            "updated_at": datetime.utcnow().isoformat() + "Z",
+            "trade_date": datetime.utcnow().strftime("%Y-%m-%d"),
+            "spot": spot,
+            "count": len(curve),
+            "data": curve,
+        }
+        path.write_text(json.dumps(payload, indent=2))
+        print(f"Wrote {len(curve)} contracts to {path}")
+    except Exception as e:
+        print(f"Futures fetch failed: {e}")
 
     print("Done.")

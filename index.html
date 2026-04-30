@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>NFDM Price Tracker</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,sans-serif;background:#0d1117;color:#e6edf3;display:flex;min-height:100vh;font-size:13px}
@@ -113,6 +114,7 @@ a{color:#58a6ff}
     <div class="nav-item" data-view="cme_nass"><span class="nav-icon">↗</span>CME vs NASS</div>
     <div class="nav-item" data-view="basis"><span class="nav-icon">≈</span>Basis spread</div>
     <div class="nav-item" data-view="class4"><span class="nav-icon">⊞</span>Class IV impact</div>
+    <div class="nav-item" data-view="futures"><span class="nav-icon">⌇</span>Futures curve</div>
     <div class="nav-item" data-view="recent"><span class="nav-icon">≡</span>Recent prices</div>
   </nav>
   <div class="sb-sources">
@@ -120,6 +122,7 @@ a{color:#58a6ff}
     <div>CME spot via <a href="https://mymarketnews.ams.usda.gov" target="_blank">USDA MMN</a></div>
     <div>NDPSR via <a href="https://mpr.datamart.ams.usda.gov" target="_blank">USDA DPMRP</a></div>
     <div>Class IV via <a href="https://mpr.datamart.ams.usda.gov" target="_blank">USDA FMMO</a></div>
+    <div>Futures via <a href="https://finance.yahoo.com/quote/GNF=F/" target="_blank">CME GNF</a></div>
   </div>
 </div>
 
@@ -224,6 +227,26 @@ a{color:#58a6ff}
       </div>
     </div>
 
+    <div id="view-futures" class="view">
+      <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="kpi"><div class="kpi-tag tag-cme">FRONT MONTH</div><div class="kpi-val" id="kpi-front">—</div><div class="kpi-meta" id="kpi-front-label">—</div></div>
+        <div class="kpi"><div class="kpi-tag" style="background:#7c3aed22;color:#a78bfa;border:1px solid #7c3aed44">BACK MONTH</div><div class="kpi-val" id="kpi-back">—</div><div class="kpi-meta" id="kpi-back-label">—</div></div>
+        <div class="kpi"><div class="kpi-tag" id="kpi-curve-tag" style="background:#dc262622;color:#f87171;border:1px solid #dc262644">CURVE</div><div class="kpi-val" id="kpi-spread">—</div><div class="kpi-meta" id="kpi-curve-label">front-to-back spread</div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-hdr"><h2>NFDM futures curve</h2><p>CME GNF settlement prices by contract month · dashed line = current CME cash spot</p></div>
+        <div style="display:flex;gap:16px;margin:10px 0;font-size:11px;color:#6e7681">
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:3px;background:#e6a817;display:inline-block;border-radius:2px"></span>Settlement</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:2px;border-top:2px dashed #4ade80;display:inline-block"></span>CME cash spot</span>
+        </div>
+        <div class="chart-wrap" style="height:300px"><canvas id="chart-futures" role="img" aria-label="NFDM futures curve"></canvas></div>
+      </div>
+      <div class="panel">
+        <div class="panel-hdr"><h2>Settlement detail</h2><p id="futures-trade-date">—</p></div>
+        <table class="data-table" id="tbl-futures"></table>
+      </div>
+    </div>
+
     <div id="view-recent" class="view">
       <div class="two-col">
         <div class="panel"><div class="panel-hdr"><h2>Recent CME daily spot ($/lb)</h2></div><table class="data-table" id="tbl-cme"></table></div>
@@ -239,7 +262,8 @@ a{color:#58a6ff}
 const DATA_URLS = {
   cme:  'https://mda1125.github.io/nfdm-data/data/cme.json',
   nass: 'https://mda1125.github.io/nfdm-data/data/nass.json',
-  c4:   'https://mda1125.github.io/nfdm-data/data/class_iv.json'
+  c4:   'https://mda1125.github.io/nfdm-data/data/class_iv.json',
+  futures: 'https://mda1125.github.io/nfdm-data/data/futures.json'
 };
 
 let RAW = null;
@@ -339,13 +363,18 @@ async function fetchLiveData() {
     const responses = await Promise.all([
       fetch(DATA_URLS.cme, {cache: 'no-store'}),
       fetch(DATA_URLS.nass, {cache: 'no-store'}),
-      fetch(DATA_URLS.c4, {cache: 'no-store'})
+      fetch(DATA_URLS.c4, {cache: 'no-store'}),
+      fetch(DATA_URLS.futures, {cache: 'no-store'}).catch(function(){ return null; })
     ]);
     if (!responses[0].ok || !responses[1].ok || !responses[2].ok) {
       throw new Error('HTTP ' + responses[0].status + '/' + responses[1].status + '/' + responses[2].status);
     }
-    const jsons = await Promise.all(responses.map(function(r){return r.json();}));
-    const cmeJ = jsons[0], nassJ = jsons[1], c4J = jsons[2];
+    const mainJsons = await Promise.all(responses.slice(0,3).map(function(r){return r.json();}));
+    var futJ = null;
+    if (responses[3] && responses[3].ok) {
+      try { futJ = await responses[3].json(); } catch(e) { futJ = null; }
+    }
+    const cmeJ = mainJsons[0], nassJ = mainJsons[1], c4J = mainJsons[2];
     const cme = (cmeJ.data || cmeJ).map(function(d){return {date: new Date(d.date), price: +d.price};});
     const nass = (nassJ.data || nassJ).map(function(d){return {date: new Date(d.date), price: +d.price, volume: +(d.volume || 0), final: d.final !== false};});
     const c4 = (c4J.data || c4J).map(function(d){
@@ -359,11 +388,21 @@ async function fetchLiveData() {
         bfat: +(d.butterfat || d.bfat || 0)
       };
     });
+    var futures = null;
+    if (futJ && futJ.data && futJ.data.length) {
+      futures = {
+        trade_date: futJ.trade_date || '',
+        spot: futJ.spot || null,
+        data: futJ.data.map(function(d){return {month: d.month, label: d.label, settle: +d.settle, volume: +(d.volume || 0)};})
+      };
+    }
     const stamps = [cmeJ.updated_at, nassJ.updated_at, c4J.updated_at].filter(Boolean);
     lastUpdated = stamps.sort().reverse()[0] || new Date().toISOString();
     dataMode = 'live';
-    showToast('Live data loaded · ' + cme.length + ' CME · ' + nass.length + ' NASS · ' + c4.length + ' months');
-    return {cme: cme, nass: nass, c4: c4};
+    var toastMsg = 'Live data loaded · ' + cme.length + ' CME · ' + nass.length + ' NASS · ' + c4.length + ' months';
+    if (futures) toastMsg += ' · ' + futures.data.length + ' futures';
+    showToast(toastMsg);
+    return {cme: cme, nass: nass, c4: c4, futures: futures};
   } catch (err) {
     console.warn('Live fetch failed:', err);
     dataMode = 'error';
@@ -535,6 +574,75 @@ function buildCharts() {
         }
       }
     });
+  }
+
+  // Futures curve
+  var ctxFut = document.getElementById('chart-futures');
+  if (ctxFut && RAW.futures && RAW.futures.data.length) {
+    var fd = RAW.futures.data;
+    var spotLine = RAW.futures.spot;
+    var spotAnnotation = spotLine ? [{
+      type: 'line', yMin: spotLine, yMax: spotLine,
+      borderColor: '#4ade80', borderWidth: 1.5, borderDash: [6,3],
+      label: {display: true, content: 'Spot $' + spotLine.toFixed(4), position: 'start', backgroundColor: '#4ade8033', color: '#4ade80', font: {size: 10}}
+    }] : [];
+    charts.futures = new Chart(ctxFut, {
+      type: 'line',
+      data: {
+        labels: fd.map(function(d){return d.label;}),
+        datasets: [{
+          label: 'Settlement',
+          data: fd.map(function(d){return d.settle;}),
+          borderColor: COLORS.cme, backgroundColor: 'rgba(230,168,23,0.08)',
+          borderWidth: 2, pointRadius: 4, pointBackgroundColor: COLORS.cme,
+          tension: 0.3, fill: true
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        interaction: {mode: 'index', intersect: false},
+        plugins: {
+          legend: {display: false},
+          tooltip: {backgroundColor: '#1f2937', borderColor: '#374151', borderWidth: 1, titleColor: '#e6edf3', bodyColor: '#9ca3af', padding: 10,
+            callbacks: {label: function(ctx){return '$' + ctx.parsed.y.toFixed(4) + '/lb';}}},
+          annotation: spotAnnotation.length ? {annotations: {spotLine: spotAnnotation[0]}} : undefined
+        },
+        scales: {
+          x: {ticks: {color: COLORS.tick, maxRotation: 45, font: {size: 11}}, grid: {color: COLORS.grid}},
+          y: {ticks: {color: COLORS.tick, callback: function(v){return '$' + v.toFixed(2);}}, grid: {color: COLORS.grid}, title: {display: true, text: '$/lb', color: COLORS.tick}}
+        }
+      }
+    });
+
+    var front = fd[0], back = fd[fd.length - 1];
+    var spread = back.settle - front.settle;
+    var isBackward = spread < 0;
+    setText('kpi-front', '$' + front.settle.toFixed(4));
+    setText('kpi-front-label', front.label + ' · $/lb');
+    setText('kpi-back', '$' + back.settle.toFixed(4));
+    setText('kpi-back-label', back.label + ' · $/lb');
+    setText('kpi-spread', (spread >= 0 ? '+' : '') + '$' + spread.toFixed(4));
+    setText('kpi-curve-label', isBackward ? 'Backwardation' : 'Contango');
+    var ctag = document.getElementById('kpi-curve-tag');
+    if (ctag) {
+      ctag.textContent = isBackward ? '↘ BACKWARDATION' : '↗ CONTANGO';
+      ctag.style.background = isBackward ? '#dc262622' : '#15803d22';
+      ctag.style.color = isBackward ? '#f87171' : '#4ade80';
+      ctag.style.borderColor = isBackward ? '#dc262644' : '#15803d44';
+    }
+
+    var futDate = document.getElementById('futures-trade-date');
+    if (futDate) futDate.textContent = 'Trade date: ' + (RAW.futures.trade_date || '—');
+    var tblF = document.getElementById('tbl-futures');
+    if (tblF) {
+      tblF.innerHTML = '<tr><th>Contract</th><th style="text-align:right">Settle</th><th style="text-align:right">vs Spot</th><th style="text-align:right">Volume</th></tr>' +
+        fd.map(function(d){
+          var diff = spotLine ? d.settle - spotLine : 0;
+          var diffStr = spotLine ? (diff >= 0 ? '+' : '') + diff.toFixed(4) : '—';
+          var diffCol = diff >= 0 ? '#4ade80' : '#f87171';
+          return '<tr><td>' + d.label + '</td><td style="text-align:right">$' + d.settle.toFixed(4) + '</td><td style="text-align:right;color:' + diffCol + '">' + diffStr + '</td><td style="text-align:right">' + (d.volume || '—') + '</td></tr>';
+        }).join('');
+    }
   }
 
   // KPIs
