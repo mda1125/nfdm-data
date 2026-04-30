@@ -56,19 +56,38 @@ def normalize_date(date_str):
 
 
 def fetch_ndpsr_nfdm():
-    """NDPSR report 2993, NFDM section — weekly prices and sales volumes."""
-    raw = fetch_mpr("2993/Final Nonfat Dry Milk Prices and Sales")
-    out = []
-    for row in raw.get("results", []):
-        try:
-            out.append({
-                "date": normalize_date(row.get("week_ending_date")),
-                "price": parse_num(row.get("nonfat_milk_Price")),
-                "volume": parse_num(row.get("nonfat_milk_Sales")),
-            })
-        except (TypeError, ValueError):
-            continue
+    """NDPSR report 2993, NFDM section — preliminary + final, deduplicated by sales week."""
+    best = {}
+
+    for section, is_final in [
+        ("Nonfat Dry Milk Prices and Sales", False),
+        ("Final Nonfat Dry Milk Prices and Sales", True),
+    ]:
+        raw = fetch_mpr(f"2993/{section}")
+        for row in raw.get("results", []):
+            try:
+                sales_week = normalize_date(row.get("Week Ending Date") or row.get("week_ending_date"))
+                price = parse_num(row.get("nonfat_milk_Price"))
+                volume = parse_num(row.get("nonfat_milk_Sales"))
+                if not sales_week or not price:
+                    continue
+                published = row.get("published_date", "")
+                prev = best.get(sales_week)
+                if prev is None or is_final or published > prev["_pub"]:
+                    best[sales_week] = {
+                        "date": sales_week,
+                        "price": price,
+                        "volume": volume,
+                        "final": is_final,
+                        "_pub": published,
+                    }
+            except (TypeError, ValueError):
+                continue
+
+    out = [{"date": v["date"], "price": v["price"], "volume": v["volume"], "final": v["final"]}
+           for v in best.values()]
     out.sort(key=lambda x: x["date"])
+    print(f"  {sum(1 for r in out if r['final'])} final + {sum(1 for r in out if not r['final'])} preliminary")
     return out
 
 
