@@ -1,0 +1,1366 @@
+{
+  "updated_at": "2026-04-30T01:19:49.692472Z",
+  "count": 170,
+  "data": [
+    {
+      "date": "01/02/2014 13:04:33",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "01/02/2020 13:02:40",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "01/02/2025 13:05:22",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "01/03/2013 13:44:27",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "01/03/2019 13:05:53",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "01/04/2018 13:05:59",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "01/04/2024 13:04:47",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "01/05/2017 12:55:11",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "01/05/2022 13:26:36",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "01/05/2023 13:01:32",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "01/30/2013 13:50:34",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "01/30/2019 13:10:29",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "01/31/2018 13:05:37",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "01/31/2024 13:10:03",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "02/01/2017 13:06:58",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "02/01/2023 13:04:20",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "02/02/2022 13:05:34",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "02/03/2016 13:05:06",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "02/03/2021 13:02:18",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "02/04/2015 13:08:32",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "02/04/2026 13:08:03",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "02/05/2014 13:33:25",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "02/05/2020 13:07:49",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "02/05/2025 13:05:17",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "02/27/2013 13:03:22",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "02/27/2019 13:05:35",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "02/28/2018 13:05:27",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "02/28/2024 13:05:37",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "03/01/2017 13:01:16",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "03/01/2023 13:05:11",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "03/02/2016 13:14:46",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "03/02/2022 13:02:51",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "03/03/2021 13:04:40",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "03/04/2015 13:02:40",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "03/04/2020 13:22:00",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "03/04/2026 12:54:48",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "03/05/2014 13:32:06",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "03/05/2025 13:05:17",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "03/30/2016 13:05:26",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "03/30/2022 13:05:10",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "03/31/2021 13:03:13",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "04/01/2015 13:31:23",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "04/01/2020 13:04:59",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "04/01/2026 13:05:21",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "04/02/2012 09:28:22",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "04/02/2014 13:03:12",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "04/02/2025 13:05:07",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "04/03/2013 13:36:29",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "04/03/2019 13:05:13",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "04/03/2024 13:05:20",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "04/04/2018 13:05:22",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "04/05/2017 13:05:00",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "04/05/2023 13:05:21",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "04/29/2015 13:10:22",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "04/29/2020 13:03:20",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "04/29/2026 13:05:26",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "04/30/2014 14:03:41",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "04/30/2025 13:04:13",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "05/01/2013 13:31:51",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "05/01/2019 13:05:18",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "05/01/2024 13:05:25",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "05/02/2012 13:55:44",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "05/02/2018 13:05:35",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "05/03/2017 13:05:57",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "05/03/2023 13:06:24",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "05/04/2016 13:07:06",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "05/04/2022 13:05:49",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "05/05/2021 13:08:26",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "05/31/2012 13:26:26",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "05/31/2018 13:05:26",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "06/01/2017 13:05:29",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "06/01/2023 13:05:28",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "06/02/2016 13:14:45",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "06/02/2022 13:04:58",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "06/03/2015 13:18:15",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "06/03/2020 13:03:03",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "06/03/2021 13:06:19",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "06/04/2014 13:47:22",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "06/04/2025 13:05:20",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "06/05/2013 13:37:51",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "06/05/2019 13:05:15",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "06/05/2024 13:05:24",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "06/28/2017 13:03:02",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "06/28/2023 13:06:22",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "06/29/2016 13:03:34",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "06/29/2022 13:04:26",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "06/30/2021 13:04:48",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "07/01/2015 13:32:09",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "07/01/2020 13:06:28",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "07/02/2014 13:05:55",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "07/02/2025 13:05:29",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "07/03/2013 13:07:05",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "07/03/2019 13:03:40",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "07/03/2024 13:04:46",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "07/05/2012 13:47:57",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "07/05/2018 13:03:18",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "07/30/2014 13:22:12",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "07/30/2025 13:05:25",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "07/31/2013 13:04:38",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "07/31/2019 13:05:14",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "07/31/2024 13:05:31",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "08/01/2012 13:30:51",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "08/01/2018 13:03:26",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "08/02/2017 13:18:44",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "08/02/2023 13:05:22",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "08/03/2016 13:09:56",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "08/03/2022 13:07:36",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "08/04/2021 13:05:40",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "08/05/2015 13:00:39",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "08/05/2020 13:05:32",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "08/29/2012 13:03:29",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "08/29/2018 13:28:17",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "08/30/2017 13:07:16",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "08/30/2023 13:05:53",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "08/31/2016 13:03:02",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "08/31/2022 13:05:24",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "09/01/2021 13:04:00",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "09/02/2015 13:02:58",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "09/02/2020 13:07:48",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "09/04/2014 13:52:02",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "09/04/2025 13:05:39",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "09/05/2013 13:06:42",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "09/05/2019 13:05:13",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "09/05/2024 13:04:24",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "09/29/2021 13:06:40",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "09/30/2015 13:06:29",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "09/30/2020 13:06:10",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "10/01/2014 13:37:58",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "10/01/2025 13:05:44",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "10/02/2019 13:08:22",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "10/02/2024 13:05:28",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "10/03/2012 13:08:44",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "10/03/2018 13:06:16",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "10/04/2017 13:07:11",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "10/04/2023 13:05:28",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "10/05/2016 13:04:16",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "10/05/2022 13:05:11",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "10/18/2013 10:41:45",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "10/30/2013 13:29:32",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "10/30/2019 13:03:28",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "10/30/2024 13:05:20",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "10/31/2012 13:24:09",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "10/31/2018 13:14:21",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "11/01/2017 13:05:31",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "11/01/2023 13:05:20",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "11/02/2016 13:47:24",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "11/02/2022 13:05:49",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "11/03/2021 13:05:14",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "11/04/2015 13:33:23",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "11/04/2020 12:56:06",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "11/05/2014 13:49:38",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "11/05/2025 13:05:19",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "11/29/2017 13:05:28",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "11/29/2023 13:05:36",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "11/30/2016 13:04:41",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "11/30/2022 13:08:10",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "12/01/2021 13:04:41",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "12/02/2015 13:11:34",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "12/02/2020 13:06:51",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "12/03/2014 13:13:21",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "12/03/2025 13:02:43",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "12/04/2013 13:42:24",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "12/04/2019 13:05:21",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "12/04/2024 13:05:26",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "12/05/2012 13:44:59",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "12/05/2018 13:03:22",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "12/30/2015 13:04:22",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "12/30/2020 13:03:18",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "12/31/2014 13:28:06",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    },
+    {
+      "date": "12/31/2025 13:05:26",
+      "announced": 0.0,
+      "skim": 0.0,
+      "butterfat": 0.0,
+      "nfdm_avg": 0.0,
+      "butter_avg": 0.0
+    }
+  ]
+}
