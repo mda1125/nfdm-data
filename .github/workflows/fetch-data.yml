@@ -26,6 +26,7 @@ jobs:
       - name: Run fetch script
         env:
           DATAMART_API_KEY: ${{ secrets.DATAMART_API_KEY }}
+          QUICKSTATS_API_KEY: ${{ secrets.QUICKSTATS_API_KEY }}
         run: python scripts/fetch_data.py
 
       - name: Commit and push if changed

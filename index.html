@@ -116,6 +116,7 @@ a{color:#58a6ff}
     <div class="nav-item" data-view="class4"><span class="nav-icon">⊞</span>Class IV impact</div>
     <div class="nav-item" data-view="futures"><span class="nav-icon">⌇</span>Futures curve</div>
     <div class="nav-item" data-view="seasonals"><span class="nav-icon">⛅</span>Seasonals</div>
+    <div class="nav-item" data-view="fundamentals"><span class="nav-icon">⚖</span>Fundamentals</div>
     <div class="nav-item" data-view="recent"><span class="nav-icon">≡</span>Recent prices</div>
   </nav>
   <div class="sb-sources">
@@ -124,6 +125,7 @@ a{color:#58a6ff}
     <div>NDPSR via <a href="https://mpr.datamart.ams.usda.gov" target="_blank">USDA DPMRP</a></div>
     <div>Class IV via <a href="https://mpr.datamart.ams.usda.gov" target="_blank">USDA FMMO</a></div>
     <div>Futures via <a href="https://finance.yahoo.com/quote/GNF=F/" target="_blank">CME GNF</a></div>
+    <div>Supply via <a href="https://quickstats.nass.usda.gov" target="_blank">NASS QuickStats</a></div>
   </div>
 </div>
 
@@ -263,6 +265,39 @@ a{color:#58a6ff}
       </div>
     </div>
 
+    <div id="view-fundamentals" class="view">
+      <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr)">
+        <div class="kpi"><div class="kpi-tag tag-nass">NFDM PROD</div><div class="kpi-val" id="kpi-fund-prod">—</div><div class="kpi-meta" id="kpi-fund-prod-label">latest month</div><div class="kpi-delta" id="kpi-fund-prod-delta"></div></div>
+        <div class="kpi"><div class="kpi-tag tag-basis">NFDM STOCKS</div><div class="kpi-val" id="kpi-fund-stocks">—</div><div class="kpi-meta" id="kpi-fund-stocks-label">end of month</div><div class="kpi-delta" id="kpi-fund-stocks-delta"></div></div>
+        <div class="kpi"><div class="kpi-tag tag-class4">BUTTER STOCKS</div><div class="kpi-val" id="kpi-fund-bstocks">—</div><div class="kpi-meta" id="kpi-fund-bstocks-label">cold storage</div><div class="kpi-delta" id="kpi-fund-bstocks-delta"></div></div>
+        <div class="kpi"><div class="kpi-tag tag-cme">MILK PROD</div><div class="kpi-val" id="kpi-fund-milk">—</div><div class="kpi-meta" id="kpi-fund-milk-label">total U.S.</div><div class="kpi-delta" id="kpi-fund-milk-delta"></div></div>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="panel-hdr"><h2>NFDM production</h2><p>Monthly manufacturing volume (million lbs)</p></div>
+          <div class="chart-wrap" style="height:220px"><canvas id="chart-fund-prod" role="img" aria-label="NFDM production"></canvas></div>
+        </div>
+        <div class="panel">
+          <div class="panel-hdr"><h2>NFDM stocks</h2><p>End-of-month inventory (million lbs)</p></div>
+          <div class="chart-wrap" style="height:220px"><canvas id="chart-fund-stocks" role="img" aria-label="NFDM stocks"></canvas></div>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="panel-hdr"><h2>Butter production & cold storage</h2><p>Monthly volume and end-of-month stocks (million lbs)</p></div>
+          <div class="chart-wrap" style="height:220px"><canvas id="chart-fund-butter" role="img" aria-label="Butter supply"></canvas></div>
+        </div>
+        <div class="panel">
+          <div class="panel-hdr"><h2>Total U.S. milk production</h2><p>Monthly volume (billion lbs)</p></div>
+          <div class="chart-wrap" style="height:220px"><canvas id="chart-fund-milk" role="img" aria-label="Milk production"></canvas></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-hdr"><h2>Supply data</h2><p id="fund-note">Source: USDA NASS QuickStats. This product uses the NASS API but is not endorsed or certified by NASS.</p></div>
+        <table class="data-table" id="tbl-fund"></table>
+      </div>
+    </div>
+
     <div id="view-recent" class="view">
       <div class="two-col">
         <div class="panel"><div class="panel-hdr"><h2>Recent CME daily spot ($/lb)</h2></div><table class="data-table" id="tbl-cme"></table></div>
@@ -279,7 +314,8 @@ const DATA_URLS = {
   cme:  'https://mda1125.github.io/nfdm-data/data/cme.json',
   nass: 'https://mda1125.github.io/nfdm-data/data/nass.json',
   c4:   'https://mda1125.github.io/nfdm-data/data/class_iv.json',
-  futures: 'https://mda1125.github.io/nfdm-data/data/futures.json'
+  futures: 'https://mda1125.github.io/nfdm-data/data/futures.json',
+  fundamentals: 'https://mda1125.github.io/nfdm-data/data/fundamentals.json'
 };
 
 let RAW = null;
@@ -380,15 +416,19 @@ async function fetchLiveData() {
       fetch(DATA_URLS.cme, {cache: 'no-store'}),
       fetch(DATA_URLS.nass, {cache: 'no-store'}),
       fetch(DATA_URLS.c4, {cache: 'no-store'}),
-      fetch(DATA_URLS.futures, {cache: 'no-store'}).catch(function(){ return null; })
+      fetch(DATA_URLS.futures, {cache: 'no-store'}).catch(function(){ return null; }),
+      fetch(DATA_URLS.fundamentals, {cache: 'no-store'}).catch(function(){ return null; })
     ]);
     if (!responses[0].ok || !responses[1].ok || !responses[2].ok) {
       throw new Error('HTTP ' + responses[0].status + '/' + responses[1].status + '/' + responses[2].status);
     }
     const mainJsons = await Promise.all(responses.slice(0,3).map(function(r){return r.json();}));
-    var futJ = null;
+    var futJ = null, fundJ = null;
     if (responses[3] && responses[3].ok) {
       try { futJ = await responses[3].json(); } catch(e) { futJ = null; }
+    }
+    if (responses[4] && responses[4].ok) {
+      try { fundJ = await responses[4].json(); } catch(e) { fundJ = null; }
     }
     const cmeJ = mainJsons[0], nassJ = mainJsons[1], c4J = mainJsons[2];
     const cme = (cmeJ.data || cmeJ).map(function(d){return {date: new Date(d.date), price: +d.price};});
@@ -412,13 +452,25 @@ async function fetchLiveData() {
         data: futJ.data.map(function(d){return {month: d.month, label: d.label, settle: +d.settle, volume: +(d.volume || 0)};})
       };
     }
+    var fund = null;
+    if (fundJ && fundJ.data && fundJ.data.length) {
+      fund = fundJ.data.map(function(d){return {
+        month: d.month,
+        nfdm_production: d.nfdm_production || null,
+        nfdm_stocks: d.nfdm_stocks || null,
+        butter_production: d.butter_production || null,
+        butter_stocks: d.butter_stocks || null,
+        milk_production: d.milk_production || null
+      };});
+    }
     const stamps = [cmeJ.updated_at, nassJ.updated_at, c4J.updated_at].filter(Boolean);
     lastUpdated = stamps.sort().reverse()[0] || new Date().toISOString();
     dataMode = 'live';
     var toastMsg = 'Live data loaded · ' + cme.length + ' CME · ' + nass.length + ' NASS · ' + c4.length + ' months';
     if (futures) toastMsg += ' · ' + futures.data.length + ' futures';
+    if (fund) toastMsg += ' · ' + fund.length + ' supply';
     showToast(toastMsg);
-    return {cme: cme, nass: nass, c4: c4, futures: futures};
+    return {cme: cme, nass: nass, c4: c4, futures: futures, fund: fund};
   } catch (err) {
     console.warn('Live fetch failed:', err);
     dataMode = 'error';
@@ -796,6 +848,125 @@ function buildCharts() {
           ptag.style.borderColor = isHigh ? '#dc262644' : '#15803d44';
         }
       }
+    }
+  }
+
+  // Fundamentals
+  if (RAW.fund && RAW.fund.length) {
+    var fd2 = RAW.fund;
+    var fLabels = fd2.map(function(d){
+      var p = d.month.split('-');
+      var mn = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      return mn[+p[1]-1] + ' ' + p[0].slice(2);
+    });
+    var M = 1e6;
+
+    var ctxFP = document.getElementById('chart-fund-prod');
+    if (ctxFP) {
+      charts.fundProd = new Chart(ctxFP, {
+        type: 'bar', data: {labels: fLabels, datasets: [{
+          label: 'NFDM Production', data: fd2.map(function(d){return d.nfdm_production ? d.nfdm_production/M : null;}),
+          backgroundColor: 'rgba(96,165,250,0.6)', borderColor: 'rgba(96,165,250,0.9)', borderWidth: 1, borderRadius: 2, borderSkipped: false
+        }]},
+        options: {responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}, tooltip:{backgroundColor:'#1f2937',borderColor:'#374151',borderWidth:1,titleColor:'#e6edf3',bodyColor:'#9ca3af',padding:10,callbacks:{label:function(ctx){return (ctx.parsed.y).toFixed(1)+'M lbs';}}}},
+          scales:{x:{ticks:{color:COLORS.tick,maxTicksLimit:10,maxRotation:0},grid:{color:COLORS.grid}},y:{ticks:{color:COLORS.tick,callback:function(v){return v+'M';}},grid:{color:COLORS.grid},title:{display:true,text:'M lbs',color:COLORS.tick}}}}
+      });
+    }
+
+    var ctxFS = document.getElementById('chart-fund-stocks');
+    if (ctxFS) {
+      charts.fundStocks = new Chart(ctxFS, {
+        type: 'line', data: {labels: fLabels, datasets: [{
+          label: 'NFDM Stocks', data: fd2.map(function(d){return d.nfdm_stocks ? d.nfdm_stocks/M : null;}),
+          borderColor: '#f87171', backgroundColor: 'rgba(248,113,113,0.08)', borderWidth: 2, pointRadius: 0, tension: 0.3, fill: true
+        }]},
+        options: {responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}, tooltip:{backgroundColor:'#1f2937',borderColor:'#374151',borderWidth:1,titleColor:'#e6edf3',bodyColor:'#9ca3af',padding:10,callbacks:{label:function(ctx){return (ctx.parsed.y).toFixed(1)+'M lbs';}}}},
+          scales:{x:{ticks:{color:COLORS.tick,maxTicksLimit:10,maxRotation:0},grid:{color:COLORS.grid}},y:{ticks:{color:COLORS.tick,callback:function(v){return v+'M';}},grid:{color:COLORS.grid},title:{display:true,text:'M lbs',color:COLORS.tick}}}}
+      });
+    }
+
+    var ctxFB = document.getElementById('chart-fund-butter');
+    if (ctxFB) {
+      charts.fundButter = new Chart(ctxFB, {
+        type: 'bar', data: {labels: fLabels, datasets: [
+          {label: 'Butter Production', data: fd2.map(function(d){return d.butter_production ? d.butter_production/M : null;}), backgroundColor: 'rgba(74,222,128,0.5)', borderColor: 'rgba(74,222,128,0.8)', borderWidth: 1, borderRadius: 2, borderSkipped: false, order: 2},
+          {label: 'Butter Stocks', data: fd2.map(function(d){return d.butter_stocks ? d.butter_stocks/M : null;}), type: 'line', borderColor: '#e6a817', borderWidth: 2, pointRadius: 0, tension: 0.3, fill: false, order: 1}
+        ]},
+        options: {responsive:true, maintainAspectRatio:false, plugins:{legend:{display:true,labels:{color:COLORS.tick,boxWidth:10,font:{size:10}}}, tooltip:{backgroundColor:'#1f2937',borderColor:'#374151',borderWidth:1,titleColor:'#e6edf3',bodyColor:'#9ca3af',padding:10,callbacks:{label:function(ctx){return ctx.dataset.label+': '+(ctx.parsed.y).toFixed(1)+'M lbs';}}}},
+          scales:{x:{ticks:{color:COLORS.tick,maxTicksLimit:10,maxRotation:0},grid:{color:COLORS.grid}},y:{ticks:{color:COLORS.tick,callback:function(v){return v+'M';}},grid:{color:COLORS.grid},title:{display:true,text:'M lbs',color:COLORS.tick}}}}
+      });
+    }
+
+    var ctxFM = document.getElementById('chart-fund-milk');
+    if (ctxFM) {
+      var B = 1e9;
+      charts.fundMilk = new Chart(ctxFM, {
+        type: 'line', data: {labels: fLabels, datasets: [{
+          label: 'Milk Production', data: fd2.map(function(d){return d.milk_production ? d.milk_production/B : null;}),
+          borderColor: '#a78bfa', backgroundColor: 'rgba(167,139,250,0.08)', borderWidth: 2, pointRadius: 0, tension: 0.3, fill: true
+        }]},
+        options: {responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}, tooltip:{backgroundColor:'#1f2937',borderColor:'#374151',borderWidth:1,titleColor:'#e6edf3',bodyColor:'#9ca3af',padding:10,callbacks:{label:function(ctx){return (ctx.parsed.y).toFixed(2)+'B lbs';}}}},
+          scales:{x:{ticks:{color:COLORS.tick,maxTicksLimit:10,maxRotation:0},grid:{color:COLORS.grid}},y:{ticks:{color:COLORS.tick,callback:function(v){return v.toFixed(0)+'B';}},grid:{color:COLORS.grid},title:{display:true,text:'B lbs',color:COLORS.tick}}}}
+      });
+    }
+
+    function findLatest(arr, key) {
+      for (var i = arr.length - 1; i >= 0; i--) { if (arr[i][key]) return {val: arr[i][key], month: arr[i].month, idx: i}; }
+      return null;
+    }
+    function findPrev(arr, key, curIdx) {
+      var curMonth = arr[curIdx].month;
+      var curMo = +curMonth.split('-')[1], curYr = +curMonth.split('-')[0];
+      var prevMo = curMo === 1 ? 12 : curMo - 1;
+      var prevYr = curMo === 1 ? curYr - 1 : curYr;
+      var target = prevYr + '-' + (prevMo < 10 ? '0' : '') + prevMo;
+      for (var i = arr.length - 1; i >= 0; i--) { if (arr[i].month === target && arr[i][key]) return arr[i][key]; }
+      return null;
+    }
+    function fmtM(v) { return (v/M).toFixed(0) + 'M'; }
+    function fmtMonthLabel(m) { var p=m.split('-'); var mn=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return mn[+p[1]-1]+' '+p[0]; }
+
+    var lp = findLatest(fd2, 'nfdm_production');
+    if (lp) {
+      setText('kpi-fund-prod', fmtM(lp.val));
+      setText('kpi-fund-prod-label', fmtMonthLabel(lp.month));
+      var pp = findPrev(fd2, 'nfdm_production', lp.idx);
+      if (pp) { var d = lp.val - pp; var e = document.getElementById('kpi-fund-prod-delta'); if(e){e.className='kpi-delta '+(d>=0?'up':'down'); e.textContent=(d>=0?'↑ +':'↓ ')+fmtM(Math.abs(d))+' · vs prior month';} }
+    }
+    var ls = findLatest(fd2, 'nfdm_stocks');
+    if (ls) {
+      setText('kpi-fund-stocks', fmtM(ls.val));
+      setText('kpi-fund-stocks-label', 'end of ' + fmtMonthLabel(ls.month));
+      var ps = findPrev(fd2, 'nfdm_stocks', ls.idx);
+      if (ps) { var d2 = ls.val - ps; var e2 = document.getElementById('kpi-fund-stocks-delta'); if(e2){e2.className='kpi-delta '+(d2>=0?'up':'down'); e2.textContent=(d2>=0?'↑ +':'↓ ')+fmtM(Math.abs(d2))+' · vs prior month';} }
+    }
+    var lb = findLatest(fd2, 'butter_stocks');
+    if (lb) {
+      setText('kpi-fund-bstocks', fmtM(lb.val));
+      setText('kpi-fund-bstocks-label', 'end of ' + fmtMonthLabel(lb.month));
+      var pb = findPrev(fd2, 'butter_stocks', lb.idx);
+      if (pb) { var d3 = lb.val - pb; var e3 = document.getElementById('kpi-fund-bstocks-delta'); if(e3){e3.className='kpi-delta '+(d3>=0?'up':'down'); e3.textContent=(d3>=0?'↑ +':'↓ ')+fmtM(Math.abs(d3))+' · vs prior month';} }
+    }
+    var lm = findLatest(fd2, 'milk_production');
+    if (lm) {
+      setText('kpi-fund-milk', (lm.val/1e9).toFixed(1) + 'B');
+      setText('kpi-fund-milk-label', fmtMonthLabel(lm.month));
+      var pm = findPrev(fd2, 'milk_production', lm.idx);
+      if (pm) { var d4 = lm.val - pm; var e4 = document.getElementById('kpi-fund-milk-delta'); if(e4){e4.className='kpi-delta '+(d4>=0?'up':'down'); e4.textContent=(d4>=0?'↑ +':'↓ ')+(Math.abs(d4)/M).toFixed(0)+'M · vs prior month';} }
+    }
+
+    var tblFund = document.getElementById('tbl-fund');
+    if (tblFund) {
+      var recent = fd2.slice(-18).reverse();
+      tblFund.innerHTML = '<tr><th>Month</th><th style="text-align:right">NFDM Prod</th><th style="text-align:right">NFDM Stocks</th><th style="text-align:right">Butter Prod</th><th style="text-align:right">Butter Stocks</th><th style="text-align:right">Milk Prod</th></tr>' +
+        recent.map(function(d){
+          return '<tr><td>' + d.month + '</td>' +
+            '<td style="text-align:right">' + (d.nfdm_production ? fmtM(d.nfdm_production) : '—') + '</td>' +
+            '<td style="text-align:right">' + (d.nfdm_stocks ? fmtM(d.nfdm_stocks) : '—') + '</td>' +
+            '<td style="text-align:right">' + (d.butter_production ? fmtM(d.butter_production) : '—') + '</td>' +
+            '<td style="text-align:right">' + (d.butter_stocks ? fmtM(d.butter_stocks) : '—') + '</td>' +
+            '<td style="text-align:right">' + (d.milk_production ? (d.milk_production/1e9).toFixed(1)+'B' : '—') + '</td></tr>';
+        }).join('');
     }
   }
 

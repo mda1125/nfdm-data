@@ -175,6 +175,88 @@ def fetch_cme_spot():
     return out
 
 
+QUICKSTATS_KEY = os.environ.get('QUICKSTATS_API_KEY', '')
+QUICKSTATS_BASE = "https://quickstats.nass.usda.gov/api/api_GET/"
+
+
+def fetch_quickstats(short_desc, freq="MONTHLY", year_ge=2018):
+    """Fetch national-level data from USDA NASS QuickStats API."""
+    params = {
+        "key": QUICKSTATS_KEY,
+        "short_desc": short_desc,
+        "agg_level_desc": "NATIONAL",
+        "freq_desc": freq,
+        "year__GE": str(year_ge),
+        "format": "JSON",
+    }
+    r = requests.get(QUICKSTATS_BASE, params=params, timeout=30)
+    r.raise_for_status()
+    return r.json().get("data", [])
+
+
+def fetch_fundamentals():
+    """Fetch NFDM & butter production and stocks from NASS QuickStats."""
+    if not QUICKSTATS_KEY:
+        print("  QUICKSTATS_API_KEY not set, skipping fundamentals")
+        return []
+
+    series = [
+        ("nfdm_production", "MILK, DRY, NONFAT, HUMAN - PRODUCTION, MEASURED IN LB", "MONTHLY"),
+        ("nfdm_stocks", "MILK, DRY, NONFAT, HUMAN - STOCKS, MEASURED IN LB", "POINT IN TIME"),
+        ("butter_production", "BUTTER - PRODUCTION, MEASURED IN LB", "MONTHLY"),
+        ("butter_stocks", "BUTTER, COLD STORAGE - STOCKS, MEASURED IN LB", "POINT IN TIME"),
+        ("milk_production", "MILK - PRODUCTION, MEASURED IN LB", "MONTHLY"),
+    ]
+
+    all_data = {}
+    for key, desc, freq in series:
+        try:
+            rows = fetch_quickstats(desc, freq=freq)
+            parsed = []
+            for row in rows:
+                year = row.get("year", "")
+                begin = row.get("begin_code", "")
+                ref = row.get("reference_period_desc", "")
+                val_str = row.get("Value", "")
+                if not year or not begin or len(begin) > 2:
+                    continue
+                if "THRU" in ref or ref == "YEAR":
+                    continue
+                try:
+                    val = parse_num(val_str)
+                except (ValueError, TypeError):
+                    continue
+                month = f"{year}-{int(begin):02d}"
+                parsed.append({"month": month, "value": val})
+            parsed.sort(key=lambda x: x["month"])
+            seen = set()
+            deduped = []
+            for p in parsed:
+                if p["month"] not in seen:
+                    seen.add(p["month"])
+                    deduped.append(p)
+            all_data[key] = deduped
+            print(f"  {key}: {len(deduped)} months")
+        except Exception as e:
+            print(f"  {key} failed: {e}")
+            all_data[key] = []
+
+    months = set()
+    for series_data in all_data.values():
+        for d in series_data:
+            months.add(d["month"])
+
+    lookup = {}
+    for key, series_data in all_data.items():
+        for d in series_data:
+            if d["month"] not in lookup:
+                lookup[d["month"]] = {"month": d["month"]}
+            lookup[d["month"]][key] = d["value"]
+
+    out = sorted(lookup.values(), key=lambda x: x["month"])
+    return out
+
+
 MONTH_CODES = "FGHJKMNQUVXZ"
 MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -254,6 +336,12 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"CME fetch failed: {e}")
         write_json("cme", [])
+
+    print("Fetching fundamentals (NASS QuickStats)...")
+    try:
+        write_json("fundamentals", fetch_fundamentals())
+    except Exception as e:
+        print(f"Fundamentals fetch failed: {e}")
 
     print("Fetching NFDM futures curve (Yahoo Finance)...")
     try:
