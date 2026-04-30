@@ -36,6 +36,13 @@ def fetch_mars(slug, params=None):
     return r.json()
 
 
+def parse_num(val):
+    """Parse a numeric string that may contain commas or be None."""
+    if val is None:
+        return 0.0
+    return float(str(val).replace(",", ""))
+
+
 def fetch_ndpsr_nfdm():
     """NDPSR report 2993, NFDM section — weekly prices and sales volumes."""
     raw = fetch_mpr("2993/Final Nonfat Dry Milk Prices and Sales")
@@ -43,9 +50,9 @@ def fetch_ndpsr_nfdm():
     for row in raw.get("results", []):
         try:
             out.append({
-                "date": row.get("week_ending_date") or row.get("published_date"),
-                "price": float(row.get("weighted_price", 0) or 0),
-                "volume": float(row.get("sales", 0) or 0),
+                "date": row.get("week_ending_date"),
+                "price": parse_num(row.get("nonfat_milk_Price")),
+                "volume": parse_num(row.get("nonfat_milk_Sales")),
             })
         except (TypeError, ValueError):
             continue
@@ -60,12 +67,14 @@ def fetch_class_iv():
     for row in raw.get("results", []):
         try:
             out.append({
-                "date": row.get("report_date") or row.get("published_date"),
-                "announced": float(row.get("class_iv_price", 0) or 0),
-                "skim": float(row.get("skim_price", 0) or 0),
-                "butterfat": float(row.get("butterfat_price", 0) or 0),
-                "nfdm_avg": float(row.get("nfdm_monthly_avg", 0) or 0),
-                "butter_avg": float(row.get("butter_monthly_avg", 0) or 0),
+                "date": row.get("week_ending_date"),
+                "month": row.get("report_month"),
+                "year": row.get("report_year"),
+                "class_iv": parse_num(row.get("class_4_Price")),
+                "class_iv_skim": parse_num(row.get("class_4_skim_milk_Price")),
+                "butterfat": parse_num(row.get("butterfat_Price")),
+                "nfdm_avg": parse_num(row.get("nfdm_monthly_avg_Price")),
+                "butter_avg": parse_num(row.get("butter_monthly_avg_Price")),
             })
         except (TypeError, ValueError):
             continue
