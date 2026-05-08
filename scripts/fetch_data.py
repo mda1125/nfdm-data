@@ -312,6 +312,29 @@ def fetch_futures():
     return out, spot_price
 
 
+def archive_futures_snapshot(trade_date, spot, curve):
+    """Append today's futures curve to the rolling history file."""
+    hist_path = DATA_DIR / "futures_history.json"
+    if hist_path.exists():
+        history = json.loads(hist_path.read_text())
+    else:
+        history = {"snapshots": []}
+
+    history["snapshots"] = [
+        s for s in history["snapshots"] if s["trade_date"] != trade_date
+    ]
+
+    history["snapshots"].append({
+        "trade_date": trade_date,
+        "spot": spot,
+        "contracts": [{"month": c["month"], "settle": c["settle"]} for c in curve],
+    })
+
+    history["snapshots"].sort(key=lambda s: s["trade_date"])
+    hist_path.write_text(json.dumps(history, indent=2))
+    print(f"Archived futures snapshot for {trade_date} ({len(curve)} contracts, {len(history['snapshots'])} total snapshots)")
+
+
 def write_json(name, data):
     path = DATA_DIR / f"{name}.json"
     payload = {
@@ -346,16 +369,19 @@ if __name__ == "__main__":
     print("Fetching NFDM futures curve (Yahoo Finance)...")
     try:
         curve, spot = fetch_futures()
+        trade_date = datetime.utcnow().strftime("%Y-%m-%d")
         path = DATA_DIR / "futures.json"
         payload = {
             "updated_at": datetime.utcnow().isoformat() + "Z",
-            "trade_date": datetime.utcnow().strftime("%Y-%m-%d"),
+            "trade_date": trade_date,
             "spot": spot,
             "count": len(curve),
             "data": curve,
         }
         path.write_text(json.dumps(payload, indent=2))
         print(f"Wrote {len(curve)} contracts to {path}")
+
+        archive_futures_snapshot(trade_date, spot, curve)
     except Exception as e:
         print(f"Futures fetch failed: {e}")
 

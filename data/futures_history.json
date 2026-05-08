@@ -1,0 +1,26 @@
+{
+  "snapshots": [
+    {
+      "trade_date": "2026-05-01",
+      "spot": 2.0103,
+      "contracts": [
+        {"month": "2026-05", "settle": 2.0103},
+        {"month": "2026-06", "settle": 1.98},
+        {"month": "2026-07", "settle": 1.9005},
+        {"month": "2026-08", "settle": 1.8335},
+        {"month": "2026-09", "settle": 1.76},
+        {"month": "2026-10", "settle": 1.7},
+        {"month": "2026-11", "settle": 1.6575},
+        {"month": "2026-12", "settle": 1.6085},
+        {"month": "2027-01", "settle": 1.57},
+        {"month": "2027-02", "settle": 1.5893},
+        {"month": "2027-03", "settle": 1.55},
+        {"month": "2027-04", "settle": 1.52},
+        {"month": "2027-05", "settle": 1.52},
+        {"month": "2027-06", "settle": 1.49},
+        {"month": "2027-07", "settle": 1.46},
+        {"month": "2027-08", "settle": 1.46}
+      ]
+    }
+  ]
+}
