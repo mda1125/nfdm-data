@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-26T16:43:17.484948Z",
-  "trade_date": "2026-05-26",
+  "updated_at": "2026-05-27T16:38:13.402608Z",
+  "trade_date": "2026-05-27",
   "spot": 2.08,
   "count": 20,
   "data": [
@@ -8,67 +8,67 @@
       "month": "2026-05",
       "label": "May 26",
       "settle": 2.08,
-      "volume": 11
+      "volume": 3
     },
     {
       "month": "2026-06",
       "label": "Jun 26",
-      "settle": 1.992,
-      "volume": 35
+      "settle": 2.0225,
+      "volume": 74
     },
     {
       "month": "2026-07",
       "label": "Jul 26",
-      "settle": 1.77,
-      "volume": 36
+      "settle": 1.8,
+      "volume": 151
     },
     {
       "month": "2026-08",
       "label": "Aug 26",
-      "settle": 1.5853,
-      "volume": 48
+      "settle": 1.6355,
+      "volume": 108
     },
     {
       "month": "2026-09",
       "label": "Sep 26",
-      "settle": 1.525,
-      "volume": 31
+      "settle": 1.5732,
+      "volume": 59
     },
     {
       "month": "2026-10",
       "label": "Oct 26",
-      "settle": 1.475,
-      "volume": 35
+      "settle": 1.5337,
+      "volume": 26
     },
     {
       "month": "2026-11",
       "label": "Nov 26",
-      "settle": 1.4603,
-      "volume": 25
+      "settle": 1.52,
+      "volume": 23
     },
     {
       "month": "2026-12",
       "label": "Dec 26",
-      "settle": 1.4545,
-      "volume": 5
+      "settle": 1.5043,
+      "volume": 15
     },
     {
       "month": "2027-01",
       "label": "Jan 27",
       "settle": 1.459,
-      "volume": 5
+      "volume": 7
     },
     {
       "month": "2027-02",
       "label": "Feb 27",
       "settle": 1.451,
-      "volume": 5
+      "volume": 8
     },
     {
       "month": "2027-03",
       "label": "Mar 27",
       "settle": 1.4432,
-      "volume": 5
+      "volume": 6
     },
     {
       "month": "2027-04",
@@ -85,8 +85,8 @@
     {
       "month": "2027-06",
       "label": "Jun 27",
-      "settle": 1.45,
-      "volume": 5
+      "settle": 1.51,
+      "volume": 2
     },
     {
       "month": "2027-07",
