@@ -120,6 +120,7 @@ a{color:#58a6ff}
     <div class="nav-item" data-view="accuracy"><span class="nav-icon">◎</span>Futures accuracy</div>
     <div class="nav-item" data-view="seasonals"><span class="nav-icon">⛅</span>Seasonals</div>
     <div class="nav-item" data-view="fundamentals"><span class="nav-icon">⚖</span>Fundamentals</div>
+    <div class="nav-item" data-view="sugar"><span class="nav-icon">◇</span>Sugar #11</div>
     <div class="nav-item" data-view="recent"><span class="nav-icon">≡</span>Recent prices</div>
   </nav>
   <div class="sb-sources">
@@ -129,6 +130,7 @@ a{color:#58a6ff}
     <div>Class IV via <a href="https://mpr.datamart.ams.usda.gov" target="_blank">USDA FMMO</a></div>
     <div>Futures via <a href="https://finance.yahoo.com/quote/GNF=F/" target="_blank">CME GNF</a></div>
     <div>Supply via <a href="https://quickstats.nass.usda.gov" target="_blank">NASS QuickStats</a></div>
+    <div>Sugar via <a href="https://finance.yahoo.com/quote/SB=F/" target="_blank">ICE SB</a></div>
   </div>
 </div>
 
@@ -330,6 +332,28 @@ a{color:#58a6ff}
       <div class="panel">
         <div class="panel-hdr"><h2>Supply data</h2><p id="fund-note">Source: USDA NASS QuickStats. This product uses the NASS API but is not endorsed or certified by NASS.</p></div>
         <table class="data-table" id="tbl-fund"></table>
+      </div>
+    </div>
+
+    <div id="view-sugar" class="view">
+      <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="kpi"><div class="kpi-tag" style="background:#15803d22;color:#4ade80;border:1px solid #15803d44">SPOT</div><div class="kpi-val" id="kpi-sugar-spot">—</div><div class="kpi-meta" id="kpi-sugar-spot-label">current ¢/lb</div></div>
+        <div class="kpi"><div class="kpi-tag" style="background:#7c3aed22;color:#a78bfa;border:1px solid #7c3aed44">USD/KG</div><div class="kpi-val" id="kpi-sugar-kg">—</div><div class="kpi-meta" id="kpi-sugar-kg-label">current $/kg</div></div>
+        <div class="kpi"><div class="kpi-tag" style="background:#e6a81722;color:#e6a817;border:1px solid #e6a81744">CURVE</div><div class="kpi-val" id="kpi-sugar-curve">—</div><div class="kpi-meta" id="kpi-sugar-curve-label">front-to-back spread</div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-hdr"><h2>Sugar #11 daily spot (¢/lb)</h2><p>ICE raw sugar futures — front-month continuous contract (SB=F)</p></div>
+        <div class="chart-wrap" style="height:300px"><canvas id="chart-sugar-spot" role="img" aria-label="Sugar spot price"></canvas></div>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="panel-hdr"><h2>Sugar #11 futures curve</h2><p>ICE SB settlement prices by contract month</p></div>
+          <div class="chart-wrap" style="height:260px"><canvas id="chart-sugar-futures" role="img" aria-label="Sugar futures curve"></canvas></div>
+        </div>
+        <div class="panel">
+          <div class="panel-hdr"><h2>Futures detail</h2><p id="sugar-futures-date">—</p></div>
+          <table class="data-table" id="tbl-sugar-futures"></table>
+        </div>
       </div>
     </div>
 

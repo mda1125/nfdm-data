@@ -1,0 +1,6298 @@
+{
+  "updated_at": "2026-06-05T04:07:42.373442Z",
+  "current_cents_lb": 14.28,
+  "current_usd_kg": 0.3148,
+  "count": 1258,
+  "data": [
+    {
+      "date": "2021-06-07",
+      "price_cents_lb": 17.38,
+      "price_usd_kg": 0.3832
+    },
+    {
+      "date": "2021-06-08",
+      "price_cents_lb": 17.71,
+      "price_usd_kg": 0.3904
+    },
+    {
+      "date": "2021-06-09",
+      "price_cents_lb": 17.73,
+      "price_usd_kg": 0.3909
+    },
+    {
+      "date": "2021-06-10",
+      "price_cents_lb": 17.66,
+      "price_usd_kg": 0.3893
+    },
+    {
+      "date": "2021-06-11",
+      "price_cents_lb": 17.54,
+      "price_usd_kg": 0.3867
+    },
+    {
+      "date": "2021-06-14",
+      "price_cents_lb": 17.29,
+      "price_usd_kg": 0.3812
+    },
+    {
+      "date": "2021-06-15",
+      "price_cents_lb": 17.05,
+      "price_usd_kg": 0.3759
+    },
+    {
+      "date": "2021-06-16",
+      "price_cents_lb": 17.04,
+      "price_usd_kg": 0.3757
+    },
+    {
+      "date": "2021-06-17",
+      "price_cents_lb": 16.55,
+      "price_usd_kg": 0.3649
+    },
+    {
+      "date": "2021-06-18",
+      "price_cents_lb": 16.43,
+      "price_usd_kg": 0.3622
+    },
+    {
+      "date": "2021-06-21",
+      "price_cents_lb": 16.78,
+      "price_usd_kg": 0.3699
+    },
+    {
+      "date": "2021-06-22",
+      "price_cents_lb": 16.43,
+      "price_usd_kg": 0.3622
+    },
+    {
+      "date": "2021-06-23",
+      "price_cents_lb": 16.69,
+      "price_usd_kg": 0.368
+    },
+    {
+      "date": "2021-06-24",
+      "price_cents_lb": 16.93,
+      "price_usd_kg": 0.3732
+    },
+    {
+      "date": "2021-06-25",
+      "price_cents_lb": 16.9,
+      "price_usd_kg": 0.3726
+    },
+    {
+      "date": "2021-06-28",
+      "price_cents_lb": 17.23,
+      "price_usd_kg": 0.3799
+    },
+    {
+      "date": "2021-06-29",
+      "price_cents_lb": 17.23,
+      "price_usd_kg": 0.3799
+    },
+    {
+      "date": "2021-06-30",
+      "price_cents_lb": 17.63,
+      "price_usd_kg": 0.3887
+    },
+    {
+      "date": "2021-07-01",
+      "price_cents_lb": 17.94,
+      "price_usd_kg": 0.3955
+    },
+    {
+      "date": "2021-07-02",
+      "price_cents_lb": 18.15,
+      "price_usd_kg": 0.4001
+    },
+    {
+      "date": "2021-07-06",
+      "price_cents_lb": 17.87,
+      "price_usd_kg": 0.394
+    },
+    {
+      "date": "2021-07-07",
+      "price_cents_lb": 17.75,
+      "price_usd_kg": 0.3913
+    },
+    {
+      "date": "2021-07-08",
+      "price_cents_lb": 17.45,
+      "price_usd_kg": 0.3847
+    },
+    {
+      "date": "2021-07-09",
+      "price_cents_lb": 17.28,
+      "price_usd_kg": 0.381
+    },
+    {
+      "date": "2021-07-12",
+      "price_cents_lb": 16.99,
+      "price_usd_kg": 0.3746
+    },
+    {
+      "date": "2021-07-13",
+      "price_cents_lb": 17.08,
+      "price_usd_kg": 0.3765
+    },
+    {
+      "date": "2021-07-14",
+      "price_cents_lb": 16.93,
+      "price_usd_kg": 0.3732
+    },
+    {
+      "date": "2021-07-15",
+      "price_cents_lb": 17.33,
+      "price_usd_kg": 0.3821
+    },
+    {
+      "date": "2021-07-16",
+      "price_cents_lb": 17.71,
+      "price_usd_kg": 0.3904
+    },
+    {
+      "date": "2021-07-19",
+      "price_cents_lb": 17.07,
+      "price_usd_kg": 0.3763
+    },
+    {
+      "date": "2021-07-20",
+      "price_cents_lb": 17.41,
+      "price_usd_kg": 0.3838
+    },
+    {
+      "date": "2021-07-21",
+      "price_cents_lb": 17.67,
+      "price_usd_kg": 0.3896
+    },
+    {
+      "date": "2021-07-22",
+      "price_cents_lb": 17.62,
+      "price_usd_kg": 0.3885
+    },
+    {
+      "date": "2021-07-23",
+      "price_cents_lb": 18.17,
+      "price_usd_kg": 0.4006
+    },
+    {
+      "date": "2021-07-26",
+      "price_cents_lb": 18.42,
+      "price_usd_kg": 0.4061
+    },
+    {
+      "date": "2021-07-27",
+      "price_cents_lb": 18.35,
+      "price_usd_kg": 0.4045
+    },
+    {
+      "date": "2021-07-28",
+      "price_cents_lb": 18.61,
+      "price_usd_kg": 0.4103
+    },
+    {
+      "date": "2021-07-29",
+      "price_cents_lb": 18.3,
+      "price_usd_kg": 0.4034
+    },
+    {
+      "date": "2021-07-30",
+      "price_cents_lb": 17.91,
+      "price_usd_kg": 0.3948
+    },
+    {
+      "date": "2021-08-02",
+      "price_cents_lb": 17.95,
+      "price_usd_kg": 0.3957
+    },
+    {
+      "date": "2021-08-03",
+      "price_cents_lb": 17.98,
+      "price_usd_kg": 0.3964
+    },
+    {
+      "date": "2021-08-04",
+      "price_cents_lb": 17.93,
+      "price_usd_kg": 0.3953
+    },
+    {
+      "date": "2021-08-05",
+      "price_cents_lb": 18.62,
+      "price_usd_kg": 0.4105
+    },
+    {
+      "date": "2021-08-06",
+      "price_cents_lb": 18.68,
+      "price_usd_kg": 0.4118
+    },
+    {
+      "date": "2021-08-09",
+      "price_cents_lb": 18.47,
+      "price_usd_kg": 0.4072
+    },
+    {
+      "date": "2021-08-10",
+      "price_cents_lb": 19.59,
+      "price_usd_kg": 0.4319
+    },
+    {
+      "date": "2021-08-11",
+      "price_cents_lb": 19.47,
+      "price_usd_kg": 0.4292
+    },
+    {
+      "date": "2021-08-12",
+      "price_cents_lb": 19.54,
+      "price_usd_kg": 0.4308
+    },
+    {
+      "date": "2021-08-13",
+      "price_cents_lb": 19.95,
+      "price_usd_kg": 0.4398
+    },
+    {
+      "date": "2021-08-16",
+      "price_cents_lb": 20.03,
+      "price_usd_kg": 0.4416
+    },
+    {
+      "date": "2021-08-17",
+      "price_cents_lb": 20.02,
+      "price_usd_kg": 0.4414
+    },
+    {
+      "date": "2021-08-18",
+      "price_cents_lb": 20.17,
+      "price_usd_kg": 0.4447
+    },
+    {
+      "date": "2021-08-19",
+      "price_cents_lb": 19.79,
+      "price_usd_kg": 0.4363
+    },
+    {
+      "date": "2021-08-20",
+      "price_cents_lb": 19.58,
+      "price_usd_kg": 0.4317
+    },
+    {
+      "date": "2021-08-23",
+      "price_cents_lb": 19.58,
+      "price_usd_kg": 0.4317
+    },
+    {
+      "date": "2021-08-24",
+      "price_cents_lb": 19.58,
+      "price_usd_kg": 0.4317
+    },
+    {
+      "date": "2021-08-25",
+      "price_cents_lb": 19.73,
+      "price_usd_kg": 0.435
+    },
+    {
+      "date": "2021-08-26",
+      "price_cents_lb": 19.68,
+      "price_usd_kg": 0.4339
+    },
+    {
+      "date": "2021-08-27",
+      "price_cents_lb": 20.04,
+      "price_usd_kg": 0.4418
+    },
+    {
+      "date": "2021-08-30",
+      "price_cents_lb": 20.22,
+      "price_usd_kg": 0.4458
+    },
+    {
+      "date": "2021-08-31",
+      "price_cents_lb": 19.84,
+      "price_usd_kg": 0.4374
+    },
+    {
+      "date": "2021-09-01",
+      "price_cents_lb": 19.67,
+      "price_usd_kg": 0.4336
+    },
+    {
+      "date": "2021-09-02",
+      "price_cents_lb": 19.9,
+      "price_usd_kg": 0.4387
+    },
+    {
+      "date": "2021-09-03",
+      "price_cents_lb": 19.62,
+      "price_usd_kg": 0.4325
+    },
+    {
+      "date": "2021-09-07",
+      "price_cents_lb": 19.48,
+      "price_usd_kg": 0.4295
+    },
+    {
+      "date": "2021-09-08",
+      "price_cents_lb": 19.49,
+      "price_usd_kg": 0.4297
+    },
+    {
+      "date": "2021-09-09",
+      "price_cents_lb": 19.24,
+      "price_usd_kg": 0.4242
+    },
+    {
+      "date": "2021-09-10",
+      "price_cents_lb": 18.79,
+      "price_usd_kg": 0.4142
+    },
+    {
+      "date": "2021-09-13",
+      "price_cents_lb": 18.98,
+      "price_usd_kg": 0.4184
+    },
+    {
+      "date": "2021-09-14",
+      "price_cents_lb": 18.96,
+      "price_usd_kg": 0.418
+    },
+    {
+      "date": "2021-09-15",
+      "price_cents_lb": 19.52,
+      "price_usd_kg": 0.4303
+    },
+    {
+      "date": "2021-09-16",
+      "price_cents_lb": 19.49,
+      "price_usd_kg": 0.4297
+    },
+    {
+      "date": "2021-09-17",
+      "price_cents_lb": 19.18,
+      "price_usd_kg": 0.4228
+    },
+    {
+      "date": "2021-09-20",
+      "price_cents_lb": 18.86,
+      "price_usd_kg": 0.4158
+    },
+    {
+      "date": "2021-09-21",
+      "price_cents_lb": 18.97,
+      "price_usd_kg": 0.4182
+    },
+    {
+      "date": "2021-09-22",
+      "price_cents_lb": 19.33,
+      "price_usd_kg": 0.4262
+    },
+    {
+      "date": "2021-09-23",
+      "price_cents_lb": 19.49,
+      "price_usd_kg": 0.4297
+    },
+    {
+      "date": "2021-09-24",
+      "price_cents_lb": 19.1,
+      "price_usd_kg": 0.4211
+    },
+    {
+      "date": "2021-09-27",
+      "price_cents_lb": 18.73,
+      "price_usd_kg": 0.4129
+    },
+    {
+      "date": "2021-09-28",
+      "price_cents_lb": 18.98,
+      "price_usd_kg": 0.4184
+    },
+    {
+      "date": "2021-09-29",
+      "price_cents_lb": 18.94,
+      "price_usd_kg": 0.4176
+    },
+    {
+      "date": "2021-09-30",
+      "price_cents_lb": 19.83,
+      "price_usd_kg": 0.4372
+    },
+    {
+      "date": "2021-10-01",
+      "price_cents_lb": 20.06,
+      "price_usd_kg": 0.4422
+    },
+    {
+      "date": "2021-10-04",
+      "price_cents_lb": 19.69,
+      "price_usd_kg": 0.4341
+    },
+    {
+      "date": "2021-10-05",
+      "price_cents_lb": 19.85,
+      "price_usd_kg": 0.4376
+    },
+    {
+      "date": "2021-10-06",
+      "price_cents_lb": 19.77,
+      "price_usd_kg": 0.4359
+    },
+    {
+      "date": "2021-10-07",
+      "price_cents_lb": 19.84,
+      "price_usd_kg": 0.4374
+    },
+    {
+      "date": "2021-10-08",
+      "price_cents_lb": 20.29,
+      "price_usd_kg": 0.4473
+    },
+    {
+      "date": "2021-10-11",
+      "price_cents_lb": 20.33,
+      "price_usd_kg": 0.4482
+    },
+    {
+      "date": "2021-10-12",
+      "price_cents_lb": 20.07,
+      "price_usd_kg": 0.4425
+    },
+    {
+      "date": "2021-10-13",
+      "price_cents_lb": 19.86,
+      "price_usd_kg": 0.4378
+    },
+    {
+      "date": "2021-10-14",
+      "price_cents_lb": 19.59,
+      "price_usd_kg": 0.4319
+    },
+    {
+      "date": "2021-10-15",
+      "price_cents_lb": 19.8,
+      "price_usd_kg": 0.4365
+    },
+    {
+      "date": "2021-10-18",
+      "price_cents_lb": 19.35,
+      "price_usd_kg": 0.4266
+    },
+    {
+      "date": "2021-10-19",
+      "price_cents_lb": 18.87,
+      "price_usd_kg": 0.416
+    },
+    {
+      "date": "2021-10-20",
+      "price_cents_lb": 18.97,
+      "price_usd_kg": 0.4182
+    },
+    {
+      "date": "2021-10-21",
+      "price_cents_lb": 18.94,
+      "price_usd_kg": 0.4176
+    },
+    {
+      "date": "2021-10-22",
+      "price_cents_lb": 19.08,
+      "price_usd_kg": 0.4206
+    },
+    {
+      "date": "2021-10-25",
+      "price_cents_lb": 19.39,
+      "price_usd_kg": 0.4275
+    },
+    {
+      "date": "2021-10-26",
+      "price_cents_lb": 19.66,
+      "price_usd_kg": 0.4334
+    },
+    {
+      "date": "2021-10-27",
+      "price_cents_lb": 19.7,
+      "price_usd_kg": 0.4343
+    },
+    {
+      "date": "2021-10-28",
+      "price_cents_lb": 19.62,
+      "price_usd_kg": 0.4325
+    },
+    {
+      "date": "2021-10-29",
+      "price_cents_lb": 19.27,
+      "price_usd_kg": 0.4248
+    },
+    {
+      "date": "2021-11-01",
+      "price_cents_lb": 19.37,
+      "price_usd_kg": 0.427
+    },
+    {
+      "date": "2021-11-02",
+      "price_cents_lb": 19.54,
+      "price_usd_kg": 0.4308
+    },
+    {
+      "date": "2021-11-03",
+      "price_cents_lb": 19.38,
+      "price_usd_kg": 0.4273
+    },
+    {
+      "date": "2021-11-04",
+      "price_cents_lb": 19.63,
+      "price_usd_kg": 0.4328
+    },
+    {
+      "date": "2021-11-05",
+      "price_cents_lb": 19.94,
+      "price_usd_kg": 0.4396
+    },
+    {
+      "date": "2021-11-08",
+      "price_cents_lb": 19.92,
+      "price_usd_kg": 0.4392
+    },
+    {
+      "date": "2021-11-09",
+      "price_cents_lb": 19.9,
+      "price_usd_kg": 0.4387
+    },
+    {
+      "date": "2021-11-10",
+      "price_cents_lb": 19.6,
+      "price_usd_kg": 0.4321
+    },
+    {
+      "date": "2021-11-11",
+      "price_cents_lb": 20.12,
+      "price_usd_kg": 0.4436
+    },
+    {
+      "date": "2021-11-12",
+      "price_cents_lb": 20.01,
+      "price_usd_kg": 0.4411
+    },
+    {
+      "date": "2021-11-15",
+      "price_cents_lb": 19.74,
+      "price_usd_kg": 0.4352
+    },
+    {
+      "date": "2021-11-16",
+      "price_cents_lb": 19.99,
+      "price_usd_kg": 0.4407
+    },
+    {
+      "date": "2021-11-17",
+      "price_cents_lb": 20.42,
+      "price_usd_kg": 0.4502
+    },
+    {
+      "date": "2021-11-18",
+      "price_cents_lb": 20.18,
+      "price_usd_kg": 0.4449
+    },
+    {
+      "date": "2021-11-19",
+      "price_cents_lb": 19.99,
+      "price_usd_kg": 0.4407
+    },
+    {
+      "date": "2021-11-22",
+      "price_cents_lb": 19.76,
+      "price_usd_kg": 0.4356
+    },
+    {
+      "date": "2021-11-23",
+      "price_cents_lb": 20.11,
+      "price_usd_kg": 0.4433
+    },
+    {
+      "date": "2021-11-24",
+      "price_cents_lb": 19.93,
+      "price_usd_kg": 0.4394
+    },
+    {
+      "date": "2021-11-26",
+      "price_cents_lb": 19.35,
+      "price_usd_kg": 0.4266
+    },
+    {
+      "date": "2021-11-29",
+      "price_cents_lb": 19.19,
+      "price_usd_kg": 0.4231
+    },
+    {
+      "date": "2021-11-30",
+      "price_cents_lb": 18.6,
+      "price_usd_kg": 0.4101
+    },
+    {
+      "date": "2021-12-01",
+      "price_cents_lb": 18.6,
+      "price_usd_kg": 0.4101
+    },
+    {
+      "date": "2021-12-02",
+      "price_cents_lb": 18.62,
+      "price_usd_kg": 0.4105
+    },
+    {
+      "date": "2021-12-03",
+      "price_cents_lb": 18.75,
+      "price_usd_kg": 0.4134
+    },
+    {
+      "date": "2021-12-06",
+      "price_cents_lb": 19.16,
+      "price_usd_kg": 0.4224
+    },
+    {
+      "date": "2021-12-07",
+      "price_cents_lb": 19.48,
+      "price_usd_kg": 0.4295
+    },
+    {
+      "date": "2021-12-08",
+      "price_cents_lb": 19.82,
+      "price_usd_kg": 0.437
+    },
+    {
+      "date": "2021-12-09",
+      "price_cents_lb": 19.69,
+      "price_usd_kg": 0.4341
+    },
+    {
+      "date": "2021-12-10",
+      "price_cents_lb": 19.71,
+      "price_usd_kg": 0.4345
+    },
+    {
+      "date": "2021-12-13",
+      "price_cents_lb": 19.64,
+      "price_usd_kg": 0.433
+    },
+    {
+      "date": "2021-12-14",
+      "price_cents_lb": 19.65,
+      "price_usd_kg": 0.4332
+    },
+    {
+      "date": "2021-12-15",
+      "price_cents_lb": 19.29,
+      "price_usd_kg": 0.4253
+    },
+    {
+      "date": "2021-12-16",
+      "price_cents_lb": 19.4,
+      "price_usd_kg": 0.4277
+    },
+    {
+      "date": "2021-12-17",
+      "price_cents_lb": 19.11,
+      "price_usd_kg": 0.4213
+    },
+    {
+      "date": "2021-12-20",
+      "price_cents_lb": 18.59,
+      "price_usd_kg": 0.4098
+    },
+    {
+      "date": "2021-12-21",
+      "price_cents_lb": 18.74,
+      "price_usd_kg": 0.4131
+    },
+    {
+      "date": "2021-12-22",
+      "price_cents_lb": 19.26,
+      "price_usd_kg": 0.4246
+    },
+    {
+      "date": "2021-12-23",
+      "price_cents_lb": 19.24,
+      "price_usd_kg": 0.4242
+    },
+    {
+      "date": "2021-12-27",
+      "price_cents_lb": 19.21,
+      "price_usd_kg": 0.4235
+    },
+    {
+      "date": "2021-12-28",
+      "price_cents_lb": 18.96,
+      "price_usd_kg": 0.418
+    },
+    {
+      "date": "2021-12-29",
+      "price_cents_lb": 19.1,
+      "price_usd_kg": 0.4211
+    },
+    {
+      "date": "2021-12-30",
+      "price_cents_lb": 18.78,
+      "price_usd_kg": 0.414
+    },
+    {
+      "date": "2021-12-31",
+      "price_cents_lb": 18.88,
+      "price_usd_kg": 0.4162
+    },
+    {
+      "date": "2022-01-03",
+      "price_cents_lb": 18.74,
+      "price_usd_kg": 0.4131
+    },
+    {
+      "date": "2022-01-04",
+      "price_cents_lb": 18.75,
+      "price_usd_kg": 0.4134
+    },
+    {
+      "date": "2022-01-05",
+      "price_cents_lb": 18.34,
+      "price_usd_kg": 0.4043
+    },
+    {
+      "date": "2022-01-06",
+      "price_cents_lb": 18.19,
+      "price_usd_kg": 0.401
+    },
+    {
+      "date": "2022-01-07",
+      "price_cents_lb": 18.05,
+      "price_usd_kg": 0.3979
+    },
+    {
+      "date": "2022-01-10",
+      "price_cents_lb": 17.83,
+      "price_usd_kg": 0.3931
+    },
+    {
+      "date": "2022-01-11",
+      "price_cents_lb": 18.11,
+      "price_usd_kg": 0.3993
+    },
+    {
+      "date": "2022-01-12",
+      "price_cents_lb": 18.34,
+      "price_usd_kg": 0.4043
+    },
+    {
+      "date": "2022-01-13",
+      "price_cents_lb": 18.09,
+      "price_usd_kg": 0.3988
+    },
+    {
+      "date": "2022-01-14",
+      "price_cents_lb": 18.31,
+      "price_usd_kg": 0.4037
+    },
+    {
+      "date": "2022-01-18",
+      "price_cents_lb": 18.66,
+      "price_usd_kg": 0.4114
+    },
+    {
+      "date": "2022-01-19",
+      "price_cents_lb": 19.07,
+      "price_usd_kg": 0.4204
+    },
+    {
+      "date": "2022-01-20",
+      "price_cents_lb": 18.93,
+      "price_usd_kg": 0.4173
+    },
+    {
+      "date": "2022-01-21",
+      "price_cents_lb": 18.9,
+      "price_usd_kg": 0.4167
+    },
+    {
+      "date": "2022-01-24",
+      "price_cents_lb": 18.81,
+      "price_usd_kg": 0.4147
+    },
+    {
+      "date": "2022-01-25",
+      "price_cents_lb": 18.78,
+      "price_usd_kg": 0.414
+    },
+    {
+      "date": "2022-01-26",
+      "price_cents_lb": 18.49,
+      "price_usd_kg": 0.4076
+    },
+    {
+      "date": "2022-01-27",
+      "price_cents_lb": 18.41,
+      "price_usd_kg": 0.4059
+    },
+    {
+      "date": "2022-01-28",
+      "price_cents_lb": 18.2,
+      "price_usd_kg": 0.4012
+    },
+    {
+      "date": "2022-01-31",
+      "price_cents_lb": 18.22,
+      "price_usd_kg": 0.4017
+    },
+    {
+      "date": "2022-02-01",
+      "price_cents_lb": 18.48,
+      "price_usd_kg": 0.4074
+    },
+    {
+      "date": "2022-02-02",
+      "price_cents_lb": 17.93,
+      "price_usd_kg": 0.3953
+    },
+    {
+      "date": "2022-02-03",
+      "price_cents_lb": 17.99,
+      "price_usd_kg": 0.3966
+    },
+    {
+      "date": "2022-02-04",
+      "price_cents_lb": 18.23,
+      "price_usd_kg": 0.4019
+    },
+    {
+      "date": "2022-02-07",
+      "price_cents_lb": 18.05,
+      "price_usd_kg": 0.3979
+    },
+    {
+      "date": "2022-02-08",
+      "price_cents_lb": 18.08,
+      "price_usd_kg": 0.3986
+    },
+    {
+      "date": "2022-02-09",
+      "price_cents_lb": 18.48,
+      "price_usd_kg": 0.4074
+    },
+    {
+      "date": "2022-02-10",
+      "price_cents_lb": 18.3,
+      "price_usd_kg": 0.4034
+    },
+    {
+      "date": "2022-02-11",
+      "price_cents_lb": 18.26,
+      "price_usd_kg": 0.4026
+    },
+    {
+      "date": "2022-02-14",
+      "price_cents_lb": 18.12,
+      "price_usd_kg": 0.3995
+    },
+    {
+      "date": "2022-02-15",
+      "price_cents_lb": 18.07,
+      "price_usd_kg": 0.3984
+    },
+    {
+      "date": "2022-02-16",
+      "price_cents_lb": 18.07,
+      "price_usd_kg": 0.3984
+    },
+    {
+      "date": "2022-02-17",
+      "price_cents_lb": 18.28,
+      "price_usd_kg": 0.403
+    },
+    {
+      "date": "2022-02-18",
+      "price_cents_lb": 18.2,
+      "price_usd_kg": 0.4012
+    },
+    {
+      "date": "2022-02-22",
+      "price_cents_lb": 18.48,
+      "price_usd_kg": 0.4074
+    },
+    {
+      "date": "2022-02-23",
+      "price_cents_lb": 18.53,
+      "price_usd_kg": 0.4085
+    },
+    {
+      "date": "2022-02-24",
+      "price_cents_lb": 18.32,
+      "price_usd_kg": 0.4039
+    },
+    {
+      "date": "2022-02-25",
+      "price_cents_lb": 17.99,
+      "price_usd_kg": 0.3966
+    },
+    {
+      "date": "2022-02-28",
+      "price_cents_lb": 18.0,
+      "price_usd_kg": 0.3968
+    },
+    {
+      "date": "2022-03-01",
+      "price_cents_lb": 18.34,
+      "price_usd_kg": 0.4043
+    },
+    {
+      "date": "2022-03-02",
+      "price_cents_lb": 18.64,
+      "price_usd_kg": 0.4109
+    },
+    {
+      "date": "2022-03-03",
+      "price_cents_lb": 18.93,
+      "price_usd_kg": 0.4173
+    },
+    {
+      "date": "2022-03-04",
+      "price_cents_lb": 19.35,
+      "price_usd_kg": 0.4266
+    },
+    {
+      "date": "2022-03-07",
+      "price_cents_lb": 19.27,
+      "price_usd_kg": 0.4248
+    },
+    {
+      "date": "2022-03-08",
+      "price_cents_lb": 19.43,
+      "price_usd_kg": 0.4284
+    },
+    {
+      "date": "2022-03-09",
+      "price_cents_lb": 18.94,
+      "price_usd_kg": 0.4176
+    },
+    {
+      "date": "2022-03-10",
+      "price_cents_lb": 19.1,
+      "price_usd_kg": 0.4211
+    },
+    {
+      "date": "2022-03-11",
+      "price_cents_lb": 19.24,
+      "price_usd_kg": 0.4242
+    },
+    {
+      "date": "2022-03-14",
+      "price_cents_lb": 19.13,
+      "price_usd_kg": 0.4217
+    },
+    {
+      "date": "2022-03-15",
+      "price_cents_lb": 18.73,
+      "price_usd_kg": 0.4129
+    },
+    {
+      "date": "2022-03-16",
+      "price_cents_lb": 18.56,
+      "price_usd_kg": 0.4092
+    },
+    {
+      "date": "2022-03-17",
+      "price_cents_lb": 18.69,
+      "price_usd_kg": 0.412
+    },
+    {
+      "date": "2022-03-18",
+      "price_cents_lb": 18.93,
+      "price_usd_kg": 0.4173
+    },
+    {
+      "date": "2022-03-21",
+      "price_cents_lb": 19.28,
+      "price_usd_kg": 0.4251
+    },
+    {
+      "date": "2022-03-22",
+      "price_cents_lb": 19.15,
+      "price_usd_kg": 0.4222
+    },
+    {
+      "date": "2022-03-23",
+      "price_cents_lb": 19.24,
+      "price_usd_kg": 0.4242
+    },
+    {
+      "date": "2022-03-24",
+      "price_cents_lb": 19.26,
+      "price_usd_kg": 0.4246
+    },
+    {
+      "date": "2022-03-25",
+      "price_cents_lb": 19.61,
+      "price_usd_kg": 0.4323
+    },
+    {
+      "date": "2022-03-28",
+      "price_cents_lb": 19.59,
+      "price_usd_kg": 0.4319
+    },
+    {
+      "date": "2022-03-29",
+      "price_cents_lb": 19.11,
+      "price_usd_kg": 0.4213
+    },
+    {
+      "date": "2022-03-30",
+      "price_cents_lb": 19.47,
+      "price_usd_kg": 0.4292
+    },
+    {
+      "date": "2022-03-31",
+      "price_cents_lb": 19.49,
+      "price_usd_kg": 0.4297
+    },
+    {
+      "date": "2022-04-01",
+      "price_cents_lb": 19.37,
+      "price_usd_kg": 0.427
+    },
+    {
+      "date": "2022-04-04",
+      "price_cents_lb": 19.61,
+      "price_usd_kg": 0.4323
+    },
+    {
+      "date": "2022-04-05",
+      "price_cents_lb": 19.65,
+      "price_usd_kg": 0.4332
+    },
+    {
+      "date": "2022-04-06",
+      "price_cents_lb": 19.59,
+      "price_usd_kg": 0.4319
+    },
+    {
+      "date": "2022-04-07",
+      "price_cents_lb": 19.84,
+      "price_usd_kg": 0.4374
+    },
+    {
+      "date": "2022-04-08",
+      "price_cents_lb": 20.41,
+      "price_usd_kg": 0.45
+    },
+    {
+      "date": "2022-04-11",
+      "price_cents_lb": 20.31,
+      "price_usd_kg": 0.4478
+    },
+    {
+      "date": "2022-04-12",
+      "price_cents_lb": 20.22,
+      "price_usd_kg": 0.4458
+    },
+    {
+      "date": "2022-04-13",
+      "price_cents_lb": 20.1,
+      "price_usd_kg": 0.4431
+    },
+    {
+      "date": "2022-04-14",
+      "price_cents_lb": 20.06,
+      "price_usd_kg": 0.4422
+    },
+    {
+      "date": "2022-04-18",
+      "price_cents_lb": 20.26,
+      "price_usd_kg": 0.4467
+    },
+    {
+      "date": "2022-04-19",
+      "price_cents_lb": 19.74,
+      "price_usd_kg": 0.4352
+    },
+    {
+      "date": "2022-04-20",
+      "price_cents_lb": 19.62,
+      "price_usd_kg": 0.4325
+    },
+    {
+      "date": "2022-04-21",
+      "price_cents_lb": 19.87,
+      "price_usd_kg": 0.4381
+    },
+    {
+      "date": "2022-04-22",
+      "price_cents_lb": 19.24,
+      "price_usd_kg": 0.4242
+    },
+    {
+      "date": "2022-04-25",
+      "price_cents_lb": 18.95,
+      "price_usd_kg": 0.4178
+    },
+    {
+      "date": "2022-04-26",
+      "price_cents_lb": 18.99,
+      "price_usd_kg": 0.4187
+    },
+    {
+      "date": "2022-04-27",
+      "price_cents_lb": 19.02,
+      "price_usd_kg": 0.4193
+    },
+    {
+      "date": "2022-04-28",
+      "price_cents_lb": 19.42,
+      "price_usd_kg": 0.4281
+    },
+    {
+      "date": "2022-04-29",
+      "price_cents_lb": 19.35,
+      "price_usd_kg": 0.4266
+    },
+    {
+      "date": "2022-05-02",
+      "price_cents_lb": 18.85,
+      "price_usd_kg": 0.4156
+    },
+    {
+      "date": "2022-05-03",
+      "price_cents_lb": 18.62,
+      "price_usd_kg": 0.4105
+    },
+    {
+      "date": "2022-05-04",
+      "price_cents_lb": 18.62,
+      "price_usd_kg": 0.4105
+    },
+    {
+      "date": "2022-05-05",
+      "price_cents_lb": 18.78,
+      "price_usd_kg": 0.414
+    },
+    {
+      "date": "2022-05-06",
+      "price_cents_lb": 19.16,
+      "price_usd_kg": 0.4224
+    },
+    {
+      "date": "2022-05-09",
+      "price_cents_lb": 18.66,
+      "price_usd_kg": 0.4114
+    },
+    {
+      "date": "2022-05-10",
+      "price_cents_lb": 18.54,
+      "price_usd_kg": 0.4087
+    },
+    {
+      "date": "2022-05-11",
+      "price_cents_lb": 18.55,
+      "price_usd_kg": 0.409
+    },
+    {
+      "date": "2022-05-12",
+      "price_cents_lb": 18.64,
+      "price_usd_kg": 0.4109
+    },
+    {
+      "date": "2022-05-13",
+      "price_cents_lb": 19.17,
+      "price_usd_kg": 0.4226
+    },
+    {
+      "date": "2022-05-16",
+      "price_cents_lb": 19.68,
+      "price_usd_kg": 0.4339
+    },
+    {
+      "date": "2022-05-17",
+      "price_cents_lb": 20.0,
+      "price_usd_kg": 0.4409
+    },
+    {
+      "date": "2022-05-18",
+      "price_cents_lb": 19.83,
+      "price_usd_kg": 0.4372
+    },
+    {
+      "date": "2022-05-19",
+      "price_cents_lb": 19.77,
+      "price_usd_kg": 0.4359
+    },
+    {
+      "date": "2022-05-20",
+      "price_cents_lb": 19.95,
+      "price_usd_kg": 0.4398
+    },
+    {
+      "date": "2022-05-23",
+      "price_cents_lb": 19.77,
+      "price_usd_kg": 0.4359
+    },
+    {
+      "date": "2022-05-24",
+      "price_cents_lb": 19.75,
+      "price_usd_kg": 0.4354
+    },
+    {
+      "date": "2022-05-25",
+      "price_cents_lb": 19.68,
+      "price_usd_kg": 0.4339
+    },
+    {
+      "date": "2022-05-26",
+      "price_cents_lb": 19.54,
+      "price_usd_kg": 0.4308
+    },
+    {
+      "date": "2022-05-27",
+      "price_cents_lb": 19.61,
+      "price_usd_kg": 0.4323
+    },
+    {
+      "date": "2022-05-31",
+      "price_cents_lb": 19.4,
+      "price_usd_kg": 0.4277
+    },
+    {
+      "date": "2022-06-01",
+      "price_cents_lb": 19.44,
+      "price_usd_kg": 0.4286
+    },
+    {
+      "date": "2022-06-02",
+      "price_cents_lb": 19.35,
+      "price_usd_kg": 0.4266
+    },
+    {
+      "date": "2022-06-03",
+      "price_cents_lb": 19.29,
+      "price_usd_kg": 0.4253
+    },
+    {
+      "date": "2022-06-06",
+      "price_cents_lb": 19.56,
+      "price_usd_kg": 0.4312
+    },
+    {
+      "date": "2022-06-07",
+      "price_cents_lb": 18.97,
+      "price_usd_kg": 0.4182
+    },
+    {
+      "date": "2022-06-08",
+      "price_cents_lb": 18.98,
+      "price_usd_kg": 0.4184
+    },
+    {
+      "date": "2022-06-09",
+      "price_cents_lb": 19.29,
+      "price_usd_kg": 0.4253
+    },
+    {
+      "date": "2022-06-10",
+      "price_cents_lb": 18.87,
+      "price_usd_kg": 0.416
+    },
+    {
+      "date": "2022-06-13",
+      "price_cents_lb": 18.71,
+      "price_usd_kg": 0.4125
+    },
+    {
+      "date": "2022-06-14",
+      "price_cents_lb": 18.7,
+      "price_usd_kg": 0.4123
+    },
+    {
+      "date": "2022-06-15",
+      "price_cents_lb": 18.46,
+      "price_usd_kg": 0.407
+    },
+    {
+      "date": "2022-06-16",
+      "price_cents_lb": 18.58,
+      "price_usd_kg": 0.4096
+    },
+    {
+      "date": "2022-06-17",
+      "price_cents_lb": 18.6,
+      "price_usd_kg": 0.4101
+    },
+    {
+      "date": "2022-06-21",
+      "price_cents_lb": 18.66,
+      "price_usd_kg": 0.4114
+    },
+    {
+      "date": "2022-06-22",
+      "price_cents_lb": 18.45,
+      "price_usd_kg": 0.4068
+    },
+    {
+      "date": "2022-06-23",
+      "price_cents_lb": 18.38,
+      "price_usd_kg": 0.4052
+    },
+    {
+      "date": "2022-06-24",
+      "price_cents_lb": 18.37,
+      "price_usd_kg": 0.405
+    },
+    {
+      "date": "2022-06-27",
+      "price_cents_lb": 18.3,
+      "price_usd_kg": 0.4034
+    },
+    {
+      "date": "2022-06-28",
+      "price_cents_lb": 18.53,
+      "price_usd_kg": 0.4085
+    },
+    {
+      "date": "2022-06-29",
+      "price_cents_lb": 18.55,
+      "price_usd_kg": 0.409
+    },
+    {
+      "date": "2022-06-30",
+      "price_cents_lb": 18.83,
+      "price_usd_kg": 0.4151
+    },
+    {
+      "date": "2022-07-01",
+      "price_cents_lb": 18.07,
+      "price_usd_kg": 0.3984
+    },
+    {
+      "date": "2022-07-05",
+      "price_cents_lb": 17.8,
+      "price_usd_kg": 0.3924
+    },
+    {
+      "date": "2022-07-06",
+      "price_cents_lb": 17.99,
+      "price_usd_kg": 0.3966
+    },
+    {
+      "date": "2022-07-07",
+      "price_cents_lb": 18.52,
+      "price_usd_kg": 0.4083
+    },
+    {
+      "date": "2022-07-08",
+      "price_cents_lb": 19.02,
+      "price_usd_kg": 0.4193
+    },
+    {
+      "date": "2022-07-11",
+      "price_cents_lb": 18.86,
+      "price_usd_kg": 0.4158
+    },
+    {
+      "date": "2022-07-12",
+      "price_cents_lb": 18.69,
+      "price_usd_kg": 0.412
+    },
+    {
+      "date": "2022-07-13",
+      "price_cents_lb": 19.14,
+      "price_usd_kg": 0.422
+    },
+    {
+      "date": "2022-07-14",
+      "price_cents_lb": 18.97,
+      "price_usd_kg": 0.4182
+    },
+    {
+      "date": "2022-07-15",
+      "price_cents_lb": 19.25,
+      "price_usd_kg": 0.4244
+    },
+    {
+      "date": "2022-07-18",
+      "price_cents_lb": 19.41,
+      "price_usd_kg": 0.4279
+    },
+    {
+      "date": "2022-07-19",
+      "price_cents_lb": 18.84,
+      "price_usd_kg": 0.4154
+    },
+    {
+      "date": "2022-07-20",
+      "price_cents_lb": 18.67,
+      "price_usd_kg": 0.4116
+    },
+    {
+      "date": "2022-07-21",
+      "price_cents_lb": 18.35,
+      "price_usd_kg": 0.4045
+    },
+    {
+      "date": "2022-07-22",
+      "price_cents_lb": 17.89,
+      "price_usd_kg": 0.3944
+    },
+    {
+      "date": "2022-07-25",
+      "price_cents_lb": 17.47,
+      "price_usd_kg": 0.3851
+    },
+    {
+      "date": "2022-07-26",
+      "price_cents_lb": 17.47,
+      "price_usd_kg": 0.3851
+    },
+    {
+      "date": "2022-07-27",
+      "price_cents_lb": 17.4,
+      "price_usd_kg": 0.3836
+    },
+    {
+      "date": "2022-07-28",
+      "price_cents_lb": 17.72,
+      "price_usd_kg": 0.3907
+    },
+    {
+      "date": "2022-07-29",
+      "price_cents_lb": 17.54,
+      "price_usd_kg": 0.3867
+    },
+    {
+      "date": "2022-08-01",
+      "price_cents_lb": 17.6,
+      "price_usd_kg": 0.388
+    },
+    {
+      "date": "2022-08-02",
+      "price_cents_lb": 17.69,
+      "price_usd_kg": 0.39
+    },
+    {
+      "date": "2022-08-03",
+      "price_cents_lb": 17.77,
+      "price_usd_kg": 0.3918
+    },
+    {
+      "date": "2022-08-04",
+      "price_cents_lb": 17.55,
+      "price_usd_kg": 0.3869
+    },
+    {
+      "date": "2022-08-05",
+      "price_cents_lb": 17.94,
+      "price_usd_kg": 0.3955
+    },
+    {
+      "date": "2022-08-08",
+      "price_cents_lb": 17.96,
+      "price_usd_kg": 0.3959
+    },
+    {
+      "date": "2022-08-09",
+      "price_cents_lb": 17.98,
+      "price_usd_kg": 0.3964
+    },
+    {
+      "date": "2022-08-10",
+      "price_cents_lb": 18.28,
+      "price_usd_kg": 0.403
+    },
+    {
+      "date": "2022-08-11",
+      "price_cents_lb": 18.49,
+      "price_usd_kg": 0.4076
+    },
+    {
+      "date": "2022-08-12",
+      "price_cents_lb": 18.6,
+      "price_usd_kg": 0.4101
+    },
+    {
+      "date": "2022-08-15",
+      "price_cents_lb": 18.54,
+      "price_usd_kg": 0.4087
+    },
+    {
+      "date": "2022-08-16",
+      "price_cents_lb": 18.27,
+      "price_usd_kg": 0.4028
+    },
+    {
+      "date": "2022-08-17",
+      "price_cents_lb": 18.24,
+      "price_usd_kg": 0.4021
+    },
+    {
+      "date": "2022-08-18",
+      "price_cents_lb": 17.77,
+      "price_usd_kg": 0.3918
+    },
+    {
+      "date": "2022-08-19",
+      "price_cents_lb": 18.09,
+      "price_usd_kg": 0.3988
+    },
+    {
+      "date": "2022-08-22",
+      "price_cents_lb": 17.94,
+      "price_usd_kg": 0.3955
+    },
+    {
+      "date": "2022-08-23",
+      "price_cents_lb": 17.89,
+      "price_usd_kg": 0.3944
+    },
+    {
+      "date": "2022-08-24",
+      "price_cents_lb": 18.04,
+      "price_usd_kg": 0.3977
+    },
+    {
+      "date": "2022-08-25",
+      "price_cents_lb": 17.9,
+      "price_usd_kg": 0.3946
+    },
+    {
+      "date": "2022-08-26",
+      "price_cents_lb": 18.47,
+      "price_usd_kg": 0.4072
+    },
+    {
+      "date": "2022-08-29",
+      "price_cents_lb": 18.44,
+      "price_usd_kg": 0.4065
+    },
+    {
+      "date": "2022-08-30",
+      "price_cents_lb": 18.1,
+      "price_usd_kg": 0.399
+    },
+    {
+      "date": "2022-08-31",
+      "price_cents_lb": 17.89,
+      "price_usd_kg": 0.3944
+    },
+    {
+      "date": "2022-09-01",
+      "price_cents_lb": 17.99,
+      "price_usd_kg": 0.3966
+    },
+    {
+      "date": "2022-09-02",
+      "price_cents_lb": 18.15,
+      "price_usd_kg": 0.4001
+    },
+    {
+      "date": "2022-09-06",
+      "price_cents_lb": 17.98,
+      "price_usd_kg": 0.3964
+    },
+    {
+      "date": "2022-09-07",
+      "price_cents_lb": 18.05,
+      "price_usd_kg": 0.3979
+    },
+    {
+      "date": "2022-09-08",
+      "price_cents_lb": 17.93,
+      "price_usd_kg": 0.3953
+    },
+    {
+      "date": "2022-09-09",
+      "price_cents_lb": 18.22,
+      "price_usd_kg": 0.4017
+    },
+    {
+      "date": "2022-09-12",
+      "price_cents_lb": 18.35,
+      "price_usd_kg": 0.4045
+    },
+    {
+      "date": "2022-09-13",
+      "price_cents_lb": 18.38,
+      "price_usd_kg": 0.4052
+    },
+    {
+      "date": "2022-09-14",
+      "price_cents_lb": 18.27,
+      "price_usd_kg": 0.4028
+    },
+    {
+      "date": "2022-09-15",
+      "price_cents_lb": 18.18,
+      "price_usd_kg": 0.4008
+    },
+    {
+      "date": "2022-09-16",
+      "price_cents_lb": 17.88,
+      "price_usd_kg": 0.3942
+    },
+    {
+      "date": "2022-09-19",
+      "price_cents_lb": 17.69,
+      "price_usd_kg": 0.39
+    },
+    {
+      "date": "2022-09-20",
+      "price_cents_lb": 18.19,
+      "price_usd_kg": 0.401
+    },
+    {
+      "date": "2022-09-21",
+      "price_cents_lb": 18.22,
+      "price_usd_kg": 0.4017
+    },
+    {
+      "date": "2022-09-22",
+      "price_cents_lb": 18.49,
+      "price_usd_kg": 0.4076
+    },
+    {
+      "date": "2022-09-23",
+      "price_cents_lb": 18.28,
+      "price_usd_kg": 0.403
+    },
+    {
+      "date": "2022-09-26",
+      "price_cents_lb": 18.35,
+      "price_usd_kg": 0.4045
+    },
+    {
+      "date": "2022-09-27",
+      "price_cents_lb": 18.19,
+      "price_usd_kg": 0.401
+    },
+    {
+      "date": "2022-09-28",
+      "price_cents_lb": 18.29,
+      "price_usd_kg": 0.4032
+    },
+    {
+      "date": "2022-09-29",
+      "price_cents_lb": 18.44,
+      "price_usd_kg": 0.4065
+    },
+    {
+      "date": "2022-09-30",
+      "price_cents_lb": 18.42,
+      "price_usd_kg": 0.4061
+    },
+    {
+      "date": "2022-10-03",
+      "price_cents_lb": 17.42,
+      "price_usd_kg": 0.384
+    },
+    {
+      "date": "2022-10-04",
+      "price_cents_lb": 17.91,
+      "price_usd_kg": 0.3948
+    },
+    {
+      "date": "2022-10-05",
+      "price_cents_lb": 17.95,
+      "price_usd_kg": 0.3957
+    },
+    {
+      "date": "2022-10-06",
+      "price_cents_lb": 18.46,
+      "price_usd_kg": 0.407
+    },
+    {
+      "date": "2022-10-07",
+      "price_cents_lb": 18.68,
+      "price_usd_kg": 0.4118
+    },
+    {
+      "date": "2022-10-10",
+      "price_cents_lb": 18.61,
+      "price_usd_kg": 0.4103
+    },
+    {
+      "date": "2022-10-11",
+      "price_cents_lb": 18.74,
+      "price_usd_kg": 0.4131
+    },
+    {
+      "date": "2022-10-12",
+      "price_cents_lb": 18.68,
+      "price_usd_kg": 0.4118
+    },
+    {
+      "date": "2022-10-13",
+      "price_cents_lb": 18.81,
+      "price_usd_kg": 0.4147
+    },
+    {
+      "date": "2022-10-14",
+      "price_cents_lb": 18.84,
+      "price_usd_kg": 0.4154
+    },
+    {
+      "date": "2022-10-17",
+      "price_cents_lb": 18.77,
+      "price_usd_kg": 0.4138
+    },
+    {
+      "date": "2022-10-18",
+      "price_cents_lb": 18.67,
+      "price_usd_kg": 0.4116
+    },
+    {
+      "date": "2022-10-19",
+      "price_cents_lb": 18.65,
+      "price_usd_kg": 0.4112
+    },
+    {
+      "date": "2022-10-20",
+      "price_cents_lb": 18.39,
+      "price_usd_kg": 0.4054
+    },
+    {
+      "date": "2022-10-21",
+      "price_cents_lb": 18.38,
+      "price_usd_kg": 0.4052
+    },
+    {
+      "date": "2022-10-24",
+      "price_cents_lb": 18.13,
+      "price_usd_kg": 0.3997
+    },
+    {
+      "date": "2022-10-25",
+      "price_cents_lb": 18.11,
+      "price_usd_kg": 0.3993
+    },
+    {
+      "date": "2022-10-26",
+      "price_cents_lb": 17.86,
+      "price_usd_kg": 0.3937
+    },
+    {
+      "date": "2022-10-27",
+      "price_cents_lb": 17.71,
+      "price_usd_kg": 0.3904
+    },
+    {
+      "date": "2022-10-28",
+      "price_cents_lb": 17.58,
+      "price_usd_kg": 0.3876
+    },
+    {
+      "date": "2022-10-31",
+      "price_cents_lb": 17.97,
+      "price_usd_kg": 0.3962
+    },
+    {
+      "date": "2022-11-01",
+      "price_cents_lb": 18.43,
+      "price_usd_kg": 0.4063
+    },
+    {
+      "date": "2022-11-02",
+      "price_cents_lb": 18.47,
+      "price_usd_kg": 0.4072
+    },
+    {
+      "date": "2022-11-03",
+      "price_cents_lb": 18.47,
+      "price_usd_kg": 0.4072
+    },
+    {
+      "date": "2022-11-04",
+      "price_cents_lb": 18.71,
+      "price_usd_kg": 0.4125
+    },
+    {
+      "date": "2022-11-07",
+      "price_cents_lb": 18.68,
+      "price_usd_kg": 0.4118
+    },
+    {
+      "date": "2022-11-08",
+      "price_cents_lb": 19.0,
+      "price_usd_kg": 0.4189
+    },
+    {
+      "date": "2022-11-09",
+      "price_cents_lb": 19.38,
+      "price_usd_kg": 0.4273
+    },
+    {
+      "date": "2022-11-10",
+      "price_cents_lb": 19.41,
+      "price_usd_kg": 0.4279
+    },
+    {
+      "date": "2022-11-11",
+      "price_cents_lb": 19.64,
+      "price_usd_kg": 0.433
+    },
+    {
+      "date": "2022-11-14",
+      "price_cents_lb": 19.83,
+      "price_usd_kg": 0.4372
+    },
+    {
+      "date": "2022-11-15",
+      "price_cents_lb": 20.29,
+      "price_usd_kg": 0.4473
+    },
+    {
+      "date": "2022-11-16",
+      "price_cents_lb": 20.27,
+      "price_usd_kg": 0.4469
+    },
+    {
+      "date": "2022-11-17",
+      "price_cents_lb": 19.73,
+      "price_usd_kg": 0.435
+    },
+    {
+      "date": "2022-11-18",
+      "price_cents_lb": 20.05,
+      "price_usd_kg": 0.442
+    },
+    {
+      "date": "2022-11-21",
+      "price_cents_lb": 19.86,
+      "price_usd_kg": 0.4378
+    },
+    {
+      "date": "2022-11-22",
+      "price_cents_lb": 19.74,
+      "price_usd_kg": 0.4352
+    },
+    {
+      "date": "2022-11-23",
+      "price_cents_lb": 19.55,
+      "price_usd_kg": 0.431
+    },
+    {
+      "date": "2022-11-25",
+      "price_cents_lb": 19.33,
+      "price_usd_kg": 0.4262
+    },
+    {
+      "date": "2022-11-28",
+      "price_cents_lb": 19.38,
+      "price_usd_kg": 0.4273
+    },
+    {
+      "date": "2022-11-29",
+      "price_cents_lb": 19.53,
+      "price_usd_kg": 0.4306
+    },
+    {
+      "date": "2022-11-30",
+      "price_cents_lb": 19.63,
+      "price_usd_kg": 0.4328
+    },
+    {
+      "date": "2022-12-01",
+      "price_cents_lb": 19.62,
+      "price_usd_kg": 0.4325
+    },
+    {
+      "date": "2022-12-02",
+      "price_cents_lb": 19.48,
+      "price_usd_kg": 0.4295
+    },
+    {
+      "date": "2022-12-05",
+      "price_cents_lb": 19.55,
+      "price_usd_kg": 0.431
+    },
+    {
+      "date": "2022-12-06",
+      "price_cents_lb": 19.39,
+      "price_usd_kg": 0.4275
+    },
+    {
+      "date": "2022-12-07",
+      "price_cents_lb": 19.48,
+      "price_usd_kg": 0.4295
+    },
+    {
+      "date": "2022-12-08",
+      "price_cents_lb": 19.68,
+      "price_usd_kg": 0.4339
+    },
+    {
+      "date": "2022-12-09",
+      "price_cents_lb": 19.6,
+      "price_usd_kg": 0.4321
+    },
+    {
+      "date": "2022-12-12",
+      "price_cents_lb": 19.38,
+      "price_usd_kg": 0.4273
+    },
+    {
+      "date": "2022-12-13",
+      "price_cents_lb": 19.76,
+      "price_usd_kg": 0.4356
+    },
+    {
+      "date": "2022-12-14",
+      "price_cents_lb": 20.29,
+      "price_usd_kg": 0.4473
+    },
+    {
+      "date": "2022-12-15",
+      "price_cents_lb": 19.98,
+      "price_usd_kg": 0.4405
+    },
+    {
+      "date": "2022-12-16",
+      "price_cents_lb": 20.09,
+      "price_usd_kg": 0.4429
+    },
+    {
+      "date": "2022-12-19",
+      "price_cents_lb": 20.14,
+      "price_usd_kg": 0.444
+    },
+    {
+      "date": "2022-12-20",
+      "price_cents_lb": 20.58,
+      "price_usd_kg": 0.4537
+    },
+    {
+      "date": "2022-12-21",
+      "price_cents_lb": 20.75,
+      "price_usd_kg": 0.4575
+    },
+    {
+      "date": "2022-12-22",
+      "price_cents_lb": 20.89,
+      "price_usd_kg": 0.4605
+    },
+    {
+      "date": "2022-12-23",
+      "price_cents_lb": 20.98,
+      "price_usd_kg": 0.4625
+    },
+    {
+      "date": "2022-12-27",
+      "price_cents_lb": 20.32,
+      "price_usd_kg": 0.448
+    },
+    {
+      "date": "2022-12-28",
+      "price_cents_lb": 20.16,
+      "price_usd_kg": 0.4445
+    },
+    {
+      "date": "2022-12-29",
+      "price_cents_lb": 20.29,
+      "price_usd_kg": 0.4473
+    },
+    {
+      "date": "2022-12-30",
+      "price_cents_lb": 20.04,
+      "price_usd_kg": 0.4418
+    },
+    {
+      "date": "2023-01-03",
+      "price_cents_lb": 19.7,
+      "price_usd_kg": 0.4343
+    },
+    {
+      "date": "2023-01-04",
+      "price_cents_lb": 19.54,
+      "price_usd_kg": 0.4308
+    },
+    {
+      "date": "2023-01-05",
+      "price_cents_lb": 19.34,
+      "price_usd_kg": 0.4264
+    },
+    {
+      "date": "2023-01-06",
+      "price_cents_lb": 18.96,
+      "price_usd_kg": 0.418
+    },
+    {
+      "date": "2023-01-09",
+      "price_cents_lb": 19.17,
+      "price_usd_kg": 0.4226
+    },
+    {
+      "date": "2023-01-10",
+      "price_cents_lb": 19.64,
+      "price_usd_kg": 0.433
+    },
+    {
+      "date": "2023-01-11",
+      "price_cents_lb": 19.65,
+      "price_usd_kg": 0.4332
+    },
+    {
+      "date": "2023-01-12",
+      "price_cents_lb": 19.59,
+      "price_usd_kg": 0.4319
+    },
+    {
+      "date": "2023-01-13",
+      "price_cents_lb": 19.73,
+      "price_usd_kg": 0.435
+    },
+    {
+      "date": "2023-01-17",
+      "price_cents_lb": 20.14,
+      "price_usd_kg": 0.444
+    },
+    {
+      "date": "2023-01-18",
+      "price_cents_lb": 19.82,
+      "price_usd_kg": 0.437
+    },
+    {
+      "date": "2023-01-19",
+      "price_cents_lb": 19.68,
+      "price_usd_kg": 0.4339
+    },
+    {
+      "date": "2023-01-20",
+      "price_cents_lb": 19.72,
+      "price_usd_kg": 0.4348
+    },
+    {
+      "date": "2023-01-23",
+      "price_cents_lb": 19.7,
+      "price_usd_kg": 0.4343
+    },
+    {
+      "date": "2023-01-24",
+      "price_cents_lb": 19.88,
+      "price_usd_kg": 0.4383
+    },
+    {
+      "date": "2023-01-25",
+      "price_cents_lb": 20.11,
+      "price_usd_kg": 0.4433
+    },
+    {
+      "date": "2023-01-26",
+      "price_cents_lb": 20.68,
+      "price_usd_kg": 0.4559
+    },
+    {
+      "date": "2023-01-27",
+      "price_cents_lb": 20.96,
+      "price_usd_kg": 0.4621
+    },
+    {
+      "date": "2023-01-30",
+      "price_cents_lb": 21.21,
+      "price_usd_kg": 0.4676
+    },
+    {
+      "date": "2023-01-31",
+      "price_cents_lb": 21.76,
+      "price_usd_kg": 0.4797
+    },
+    {
+      "date": "2023-02-01",
+      "price_cents_lb": 21.37,
+      "price_usd_kg": 0.4711
+    },
+    {
+      "date": "2023-02-02",
+      "price_cents_lb": 21.66,
+      "price_usd_kg": 0.4775
+    },
+    {
+      "date": "2023-02-03",
+      "price_cents_lb": 21.24,
+      "price_usd_kg": 0.4683
+    },
+    {
+      "date": "2023-02-06",
+      "price_cents_lb": 20.66,
+      "price_usd_kg": 0.4555
+    },
+    {
+      "date": "2023-02-07",
+      "price_cents_lb": 20.84,
+      "price_usd_kg": 0.4594
+    },
+    {
+      "date": "2023-02-08",
+      "price_cents_lb": 21.2,
+      "price_usd_kg": 0.4674
+    },
+    {
+      "date": "2023-02-09",
+      "price_cents_lb": 21.45,
+      "price_usd_kg": 0.4729
+    },
+    {
+      "date": "2023-02-10",
+      "price_cents_lb": 21.58,
+      "price_usd_kg": 0.4758
+    },
+    {
+      "date": "2023-02-13",
+      "price_cents_lb": 21.2,
+      "price_usd_kg": 0.4674
+    },
+    {
+      "date": "2023-02-14",
+      "price_cents_lb": 21.57,
+      "price_usd_kg": 0.4755
+    },
+    {
+      "date": "2023-02-15",
+      "price_cents_lb": 21.38,
+      "price_usd_kg": 0.4713
+    },
+    {
+      "date": "2023-02-16",
+      "price_cents_lb": 21.45,
+      "price_usd_kg": 0.4729
+    },
+    {
+      "date": "2023-02-17",
+      "price_cents_lb": 21.41,
+      "price_usd_kg": 0.472
+    },
+    {
+      "date": "2023-02-21",
+      "price_cents_lb": 21.33,
+      "price_usd_kg": 0.4702
+    },
+    {
+      "date": "2023-02-22",
+      "price_cents_lb": 21.29,
+      "price_usd_kg": 0.4694
+    },
+    {
+      "date": "2023-02-23",
+      "price_cents_lb": 21.58,
+      "price_usd_kg": 0.4758
+    },
+    {
+      "date": "2023-02-24",
+      "price_cents_lb": 21.28,
+      "price_usd_kg": 0.4691
+    },
+    {
+      "date": "2023-02-27",
+      "price_cents_lb": 22.09,
+      "price_usd_kg": 0.487
+    },
+    {
+      "date": "2023-02-28",
+      "price_cents_lb": 22.08,
+      "price_usd_kg": 0.4868
+    },
+    {
+      "date": "2023-03-01",
+      "price_cents_lb": 20.57,
+      "price_usd_kg": 0.4535
+    },
+    {
+      "date": "2023-03-02",
+      "price_cents_lb": 20.31,
+      "price_usd_kg": 0.4478
+    },
+    {
+      "date": "2023-03-03",
+      "price_cents_lb": 20.92,
+      "price_usd_kg": 0.4612
+    },
+    {
+      "date": "2023-03-06",
+      "price_cents_lb": 20.87,
+      "price_usd_kg": 0.4601
+    },
+    {
+      "date": "2023-03-07",
+      "price_cents_lb": 21.02,
+      "price_usd_kg": 0.4634
+    },
+    {
+      "date": "2023-03-08",
+      "price_cents_lb": 20.88,
+      "price_usd_kg": 0.4603
+    },
+    {
+      "date": "2023-03-09",
+      "price_cents_lb": 21.15,
+      "price_usd_kg": 0.4663
+    },
+    {
+      "date": "2023-03-10",
+      "price_cents_lb": 21.16,
+      "price_usd_kg": 0.4665
+    },
+    {
+      "date": "2023-03-13",
+      "price_cents_lb": 20.8,
+      "price_usd_kg": 0.4586
+    },
+    {
+      "date": "2023-03-14",
+      "price_cents_lb": 20.68,
+      "price_usd_kg": 0.4559
+    },
+    {
+      "date": "2023-03-15",
+      "price_cents_lb": 20.5,
+      "price_usd_kg": 0.4519
+    },
+    {
+      "date": "2023-03-16",
+      "price_cents_lb": 20.76,
+      "price_usd_kg": 0.4577
+    },
+    {
+      "date": "2023-03-17",
+      "price_cents_lb": 20.67,
+      "price_usd_kg": 0.4557
+    },
+    {
+      "date": "2023-03-20",
+      "price_cents_lb": 20.48,
+      "price_usd_kg": 0.4515
+    },
+    {
+      "date": "2023-03-21",
+      "price_cents_lb": 20.8,
+      "price_usd_kg": 0.4586
+    },
+    {
+      "date": "2023-03-22",
+      "price_cents_lb": 21.14,
+      "price_usd_kg": 0.4661
+    },
+    {
+      "date": "2023-03-23",
+      "price_cents_lb": 20.89,
+      "price_usd_kg": 0.4605
+    },
+    {
+      "date": "2023-03-24",
+      "price_cents_lb": 20.82,
+      "price_usd_kg": 0.459
+    },
+    {
+      "date": "2023-03-27",
+      "price_cents_lb": 20.93,
+      "price_usd_kg": 0.4614
+    },
+    {
+      "date": "2023-03-28",
+      "price_cents_lb": 21.31,
+      "price_usd_kg": 0.4698
+    },
+    {
+      "date": "2023-03-29",
+      "price_cents_lb": 21.25,
+      "price_usd_kg": 0.4685
+    },
+    {
+      "date": "2023-03-30",
+      "price_cents_lb": 21.96,
+      "price_usd_kg": 0.4841
+    },
+    {
+      "date": "2023-03-31",
+      "price_cents_lb": 22.25,
+      "price_usd_kg": 0.4905
+    },
+    {
+      "date": "2023-04-03",
+      "price_cents_lb": 22.4,
+      "price_usd_kg": 0.4938
+    },
+    {
+      "date": "2023-04-04",
+      "price_cents_lb": 22.47,
+      "price_usd_kg": 0.4954
+    },
+    {
+      "date": "2023-04-05",
+      "price_cents_lb": 22.95,
+      "price_usd_kg": 0.506
+    },
+    {
+      "date": "2023-04-06",
+      "price_cents_lb": 23.61,
+      "price_usd_kg": 0.5205
+    },
+    {
+      "date": "2023-04-10",
+      "price_cents_lb": 23.56,
+      "price_usd_kg": 0.5194
+    },
+    {
+      "date": "2023-04-11",
+      "price_cents_lb": 24.37,
+      "price_usd_kg": 0.5373
+    },
+    {
+      "date": "2023-04-12",
+      "price_cents_lb": 24.05,
+      "price_usd_kg": 0.5302
+    },
+    {
+      "date": "2023-04-13",
+      "price_cents_lb": 24.04,
+      "price_usd_kg": 0.53
+    },
+    {
+      "date": "2023-04-14",
+      "price_cents_lb": 24.1,
+      "price_usd_kg": 0.5313
+    },
+    {
+      "date": "2023-04-17",
+      "price_cents_lb": 24.44,
+      "price_usd_kg": 0.5388
+    },
+    {
+      "date": "2023-04-18",
+      "price_cents_lb": 24.54,
+      "price_usd_kg": 0.541
+    },
+    {
+      "date": "2023-04-19",
+      "price_cents_lb": 24.37,
+      "price_usd_kg": 0.5373
+    },
+    {
+      "date": "2023-04-20",
+      "price_cents_lb": 25.25,
+      "price_usd_kg": 0.5567
+    },
+    {
+      "date": "2023-04-21",
+      "price_cents_lb": 24.83,
+      "price_usd_kg": 0.5474
+    },
+    {
+      "date": "2023-04-24",
+      "price_cents_lb": 25.91,
+      "price_usd_kg": 0.5712
+    },
+    {
+      "date": "2023-04-25",
+      "price_cents_lb": 26.65,
+      "price_usd_kg": 0.5875
+    },
+    {
+      "date": "2023-04-26",
+      "price_cents_lb": 26.51,
+      "price_usd_kg": 0.5844
+    },
+    {
+      "date": "2023-04-27",
+      "price_cents_lb": 26.99,
+      "price_usd_kg": 0.595
+    },
+    {
+      "date": "2023-04-28",
+      "price_cents_lb": 26.99,
+      "price_usd_kg": 0.595
+    },
+    {
+      "date": "2023-05-01",
+      "price_cents_lb": 25.54,
+      "price_usd_kg": 0.5631
+    },
+    {
+      "date": "2023-05-02",
+      "price_cents_lb": 25.14,
+      "price_usd_kg": 0.5542
+    },
+    {
+      "date": "2023-05-03",
+      "price_cents_lb": 25.17,
+      "price_usd_kg": 0.5549
+    },
+    {
+      "date": "2023-05-04",
+      "price_cents_lb": 25.52,
+      "price_usd_kg": 0.5626
+    },
+    {
+      "date": "2023-05-05",
+      "price_cents_lb": 26.32,
+      "price_usd_kg": 0.5803
+    },
+    {
+      "date": "2023-05-08",
+      "price_cents_lb": 26.09,
+      "price_usd_kg": 0.5752
+    },
+    {
+      "date": "2023-05-09",
+      "price_cents_lb": 26.19,
+      "price_usd_kg": 0.5774
+    },
+    {
+      "date": "2023-05-10",
+      "price_cents_lb": 26.66,
+      "price_usd_kg": 0.5878
+    },
+    {
+      "date": "2023-05-11",
+      "price_cents_lb": 26.02,
+      "price_usd_kg": 0.5736
+    },
+    {
+      "date": "2023-05-12",
+      "price_cents_lb": 26.22,
+      "price_usd_kg": 0.5781
+    },
+    {
+      "date": "2023-05-15",
+      "price_cents_lb": 26.29,
+      "price_usd_kg": 0.5796
+    },
+    {
+      "date": "2023-05-16",
+      "price_cents_lb": 26.07,
+      "price_usd_kg": 0.5747
+    },
+    {
+      "date": "2023-05-17",
+      "price_cents_lb": 25.91,
+      "price_usd_kg": 0.5712
+    },
+    {
+      "date": "2023-05-18",
+      "price_cents_lb": 25.61,
+      "price_usd_kg": 0.5646
+    },
+    {
+      "date": "2023-05-19",
+      "price_cents_lb": 25.78,
+      "price_usd_kg": 0.5684
+    },
+    {
+      "date": "2023-05-22",
+      "price_cents_lb": 25.99,
+      "price_usd_kg": 0.573
+    },
+    {
+      "date": "2023-05-23",
+      "price_cents_lb": 25.81,
+      "price_usd_kg": 0.569
+    },
+    {
+      "date": "2023-05-24",
+      "price_cents_lb": 25.49,
+      "price_usd_kg": 0.562
+    },
+    {
+      "date": "2023-05-25",
+      "price_cents_lb": 24.83,
+      "price_usd_kg": 0.5474
+    },
+    {
+      "date": "2023-05-26",
+      "price_cents_lb": 25.37,
+      "price_usd_kg": 0.5593
+    },
+    {
+      "date": "2023-05-30",
+      "price_cents_lb": 25.33,
+      "price_usd_kg": 0.5584
+    },
+    {
+      "date": "2023-05-31",
+      "price_cents_lb": 25.06,
+      "price_usd_kg": 0.5525
+    },
+    {
+      "date": "2023-06-01",
+      "price_cents_lb": 24.88,
+      "price_usd_kg": 0.5485
+    },
+    {
+      "date": "2023-06-02",
+      "price_cents_lb": 24.73,
+      "price_usd_kg": 0.5452
+    },
+    {
+      "date": "2023-06-05",
+      "price_cents_lb": 24.4,
+      "price_usd_kg": 0.5379
+    },
+    {
+      "date": "2023-06-06",
+      "price_cents_lb": 24.58,
+      "price_usd_kg": 0.5419
+    },
+    {
+      "date": "2023-06-07",
+      "price_cents_lb": 24.5,
+      "price_usd_kg": 0.5401
+    },
+    {
+      "date": "2023-06-08",
+      "price_cents_lb": 25.48,
+      "price_usd_kg": 0.5617
+    },
+    {
+      "date": "2023-06-09",
+      "price_cents_lb": 25.38,
+      "price_usd_kg": 0.5595
+    },
+    {
+      "date": "2023-06-12",
+      "price_cents_lb": 25.47,
+      "price_usd_kg": 0.5615
+    },
+    {
+      "date": "2023-06-13",
+      "price_cents_lb": 25.16,
+      "price_usd_kg": 0.5547
+    },
+    {
+      "date": "2023-06-14",
+      "price_cents_lb": 25.84,
+      "price_usd_kg": 0.5697
+    },
+    {
+      "date": "2023-06-15",
+      "price_cents_lb": 26.0,
+      "price_usd_kg": 0.5732
+    },
+    {
+      "date": "2023-06-16",
+      "price_cents_lb": 26.43,
+      "price_usd_kg": 0.5827
+    },
+    {
+      "date": "2023-06-20",
+      "price_cents_lb": 26.22,
+      "price_usd_kg": 0.5781
+    },
+    {
+      "date": "2023-06-21",
+      "price_cents_lb": 25.88,
+      "price_usd_kg": 0.5706
+    },
+    {
+      "date": "2023-06-22",
+      "price_cents_lb": 24.93,
+      "price_usd_kg": 0.5496
+    },
+    {
+      "date": "2023-06-23",
+      "price_cents_lb": 24.18,
+      "price_usd_kg": 0.5331
+    },
+    {
+      "date": "2023-06-26",
+      "price_cents_lb": 23.72,
+      "price_usd_kg": 0.5229
+    },
+    {
+      "date": "2023-06-27",
+      "price_cents_lb": 23.03,
+      "price_usd_kg": 0.5077
+    },
+    {
+      "date": "2023-06-28",
+      "price_cents_lb": 22.57,
+      "price_usd_kg": 0.4976
+    },
+    {
+      "date": "2023-06-29",
+      "price_cents_lb": 22.07,
+      "price_usd_kg": 0.4866
+    },
+    {
+      "date": "2023-06-30",
+      "price_cents_lb": 22.89,
+      "price_usd_kg": 0.5046
+    },
+    {
+      "date": "2023-07-03",
+      "price_cents_lb": 23.32,
+      "price_usd_kg": 0.5141
+    },
+    {
+      "date": "2023-07-05",
+      "price_cents_lb": 23.53,
+      "price_usd_kg": 0.5187
+    },
+    {
+      "date": "2023-07-06",
+      "price_cents_lb": 23.25,
+      "price_usd_kg": 0.5126
+    },
+    {
+      "date": "2023-07-07",
+      "price_cents_lb": 23.53,
+      "price_usd_kg": 0.5187
+    },
+    {
+      "date": "2023-07-10",
+      "price_cents_lb": 23.44,
+      "price_usd_kg": 0.5168
+    },
+    {
+      "date": "2023-07-11",
+      "price_cents_lb": 23.53,
+      "price_usd_kg": 0.5187
+    },
+    {
+      "date": "2023-07-12",
+      "price_cents_lb": 23.91,
+      "price_usd_kg": 0.5271
+    },
+    {
+      "date": "2023-07-13",
+      "price_cents_lb": 24.01,
+      "price_usd_kg": 0.5293
+    },
+    {
+      "date": "2023-07-14",
+      "price_cents_lb": 24.32,
+      "price_usd_kg": 0.5362
+    },
+    {
+      "date": "2023-07-17",
+      "price_cents_lb": 23.8,
+      "price_usd_kg": 0.5247
+    },
+    {
+      "date": "2023-07-18",
+      "price_cents_lb": 23.86,
+      "price_usd_kg": 0.526
+    },
+    {
+      "date": "2023-07-19",
+      "price_cents_lb": 24.21,
+      "price_usd_kg": 0.5337
+    },
+    {
+      "date": "2023-07-20",
+      "price_cents_lb": 24.67,
+      "price_usd_kg": 0.5439
+    },
+    {
+      "date": "2023-07-21",
+      "price_cents_lb": 25.01,
+      "price_usd_kg": 0.5514
+    },
+    {
+      "date": "2023-07-24",
+      "price_cents_lb": 24.92,
+      "price_usd_kg": 0.5494
+    },
+    {
+      "date": "2023-07-25",
+      "price_cents_lb": 24.69,
+      "price_usd_kg": 0.5443
+    },
+    {
+      "date": "2023-07-26",
+      "price_cents_lb": 24.39,
+      "price_usd_kg": 0.5377
+    },
+    {
+      "date": "2023-07-27",
+      "price_cents_lb": 24.43,
+      "price_usd_kg": 0.5386
+    },
+    {
+      "date": "2023-07-28",
+      "price_cents_lb": 23.92,
+      "price_usd_kg": 0.5273
+    },
+    {
+      "date": "2023-07-31",
+      "price_cents_lb": 24.11,
+      "price_usd_kg": 0.5315
+    },
+    {
+      "date": "2023-08-01",
+      "price_cents_lb": 24.39,
+      "price_usd_kg": 0.5377
+    },
+    {
+      "date": "2023-08-02",
+      "price_cents_lb": 24.2,
+      "price_usd_kg": 0.5335
+    },
+    {
+      "date": "2023-08-03",
+      "price_cents_lb": 24.02,
+      "price_usd_kg": 0.5295
+    },
+    {
+      "date": "2023-08-04",
+      "price_cents_lb": 23.69,
+      "price_usd_kg": 0.5223
+    },
+    {
+      "date": "2023-08-07",
+      "price_cents_lb": 23.74,
+      "price_usd_kg": 0.5234
+    },
+    {
+      "date": "2023-08-08",
+      "price_cents_lb": 23.45,
+      "price_usd_kg": 0.517
+    },
+    {
+      "date": "2023-08-09",
+      "price_cents_lb": 23.71,
+      "price_usd_kg": 0.5227
+    },
+    {
+      "date": "2023-08-10",
+      "price_cents_lb": 23.95,
+      "price_usd_kg": 0.528
+    },
+    {
+      "date": "2023-08-11",
+      "price_cents_lb": 24.33,
+      "price_usd_kg": 0.5364
+    },
+    {
+      "date": "2023-08-14",
+      "price_cents_lb": 24.05,
+      "price_usd_kg": 0.5302
+    },
+    {
+      "date": "2023-08-15",
+      "price_cents_lb": 23.77,
+      "price_usd_kg": 0.524
+    },
+    {
+      "date": "2023-08-16",
+      "price_cents_lb": 24.19,
+      "price_usd_kg": 0.5333
+    },
+    {
+      "date": "2023-08-17",
+      "price_cents_lb": 24.0,
+      "price_usd_kg": 0.5291
+    },
+    {
+      "date": "2023-08-18",
+      "price_cents_lb": 23.76,
+      "price_usd_kg": 0.5238
+    },
+    {
+      "date": "2023-08-21",
+      "price_cents_lb": 23.4,
+      "price_usd_kg": 0.5159
+    },
+    {
+      "date": "2023-08-22",
+      "price_cents_lb": 23.4,
+      "price_usd_kg": 0.5159
+    },
+    {
+      "date": "2023-08-23",
+      "price_cents_lb": 23.85,
+      "price_usd_kg": 0.5258
+    },
+    {
+      "date": "2023-08-24",
+      "price_cents_lb": 24.29,
+      "price_usd_kg": 0.5355
+    },
+    {
+      "date": "2023-08-25",
+      "price_cents_lb": 24.83,
+      "price_usd_kg": 0.5474
+    },
+    {
+      "date": "2023-08-28",
+      "price_cents_lb": 25.57,
+      "price_usd_kg": 0.5637
+    },
+    {
+      "date": "2023-08-29",
+      "price_cents_lb": 25.45,
+      "price_usd_kg": 0.5611
+    },
+    {
+      "date": "2023-08-30",
+      "price_cents_lb": 25.34,
+      "price_usd_kg": 0.5587
+    },
+    {
+      "date": "2023-08-31",
+      "price_cents_lb": 25.06,
+      "price_usd_kg": 0.5525
+    },
+    {
+      "date": "2023-09-01",
+      "price_cents_lb": 25.81,
+      "price_usd_kg": 0.569
+    },
+    {
+      "date": "2023-09-05",
+      "price_cents_lb": 26.65,
+      "price_usd_kg": 0.5875
+    },
+    {
+      "date": "2023-09-06",
+      "price_cents_lb": 26.22,
+      "price_usd_kg": 0.5781
+    },
+    {
+      "date": "2023-09-07",
+      "price_cents_lb": 26.68,
+      "price_usd_kg": 0.5882
+    },
+    {
+      "date": "2023-09-08",
+      "price_cents_lb": 26.31,
+      "price_usd_kg": 0.58
+    },
+    {
+      "date": "2023-09-11",
+      "price_cents_lb": 26.4,
+      "price_usd_kg": 0.582
+    },
+    {
+      "date": "2023-09-12",
+      "price_cents_lb": 26.83,
+      "price_usd_kg": 0.5915
+    },
+    {
+      "date": "2023-09-13",
+      "price_cents_lb": 26.54,
+      "price_usd_kg": 0.5851
+    },
+    {
+      "date": "2023-09-14",
+      "price_cents_lb": 26.98,
+      "price_usd_kg": 0.5948
+    },
+    {
+      "date": "2023-09-15",
+      "price_cents_lb": 26.91,
+      "price_usd_kg": 0.5933
+    },
+    {
+      "date": "2023-09-18",
+      "price_cents_lb": 27.11,
+      "price_usd_kg": 0.5977
+    },
+    {
+      "date": "2023-09-19",
+      "price_cents_lb": 27.44,
+      "price_usd_kg": 0.6049
+    },
+    {
+      "date": "2023-09-20",
+      "price_cents_lb": 26.79,
+      "price_usd_kg": 0.5906
+    },
+    {
+      "date": "2023-09-21",
+      "price_cents_lb": 26.93,
+      "price_usd_kg": 0.5937
+    },
+    {
+      "date": "2023-09-22",
+      "price_cents_lb": 26.97,
+      "price_usd_kg": 0.5946
+    },
+    {
+      "date": "2023-09-25",
+      "price_cents_lb": 26.31,
+      "price_usd_kg": 0.58
+    },
+    {
+      "date": "2023-09-26",
+      "price_cents_lb": 26.02,
+      "price_usd_kg": 0.5736
+    },
+    {
+      "date": "2023-09-27",
+      "price_cents_lb": 26.13,
+      "price_usd_kg": 0.5761
+    },
+    {
+      "date": "2023-09-28",
+      "price_cents_lb": 26.73,
+      "price_usd_kg": 0.5893
+    },
+    {
+      "date": "2023-09-29",
+      "price_cents_lb": 26.27,
+      "price_usd_kg": 0.5792
+    },
+    {
+      "date": "2023-10-02",
+      "price_cents_lb": 26.35,
+      "price_usd_kg": 0.5809
+    },
+    {
+      "date": "2023-10-03",
+      "price_cents_lb": 25.67,
+      "price_usd_kg": 0.5659
+    },
+    {
+      "date": "2023-10-04",
+      "price_cents_lb": 25.93,
+      "price_usd_kg": 0.5717
+    },
+    {
+      "date": "2023-10-05",
+      "price_cents_lb": 26.16,
+      "price_usd_kg": 0.5767
+    },
+    {
+      "date": "2023-10-06",
+      "price_cents_lb": 26.74,
+      "price_usd_kg": 0.5895
+    },
+    {
+      "date": "2023-10-09",
+      "price_cents_lb": 27.18,
+      "price_usd_kg": 0.5992
+    },
+    {
+      "date": "2023-10-10",
+      "price_cents_lb": 27.05,
+      "price_usd_kg": 0.5963
+    },
+    {
+      "date": "2023-10-11",
+      "price_cents_lb": 26.4,
+      "price_usd_kg": 0.582
+    },
+    {
+      "date": "2023-10-12",
+      "price_cents_lb": 26.35,
+      "price_usd_kg": 0.5809
+    },
+    {
+      "date": "2023-10-13",
+      "price_cents_lb": 27.03,
+      "price_usd_kg": 0.5959
+    },
+    {
+      "date": "2023-10-16",
+      "price_cents_lb": 27.05,
+      "price_usd_kg": 0.5963
+    },
+    {
+      "date": "2023-10-17",
+      "price_cents_lb": 27.49,
+      "price_usd_kg": 0.6061
+    },
+    {
+      "date": "2023-10-18",
+      "price_cents_lb": 27.48,
+      "price_usd_kg": 0.6058
+    },
+    {
+      "date": "2023-10-19",
+      "price_cents_lb": 27.29,
+      "price_usd_kg": 0.6016
+    },
+    {
+      "date": "2023-10-20",
+      "price_cents_lb": 26.85,
+      "price_usd_kg": 0.5919
+    },
+    {
+      "date": "2023-10-23",
+      "price_cents_lb": 27.48,
+      "price_usd_kg": 0.6058
+    },
+    {
+      "date": "2023-10-24",
+      "price_cents_lb": 27.53,
+      "price_usd_kg": 0.6069
+    },
+    {
+      "date": "2023-10-25",
+      "price_cents_lb": 27.63,
+      "price_usd_kg": 0.6091
+    },
+    {
+      "date": "2023-10-26",
+      "price_cents_lb": 27.04,
+      "price_usd_kg": 0.5961
+    },
+    {
+      "date": "2023-10-27",
+      "price_cents_lb": 27.34,
+      "price_usd_kg": 0.6027
+    },
+    {
+      "date": "2023-10-30",
+      "price_cents_lb": 26.75,
+      "price_usd_kg": 0.5897
+    },
+    {
+      "date": "2023-10-31",
+      "price_cents_lb": 27.09,
+      "price_usd_kg": 0.5972
+    },
+    {
+      "date": "2023-11-01",
+      "price_cents_lb": 27.51,
+      "price_usd_kg": 0.6065
+    },
+    {
+      "date": "2023-11-02",
+      "price_cents_lb": 27.48,
+      "price_usd_kg": 0.6058
+    },
+    {
+      "date": "2023-11-03",
+      "price_cents_lb": 27.77,
+      "price_usd_kg": 0.6122
+    },
+    {
+      "date": "2023-11-06",
+      "price_cents_lb": 27.95,
+      "price_usd_kg": 0.6162
+    },
+    {
+      "date": "2023-11-07",
+      "price_cents_lb": 27.59,
+      "price_usd_kg": 0.6083
+    },
+    {
+      "date": "2023-11-08",
+      "price_cents_lb": 27.21,
+      "price_usd_kg": 0.5999
+    },
+    {
+      "date": "2023-11-09",
+      "price_cents_lb": 27.78,
+      "price_usd_kg": 0.6124
+    },
+    {
+      "date": "2023-11-10",
+      "price_cents_lb": 27.29,
+      "price_usd_kg": 0.6016
+    },
+    {
+      "date": "2023-11-13",
+      "price_cents_lb": 27.71,
+      "price_usd_kg": 0.6109
+    },
+    {
+      "date": "2023-11-14",
+      "price_cents_lb": 27.18,
+      "price_usd_kg": 0.5992
+    },
+    {
+      "date": "2023-11-15",
+      "price_cents_lb": 27.15,
+      "price_usd_kg": 0.5986
+    },
+    {
+      "date": "2023-11-16",
+      "price_cents_lb": 27.19,
+      "price_usd_kg": 0.5994
+    },
+    {
+      "date": "2023-11-17",
+      "price_cents_lb": 27.18,
+      "price_usd_kg": 0.5992
+    },
+    {
+      "date": "2023-11-20",
+      "price_cents_lb": 27.56,
+      "price_usd_kg": 0.6076
+    },
+    {
+      "date": "2023-11-21",
+      "price_cents_lb": 27.75,
+      "price_usd_kg": 0.6118
+    },
+    {
+      "date": "2023-11-22",
+      "price_cents_lb": 27.22,
+      "price_usd_kg": 0.6001
+    },
+    {
+      "date": "2023-11-23",
+      "price_cents_lb": 27.22,
+      "price_usd_kg": 0.6001
+    },
+    {
+      "date": "2023-11-24",
+      "price_cents_lb": 26.98,
+      "price_usd_kg": 0.5948
+    },
+    {
+      "date": "2023-11-27",
+      "price_cents_lb": 27.2,
+      "price_usd_kg": 0.5997
+    },
+    {
+      "date": "2023-11-28",
+      "price_cents_lb": 26.99,
+      "price_usd_kg": 0.595
+    },
+    {
+      "date": "2023-11-29",
+      "price_cents_lb": 26.86,
+      "price_usd_kg": 0.5922
+    },
+    {
+      "date": "2023-11-30",
+      "price_cents_lb": 26.04,
+      "price_usd_kg": 0.5741
+    },
+    {
+      "date": "2023-12-01",
+      "price_cents_lb": 25.09,
+      "price_usd_kg": 0.5531
+    },
+    {
+      "date": "2023-12-04",
+      "price_cents_lb": 25.81,
+      "price_usd_kg": 0.569
+    },
+    {
+      "date": "2023-12-05",
+      "price_cents_lb": 24.96,
+      "price_usd_kg": 0.5503
+    },
+    {
+      "date": "2023-12-06",
+      "price_cents_lb": 23.0,
+      "price_usd_kg": 0.5071
+    },
+    {
+      "date": "2023-12-07",
+      "price_cents_lb": 23.03,
+      "price_usd_kg": 0.5077
+    },
+    {
+      "date": "2023-12-08",
+      "price_cents_lb": 23.36,
+      "price_usd_kg": 0.515
+    },
+    {
+      "date": "2023-12-11",
+      "price_cents_lb": 22.47,
+      "price_usd_kg": 0.4954
+    },
+    {
+      "date": "2023-12-12",
+      "price_cents_lb": 22.59,
+      "price_usd_kg": 0.498
+    },
+    {
+      "date": "2023-12-13",
+      "price_cents_lb": 21.97,
+      "price_usd_kg": 0.4844
+    },
+    {
+      "date": "2023-12-14",
+      "price_cents_lb": 22.18,
+      "price_usd_kg": 0.489
+    },
+    {
+      "date": "2023-12-15",
+      "price_cents_lb": 21.99,
+      "price_usd_kg": 0.4848
+    },
+    {
+      "date": "2023-12-18",
+      "price_cents_lb": 21.31,
+      "price_usd_kg": 0.4698
+    },
+    {
+      "date": "2023-12-19",
+      "price_cents_lb": 21.43,
+      "price_usd_kg": 0.4725
+    },
+    {
+      "date": "2023-12-20",
+      "price_cents_lb": 20.92,
+      "price_usd_kg": 0.4612
+    },
+    {
+      "date": "2023-12-21",
+      "price_cents_lb": 20.24,
+      "price_usd_kg": 0.4462
+    },
+    {
+      "date": "2023-12-22",
+      "price_cents_lb": 20.62,
+      "price_usd_kg": 0.4546
+    },
+    {
+      "date": "2023-12-26",
+      "price_cents_lb": 20.53,
+      "price_usd_kg": 0.4526
+    },
+    {
+      "date": "2023-12-27",
+      "price_cents_lb": 20.6,
+      "price_usd_kg": 0.4542
+    },
+    {
+      "date": "2023-12-28",
+      "price_cents_lb": 21.76,
+      "price_usd_kg": 0.4797
+    },
+    {
+      "date": "2023-12-29",
+      "price_cents_lb": 20.58,
+      "price_usd_kg": 0.4537
+    },
+    {
+      "date": "2024-01-02",
+      "price_cents_lb": 20.9,
+      "price_usd_kg": 0.4608
+    },
+    {
+      "date": "2024-01-03",
+      "price_cents_lb": 20.85,
+      "price_usd_kg": 0.4597
+    },
+    {
+      "date": "2024-01-04",
+      "price_cents_lb": 21.08,
+      "price_usd_kg": 0.4647
+    },
+    {
+      "date": "2024-01-05",
+      "price_cents_lb": 21.11,
+      "price_usd_kg": 0.4654
+    },
+    {
+      "date": "2024-01-08",
+      "price_cents_lb": 21.74,
+      "price_usd_kg": 0.4793
+    },
+    {
+      "date": "2024-01-09",
+      "price_cents_lb": 21.7,
+      "price_usd_kg": 0.4784
+    },
+    {
+      "date": "2024-01-10",
+      "price_cents_lb": 21.41,
+      "price_usd_kg": 0.472
+    },
+    {
+      "date": "2024-01-11",
+      "price_cents_lb": 21.76,
+      "price_usd_kg": 0.4797
+    },
+    {
+      "date": "2024-01-12",
+      "price_cents_lb": 21.61,
+      "price_usd_kg": 0.4764
+    },
+    {
+      "date": "2024-01-16",
+      "price_cents_lb": 22.52,
+      "price_usd_kg": 0.4965
+    },
+    {
+      "date": "2024-01-17",
+      "price_cents_lb": 22.35,
+      "price_usd_kg": 0.4927
+    },
+    {
+      "date": "2024-01-18",
+      "price_cents_lb": 23.04,
+      "price_usd_kg": 0.5079
+    },
+    {
+      "date": "2024-01-19",
+      "price_cents_lb": 23.57,
+      "price_usd_kg": 0.5196
+    },
+    {
+      "date": "2024-01-22",
+      "price_cents_lb": 23.5,
+      "price_usd_kg": 0.5181
+    },
+    {
+      "date": "2024-01-23",
+      "price_cents_lb": 23.75,
+      "price_usd_kg": 0.5236
+    },
+    {
+      "date": "2024-01-24",
+      "price_cents_lb": 24.46,
+      "price_usd_kg": 0.5393
+    },
+    {
+      "date": "2024-01-25",
+      "price_cents_lb": 24.04,
+      "price_usd_kg": 0.53
+    },
+    {
+      "date": "2024-01-26",
+      "price_cents_lb": 23.77,
+      "price_usd_kg": 0.524
+    },
+    {
+      "date": "2024-01-29",
+      "price_cents_lb": 23.53,
+      "price_usd_kg": 0.5187
+    },
+    {
+      "date": "2024-01-30",
+      "price_cents_lb": 23.91,
+      "price_usd_kg": 0.5271
+    },
+    {
+      "date": "2024-01-31",
+      "price_cents_lb": 24.13,
+      "price_usd_kg": 0.532
+    },
+    {
+      "date": "2024-02-01",
+      "price_cents_lb": 23.56,
+      "price_usd_kg": 0.5194
+    },
+    {
+      "date": "2024-02-02",
+      "price_cents_lb": 23.89,
+      "price_usd_kg": 0.5267
+    },
+    {
+      "date": "2024-02-05",
+      "price_cents_lb": 23.53,
+      "price_usd_kg": 0.5187
+    },
+    {
+      "date": "2024-02-06",
+      "price_cents_lb": 23.56,
+      "price_usd_kg": 0.5194
+    },
+    {
+      "date": "2024-02-07",
+      "price_cents_lb": 23.88,
+      "price_usd_kg": 0.5265
+    },
+    {
+      "date": "2024-02-08",
+      "price_cents_lb": 23.98,
+      "price_usd_kg": 0.5287
+    },
+    {
+      "date": "2024-02-09",
+      "price_cents_lb": 24.02,
+      "price_usd_kg": 0.5295
+    },
+    {
+      "date": "2024-02-12",
+      "price_cents_lb": 23.56,
+      "price_usd_kg": 0.5194
+    },
+    {
+      "date": "2024-02-13",
+      "price_cents_lb": 23.3,
+      "price_usd_kg": 0.5137
+    },
+    {
+      "date": "2024-02-14",
+      "price_cents_lb": 23.37,
+      "price_usd_kg": 0.5152
+    },
+    {
+      "date": "2024-02-15",
+      "price_cents_lb": 22.82,
+      "price_usd_kg": 0.5031
+    },
+    {
+      "date": "2024-02-16",
+      "price_cents_lb": 23.08,
+      "price_usd_kg": 0.5088
+    },
+    {
+      "date": "2024-02-20",
+      "price_cents_lb": 22.75,
+      "price_usd_kg": 0.5016
+    },
+    {
+      "date": "2024-02-21",
+      "price_cents_lb": 22.77,
+      "price_usd_kg": 0.502
+    },
+    {
+      "date": "2024-02-22",
+      "price_cents_lb": 22.83,
+      "price_usd_kg": 0.5033
+    },
+    {
+      "date": "2024-02-23",
+      "price_cents_lb": 22.62,
+      "price_usd_kg": 0.4987
+    },
+    {
+      "date": "2024-02-26",
+      "price_cents_lb": 23.15,
+      "price_usd_kg": 0.5104
+    },
+    {
+      "date": "2024-02-27",
+      "price_cents_lb": 23.84,
+      "price_usd_kg": 0.5256
+    },
+    {
+      "date": "2024-02-28",
+      "price_cents_lb": 24.01,
+      "price_usd_kg": 0.5293
+    },
+    {
+      "date": "2024-02-29",
+      "price_cents_lb": 22.58,
+      "price_usd_kg": 0.4978
+    },
+    {
+      "date": "2024-03-01",
+      "price_cents_lb": 21.09,
+      "price_usd_kg": 0.465
+    },
+    {
+      "date": "2024-03-04",
+      "price_cents_lb": 20.6,
+      "price_usd_kg": 0.4542
+    },
+    {
+      "date": "2024-03-05",
+      "price_cents_lb": 20.87,
+      "price_usd_kg": 0.4601
+    },
+    {
+      "date": "2024-03-06",
+      "price_cents_lb": 21.45,
+      "price_usd_kg": 0.4729
+    },
+    {
+      "date": "2024-03-07",
+      "price_cents_lb": 21.28,
+      "price_usd_kg": 0.4691
+    },
+    {
+      "date": "2024-03-08",
+      "price_cents_lb": 21.15,
+      "price_usd_kg": 0.4663
+    },
+    {
+      "date": "2024-03-11",
+      "price_cents_lb": 21.95,
+      "price_usd_kg": 0.4839
+    },
+    {
+      "date": "2024-03-12",
+      "price_cents_lb": 21.89,
+      "price_usd_kg": 0.4826
+    },
+    {
+      "date": "2024-03-13",
+      "price_cents_lb": 21.93,
+      "price_usd_kg": 0.4835
+    },
+    {
+      "date": "2024-03-14",
+      "price_cents_lb": 21.77,
+      "price_usd_kg": 0.4799
+    },
+    {
+      "date": "2024-03-15",
+      "price_cents_lb": 22.12,
+      "price_usd_kg": 0.4877
+    },
+    {
+      "date": "2024-03-18",
+      "price_cents_lb": 22.16,
+      "price_usd_kg": 0.4885
+    },
+    {
+      "date": "2024-03-19",
+      "price_cents_lb": 21.64,
+      "price_usd_kg": 0.4771
+    },
+    {
+      "date": "2024-03-20",
+      "price_cents_lb": 21.77,
+      "price_usd_kg": 0.4799
+    },
+    {
+      "date": "2024-03-21",
+      "price_cents_lb": 22.06,
+      "price_usd_kg": 0.4863
+    },
+    {
+      "date": "2024-03-22",
+      "price_cents_lb": 21.85,
+      "price_usd_kg": 0.4817
+    },
+    {
+      "date": "2024-03-25",
+      "price_cents_lb": 21.95,
+      "price_usd_kg": 0.4839
+    },
+    {
+      "date": "2024-03-26",
+      "price_cents_lb": 22.39,
+      "price_usd_kg": 0.4936
+    },
+    {
+      "date": "2024-03-27",
+      "price_cents_lb": 22.19,
+      "price_usd_kg": 0.4892
+    },
+    {
+      "date": "2024-03-28",
+      "price_cents_lb": 22.52,
+      "price_usd_kg": 0.4965
+    },
+    {
+      "date": "2024-04-01",
+      "price_cents_lb": 22.72,
+      "price_usd_kg": 0.5009
+    },
+    {
+      "date": "2024-04-02",
+      "price_cents_lb": 22.32,
+      "price_usd_kg": 0.4921
+    },
+    {
+      "date": "2024-04-03",
+      "price_cents_lb": 22.22,
+      "price_usd_kg": 0.4899
+    },
+    {
+      "date": "2024-04-04",
+      "price_cents_lb": 22.36,
+      "price_usd_kg": 0.493
+    },
+    {
+      "date": "2024-04-05",
+      "price_cents_lb": 21.99,
+      "price_usd_kg": 0.4848
+    },
+    {
+      "date": "2024-04-08",
+      "price_cents_lb": 21.59,
+      "price_usd_kg": 0.476
+    },
+    {
+      "date": "2024-04-09",
+      "price_cents_lb": 21.49,
+      "price_usd_kg": 0.4738
+    },
+    {
+      "date": "2024-04-10",
+      "price_cents_lb": 21.46,
+      "price_usd_kg": 0.4731
+    },
+    {
+      "date": "2024-04-11",
+      "price_cents_lb": 20.85,
+      "price_usd_kg": 0.4597
+    },
+    {
+      "date": "2024-04-12",
+      "price_cents_lb": 20.45,
+      "price_usd_kg": 0.4508
+    },
+    {
+      "date": "2024-04-15",
+      "price_cents_lb": 20.02,
+      "price_usd_kg": 0.4414
+    },
+    {
+      "date": "2024-04-16",
+      "price_cents_lb": 19.63,
+      "price_usd_kg": 0.4328
+    },
+    {
+      "date": "2024-04-17",
+      "price_cents_lb": 19.32,
+      "price_usd_kg": 0.4259
+    },
+    {
+      "date": "2024-04-18",
+      "price_cents_lb": 19.59,
+      "price_usd_kg": 0.4319
+    },
+    {
+      "date": "2024-04-19",
+      "price_cents_lb": 19.73,
+      "price_usd_kg": 0.435
+    },
+    {
+      "date": "2024-04-22",
+      "price_cents_lb": 19.8,
+      "price_usd_kg": 0.4365
+    },
+    {
+      "date": "2024-04-23",
+      "price_cents_lb": 19.91,
+      "price_usd_kg": 0.4389
+    },
+    {
+      "date": "2024-04-24",
+      "price_cents_lb": 20.0,
+      "price_usd_kg": 0.4409
+    },
+    {
+      "date": "2024-04-25",
+      "price_cents_lb": 19.48,
+      "price_usd_kg": 0.4295
+    },
+    {
+      "date": "2024-04-26",
+      "price_cents_lb": 19.4,
+      "price_usd_kg": 0.4277
+    },
+    {
+      "date": "2024-04-29",
+      "price_cents_lb": 20.2,
+      "price_usd_kg": 0.4453
+    },
+    {
+      "date": "2024-04-30",
+      "price_cents_lb": 19.71,
+      "price_usd_kg": 0.4345
+    },
+    {
+      "date": "2024-05-01",
+      "price_cents_lb": 19.22,
+      "price_usd_kg": 0.4237
+    },
+    {
+      "date": "2024-05-02",
+      "price_cents_lb": 19.25,
+      "price_usd_kg": 0.4244
+    },
+    {
+      "date": "2024-05-03",
+      "price_cents_lb": 19.28,
+      "price_usd_kg": 0.4251
+    },
+    {
+      "date": "2024-05-06",
+      "price_cents_lb": 19.48,
+      "price_usd_kg": 0.4295
+    },
+    {
+      "date": "2024-05-07",
+      "price_cents_lb": 19.95,
+      "price_usd_kg": 0.4398
+    },
+    {
+      "date": "2024-05-08",
+      "price_cents_lb": 19.6,
+      "price_usd_kg": 0.4321
+    },
+    {
+      "date": "2024-05-09",
+      "price_cents_lb": 19.58,
+      "price_usd_kg": 0.4317
+    },
+    {
+      "date": "2024-05-10",
+      "price_cents_lb": 19.3,
+      "price_usd_kg": 0.4255
+    },
+    {
+      "date": "2024-05-13",
+      "price_cents_lb": 18.63,
+      "price_usd_kg": 0.4107
+    },
+    {
+      "date": "2024-05-14",
+      "price_cents_lb": 18.87,
+      "price_usd_kg": 0.416
+    },
+    {
+      "date": "2024-05-15",
+      "price_cents_lb": 18.65,
+      "price_usd_kg": 0.4112
+    },
+    {
+      "date": "2024-05-16",
+      "price_cents_lb": 18.33,
+      "price_usd_kg": 0.4041
+    },
+    {
+      "date": "2024-05-17",
+      "price_cents_lb": 18.13,
+      "price_usd_kg": 0.3997
+    },
+    {
+      "date": "2024-05-20",
+      "price_cents_lb": 18.68,
+      "price_usd_kg": 0.4118
+    },
+    {
+      "date": "2024-05-21",
+      "price_cents_lb": 18.56,
+      "price_usd_kg": 0.4092
+    },
+    {
+      "date": "2024-05-22",
+      "price_cents_lb": 18.23,
+      "price_usd_kg": 0.4019
+    },
+    {
+      "date": "2024-05-23",
+      "price_cents_lb": 18.26,
+      "price_usd_kg": 0.4026
+    },
+    {
+      "date": "2024-05-24",
+      "price_cents_lb": 18.41,
+      "price_usd_kg": 0.4059
+    },
+    {
+      "date": "2024-05-28",
+      "price_cents_lb": 18.73,
+      "price_usd_kg": 0.4129
+    },
+    {
+      "date": "2024-05-29",
+      "price_cents_lb": 18.35,
+      "price_usd_kg": 0.4045
+    },
+    {
+      "date": "2024-05-30",
+      "price_cents_lb": 18.19,
+      "price_usd_kg": 0.401
+    },
+    {
+      "date": "2024-05-31",
+      "price_cents_lb": 18.3,
+      "price_usd_kg": 0.4034
+    },
+    {
+      "date": "2024-06-03",
+      "price_cents_lb": 18.78,
+      "price_usd_kg": 0.414
+    },
+    {
+      "date": "2024-06-04",
+      "price_cents_lb": 18.86,
+      "price_usd_kg": 0.4158
+    },
+    {
+      "date": "2024-06-05",
+      "price_cents_lb": 19.13,
+      "price_usd_kg": 0.4217
+    },
+    {
+      "date": "2024-06-06",
+      "price_cents_lb": 19.22,
+      "price_usd_kg": 0.4237
+    },
+    {
+      "date": "2024-06-07",
+      "price_cents_lb": 19.0,
+      "price_usd_kg": 0.4189
+    },
+    {
+      "date": "2024-06-10",
+      "price_cents_lb": 18.63,
+      "price_usd_kg": 0.4107
+    },
+    {
+      "date": "2024-06-11",
+      "price_cents_lb": 18.79,
+      "price_usd_kg": 0.4142
+    },
+    {
+      "date": "2024-06-12",
+      "price_cents_lb": 19.1,
+      "price_usd_kg": 0.4211
+    },
+    {
+      "date": "2024-06-13",
+      "price_cents_lb": 19.59,
+      "price_usd_kg": 0.4319
+    },
+    {
+      "date": "2024-06-14",
+      "price_cents_lb": 19.43,
+      "price_usd_kg": 0.4284
+    },
+    {
+      "date": "2024-06-17",
+      "price_cents_lb": 18.98,
+      "price_usd_kg": 0.4184
+    },
+    {
+      "date": "2024-06-18",
+      "price_cents_lb": 18.92,
+      "price_usd_kg": 0.4171
+    },
+    {
+      "date": "2024-06-20",
+      "price_cents_lb": 18.89,
+      "price_usd_kg": 0.4165
+    },
+    {
+      "date": "2024-06-21",
+      "price_cents_lb": 18.97,
+      "price_usd_kg": 0.4182
+    },
+    {
+      "date": "2024-06-24",
+      "price_cents_lb": 19.41,
+      "price_usd_kg": 0.4279
+    },
+    {
+      "date": "2024-06-25",
+      "price_cents_lb": 19.1,
+      "price_usd_kg": 0.4211
+    },
+    {
+      "date": "2024-06-26",
+      "price_cents_lb": 19.24,
+      "price_usd_kg": 0.4242
+    },
+    {
+      "date": "2024-06-27",
+      "price_cents_lb": 20.12,
+      "price_usd_kg": 0.4436
+    },
+    {
+      "date": "2024-06-28",
+      "price_cents_lb": 20.31,
+      "price_usd_kg": 0.4478
+    },
+    {
+      "date": "2024-07-01",
+      "price_cents_lb": 20.23,
+      "price_usd_kg": 0.446
+    },
+    {
+      "date": "2024-07-02",
+      "price_cents_lb": 20.61,
+      "price_usd_kg": 0.4544
+    },
+    {
+      "date": "2024-07-03",
+      "price_cents_lb": 20.53,
+      "price_usd_kg": 0.4526
+    },
+    {
+      "date": "2024-07-05",
+      "price_cents_lb": 20.14,
+      "price_usd_kg": 0.444
+    },
+    {
+      "date": "2024-07-08",
+      "price_cents_lb": 20.13,
+      "price_usd_kg": 0.4438
+    },
+    {
+      "date": "2024-07-09",
+      "price_cents_lb": 19.62,
+      "price_usd_kg": 0.4325
+    },
+    {
+      "date": "2024-07-10",
+      "price_cents_lb": 19.81,
+      "price_usd_kg": 0.4367
+    },
+    {
+      "date": "2024-07-11",
+      "price_cents_lb": 19.43,
+      "price_usd_kg": 0.4284
+    },
+    {
+      "date": "2024-07-12",
+      "price_cents_lb": 19.2,
+      "price_usd_kg": 0.4233
+    },
+    {
+      "date": "2024-07-15",
+      "price_cents_lb": 19.76,
+      "price_usd_kg": 0.4356
+    },
+    {
+      "date": "2024-07-16",
+      "price_cents_lb": 19.62,
+      "price_usd_kg": 0.4325
+    },
+    {
+      "date": "2024-07-17",
+      "price_cents_lb": 19.36,
+      "price_usd_kg": 0.4268
+    },
+    {
+      "date": "2024-07-18",
+      "price_cents_lb": 18.94,
+      "price_usd_kg": 0.4176
+    },
+    {
+      "date": "2024-07-19",
+      "price_cents_lb": 18.66,
+      "price_usd_kg": 0.4114
+    },
+    {
+      "date": "2024-07-22",
+      "price_cents_lb": 18.3,
+      "price_usd_kg": 0.4034
+    },
+    {
+      "date": "2024-07-23",
+      "price_cents_lb": 18.16,
+      "price_usd_kg": 0.4004
+    },
+    {
+      "date": "2024-07-24",
+      "price_cents_lb": 17.91,
+      "price_usd_kg": 0.3948
+    },
+    {
+      "date": "2024-07-25",
+      "price_cents_lb": 18.66,
+      "price_usd_kg": 0.4114
+    },
+    {
+      "date": "2024-07-26",
+      "price_cents_lb": 18.42,
+      "price_usd_kg": 0.4061
+    },
+    {
+      "date": "2024-07-29",
+      "price_cents_lb": 19.01,
+      "price_usd_kg": 0.4191
+    },
+    {
+      "date": "2024-07-30",
+      "price_cents_lb": 19.12,
+      "price_usd_kg": 0.4215
+    },
+    {
+      "date": "2024-07-31",
+      "price_cents_lb": 18.94,
+      "price_usd_kg": 0.4176
+    },
+    {
+      "date": "2024-08-01",
+      "price_cents_lb": 18.5,
+      "price_usd_kg": 0.4079
+    },
+    {
+      "date": "2024-08-02",
+      "price_cents_lb": 18.1,
+      "price_usd_kg": 0.399
+    },
+    {
+      "date": "2024-08-05",
+      "price_cents_lb": 18.08,
+      "price_usd_kg": 0.3986
+    },
+    {
+      "date": "2024-08-06",
+      "price_cents_lb": 17.87,
+      "price_usd_kg": 0.394
+    },
+    {
+      "date": "2024-08-07",
+      "price_cents_lb": 18.14,
+      "price_usd_kg": 0.3999
+    },
+    {
+      "date": "2024-08-08",
+      "price_cents_lb": 18.57,
+      "price_usd_kg": 0.4094
+    },
+    {
+      "date": "2024-08-09",
+      "price_cents_lb": 18.48,
+      "price_usd_kg": 0.4074
+    },
+    {
+      "date": "2024-08-12",
+      "price_cents_lb": 18.29,
+      "price_usd_kg": 0.4032
+    },
+    {
+      "date": "2024-08-13",
+      "price_cents_lb": 18.39,
+      "price_usd_kg": 0.4054
+    },
+    {
+      "date": "2024-08-14",
+      "price_cents_lb": 17.97,
+      "price_usd_kg": 0.3962
+    },
+    {
+      "date": "2024-08-15",
+      "price_cents_lb": 17.88,
+      "price_usd_kg": 0.3942
+    },
+    {
+      "date": "2024-08-16",
+      "price_cents_lb": 18.03,
+      "price_usd_kg": 0.3975
+    },
+    {
+      "date": "2024-08-19",
+      "price_cents_lb": 18.02,
+      "price_usd_kg": 0.3973
+    },
+    {
+      "date": "2024-08-20",
+      "price_cents_lb": 17.57,
+      "price_usd_kg": 0.3874
+    },
+    {
+      "date": "2024-08-21",
+      "price_cents_lb": 17.65,
+      "price_usd_kg": 0.3891
+    },
+    {
+      "date": "2024-08-22",
+      "price_cents_lb": 17.85,
+      "price_usd_kg": 0.3935
+    },
+    {
+      "date": "2024-08-23",
+      "price_cents_lb": 18.39,
+      "price_usd_kg": 0.4054
+    },
+    {
+      "date": "2024-08-26",
+      "price_cents_lb": 19.04,
+      "price_usd_kg": 0.4198
+    },
+    {
+      "date": "2024-08-27",
+      "price_cents_lb": 19.6,
+      "price_usd_kg": 0.4321
+    },
+    {
+      "date": "2024-08-28",
+      "price_cents_lb": 19.54,
+      "price_usd_kg": 0.4308
+    },
+    {
+      "date": "2024-08-29",
+      "price_cents_lb": 19.89,
+      "price_usd_kg": 0.4385
+    },
+    {
+      "date": "2024-08-30",
+      "price_cents_lb": 19.38,
+      "price_usd_kg": 0.4273
+    },
+    {
+      "date": "2024-09-03",
+      "price_cents_lb": 19.49,
+      "price_usd_kg": 0.4297
+    },
+    {
+      "date": "2024-09-04",
+      "price_cents_lb": 19.24,
+      "price_usd_kg": 0.4242
+    },
+    {
+      "date": "2024-09-05",
+      "price_cents_lb": 19.22,
+      "price_usd_kg": 0.4237
+    },
+    {
+      "date": "2024-09-06",
+      "price_cents_lb": 18.91,
+      "price_usd_kg": 0.4169
+    },
+    {
+      "date": "2024-09-09",
+      "price_cents_lb": 18.83,
+      "price_usd_kg": 0.4151
+    },
+    {
+      "date": "2024-09-10",
+      "price_cents_lb": 18.47,
+      "price_usd_kg": 0.4072
+    },
+    {
+      "date": "2024-09-11",
+      "price_cents_lb": 18.73,
+      "price_usd_kg": 0.4129
+    },
+    {
+      "date": "2024-09-12",
+      "price_cents_lb": 19.07,
+      "price_usd_kg": 0.4204
+    },
+    {
+      "date": "2024-09-13",
+      "price_cents_lb": 19.01,
+      "price_usd_kg": 0.4191
+    },
+    {
+      "date": "2024-09-16",
+      "price_cents_lb": 19.18,
+      "price_usd_kg": 0.4228
+    },
+    {
+      "date": "2024-09-17",
+      "price_cents_lb": 19.98,
+      "price_usd_kg": 0.4405
+    },
+    {
+      "date": "2024-09-18",
+      "price_cents_lb": 21.16,
+      "price_usd_kg": 0.4665
+    },
+    {
+      "date": "2024-09-19",
+      "price_cents_lb": 21.93,
+      "price_usd_kg": 0.4835
+    },
+    {
+      "date": "2024-09-20",
+      "price_cents_lb": 22.66,
+      "price_usd_kg": 0.4996
+    },
+    {
+      "date": "2024-09-23",
+      "price_cents_lb": 22.55,
+      "price_usd_kg": 0.4971
+    },
+    {
+      "date": "2024-09-24",
+      "price_cents_lb": 23.12,
+      "price_usd_kg": 0.5097
+    },
+    {
+      "date": "2024-09-25",
+      "price_cents_lb": 23.42,
+      "price_usd_kg": 0.5163
+    },
+    {
+      "date": "2024-09-26",
+      "price_cents_lb": 23.31,
+      "price_usd_kg": 0.5139
+    },
+    {
+      "date": "2024-09-27",
+      "price_cents_lb": 22.79,
+      "price_usd_kg": 0.5024
+    },
+    {
+      "date": "2024-09-30",
+      "price_cents_lb": 22.67,
+      "price_usd_kg": 0.4998
+    },
+    {
+      "date": "2024-10-01",
+      "price_cents_lb": 22.97,
+      "price_usd_kg": 0.5064
+    },
+    {
+      "date": "2024-10-02",
+      "price_cents_lb": 22.68,
+      "price_usd_kg": 0.5
+    },
+    {
+      "date": "2024-10-03",
+      "price_cents_lb": 23.24,
+      "price_usd_kg": 0.5124
+    },
+    {
+      "date": "2024-10-04",
+      "price_cents_lb": 23.01,
+      "price_usd_kg": 0.5073
+    },
+    {
+      "date": "2024-10-07",
+      "price_cents_lb": 22.55,
+      "price_usd_kg": 0.4971
+    },
+    {
+      "date": "2024-10-08",
+      "price_cents_lb": 22.49,
+      "price_usd_kg": 0.4958
+    },
+    {
+      "date": "2024-10-09",
+      "price_cents_lb": 22.04,
+      "price_usd_kg": 0.4859
+    },
+    {
+      "date": "2024-10-10",
+      "price_cents_lb": 22.16,
+      "price_usd_kg": 0.4885
+    },
+    {
+      "date": "2024-10-11",
+      "price_cents_lb": 22.24,
+      "price_usd_kg": 0.4903
+    },
+    {
+      "date": "2024-10-14",
+      "price_cents_lb": 22.39,
+      "price_usd_kg": 0.4936
+    },
+    {
+      "date": "2024-10-15",
+      "price_cents_lb": 22.82,
+      "price_usd_kg": 0.5031
+    },
+    {
+      "date": "2024-10-16",
+      "price_cents_lb": 22.0,
+      "price_usd_kg": 0.485
+    },
+    {
+      "date": "2024-10-17",
+      "price_cents_lb": 22.16,
+      "price_usd_kg": 0.4885
+    },
+    {
+      "date": "2024-10-18",
+      "price_cents_lb": 22.18,
+      "price_usd_kg": 0.489
+    },
+    {
+      "date": "2024-10-21",
+      "price_cents_lb": 21.83,
+      "price_usd_kg": 0.4813
+    },
+    {
+      "date": "2024-10-22",
+      "price_cents_lb": 21.73,
+      "price_usd_kg": 0.4791
+    },
+    {
+      "date": "2024-10-23",
+      "price_cents_lb": 22.34,
+      "price_usd_kg": 0.4925
+    },
+    {
+      "date": "2024-10-24",
+      "price_cents_lb": 22.2,
+      "price_usd_kg": 0.4894
+    },
+    {
+      "date": "2024-10-25",
+      "price_cents_lb": 22.14,
+      "price_usd_kg": 0.4881
+    },
+    {
+      "date": "2024-10-28",
+      "price_cents_lb": 21.96,
+      "price_usd_kg": 0.4841
+    },
+    {
+      "date": "2024-10-29",
+      "price_cents_lb": 22.08,
+      "price_usd_kg": 0.4868
+    },
+    {
+      "date": "2024-10-30",
+      "price_cents_lb": 22.22,
+      "price_usd_kg": 0.4899
+    },
+    {
+      "date": "2024-10-31",
+      "price_cents_lb": 22.74,
+      "price_usd_kg": 0.5013
+    },
+    {
+      "date": "2024-11-01",
+      "price_cents_lb": 22.07,
+      "price_usd_kg": 0.4866
+    },
+    {
+      "date": "2024-11-04",
+      "price_cents_lb": 21.93,
+      "price_usd_kg": 0.4835
+    },
+    {
+      "date": "2024-11-05",
+      "price_cents_lb": 21.9,
+      "price_usd_kg": 0.4828
+    },
+    {
+      "date": "2024-11-06",
+      "price_cents_lb": 22.03,
+      "price_usd_kg": 0.4857
+    },
+    {
+      "date": "2024-11-07",
+      "price_cents_lb": 22.2,
+      "price_usd_kg": 0.4894
+    },
+    {
+      "date": "2024-11-08",
+      "price_cents_lb": 21.82,
+      "price_usd_kg": 0.481
+    },
+    {
+      "date": "2024-11-11",
+      "price_cents_lb": 21.36,
+      "price_usd_kg": 0.4709
+    },
+    {
+      "date": "2024-11-12",
+      "price_cents_lb": 21.35,
+      "price_usd_kg": 0.4707
+    },
+    {
+      "date": "2024-11-13",
+      "price_cents_lb": 21.17,
+      "price_usd_kg": 0.4667
+    },
+    {
+      "date": "2024-11-14",
+      "price_cents_lb": 21.56,
+      "price_usd_kg": 0.4753
+    },
+    {
+      "date": "2024-11-15",
+      "price_cents_lb": 21.58,
+      "price_usd_kg": 0.4758
+    },
+    {
+      "date": "2024-11-18",
+      "price_cents_lb": 22.2,
+      "price_usd_kg": 0.4894
+    },
+    {
+      "date": "2024-11-19",
+      "price_cents_lb": 22.02,
+      "price_usd_kg": 0.4855
+    },
+    {
+      "date": "2024-11-20",
+      "price_cents_lb": 21.65,
+      "price_usd_kg": 0.4773
+    },
+    {
+      "date": "2024-11-21",
+      "price_cents_lb": 21.38,
+      "price_usd_kg": 0.4713
+    },
+    {
+      "date": "2024-11-22",
+      "price_cents_lb": 21.36,
+      "price_usd_kg": 0.4709
+    },
+    {
+      "date": "2024-11-25",
+      "price_cents_lb": 21.15,
+      "price_usd_kg": 0.4663
+    },
+    {
+      "date": "2024-11-26",
+      "price_cents_lb": 21.57,
+      "price_usd_kg": 0.4755
+    },
+    {
+      "date": "2024-11-27",
+      "price_cents_lb": 21.69,
+      "price_usd_kg": 0.4782
+    },
+    {
+      "date": "2024-11-29",
+      "price_cents_lb": 21.08,
+      "price_usd_kg": 0.4647
+    },
+    {
+      "date": "2024-12-02",
+      "price_cents_lb": 21.07,
+      "price_usd_kg": 0.4645
+    },
+    {
+      "date": "2024-12-03",
+      "price_cents_lb": 21.37,
+      "price_usd_kg": 0.4711
+    },
+    {
+      "date": "2024-12-04",
+      "price_cents_lb": 21.26,
+      "price_usd_kg": 0.4687
+    },
+    {
+      "date": "2024-12-05",
+      "price_cents_lb": 21.2,
+      "price_usd_kg": 0.4674
+    },
+    {
+      "date": "2024-12-06",
+      "price_cents_lb": 21.81,
+      "price_usd_kg": 0.4808
+    },
+    {
+      "date": "2024-12-09",
+      "price_cents_lb": 21.5,
+      "price_usd_kg": 0.474
+    },
+    {
+      "date": "2024-12-10",
+      "price_cents_lb": 21.04,
+      "price_usd_kg": 0.4639
+    },
+    {
+      "date": "2024-12-11",
+      "price_cents_lb": 21.28,
+      "price_usd_kg": 0.4691
+    },
+    {
+      "date": "2024-12-12",
+      "price_cents_lb": 20.89,
+      "price_usd_kg": 0.4605
+    },
+    {
+      "date": "2024-12-13",
+      "price_cents_lb": 20.72,
+      "price_usd_kg": 0.4568
+    },
+    {
+      "date": "2024-12-16",
+      "price_cents_lb": 20.68,
+      "price_usd_kg": 0.4559
+    },
+    {
+      "date": "2024-12-17",
+      "price_cents_lb": 19.84,
+      "price_usd_kg": 0.4374
+    },
+    {
+      "date": "2024-12-18",
+      "price_cents_lb": 19.65,
+      "price_usd_kg": 0.4332
+    },
+    {
+      "date": "2024-12-19",
+      "price_cents_lb": 19.4,
+      "price_usd_kg": 0.4277
+    },
+    {
+      "date": "2024-12-20",
+      "price_cents_lb": 19.51,
+      "price_usd_kg": 0.4301
+    },
+    {
+      "date": "2024-12-23",
+      "price_cents_lb": 19.54,
+      "price_usd_kg": 0.4308
+    },
+    {
+      "date": "2024-12-24",
+      "price_cents_lb": 19.54,
+      "price_usd_kg": 0.4308
+    },
+    {
+      "date": "2024-12-26",
+      "price_cents_lb": 19.26,
+      "price_usd_kg": 0.4246
+    },
+    {
+      "date": "2024-12-27",
+      "price_cents_lb": 19.37,
+      "price_usd_kg": 0.427
+    },
+    {
+      "date": "2024-12-30",
+      "price_cents_lb": 19.13,
+      "price_usd_kg": 0.4217
+    },
+    {
+      "date": "2024-12-31",
+      "price_cents_lb": 19.26,
+      "price_usd_kg": 0.4246
+    },
+    {
+      "date": "2025-01-02",
+      "price_cents_lb": 19.73,
+      "price_usd_kg": 0.435
+    },
+    {
+      "date": "2025-01-03",
+      "price_cents_lb": 19.65,
+      "price_usd_kg": 0.4332
+    },
+    {
+      "date": "2025-01-06",
+      "price_cents_lb": 19.33,
+      "price_usd_kg": 0.4262
+    },
+    {
+      "date": "2025-01-07",
+      "price_cents_lb": 19.45,
+      "price_usd_kg": 0.4288
+    },
+    {
+      "date": "2025-01-08",
+      "price_cents_lb": 19.24,
+      "price_usd_kg": 0.4242
+    },
+    {
+      "date": "2025-01-09",
+      "price_cents_lb": 19.1,
+      "price_usd_kg": 0.4211
+    },
+    {
+      "date": "2025-01-10",
+      "price_cents_lb": 19.22,
+      "price_usd_kg": 0.4237
+    },
+    {
+      "date": "2025-01-13",
+      "price_cents_lb": 18.9,
+      "price_usd_kg": 0.4167
+    },
+    {
+      "date": "2025-01-14",
+      "price_cents_lb": 18.32,
+      "price_usd_kg": 0.4039
+    },
+    {
+      "date": "2025-01-15",
+      "price_cents_lb": 18.01,
+      "price_usd_kg": 0.3971
+    },
+    {
+      "date": "2025-01-16",
+      "price_cents_lb": 18.41,
+      "price_usd_kg": 0.4059
+    },
+    {
+      "date": "2025-01-17",
+      "price_cents_lb": 18.22,
+      "price_usd_kg": 0.4017
+    },
+    {
+      "date": "2025-01-21",
+      "price_cents_lb": 17.79,
+      "price_usd_kg": 0.3922
+    },
+    {
+      "date": "2025-01-22",
+      "price_cents_lb": 18.16,
+      "price_usd_kg": 0.4004
+    },
+    {
+      "date": "2025-01-23",
+      "price_cents_lb": 18.69,
+      "price_usd_kg": 0.412
+    },
+    {
+      "date": "2025-01-24",
+      "price_cents_lb": 19.02,
+      "price_usd_kg": 0.4193
+    },
+    {
+      "date": "2025-01-27",
+      "price_cents_lb": 19.17,
+      "price_usd_kg": 0.4226
+    },
+    {
+      "date": "2025-01-28",
+      "price_cents_lb": 19.23,
+      "price_usd_kg": 0.4239
+    },
+    {
+      "date": "2025-01-29",
+      "price_cents_lb": 19.45,
+      "price_usd_kg": 0.4288
+    },
+    {
+      "date": "2025-01-30",
+      "price_cents_lb": 19.47,
+      "price_usd_kg": 0.4292
+    },
+    {
+      "date": "2025-01-31",
+      "price_cents_lb": 19.35,
+      "price_usd_kg": 0.4266
+    },
+    {
+      "date": "2025-02-03",
+      "price_cents_lb": 19.26,
+      "price_usd_kg": 0.4246
+    },
+    {
+      "date": "2025-02-04",
+      "price_cents_lb": 19.66,
+      "price_usd_kg": 0.4334
+    },
+    {
+      "date": "2025-02-05",
+      "price_cents_lb": 19.76,
+      "price_usd_kg": 0.4356
+    },
+    {
+      "date": "2025-02-06",
+      "price_cents_lb": 19.57,
+      "price_usd_kg": 0.4314
+    },
+    {
+      "date": "2025-02-07",
+      "price_cents_lb": 19.36,
+      "price_usd_kg": 0.4268
+    },
+    {
+      "date": "2025-02-10",
+      "price_cents_lb": 19.5,
+      "price_usd_kg": 0.4299
+    },
+    {
+      "date": "2025-02-11",
+      "price_cents_lb": 19.87,
+      "price_usd_kg": 0.4381
+    },
+    {
+      "date": "2025-02-12",
+      "price_cents_lb": 19.76,
+      "price_usd_kg": 0.4356
+    },
+    {
+      "date": "2025-02-13",
+      "price_cents_lb": 20.17,
+      "price_usd_kg": 0.4447
+    },
+    {
+      "date": "2025-02-14",
+      "price_cents_lb": 20.42,
+      "price_usd_kg": 0.4502
+    },
+    {
+      "date": "2025-02-18",
+      "price_cents_lb": 20.52,
+      "price_usd_kg": 0.4524
+    },
+    {
+      "date": "2025-02-19",
+      "price_cents_lb": 20.69,
+      "price_usd_kg": 0.4561
+    },
+    {
+      "date": "2025-02-20",
+      "price_cents_lb": 21.05,
+      "price_usd_kg": 0.4641
+    },
+    {
+      "date": "2025-02-21",
+      "price_cents_lb": 21.31,
+      "price_usd_kg": 0.4698
+    },
+    {
+      "date": "2025-02-24",
+      "price_cents_lb": 21.09,
+      "price_usd_kg": 0.465
+    },
+    {
+      "date": "2025-02-25",
+      "price_cents_lb": 21.46,
+      "price_usd_kg": 0.4731
+    },
+    {
+      "date": "2025-02-26",
+      "price_cents_lb": 20.64,
+      "price_usd_kg": 0.455
+    },
+    {
+      "date": "2025-02-27",
+      "price_cents_lb": 19.69,
+      "price_usd_kg": 0.4341
+    },
+    {
+      "date": "2025-02-28",
+      "price_cents_lb": 19.51,
+      "price_usd_kg": 0.4301
+    },
+    {
+      "date": "2025-03-03",
+      "price_cents_lb": 18.22,
+      "price_usd_kg": 0.4017
+    },
+    {
+      "date": "2025-03-04",
+      "price_cents_lb": 18.1,
+      "price_usd_kg": 0.399
+    },
+    {
+      "date": "2025-03-05",
+      "price_cents_lb": 18.2,
+      "price_usd_kg": 0.4012
+    },
+    {
+      "date": "2025-03-06",
+      "price_cents_lb": 18.13,
+      "price_usd_kg": 0.3997
+    },
+    {
+      "date": "2025-03-07",
+      "price_cents_lb": 18.31,
+      "price_usd_kg": 0.4037
+    },
+    {
+      "date": "2025-03-10",
+      "price_cents_lb": 18.85,
+      "price_usd_kg": 0.4156
+    },
+    {
+      "date": "2025-03-11",
+      "price_cents_lb": 18.67,
+      "price_usd_kg": 0.4116
+    },
+    {
+      "date": "2025-03-12",
+      "price_cents_lb": 18.86,
+      "price_usd_kg": 0.4158
+    },
+    {
+      "date": "2025-03-13",
+      "price_cents_lb": 19.25,
+      "price_usd_kg": 0.4244
+    },
+    {
+      "date": "2025-03-14",
+      "price_cents_lb": 19.19,
+      "price_usd_kg": 0.4231
+    },
+    {
+      "date": "2025-03-17",
+      "price_cents_lb": 19.97,
+      "price_usd_kg": 0.4403
+    },
+    {
+      "date": "2025-03-18",
+      "price_cents_lb": 19.99,
+      "price_usd_kg": 0.4407
+    },
+    {
+      "date": "2025-03-19",
+      "price_cents_lb": 19.69,
+      "price_usd_kg": 0.4341
+    },
+    {
+      "date": "2025-03-20",
+      "price_cents_lb": 20.0,
+      "price_usd_kg": 0.4409
+    },
+    {
+      "date": "2025-03-21",
+      "price_cents_lb": 19.72,
+      "price_usd_kg": 0.4348
+    },
+    {
+      "date": "2025-03-24",
+      "price_cents_lb": 19.26,
+      "price_usd_kg": 0.4246
+    },
+    {
+      "date": "2025-03-25",
+      "price_cents_lb": 19.51,
+      "price_usd_kg": 0.4301
+    },
+    {
+      "date": "2025-03-26",
+      "price_cents_lb": 19.35,
+      "price_usd_kg": 0.4266
+    },
+    {
+      "date": "2025-03-27",
+      "price_cents_lb": 19.09,
+      "price_usd_kg": 0.4209
+    },
+    {
+      "date": "2025-03-28",
+      "price_cents_lb": 18.96,
+      "price_usd_kg": 0.418
+    },
+    {
+      "date": "2025-03-31",
+      "price_cents_lb": 18.86,
+      "price_usd_kg": 0.4158
+    },
+    {
+      "date": "2025-04-01",
+      "price_cents_lb": 19.35,
+      "price_usd_kg": 0.4266
+    },
+    {
+      "date": "2025-04-02",
+      "price_cents_lb": 19.59,
+      "price_usd_kg": 0.4319
+    },
+    {
+      "date": "2025-04-03",
+      "price_cents_lb": 19.11,
+      "price_usd_kg": 0.4213
+    },
+    {
+      "date": "2025-04-04",
+      "price_cents_lb": 18.84,
+      "price_usd_kg": 0.4154
+    },
+    {
+      "date": "2025-04-07",
+      "price_cents_lb": 18.68,
+      "price_usd_kg": 0.4118
+    },
+    {
+      "date": "2025-04-08",
+      "price_cents_lb": 18.31,
+      "price_usd_kg": 0.4037
+    },
+    {
+      "date": "2025-04-09",
+      "price_cents_lb": 17.91,
+      "price_usd_kg": 0.3948
+    },
+    {
+      "date": "2025-04-10",
+      "price_cents_lb": 18.12,
+      "price_usd_kg": 0.3995
+    },
+    {
+      "date": "2025-04-11",
+      "price_cents_lb": 18.0,
+      "price_usd_kg": 0.3968
+    },
+    {
+      "date": "2025-04-14",
+      "price_cents_lb": 17.87,
+      "price_usd_kg": 0.394
+    },
+    {
+      "date": "2025-04-15",
+      "price_cents_lb": 17.52,
+      "price_usd_kg": 0.3862
+    },
+    {
+      "date": "2025-04-16",
+      "price_cents_lb": 17.86,
+      "price_usd_kg": 0.3937
+    },
+    {
+      "date": "2025-04-17",
+      "price_cents_lb": 17.93,
+      "price_usd_kg": 0.3953
+    },
+    {
+      "date": "2025-04-21",
+      "price_cents_lb": 17.81,
+      "price_usd_kg": 0.3926
+    },
+    {
+      "date": "2025-04-22",
+      "price_cents_lb": 17.99,
+      "price_usd_kg": 0.3966
+    },
+    {
+      "date": "2025-04-23",
+      "price_cents_lb": 17.94,
+      "price_usd_kg": 0.3955
+    },
+    {
+      "date": "2025-04-24",
+      "price_cents_lb": 17.92,
+      "price_usd_kg": 0.3951
+    },
+    {
+      "date": "2025-04-25",
+      "price_cents_lb": 18.18,
+      "price_usd_kg": 0.4008
+    },
+    {
+      "date": "2025-04-28",
+      "price_cents_lb": 17.84,
+      "price_usd_kg": 0.3933
+    },
+    {
+      "date": "2025-04-29",
+      "price_cents_lb": 17.62,
+      "price_usd_kg": 0.3885
+    },
+    {
+      "date": "2025-04-30",
+      "price_cents_lb": 17.46,
+      "price_usd_kg": 0.3849
+    },
+    {
+      "date": "2025-05-01",
+      "price_cents_lb": 17.16,
+      "price_usd_kg": 0.3783
+    },
+    {
+      "date": "2025-05-02",
+      "price_cents_lb": 17.2,
+      "price_usd_kg": 0.3792
+    },
+    {
+      "date": "2025-05-05",
+      "price_cents_lb": 17.47,
+      "price_usd_kg": 0.3851
+    },
+    {
+      "date": "2025-05-06",
+      "price_cents_lb": 17.44,
+      "price_usd_kg": 0.3845
+    },
+    {
+      "date": "2025-05-07",
+      "price_cents_lb": 17.13,
+      "price_usd_kg": 0.3777
+    },
+    {
+      "date": "2025-05-08",
+      "price_cents_lb": 17.5,
+      "price_usd_kg": 0.3858
+    },
+    {
+      "date": "2025-05-09",
+      "price_cents_lb": 17.78,
+      "price_usd_kg": 0.392
+    },
+    {
+      "date": "2025-05-12",
+      "price_cents_lb": 17.7,
+      "price_usd_kg": 0.3902
+    },
+    {
+      "date": "2025-05-13",
+      "price_cents_lb": 18.22,
+      "price_usd_kg": 0.4017
+    },
+    {
+      "date": "2025-05-14",
+      "price_cents_lb": 18.06,
+      "price_usd_kg": 0.3982
+    },
+    {
+      "date": "2025-05-15",
+      "price_cents_lb": 17.67,
+      "price_usd_kg": 0.3896
+    },
+    {
+      "date": "2025-05-16",
+      "price_cents_lb": 17.52,
+      "price_usd_kg": 0.3862
+    },
+    {
+      "date": "2025-05-19",
+      "price_cents_lb": 17.45,
+      "price_usd_kg": 0.3847
+    },
+    {
+      "date": "2025-05-20",
+      "price_cents_lb": 17.34,
+      "price_usd_kg": 0.3823
+    },
+    {
+      "date": "2025-05-21",
+      "price_cents_lb": 17.7,
+      "price_usd_kg": 0.3902
+    },
+    {
+      "date": "2025-05-22",
+      "price_cents_lb": 17.4,
+      "price_usd_kg": 0.3836
+    },
+    {
+      "date": "2025-05-23",
+      "price_cents_lb": 17.29,
+      "price_usd_kg": 0.3812
+    },
+    {
+      "date": "2025-05-27",
+      "price_cents_lb": 17.22,
+      "price_usd_kg": 0.3796
+    },
+    {
+      "date": "2025-05-28",
+      "price_cents_lb": 16.9,
+      "price_usd_kg": 0.3726
+    },
+    {
+      "date": "2025-05-29",
+      "price_cents_lb": 17.0,
+      "price_usd_kg": 0.3748
+    },
+    {
+      "date": "2025-05-30",
+      "price_cents_lb": 17.05,
+      "price_usd_kg": 0.3759
+    },
+    {
+      "date": "2025-06-02",
+      "price_cents_lb": 16.88,
+      "price_usd_kg": 0.3721
+    },
+    {
+      "date": "2025-06-03",
+      "price_cents_lb": 16.9,
+      "price_usd_kg": 0.3726
+    },
+    {
+      "date": "2025-06-04",
+      "price_cents_lb": 16.75,
+      "price_usd_kg": 0.3693
+    },
+    {
+      "date": "2025-06-05",
+      "price_cents_lb": 16.57,
+      "price_usd_kg": 0.3653
+    },
+    {
+      "date": "2025-06-06",
+      "price_cents_lb": 16.49,
+      "price_usd_kg": 0.3635
+    },
+    {
+      "date": "2025-06-09",
+      "price_cents_lb": 16.67,
+      "price_usd_kg": 0.3675
+    },
+    {
+      "date": "2025-06-10",
+      "price_cents_lb": 16.48,
+      "price_usd_kg": 0.3633
+    },
+    {
+      "date": "2025-06-11",
+      "price_cents_lb": 16.42,
+      "price_usd_kg": 0.362
+    },
+    {
+      "date": "2025-06-12",
+      "price_cents_lb": 16.27,
+      "price_usd_kg": 0.3587
+    },
+    {
+      "date": "2025-06-13",
+      "price_cents_lb": 16.13,
+      "price_usd_kg": 0.3556
+    },
+    {
+      "date": "2025-06-16",
+      "price_cents_lb": 16.52,
+      "price_usd_kg": 0.3642
+    },
+    {
+      "date": "2025-06-17",
+      "price_cents_lb": 16.08,
+      "price_usd_kg": 0.3545
+    },
+    {
+      "date": "2025-06-18",
+      "price_cents_lb": 15.88,
+      "price_usd_kg": 0.3501
+    },
+    {
+      "date": "2025-06-20",
+      "price_cents_lb": 16.1,
+      "price_usd_kg": 0.3549
+    },
+    {
+      "date": "2025-06-23",
+      "price_cents_lb": 16.04,
+      "price_usd_kg": 0.3536
+    },
+    {
+      "date": "2025-06-24",
+      "price_cents_lb": 15.77,
+      "price_usd_kg": 0.3477
+    },
+    {
+      "date": "2025-06-25",
+      "price_cents_lb": 15.98,
+      "price_usd_kg": 0.3523
+    },
+    {
+      "date": "2025-06-26",
+      "price_cents_lb": 15.65,
+      "price_usd_kg": 0.345
+    },
+    {
+      "date": "2025-06-27",
+      "price_cents_lb": 15.81,
+      "price_usd_kg": 0.3486
+    },
+    {
+      "date": "2025-06-30",
+      "price_cents_lb": 15.48,
+      "price_usd_kg": 0.3413
+    },
+    {
+      "date": "2025-07-01",
+      "price_cents_lb": 15.7,
+      "price_usd_kg": 0.3461
+    },
+    {
+      "date": "2025-07-02",
+      "price_cents_lb": 15.58,
+      "price_usd_kg": 0.3435
+    },
+    {
+      "date": "2025-07-03",
+      "price_cents_lb": 16.38,
+      "price_usd_kg": 0.3611
+    },
+    {
+      "date": "2025-07-04",
+      "price_cents_lb": 16.38,
+      "price_usd_kg": 0.3611
+    },
+    {
+      "date": "2025-07-07",
+      "price_cents_lb": 16.28,
+      "price_usd_kg": 0.3589
+    },
+    {
+      "date": "2025-07-08",
+      "price_cents_lb": 16.13,
+      "price_usd_kg": 0.3556
+    },
+    {
+      "date": "2025-07-09",
+      "price_cents_lb": 16.56,
+      "price_usd_kg": 0.3651
+    },
+    {
+      "date": "2025-07-10",
+      "price_cents_lb": 16.26,
+      "price_usd_kg": 0.3585
+    },
+    {
+      "date": "2025-07-11",
+      "price_cents_lb": 16.57,
+      "price_usd_kg": 0.3653
+    },
+    {
+      "date": "2025-07-14",
+      "price_cents_lb": 16.3,
+      "price_usd_kg": 0.3594
+    },
+    {
+      "date": "2025-07-15",
+      "price_cents_lb": 16.56,
+      "price_usd_kg": 0.3651
+    },
+    {
+      "date": "2025-07-16",
+      "price_cents_lb": 16.56,
+      "price_usd_kg": 0.3651
+    },
+    {
+      "date": "2025-07-17",
+      "price_cents_lb": 16.74,
+      "price_usd_kg": 0.3691
+    },
+    {
+      "date": "2025-07-18",
+      "price_cents_lb": 16.82,
+      "price_usd_kg": 0.3708
+    },
+    {
+      "date": "2025-07-21",
+      "price_cents_lb": 16.37,
+      "price_usd_kg": 0.3609
+    },
+    {
+      "date": "2025-07-22",
+      "price_cents_lb": 16.28,
+      "price_usd_kg": 0.3589
+    },
+    {
+      "date": "2025-07-23",
+      "price_cents_lb": 16.24,
+      "price_usd_kg": 0.358
+    },
+    {
+      "date": "2025-07-24",
+      "price_cents_lb": 16.57,
+      "price_usd_kg": 0.3653
+    },
+    {
+      "date": "2025-07-25",
+      "price_cents_lb": 16.29,
+      "price_usd_kg": 0.3591
+    },
+    {
+      "date": "2025-07-28",
+      "price_cents_lb": 16.43,
+      "price_usd_kg": 0.3622
+    },
+    {
+      "date": "2025-07-29",
+      "price_cents_lb": 16.59,
+      "price_usd_kg": 0.3657
+    },
+    {
+      "date": "2025-07-30",
+      "price_cents_lb": 16.45,
+      "price_usd_kg": 0.3627
+    },
+    {
+      "date": "2025-07-31",
+      "price_cents_lb": 16.35,
+      "price_usd_kg": 0.3605
+    },
+    {
+      "date": "2025-08-01",
+      "price_cents_lb": 16.18,
+      "price_usd_kg": 0.3567
+    },
+    {
+      "date": "2025-08-04",
+      "price_cents_lb": 16.25,
+      "price_usd_kg": 0.3583
+    },
+    {
+      "date": "2025-08-05",
+      "price_cents_lb": 16.09,
+      "price_usd_kg": 0.3547
+    },
+    {
+      "date": "2025-08-06",
+      "price_cents_lb": 16.01,
+      "price_usd_kg": 0.353
+    },
+    {
+      "date": "2025-08-07",
+      "price_cents_lb": 16.01,
+      "price_usd_kg": 0.353
+    },
+    {
+      "date": "2025-08-08",
+      "price_cents_lb": 16.25,
+      "price_usd_kg": 0.3583
+    },
+    {
+      "date": "2025-08-11",
+      "price_cents_lb": 16.49,
+      "price_usd_kg": 0.3635
+    },
+    {
+      "date": "2025-08-12",
+      "price_cents_lb": 16.94,
+      "price_usd_kg": 0.3735
+    },
+    {
+      "date": "2025-08-13",
+      "price_cents_lb": 16.85,
+      "price_usd_kg": 0.3715
+    },
+    {
+      "date": "2025-08-14",
+      "price_cents_lb": 16.58,
+      "price_usd_kg": 0.3655
+    },
+    {
+      "date": "2025-08-15",
+      "price_cents_lb": 16.44,
+      "price_usd_kg": 0.3624
+    },
+    {
+      "date": "2025-08-18",
+      "price_cents_lb": 16.25,
+      "price_usd_kg": 0.3583
+    },
+    {
+      "date": "2025-08-19",
+      "price_cents_lb": 16.31,
+      "price_usd_kg": 0.3596
+    },
+    {
+      "date": "2025-08-20",
+      "price_cents_lb": 16.57,
+      "price_usd_kg": 0.3653
+    },
+    {
+      "date": "2025-08-21",
+      "price_cents_lb": 16.35,
+      "price_usd_kg": 0.3605
+    },
+    {
+      "date": "2025-08-22",
+      "price_cents_lb": 16.48,
+      "price_usd_kg": 0.3633
+    },
+    {
+      "date": "2025-08-25",
+      "price_cents_lb": 16.4,
+      "price_usd_kg": 0.3616
+    },
+    {
+      "date": "2025-08-26",
+      "price_cents_lb": 16.41,
+      "price_usd_kg": 0.3618
+    },
+    {
+      "date": "2025-08-27",
+      "price_cents_lb": 16.47,
+      "price_usd_kg": 0.3631
+    },
+    {
+      "date": "2025-08-28",
+      "price_cents_lb": 16.48,
+      "price_usd_kg": 0.3633
+    },
+    {
+      "date": "2025-08-29",
+      "price_cents_lb": 16.37,
+      "price_usd_kg": 0.3609
+    },
+    {
+      "date": "2025-09-02",
+      "price_cents_lb": 16.15,
+      "price_usd_kg": 0.356
+    },
+    {
+      "date": "2025-09-03",
+      "price_cents_lb": 16.03,
+      "price_usd_kg": 0.3534
+    },
+    {
+      "date": "2025-09-04",
+      "price_cents_lb": 15.69,
+      "price_usd_kg": 0.3459
+    },
+    {
+      "date": "2025-09-05",
+      "price_cents_lb": 15.55,
+      "price_usd_kg": 0.3428
+    },
+    {
+      "date": "2025-09-08",
+      "price_cents_lb": 15.63,
+      "price_usd_kg": 0.3446
+    },
+    {
+      "date": "2025-09-09",
+      "price_cents_lb": 15.84,
+      "price_usd_kg": 0.3492
+    },
+    {
+      "date": "2025-09-10",
+      "price_cents_lb": 15.93,
+      "price_usd_kg": 0.3512
+    },
+    {
+      "date": "2025-09-11",
+      "price_cents_lb": 15.82,
+      "price_usd_kg": 0.3488
+    },
+    {
+      "date": "2025-09-12",
+      "price_cents_lb": 15.79,
+      "price_usd_kg": 0.3481
+    },
+    {
+      "date": "2025-09-15",
+      "price_cents_lb": 16.0,
+      "price_usd_kg": 0.3527
+    },
+    {
+      "date": "2025-09-16",
+      "price_cents_lb": 15.9,
+      "price_usd_kg": 0.3505
+    },
+    {
+      "date": "2025-09-17",
+      "price_cents_lb": 15.54,
+      "price_usd_kg": 0.3426
+    },
+    {
+      "date": "2025-09-18",
+      "price_cents_lb": 15.38,
+      "price_usd_kg": 0.3391
+    },
+    {
+      "date": "2025-09-19",
+      "price_cents_lb": 15.46,
+      "price_usd_kg": 0.3408
+    },
+    {
+      "date": "2025-09-22",
+      "price_cents_lb": 15.25,
+      "price_usd_kg": 0.3362
+    },
+    {
+      "date": "2025-09-23",
+      "price_cents_lb": 15.66,
+      "price_usd_kg": 0.3452
+    },
+    {
+      "date": "2025-09-24",
+      "price_cents_lb": 15.64,
+      "price_usd_kg": 0.3448
+    },
+    {
+      "date": "2025-09-25",
+      "price_cents_lb": 15.76,
+      "price_usd_kg": 0.3474
+    },
+    {
+      "date": "2025-09-26",
+      "price_cents_lb": 15.87,
+      "price_usd_kg": 0.3499
+    },
+    {
+      "date": "2025-09-29",
+      "price_cents_lb": 16.02,
+      "price_usd_kg": 0.3532
+    },
+    {
+      "date": "2025-09-30",
+      "price_cents_lb": 16.1,
+      "price_usd_kg": 0.3549
+    },
+    {
+      "date": "2025-10-01",
+      "price_cents_lb": 16.13,
+      "price_usd_kg": 0.3556
+    },
+    {
+      "date": "2025-10-02",
+      "price_cents_lb": 16.4,
+      "price_usd_kg": 0.3616
+    },
+    {
+      "date": "2025-10-03",
+      "price_cents_lb": 16.47,
+      "price_usd_kg": 0.3631
+    },
+    {
+      "date": "2025-10-06",
+      "price_cents_lb": 16.81,
+      "price_usd_kg": 0.3706
+    },
+    {
+      "date": "2025-10-07",
+      "price_cents_lb": 16.63,
+      "price_usd_kg": 0.3666
+    },
+    {
+      "date": "2025-10-08",
+      "price_cents_lb": 16.29,
+      "price_usd_kg": 0.3591
+    },
+    {
+      "date": "2025-10-09",
+      "price_cents_lb": 16.26,
+      "price_usd_kg": 0.3585
+    },
+    {
+      "date": "2025-10-10",
+      "price_cents_lb": 16.1,
+      "price_usd_kg": 0.3549
+    },
+    {
+      "date": "2025-10-13",
+      "price_cents_lb": 15.61,
+      "price_usd_kg": 0.3441
+    },
+    {
+      "date": "2025-10-14",
+      "price_cents_lb": 15.88,
+      "price_usd_kg": 0.3501
+    },
+    {
+      "date": "2025-10-15",
+      "price_cents_lb": 15.69,
+      "price_usd_kg": 0.3459
+    },
+    {
+      "date": "2025-10-16",
+      "price_cents_lb": 15.8,
+      "price_usd_kg": 0.3483
+    },
+    {
+      "date": "2025-10-17",
+      "price_cents_lb": 15.5,
+      "price_usd_kg": 0.3417
+    },
+    {
+      "date": "2025-10-20",
+      "price_cents_lb": 15.72,
+      "price_usd_kg": 0.3466
+    },
+    {
+      "date": "2025-10-21",
+      "price_cents_lb": 15.24,
+      "price_usd_kg": 0.336
+    },
+    {
+      "date": "2025-10-22",
+      "price_cents_lb": 15.1,
+      "price_usd_kg": 0.3329
+    },
+    {
+      "date": "2025-10-23",
+      "price_cents_lb": 15.29,
+      "price_usd_kg": 0.3371
+    },
+    {
+      "date": "2025-10-24",
+      "price_cents_lb": 14.97,
+      "price_usd_kg": 0.33
+    },
+    {
+      "date": "2025-10-27",
+      "price_cents_lb": 14.46,
+      "price_usd_kg": 0.3188
+    },
+    {
+      "date": "2025-10-28",
+      "price_cents_lb": 14.37,
+      "price_usd_kg": 0.3168
+    },
+    {
+      "date": "2025-10-29",
+      "price_cents_lb": 14.42,
+      "price_usd_kg": 0.3179
+    },
+    {
+      "date": "2025-10-30",
+      "price_cents_lb": 14.28,
+      "price_usd_kg": 0.3148
+    },
+    {
+      "date": "2025-10-31",
+      "price_cents_lb": 14.43,
+      "price_usd_kg": 0.3181
+    },
+    {
+      "date": "2025-11-03",
+      "price_cents_lb": 14.65,
+      "price_usd_kg": 0.323
+    },
+    {
+      "date": "2025-11-04",
+      "price_cents_lb": 14.22,
+      "price_usd_kg": 0.3135
+    },
+    {
+      "date": "2025-11-05",
+      "price_cents_lb": 14.11,
+      "price_usd_kg": 0.3111
+    },
+    {
+      "date": "2025-11-06",
+      "price_cents_lb": 14.19,
+      "price_usd_kg": 0.3128
+    },
+    {
+      "date": "2025-11-07",
+      "price_cents_lb": 14.1,
+      "price_usd_kg": 0.3109
+    },
+    {
+      "date": "2025-11-10",
+      "price_cents_lb": 14.2,
+      "price_usd_kg": 0.3131
+    },
+    {
+      "date": "2025-11-11",
+      "price_cents_lb": 14.25,
+      "price_usd_kg": 0.3142
+    },
+    {
+      "date": "2025-11-12",
+      "price_cents_lb": 14.52,
+      "price_usd_kg": 0.3201
+    },
+    {
+      "date": "2025-11-13",
+      "price_cents_lb": 14.44,
+      "price_usd_kg": 0.3183
+    },
+    {
+      "date": "2025-11-14",
+      "price_cents_lb": 14.96,
+      "price_usd_kg": 0.3298
+    },
+    {
+      "date": "2025-11-17",
+      "price_cents_lb": 14.8,
+      "price_usd_kg": 0.3263
+    },
+    {
+      "date": "2025-11-18",
+      "price_cents_lb": 14.7,
+      "price_usd_kg": 0.3241
+    },
+    {
+      "date": "2025-11-19",
+      "price_cents_lb": 14.66,
+      "price_usd_kg": 0.3232
+    },
+    {
+      "date": "2025-11-20",
+      "price_cents_lb": 14.66,
+      "price_usd_kg": 0.3232
+    },
+    {
+      "date": "2025-11-21",
+      "price_cents_lb": 14.78,
+      "price_usd_kg": 0.3258
+    },
+    {
+      "date": "2025-11-24",
+      "price_cents_lb": 14.82,
+      "price_usd_kg": 0.3267
+    },
+    {
+      "date": "2025-11-25",
+      "price_cents_lb": 14.91,
+      "price_usd_kg": 0.3287
+    },
+    {
+      "date": "2025-11-26",
+      "price_cents_lb": 15.14,
+      "price_usd_kg": 0.3338
+    },
+    {
+      "date": "2025-11-28",
+      "price_cents_lb": 15.21,
+      "price_usd_kg": 0.3353
+    },
+    {
+      "date": "2025-12-01",
+      "price_cents_lb": 14.76,
+      "price_usd_kg": 0.3254
+    },
+    {
+      "date": "2025-12-02",
+      "price_cents_lb": 14.98,
+      "price_usd_kg": 0.3303
+    },
+    {
+      "date": "2025-12-03",
+      "price_cents_lb": 14.93,
+      "price_usd_kg": 0.3291
+    },
+    {
+      "date": "2025-12-04",
+      "price_cents_lb": 14.88,
+      "price_usd_kg": 0.328
+    },
+    {
+      "date": "2025-12-05",
+      "price_cents_lb": 14.8,
+      "price_usd_kg": 0.3263
+    },
+    {
+      "date": "2025-12-08",
+      "price_cents_lb": 14.82,
+      "price_usd_kg": 0.3267
+    },
+    {
+      "date": "2025-12-09",
+      "price_cents_lb": 14.67,
+      "price_usd_kg": 0.3234
+    },
+    {
+      "date": "2025-12-10",
+      "price_cents_lb": 14.91,
+      "price_usd_kg": 0.3287
+    },
+    {
+      "date": "2025-12-11",
+      "price_cents_lb": 14.85,
+      "price_usd_kg": 0.3274
+    },
+    {
+      "date": "2025-12-12",
+      "price_cents_lb": 15.1,
+      "price_usd_kg": 0.3329
+    },
+    {
+      "date": "2025-12-15",
+      "price_cents_lb": 14.95,
+      "price_usd_kg": 0.3296
+    },
+    {
+      "date": "2025-12-16",
+      "price_cents_lb": 14.82,
+      "price_usd_kg": 0.3267
+    },
+    {
+      "date": "2025-12-17",
+      "price_cents_lb": 14.76,
+      "price_usd_kg": 0.3254
+    },
+    {
+      "date": "2025-12-18",
+      "price_cents_lb": 14.48,
+      "price_usd_kg": 0.3192
+    },
+    {
+      "date": "2025-12-19",
+      "price_cents_lb": 14.82,
+      "price_usd_kg": 0.3267
+    },
+    {
+      "date": "2025-12-22",
+      "price_cents_lb": 14.99,
+      "price_usd_kg": 0.3305
+    },
+    {
+      "date": "2025-12-23",
+      "price_cents_lb": 15.2,
+      "price_usd_kg": 0.3351
+    },
+    {
+      "date": "2025-12-24",
+      "price_cents_lb": 15.29,
+      "price_usd_kg": 0.3371
+    },
+    {
+      "date": "2025-12-26",
+      "price_cents_lb": 15.17,
+      "price_usd_kg": 0.3344
+    },
+    {
+      "date": "2025-12-29",
+      "price_cents_lb": 15.26,
+      "price_usd_kg": 0.3364
+    },
+    {
+      "date": "2025-12-30",
+      "price_cents_lb": 14.84,
+      "price_usd_kg": 0.3272
+    },
+    {
+      "date": "2025-12-31",
+      "price_cents_lb": 15.01,
+      "price_usd_kg": 0.3309
+    },
+    {
+      "date": "2026-01-02",
+      "price_cents_lb": 14.6,
+      "price_usd_kg": 0.3219
+    },
+    {
+      "date": "2026-01-05",
+      "price_cents_lb": 14.73,
+      "price_usd_kg": 0.3247
+    },
+    {
+      "date": "2026-01-06",
+      "price_cents_lb": 14.76,
+      "price_usd_kg": 0.3254
+    },
+    {
+      "date": "2026-01-07",
+      "price_cents_lb": 14.98,
+      "price_usd_kg": 0.3303
+    },
+    {
+      "date": "2026-01-08",
+      "price_cents_lb": 14.97,
+      "price_usd_kg": 0.33
+    },
+    {
+      "date": "2026-01-09",
+      "price_cents_lb": 14.89,
+      "price_usd_kg": 0.3283
+    },
+    {
+      "date": "2026-01-12",
+      "price_cents_lb": 14.84,
+      "price_usd_kg": 0.3272
+    },
+    {
+      "date": "2026-01-13",
+      "price_cents_lb": 14.89,
+      "price_usd_kg": 0.3283
+    },
+    {
+      "date": "2026-01-14",
+      "price_cents_lb": 14.68,
+      "price_usd_kg": 0.3236
+    },
+    {
+      "date": "2026-01-15",
+      "price_cents_lb": 14.57,
+      "price_usd_kg": 0.3212
+    },
+    {
+      "date": "2026-01-16",
+      "price_cents_lb": 14.96,
+      "price_usd_kg": 0.3298
+    },
+    {
+      "date": "2026-01-20",
+      "price_cents_lb": 14.72,
+      "price_usd_kg": 0.3245
+    },
+    {
+      "date": "2026-01-21",
+      "price_cents_lb": 14.74,
+      "price_usd_kg": 0.325
+    },
+    {
+      "date": "2026-01-22",
+      "price_cents_lb": 14.96,
+      "price_usd_kg": 0.3298
+    },
+    {
+      "date": "2026-01-23",
+      "price_cents_lb": 14.73,
+      "price_usd_kg": 0.3247
+    },
+    {
+      "date": "2026-01-26",
+      "price_cents_lb": 14.79,
+      "price_usd_kg": 0.3261
+    },
+    {
+      "date": "2026-01-27",
+      "price_cents_lb": 14.83,
+      "price_usd_kg": 0.3269
+    },
+    {
+      "date": "2026-01-28",
+      "price_cents_lb": 14.71,
+      "price_usd_kg": 0.3243
+    },
+    {
+      "date": "2026-01-29",
+      "price_cents_lb": 14.7,
+      "price_usd_kg": 0.3241
+    },
+    {
+      "date": "2026-01-30",
+      "price_cents_lb": 14.27,
+      "price_usd_kg": 0.3146
+    },
+    {
+      "date": "2026-02-02",
+      "price_cents_lb": 14.26,
+      "price_usd_kg": 0.3144
+    },
+    {
+      "date": "2026-02-03",
+      "price_cents_lb": 14.63,
+      "price_usd_kg": 0.3225
+    },
+    {
+      "date": "2026-02-04",
+      "price_cents_lb": 14.44,
+      "price_usd_kg": 0.3183
+    },
+    {
+      "date": "2026-02-05",
+      "price_cents_lb": 14.27,
+      "price_usd_kg": 0.3146
+    },
+    {
+      "date": "2026-02-06",
+      "price_cents_lb": 14.11,
+      "price_usd_kg": 0.3111
+    },
+    {
+      "date": "2026-02-09",
+      "price_cents_lb": 14.35,
+      "price_usd_kg": 0.3164
+    },
+    {
+      "date": "2026-02-10",
+      "price_cents_lb": 14.12,
+      "price_usd_kg": 0.3113
+    },
+    {
+      "date": "2026-02-11",
+      "price_cents_lb": 13.84,
+      "price_usd_kg": 0.3051
+    },
+    {
+      "date": "2026-02-12",
+      "price_cents_lb": 13.75,
+      "price_usd_kg": 0.3031
+    },
+    {
+      "date": "2026-02-13",
+      "price_cents_lb": 13.78,
+      "price_usd_kg": 0.3038
+    },
+    {
+      "date": "2026-02-17",
+      "price_cents_lb": 13.86,
+      "price_usd_kg": 0.3056
+    },
+    {
+      "date": "2026-02-18",
+      "price_cents_lb": 14.17,
+      "price_usd_kg": 0.3124
+    },
+    {
+      "date": "2026-02-19",
+      "price_cents_lb": 14.07,
+      "price_usd_kg": 0.3102
+    },
+    {
+      "date": "2026-02-20",
+      "price_cents_lb": 14.3,
+      "price_usd_kg": 0.3153
+    },
+    {
+      "date": "2026-02-23",
+      "price_cents_lb": 14.45,
+      "price_usd_kg": 0.3186
+    },
+    {
+      "date": "2026-02-24",
+      "price_cents_lb": 14.55,
+      "price_usd_kg": 0.3208
+    },
+    {
+      "date": "2026-02-25",
+      "price_cents_lb": 14.59,
+      "price_usd_kg": 0.3217
+    },
+    {
+      "date": "2026-02-26",
+      "price_cents_lb": 14.41,
+      "price_usd_kg": 0.3177
+    },
+    {
+      "date": "2026-02-27",
+      "price_cents_lb": 14.3,
+      "price_usd_kg": 0.3153
+    },
+    {
+      "date": "2026-03-02",
+      "price_cents_lb": 13.91,
+      "price_usd_kg": 0.3067
+    },
+    {
+      "date": "2026-03-03",
+      "price_cents_lb": 13.93,
+      "price_usd_kg": 0.3071
+    },
+    {
+      "date": "2026-03-04",
+      "price_cents_lb": 13.73,
+      "price_usd_kg": 0.3027
+    },
+    {
+      "date": "2026-03-05",
+      "price_cents_lb": 13.72,
+      "price_usd_kg": 0.3025
+    },
+    {
+      "date": "2026-03-06",
+      "price_cents_lb": 14.1,
+      "price_usd_kg": 0.3109
+    },
+    {
+      "date": "2026-03-09",
+      "price_cents_lb": 14.59,
+      "price_usd_kg": 0.3217
+    },
+    {
+      "date": "2026-03-10",
+      "price_cents_lb": 14.38,
+      "price_usd_kg": 0.317
+    },
+    {
+      "date": "2026-03-11",
+      "price_cents_lb": 14.25,
+      "price_usd_kg": 0.3142
+    },
+    {
+      "date": "2026-03-12",
+      "price_cents_lb": 14.38,
+      "price_usd_kg": 0.317
+    },
+    {
+      "date": "2026-03-13",
+      "price_cents_lb": 14.37,
+      "price_usd_kg": 0.3168
+    },
+    {
+      "date": "2026-03-16",
+      "price_cents_lb": 14.19,
+      "price_usd_kg": 0.3128
+    },
+    {
+      "date": "2026-03-17",
+      "price_cents_lb": 14.45,
+      "price_usd_kg": 0.3186
+    },
+    {
+      "date": "2026-03-18",
+      "price_cents_lb": 14.8,
+      "price_usd_kg": 0.3263
+    },
+    {
+      "date": "2026-03-19",
+      "price_cents_lb": 15.37,
+      "price_usd_kg": 0.3389
+    },
+    {
+      "date": "2026-03-20",
+      "price_cents_lb": 15.7,
+      "price_usd_kg": 0.3461
+    },
+    {
+      "date": "2026-03-23",
+      "price_cents_lb": 15.52,
+      "price_usd_kg": 0.3422
+    },
+    {
+      "date": "2026-03-24",
+      "price_cents_lb": 15.88,
+      "price_usd_kg": 0.3501
+    },
+    {
+      "date": "2026-03-25",
+      "price_cents_lb": 15.55,
+      "price_usd_kg": 0.3428
+    },
+    {
+      "date": "2026-03-26",
+      "price_cents_lb": 15.87,
+      "price_usd_kg": 0.3499
+    },
+    {
+      "date": "2026-03-27",
+      "price_cents_lb": 15.76,
+      "price_usd_kg": 0.3474
+    },
+    {
+      "date": "2026-03-30",
+      "price_cents_lb": 15.55,
+      "price_usd_kg": 0.3428
+    },
+    {
+      "date": "2026-03-31",
+      "price_cents_lb": 15.52,
+      "price_usd_kg": 0.3422
+    },
+    {
+      "date": "2026-04-01",
+      "price_cents_lb": 15.29,
+      "price_usd_kg": 0.3371
+    },
+    {
+      "date": "2026-04-02",
+      "price_cents_lb": 15.0,
+      "price_usd_kg": 0.3307
+    },
+    {
+      "date": "2026-04-06",
+      "price_cents_lb": 14.97,
+      "price_usd_kg": 0.33
+    },
+    {
+      "date": "2026-04-07",
+      "price_cents_lb": 14.58,
+      "price_usd_kg": 0.3214
+    },
+    {
+      "date": "2026-04-08",
+      "price_cents_lb": 14.23,
+      "price_usd_kg": 0.3137
+    },
+    {
+      "date": "2026-04-09",
+      "price_cents_lb": 13.92,
+      "price_usd_kg": 0.3069
+    },
+    {
+      "date": "2026-04-10",
+      "price_cents_lb": 13.75,
+      "price_usd_kg": 0.3031
+    },
+    {
+      "date": "2026-04-13",
+      "price_cents_lb": 13.68,
+      "price_usd_kg": 0.3016
+    },
+    {
+      "date": "2026-04-14",
+      "price_cents_lb": 13.88,
+      "price_usd_kg": 0.306
+    },
+    {
+      "date": "2026-04-15",
+      "price_cents_lb": 13.51,
+      "price_usd_kg": 0.2978
+    },
+    {
+      "date": "2026-04-16",
+      "price_cents_lb": 13.66,
+      "price_usd_kg": 0.3012
+    },
+    {
+      "date": "2026-04-17",
+      "price_cents_lb": 13.31,
+      "price_usd_kg": 0.2934
+    },
+    {
+      "date": "2026-04-20",
+      "price_cents_lb": 13.47,
+      "price_usd_kg": 0.297
+    },
+    {
+      "date": "2026-04-21",
+      "price_cents_lb": 13.43,
+      "price_usd_kg": 0.2961
+    },
+    {
+      "date": "2026-04-22",
+      "price_cents_lb": 13.57,
+      "price_usd_kg": 0.2992
+    },
+    {
+      "date": "2026-04-23",
+      "price_cents_lb": 13.6,
+      "price_usd_kg": 0.2998
+    },
+    {
+      "date": "2026-04-24",
+      "price_cents_lb": 13.93,
+      "price_usd_kg": 0.3071
+    },
+    {
+      "date": "2026-04-27",
+      "price_cents_lb": 13.83,
+      "price_usd_kg": 0.3049
+    },
+    {
+      "date": "2026-04-28",
+      "price_cents_lb": 14.11,
+      "price_usd_kg": 0.3111
+    },
+    {
+      "date": "2026-04-29",
+      "price_cents_lb": 14.68,
+      "price_usd_kg": 0.3236
+    },
+    {
+      "date": "2026-04-30",
+      "price_cents_lb": 14.58,
+      "price_usd_kg": 0.3214
+    },
+    {
+      "date": "2026-05-01",
+      "price_cents_lb": 14.95,
+      "price_usd_kg": 0.3296
+    },
+    {
+      "date": "2026-05-04",
+      "price_cents_lb": 15.29,
+      "price_usd_kg": 0.3371
+    },
+    {
+      "date": "2026-05-05",
+      "price_cents_lb": 15.37,
+      "price_usd_kg": 0.3389
+    },
+    {
+      "date": "2026-05-06",
+      "price_cents_lb": 14.81,
+      "price_usd_kg": 0.3265
+    },
+    {
+      "date": "2026-05-07",
+      "price_cents_lb": 14.54,
+      "price_usd_kg": 0.3206
+    },
+    {
+      "date": "2026-05-08",
+      "price_cents_lb": 14.69,
+      "price_usd_kg": 0.3239
+    },
+    {
+      "date": "2026-05-11",
+      "price_cents_lb": 14.91,
+      "price_usd_kg": 0.3287
+    },
+    {
+      "date": "2026-05-12",
+      "price_cents_lb": 15.01,
+      "price_usd_kg": 0.3309
+    },
+    {
+      "date": "2026-05-13",
+      "price_cents_lb": 15.38,
+      "price_usd_kg": 0.3391
+    },
+    {
+      "date": "2026-05-14",
+      "price_cents_lb": 14.99,
+      "price_usd_kg": 0.3305
+    },
+    {
+      "date": "2026-05-15",
+      "price_cents_lb": 14.8,
+      "price_usd_kg": 0.3263
+    },
+    {
+      "date": "2026-05-18",
+      "price_cents_lb": 14.73,
+      "price_usd_kg": 0.3247
+    },
+    {
+      "date": "2026-05-19",
+      "price_cents_lb": 15.01,
+      "price_usd_kg": 0.3309
+    },
+    {
+      "date": "2026-05-20",
+      "price_cents_lb": 14.73,
+      "price_usd_kg": 0.3247
+    },
+    {
+      "date": "2026-05-21",
+      "price_cents_lb": 14.9,
+      "price_usd_kg": 0.3285
+    },
+    {
+      "date": "2026-05-22",
+      "price_cents_lb": 14.7,
+      "price_usd_kg": 0.3241
+    },
+    {
+      "date": "2026-05-26",
+      "price_cents_lb": 14.54,
+      "price_usd_kg": 0.3206
+    },
+    {
+      "date": "2026-05-27",
+      "price_cents_lb": 14.14,
+      "price_usd_kg": 0.3117
+    },
+    {
+      "date": "2026-05-28",
+      "price_cents_lb": 13.93,
+      "price_usd_kg": 0.3071
+    },
+    {
+      "date": "2026-05-29",
+      "price_cents_lb": 14.06,
+      "price_usd_kg": 0.31
+    },
+    {
+      "date": "2026-06-01",
+      "price_cents_lb": 14.45,
+      "price_usd_kg": 0.3186
+    },
+    {
+      "date": "2026-06-02",
+      "price_cents_lb": 14.38,
+      "price_usd_kg": 0.317
+    },
+    {
+      "date": "2026-06-03",
+      "price_cents_lb": 14.24,
+      "price_usd_kg": 0.3139
+    },
+    {
+      "date": "2026-06-04",
+      "price_cents_lb": 14.27,
+      "price_usd_kg": 0.3146
+    }
+  ]
+}

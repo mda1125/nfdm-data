@@ -4,7 +4,9 @@ const DATA_URLS = {
   c4:   'https://mda1125.github.io/nfdm-data/data/class_iv.json',
   futures: 'https://mda1125.github.io/nfdm-data/data/futures.json',
   futuresHistory: 'https://mda1125.github.io/nfdm-data/data/futures_history.json',
-  fundamentals: 'https://mda1125.github.io/nfdm-data/data/fundamentals.json'
+  fundamentals: 'https://mda1125.github.io/nfdm-data/data/fundamentals.json',
+  sugar: 'https://mda1125.github.io/nfdm-data/data/sugar.json',
+  sugarFutures: 'https://mda1125.github.io/nfdm-data/data/sugar_futures.json'
 };
 
 let RAW = null;
@@ -107,7 +109,9 @@ async function fetchLiveData() {
       fetch(DATA_URLS.c4, {cache: 'no-store'}),
       fetch(DATA_URLS.futures, {cache: 'no-store'}).catch(function(){ return null; }),
       fetch(DATA_URLS.fundamentals, {cache: 'no-store'}).catch(function(){ return null; }),
-      fetch(DATA_URLS.futuresHistory, {cache: 'no-store'}).catch(function(){ return null; })
+      fetch(DATA_URLS.futuresHistory, {cache: 'no-store'}).catch(function(){ return null; }),
+      fetch(DATA_URLS.sugar, {cache: 'no-store'}).catch(function(){ return null; }),
+      fetch(DATA_URLS.sugarFutures, {cache: 'no-store'}).catch(function(){ return null; })
     ]);
     if (!responses[0].ok || !responses[1].ok || !responses[2].ok) {
       throw new Error('HTTP ' + responses[0].status + '/' + responses[1].status + '/' + responses[2].status);
@@ -122,6 +126,13 @@ async function fetchLiveData() {
     }
     if (responses[5] && responses[5].ok) {
       try { futHistJ = await responses[5].json(); } catch(e) { futHistJ = null; }
+    }
+    var sugarJ = null, sugarFutJ = null;
+    if (responses[6] && responses[6].ok) {
+      try { sugarJ = await responses[6].json(); } catch(e) { sugarJ = null; }
+    }
+    if (responses[7] && responses[7].ok) {
+      try { sugarFutJ = await responses[7].json(); } catch(e) { sugarFutJ = null; }
     }
     const cmeJ = mainJsons[0], nassJ = mainJsons[1], c4J = mainJsons[2];
     const cme = (cmeJ.data || cmeJ).map(function(d){return {date: new Date(d.date), price: +d.price};});
@@ -160,6 +171,21 @@ async function fetchLiveData() {
     if (futHistJ && futHistJ.snapshots && futHistJ.snapshots.length) {
       futHist = futHistJ.snapshots;
     }
+    var sugar = null;
+    if (sugarJ && sugarJ.data && sugarJ.data.length) {
+      sugar = {
+        current_cents_lb: sugarJ.current_cents_lb || null,
+        current_usd_kg: sugarJ.current_usd_kg || null,
+        data: sugarJ.data.map(function(d){return {date: new Date(d.date), price: +d.price_cents_lb, usd_kg: +d.price_usd_kg};})
+      };
+    }
+    var sugarFut = null;
+    if (sugarFutJ && sugarFutJ.data && sugarFutJ.data.length) {
+      sugarFut = {
+        trade_date: sugarFutJ.trade_date || '',
+        data: sugarFutJ.data.map(function(d){return {month: d.month, label: d.label, settle: +d.settle_cents_lb, usd_kg: +d.settle_usd_kg, volume: +(d.volume || 0)};})
+      };
+    }
     const stamps = [cmeJ.updated_at, nassJ.updated_at, c4J.updated_at].filter(Boolean);
     lastUpdated = stamps.sort().reverse()[0] || new Date().toISOString();
     dataMode = 'live';
@@ -167,8 +193,9 @@ async function fetchLiveData() {
     if (futures) toastMsg += ' · ' + futures.data.length + ' futures';
     if (fund) toastMsg += ' · ' + fund.length + ' supply';
     if (futHist) toastMsg += ' · ' + futHist.length + ' snapshots';
+    if (sugar) toastMsg += ' · ' + sugar.data.length + ' sugar';
     showToast(toastMsg);
-    return {cme: cme, nass: nass, c4: c4, futures: futures, fund: fund, futHist: futHist};
+    return {cme: cme, nass: nass, c4: c4, futures: futures, fund: fund, futHist: futHist, sugar: sugar, sugarFut: sugarFut};
   } catch (err) {
     console.warn('Live fetch failed:', err);
     dataMode = 'error';
@@ -666,6 +693,92 @@ function buildCharts() {
             '<td style="text-align:right">' + (d.milk_production ? (d.milk_production/1e9).toFixed(1)+'B' : '—') + '</td></tr>';
         }).join('');
     }
+  }
+
+  // Sugar
+  if (RAW.sugar && RAW.sugar.data.length) {
+    var sugarFilt = filterByDays(RAW.sugar.data, activeDays);
+    var ctxSugar = document.getElementById('chart-sugar-spot');
+    if (ctxSugar && sugarFilt.length) {
+      charts.sugarSpot = new Chart(ctxSugar, {
+        type: 'line',
+        data: {
+          labels: sugarFilt.map(function(d){return fmtDate(d.date);}),
+          datasets: [{
+            label: 'Sugar #11',
+            data: sugarFilt.map(function(d){return d.price;}),
+            borderColor: '#4ade80', backgroundColor: 'rgba(74,222,128,0.06)',
+            borderWidth: 1.5, pointRadius: 0, tension: 0.3, fill: true
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          interaction: {mode: 'index', intersect: false},
+          plugins: {
+            legend: {display: false},
+            tooltip: {backgroundColor: '#1f2937', borderColor: '#374151', borderWidth: 1, titleColor: '#e6edf3', bodyColor: '#9ca3af', padding: 10,
+              callbacks: {label: function(ctx){return ctx.parsed.y.toFixed(2) + ' ¢/lb ($' + (ctx.parsed.y * 2.20462 / 100).toFixed(4) + '/kg)';}}}
+          },
+          scales: {
+            x: {ticks: {color: COLORS.tick, maxTicksLimit: 8, maxRotation: 0}, grid: {color: COLORS.grid}},
+            y: {ticks: {color: COLORS.tick, callback: function(v){return v.toFixed(1) + '¢';}}, grid: {color: COLORS.grid}, title: {display: true, text: '¢/lb', color: COLORS.tick}}
+          }
+        }
+      });
+    }
+
+    setText('kpi-sugar-spot', RAW.sugar.current_cents_lb ? RAW.sugar.current_cents_lb.toFixed(2) + '¢' : '—');
+    setText('kpi-sugar-spot-label', 'Sugar #11 · ¢/lb');
+    setText('kpi-sugar-kg', RAW.sugar.current_usd_kg ? '$' + RAW.sugar.current_usd_kg.toFixed(4) : '—');
+    setText('kpi-sugar-kg-label', 'Sugar #11 · $/kg');
+  }
+
+  if (RAW.sugarFut && RAW.sugarFut.data.length) {
+    var sf = RAW.sugarFut.data;
+    var ctxSF = document.getElementById('chart-sugar-futures');
+    if (ctxSF) {
+      charts.sugarFut = new Chart(ctxSF, {
+        type: 'line',
+        data: {
+          labels: sf.map(function(d){return d.label;}),
+          datasets: [{
+            label: 'Settlement',
+            data: sf.map(function(d){return d.settle;}),
+            borderColor: '#4ade80', backgroundColor: 'rgba(74,222,128,0.08)',
+            borderWidth: 2, pointRadius: 4, pointBackgroundColor: '#4ade80',
+            tension: 0.3, fill: true
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          interaction: {mode: 'index', intersect: false},
+          plugins: {
+            legend: {display: false},
+            tooltip: {backgroundColor: '#1f2937', borderColor: '#374151', borderWidth: 1, titleColor: '#e6edf3', bodyColor: '#9ca3af', padding: 10,
+              callbacks: {label: function(ctx){return ctx.parsed.y.toFixed(2) + ' ¢/lb ($' + (ctx.parsed.y * 2.20462 / 100).toFixed(4) + '/kg)';}}}
+          },
+          scales: {
+            x: {ticks: {color: COLORS.tick, maxRotation: 45, font: {size: 11}}, grid: {color: COLORS.grid}},
+            y: {ticks: {color: COLORS.tick, callback: function(v){return v.toFixed(1) + '¢';}}, grid: {color: COLORS.grid}, title: {display: true, text: '¢/lb', color: COLORS.tick}}
+          }
+        }
+      });
+    }
+
+    var sfFront = sf[0], sfBack = sf[sf.length - 1];
+    var sfSpread = sfBack.settle - sfFront.settle;
+    setText('kpi-sugar-curve', (sfSpread >= 0 ? '+' : '') + sfSpread.toFixed(2) + '¢');
+    setText('kpi-sugar-curve-label', sfFront.label + ' → ' + sfBack.label + (sfSpread >= 0 ? ' · Contango' : ' · Backwardation'));
+
+    var tblSF = document.getElementById('tbl-sugar-futures');
+    if (tblSF) {
+      tblSF.innerHTML = '<tr><th>Contract</th><th style="text-align:right">Settle (¢/lb)</th><th style="text-align:right">$/kg</th><th style="text-align:right">Volume</th></tr>' +
+        sf.map(function(d){
+          return '<tr><td>' + d.label + '</td><td style="text-align:right">' + d.settle.toFixed(2) + '</td><td style="text-align:right">$' + d.usd_kg.toFixed(4) + '</td><td style="text-align:right">' + (d.volume || '—') + '</td></tr>';
+        }).join('');
+    }
+    var sfDate = document.getElementById('sugar-futures-date');
+    if (sfDate) sfDate.textContent = 'Trade date: ' + (RAW.sugarFut.trade_date || '—');
   }
 
   // Futures accuracy
