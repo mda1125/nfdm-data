@@ -1,6 +1,7 @@
 import os
 import json
 import base64
+import time
 import requests
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -20,20 +21,32 @@ DATA_DIR = Path(__file__).parent.parent / "data"
 DATA_DIR.mkdir(exist_ok=True)
 
 
+def fetch_with_retry(url, headers=None, params=None, timeout=30, retries=3):
+    """Fetch a URL with retry logic for transient failures."""
+    for attempt in range(retries):
+        try:
+            r = requests.get(url, headers=headers, params=params, timeout=timeout)
+            r.raise_for_status()
+            return r.json()
+        except (requests.exceptions.Timeout, requests.exceptions.ConnectionError) as e:
+            if attempt < retries - 1:
+                wait = (attempt + 1) * 10
+                print(f"  Retry {attempt + 1}/{retries} after {wait}s: {e}")
+                time.sleep(wait)
+            else:
+                raise
+
+
 def fetch_mpr(path, params=None):
     """Fetch from the LMPR/DPMRP public API (mpr.datamart)."""
     url = f"{MPR_BASE}/{quote(path, safe='/')}"
-    r = requests.get(url, params=params, timeout=30)
-    r.raise_for_status()
-    return r.json()
+    return fetch_with_retry(url, params=params)
 
 
 def fetch_mars(slug, params=None):
     """Fetch from the MMN API (marsapi) — requires DATAMART_API_KEY."""
     url = f"{MARS_BASE}/{quote(str(slug), safe='/')}"
-    r = requests.get(url, headers=MARS_HEADERS, params=params, timeout=30)
-    r.raise_for_status()
-    return r.json()
+    return fetch_with_retry(url, headers=MARS_HEADERS, params=params)
 
 
 def parse_num(val):
@@ -429,24 +442,35 @@ def write_json(name, data):
 
 
 if __name__ == "__main__":
+    failures = []
+
     print("Fetching NDPSR NFDM (report 2993)...")
-    write_json("nass", fetch_ndpsr_nfdm())
+    try:
+        write_json("nass", fetch_ndpsr_nfdm())
+    except Exception as e:
+        print(f"NASS fetch failed: {e}")
+        failures.append("nass")
 
     print("Fetching Class IV (report 2991)...")
-    write_json("class_iv", fetch_class_iv())
+    try:
+        write_json("class_iv", fetch_class_iv())
+    except Exception as e:
+        print(f"Class IV fetch failed: {e}")
+        failures.append("class_iv")
 
     print("Fetching CME spot (report 1603)...")
     try:
         write_json("cme", fetch_cme_spot())
     except Exception as e:
         print(f"CME fetch failed: {e}")
-        write_json("cme", [])
+        failures.append("cme")
 
     print("Fetching fundamentals (NASS QuickStats)...")
     try:
         write_json("fundamentals", fetch_fundamentals())
     except Exception as e:
         print(f"Fundamentals fetch failed: {e}")
+        failures.append("fundamentals")
 
     print("Fetching NFDM futures curve (Yahoo Finance)...")
     try:
@@ -466,6 +490,7 @@ if __name__ == "__main__":
         archive_futures_snapshot(trade_date, spot, curve)
     except Exception as e:
         print(f"Futures fetch failed: {e}")
+        failures.append("futures")
 
     print("Fetching Sugar #11 spot (Yahoo Finance)...")
     try:
@@ -482,6 +507,7 @@ if __name__ == "__main__":
         print(f"Wrote {len(sugar_data)} days to {path}")
     except Exception as e:
         print(f"Sugar spot fetch failed: {e}")
+        failures.append("sugar")
 
     print("Fetching Sugar #11 futures curve (Yahoo Finance)...")
     try:
@@ -497,5 +523,10 @@ if __name__ == "__main__":
         print(f"Wrote {len(sugar_curve)} contracts to {path}")
     except Exception as e:
         print(f"Sugar futures fetch failed: {e}")
+        failures.append("sugar_futures")
 
-    print("Done.")
+    if failures:
+        print(f"\nCompleted with {len(failures)} failure(s): {', '.join(failures)}")
+        print("Partial data was still written for sources that succeeded.")
+    else:
+        print("\nDone — all sources fetched successfully.")
