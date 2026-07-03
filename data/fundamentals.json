@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-02T15:15:00.340233Z",
+  "updated_at": "2026-07-03T15:11:23.777793Z",
   "count": 101,
   "data": [
     {
@@ -796,14 +796,17 @@
     },
     {
       "month": "2026-04",
-      "nfdm_production": 181383000.0,
-      "nfdm_stocks": 253351000.0,
-      "butter_production": 224354000.0,
+      "nfdm_production": 180201000.0,
+      "nfdm_stocks": 245708000.0,
+      "butter_production": 224282000.0,
       "butter_stocks": 307890000.0,
       "milk_production": 19955000000.0
     },
     {
       "month": "2026-05",
+      "nfdm_production": 173300000.0,
+      "nfdm_stocks": 246782000.0,
+      "butter_production": 224250000.0,
       "butter_stocks": 335601000.0,
       "milk_production": 20565000000.0
     }
