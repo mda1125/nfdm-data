@@ -1,79 +1,79 @@
 {
-  "updated_at": "2026-08-13T14:21:50.090246Z",
-  "trade_date": "2026-08-13",
-  "spot": 1.58,
+  "updated_at": "2026-08-14T14:15:12.394254Z",
+  "trade_date": "2026-08-14",
+  "spot": 1.6055,
   "count": 17,
   "data": [
     {
       "month": "2026-08",
       "label": "Aug 26",
-      "settle": 1.58,
-      "volume": 5
+      "settle": 1.6055,
+      "volume": 1
     },
     {
       "month": "2026-09",
       "label": "Sep 26",
-      "settle": 1.6725,
-      "volume": 10
+      "settle": 1.75,
+      "volume": 31
     },
     {
       "month": "2026-10",
       "label": "Oct 26",
-      "settle": 1.675,
-      "volume": 4
+      "settle": 1.755,
+      "volume": 27
     },
     {
       "month": "2026-11",
       "label": "Nov 26",
-      "settle": 1.6268,
-      "volume": 15
+      "settle": 1.7072,
+      "volume": 12
     },
     {
       "month": "2026-12",
       "label": "Dec 26",
-      "settle": 1.637,
-      "volume": 12
+      "settle": 1.7053,
+      "volume": 20
     },
     {
       "month": "2027-01",
       "label": "Jan 27",
-      "settle": 1.5855,
-      "volume": 2
+      "settle": 1.6745,
+      "volume": 16
     },
     {
       "month": "2027-02",
       "label": "Feb 27",
-      "settle": 1.5762,
-      "volume": 2
+      "settle": 1.636,
+      "volume": 5
     },
     {
       "month": "2027-03",
       "label": "Mar 27",
-      "settle": 1.58,
+      "settle": 1.6,
       "volume": 4
     },
     {
       "month": "2027-04",
       "label": "Apr 27",
-      "settle": 1.5405,
-      "volume": 8
+      "settle": 1.5828,
+      "volume": 4
     },
     {
       "month": "2027-05",
       "label": "May 27",
-      "settle": 1.5305,
-      "volume": 5
+      "settle": 1.575,
+      "volume": 1
     },
     {
       "month": "2027-06",
       "label": "Jun 27",
-      "settle": 1.535,
-      "volume": 19
+      "settle": 1.564,
+      "volume": 4
     },
     {
       "month": "2027-07",
       "label": "Jul 27",
-      "settle": 1.51,
+      "settle": 1.54,
       "volume": 2
     },
     {
