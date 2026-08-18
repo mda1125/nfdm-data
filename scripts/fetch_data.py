@@ -204,24 +204,28 @@ def fetch_cme_spot():
 # ---------------------------------------------------------------------------
 MT_PER_LB = 2204.62
 
-# WPC34: Central & Western WPC 34% report (formal ranges).
+# Report 1053 = "Whey Protein Concentrate - Central and West U.S." — structured
+# weekly rows (price_min/max, mostly_low/high_price, grade) plus a report narrative
+# that also comments on WPC 80% and WPI. Confirmed from CI logs. One report powers
+# all three products: WPC34/WPC80 structured where a grade row exists, WPC80/WPI
+# from the latest week's narrative otherwise.
 WHEY_WPC34_REPORT = "1053"
-# Candidate DMN weekly whey narrative report ids for WPC80/WPI prose ranges.
-# The first CI run logs the MARS catalog so the correct id can be confirmed here.
-WHEY_NARRATIVE_REPORTS = ["2759", "2990", "1053"]
 
 WHEY_PRODUCTS = {
     "WPC80": {
         "name": "Whey Protein Concentrate 80%",
         "aliases": ["wpc 80", "wpc80", "whey protein concentrate 80", "80% wpc", "wpc 80%"],
+        "grade_key": "80",
     },
     "WPI": {
         "name": "Whey Protein Isolate",
         "aliases": ["whey protein isolate", "wpi", "protein isolate"],
+        "grade_key": None,
     },
     "WPC34": {
         "name": "Whey Protein Concentrate 34%",
         "aliases": ["wpc 34", "wpc34", "whey protein concentrate 34", "34% wpc", "wpc 34%"],
+        "grade_key": "34",
     },
 }
 
@@ -229,8 +233,15 @@ STATUS_KEYWORDS = ["tight", "firm", "balanced", "soft", "steady"]
 
 _RANGE_RE = re.compile(r"\$?\s*(\d+(?:\.\d+)?)\s*(?:-|–|—|to)\s*\$?\s*(\d+(?:\.\d+)?)")
 _SINGLE_RE = re.compile(r"\$\s*(\d+(?:\.\d+)?)")
-# "upper-$14s" / "upper $14s" / "upper 14s" -> high bound rounds up to the next dollar.
-_UPPER_RE = re.compile(r"upper[\s\-]*\$?\s*(\d+)\s*s", re.IGNORECASE)
+# In-the-dollar idioms DMN uses: "upper $14s", "mid-$13s", "low $14s". The offset
+# places the value within that dollar (low ~.2, mid ~.5, upper/high ~.8).
+_QUAL_RE = re.compile(r"(low(?:er)?|mid(?:dle)?|upper|high|top)[\s\-]*\$?\s*(\d+)\s*s\b", re.IGNORECASE)
+_QUAL_OFFSET = {"low": 0.2, "lower": 0.2, "mid": 0.5, "middle": 0.5,
+                "upper": 0.8, "high": 0.8, "top": 0.9}
+
+
+def _qual_value(word, n):
+    return round(float(n) + _QUAL_OFFSET.get(word.lower(), 0.5), 2)
 
 
 def to_mt(usd_lb):
@@ -285,25 +296,33 @@ def parse_whey_range(text, aliases):
     if not text:
         return None, None, None
 
-    # Pass 1: prefer an explicit range or the 'upper-$Ns' idiom, scoped to the
-    # product's own sentence so an adjacent product's range can't be captured.
+    # Prefer an explicit numeric range, then in-the-dollar qualifier idioms,
+    # scoped to the product's own sentence so an adjacent product's range can't
+    # be captured. A lone figure is a weak fallback (kept only if nothing better).
     weak = None
     for sentence in _alias_sentences(text, aliases):
         m = _RANGE_RE.search(sentence)
         if m:
             lo, hi = float(m.group(1)), float(m.group(2))
             return (min(lo, hi), max(lo, hi), sentence)
-        um = _UPPER_RE.search(sentence)
+
+        quals = _QUAL_RE.findall(sentence)  # e.g. [('upper','13'), ('mid','14')]
         sm = _SINGLE_RE.search(sentence)
-        if um and sm:
-            lo = float(sm.group(1))
-            hi = float(um.group(1)) + 1.0
-            return (min(lo, hi), max(lo, hi), sentence)
-        if sm and weak is None:  # remember a lone figure, but keep looking
+        if len(quals) >= 2:
+            vals = [_qual_value(w, n) for w, n in quals]
+            return (min(vals), max(vals), sentence)
+        if len(quals) == 1:
+            qv = _qual_value(*quals[0])
+            if sm:  # e.g. "$14 to upper-$14s" -> (14, 14.8)
+                base = float(sm.group(1))
+                return (min(base, qv), max(base, qv), sentence)
+            if weak is None:
+                weak = (qv, qv, sentence)
+            continue
+        if sm and weak is None:
             v = float(sm.group(1))
             weak = (v, v, sentence)
 
-    # Pass 2: fall back to a lone dollar figure (weak signal -> low confidence).
     return weak if weak else (None, None, None)
 
 
@@ -318,17 +337,73 @@ def detect_status(text):
     return "unknown"
 
 
-def _collect_narrative(payload):
-    """Concatenate any narrative-like text fields from a MARS report payload."""
-    chunks = []
-    results = payload.get("results", []) if isinstance(payload, dict) else []
-    for row in results:
+def _collect_narrative(rows):
+    """Concatenate narrative-like text fields from the given report rows."""
+    chunks, seen = [], set()
+    for row in rows:
         if not isinstance(row, dict):
             continue
         for k, v in row.items():
-            if isinstance(v, str) and ("narrative" in k.lower() or "comment" in k.lower() or "text" in k.lower()):
-                chunks.append(v)
+            if isinstance(v, str) and v.strip() and ("narrative" in k.lower() or "comment" in k.lower()):
+                if v not in seen:
+                    seen.add(v)
+                    chunks.append(v)
     return "\n".join(chunks)
+
+
+def _row_date(row):
+    """Best available date for a report row, normalized to YYYY-MM-DD."""
+    return normalize_date(row.get("report_end_date") or row.get("report_date")
+                          or row.get("published_date") or "")
+
+
+def _latest_rows(results):
+    """Rows belonging to the most recent report week; ('' if none). Avoids parsing
+    across the report's multi-year history."""
+    dated = [(r, _row_date(r)) for r in results if isinstance(r, dict) and _row_date(r)]
+    if not dated:
+        return [r for r in results if isinstance(r, dict)], ""
+    latest = max(d for _, d in dated)
+    return [r for r, d in dated if d == latest], latest
+
+
+def _fmt_period(row):
+    """Human 'Aug 10-14, 2026' style period from a row's begin/end dates."""
+    b = normalize_date(row.get("report_begin_date") or "")
+    e = normalize_date(row.get("report_end_date") or "")
+    try:
+        bd = datetime.strptime(b, "%Y-%m-%d")
+        ed = datetime.strptime(e, "%Y-%m-%d")
+    except ValueError:
+        return e or b or ""
+    if bd.month == ed.month:
+        return f"{bd.strftime('%b')} {bd.day}-{ed.day}, {ed.year}"
+    return f"{bd.strftime('%b')} {bd.day} - {ed.strftime('%b')} {ed.day}, {ed.year}"
+
+
+def _structured_range(row):
+    """(low, high) from a report row: prefer the 'mostly' range, else min/max."""
+    for lo_k, hi_k in (("mostly_low_price", "mostly_high_price"), ("price_min", "price_max")):
+        lo, hi = row.get(lo_k), row.get(hi_k)
+        if lo not in (None, "") and hi not in (None, ""):
+            try:
+                return parse_num(lo), parse_num(hi), f"{lo_k}={lo}, {hi_k}={hi}"
+            except (TypeError, ValueError):
+                continue
+    return None, None, None
+
+
+def _grade_matches(row, code):
+    """True if a report row is the structured line for this product. Report 1053's
+    commodity is already 'Whey Protein Concentrate', so match on the grade number
+    (34/80) in the grade fields; falls back to word aliases in the title/desc."""
+    grade_key = WHEY_PRODUCTS[code].get("grade_key")
+    grade_blob = (str(row.get("grade", "")) + " " + str(row.get("other_Grades", ""))).lower()
+    if grade_key and grade_key in grade_blob:
+        return True
+    text_blob = " ".join(str(row.get(k, "")) for k in
+                         ("report_title", "lot_Desc")).lower()
+    return any(a in text_blob for a in WHEY_PRODUCTS[code]["aliases"])
 
 
 def _build_product(code, low, high, source_type, source_report, report_id,
@@ -374,97 +449,78 @@ def _build_product(code, low, high, source_type, source_report, report_id,
 
 
 def fetch_whey():
-    """Fetch WPC80, WPI (narrative) and WPC34 (formal) whey ingredient indications."""
-    products = {}
+    """Fetch WPC34, WPC80 and WPI whey indications from report 1053.
 
-    # --- WPC34: formal ranges from report 1053 (structured, else narrative) ---
-    wpc34_pub, wpc34_period = "", ""
+    Report 1053 carries structured weekly rows (price_min/max, mostly_low/high,
+    grade) plus a report narrative that also comments on WPC 80% and WPI. We scope
+    everything to the LATEST report week: structured ranges where a grade row
+    exists (formal, high confidence), narrative parsing otherwise (medium).
+    """
+    formal_src = "USDA AMS Dairy Market News, report 1053 (Whey Protein Concentrate, Central/West U.S.)"
+    narr_src = "USDA AMS Dairy Market News, report 1053 (weekly whey narrative)"
+
+    def missing(code, note):
+        return _build_product(code, None, None, "narrative", narr_src,
+                              WHEY_WPC34_REPORT, "", "", None, "unknown", note=note)
+
     try:
         raw = fetch_mars(WHEY_WPC34_REPORT)
-        results = raw.get("results", []) if isinstance(raw, dict) else []
-        if results:
-            print(f"[DEBUG] Whey report {WHEY_WPC34_REPORT} first row keys: {list(results[0].keys())}")
-            print(f"[DEBUG] Whey report {WHEY_WPC34_REPORT} first row: {json.dumps(results[0], indent=2)[:800]}")
-        # Try structured low/high fields on the most recent row.
+    except Exception as e:
+        print(f"  [whey] report {WHEY_WPC34_REPORT} fetch failed: {e}")
+        note = f"Fetch failed: {e}"
+        return [missing(c, note) for c in ("WPC80", "WPI", "WPC34")]
+
+    results = raw.get("results", []) if isinstance(raw, dict) else []
+    latest, latest_date = _latest_rows(results)
+    if results:
+        print(f"[DEBUG] report {WHEY_WPC34_REPORT}: {len(results)} rows, latest={latest_date}, "
+              f"{len(latest)} latest-week rows")
+        for r in latest[:8]:
+            print(f"[DEBUG]   grade={r.get('grade')!r} other={r.get('other_Grades')!r} "
+                  f"min={r.get('price_min')} max={r.get('price_max')} "
+                  f"mostly={r.get('mostly_low_price')}-{r.get('mostly_high_price')}")
+
+    period = _fmt_period(latest[0]) if latest else ""
+    published = normalize_date(latest[0].get("published_date")) if latest else ""
+    narrative = _collect_narrative(latest)
+
+    products = {}
+
+    # WPC34 / WPC80: structured row if a matching grade exists this week, else
+    # fall back to the latest narrative.
+    for code, stype_default in (("WPC34", "formal"), ("WPC80", "narrative")):
+        aliases = WHEY_PRODUCTS[code]["aliases"]
+        row = next((r for r in latest if _grade_matches(r, code)), None)
         lo = hi = None
         excerpt = None
-        for row in results:
-            wpc34_pub = normalize_date(row.get("published_date") or row.get("report_date")) or wpc34_pub
-            wpc34_period = row.get("report_period") or row.get("reporting_period") or wpc34_period
-            lo_key = next((k for k in row if "low" in k.lower() and row[k] not in (None, "")), None)
-            hi_key = next((k for k in row if "high" in k.lower() and row[k] not in (None, "")), None)
-            if lo_key and hi_key:
-                try:
-                    lo, hi = parse_num(row[lo_key]), parse_num(row[hi_key])
-                    excerpt = f"{lo_key}={row[lo_key]}, {hi_key}={row[hi_key]} (report {WHEY_WPC34_REPORT})"
-                    break
-                except (TypeError, ValueError):
-                    lo = hi = None
-        narrative = _collect_narrative(raw)
-        status = detect_status(narrative or excerpt or "")
-        if lo is not None and hi is not None:
-            products["WPC34"] = _build_product(
-                "WPC34", min(lo, hi), max(lo, hi), "formal",
-                "USDA AMS Dairy Market News, report 1053 (Central/Western WPC 34%)",
-                WHEY_WPC34_REPORT, wpc34_pub, wpc34_period, excerpt, status)
-        else:
-            # Structured fields not found — fall back to parsing 1053's narrative.
-            nlo, nhi, nex = parse_whey_range(narrative, WHEY_PRODUCTS["WPC34"]["aliases"])
-            products["WPC34"] = _build_product(
-                "WPC34", nlo, nhi, "formal" if nlo is not None else "narrative",
-                "USDA AMS Dairy Market News, report 1053 (Central/Western WPC 34%)",
-                WHEY_WPC34_REPORT, wpc34_pub, wpc34_period, nex,
-                detect_status(nex or narrative),
-                note=None if nlo is not None else "WPC34 range not parsed from report 1053; check field mapping in CI logs.")
-    except Exception as e:
-        print(f"  [whey] WPC34 (report 1053) failed: {e}")
-        products["WPC34"] = _build_product(
-            "WPC34", None, None, "formal",
-            "USDA AMS Dairy Market News, report 1053 (Central/Western WPC 34%)",
-            WHEY_WPC34_REPORT, "", "", None, "unknown",
-            note=f"Fetch failed: {e}")
-
-    # --- WPC80 / WPI: prose ranges from the DMN weekly whey narrative ---
-    narrative_text = ""
-    used_report = None
-    narr_pub = narr_period = ""
-    for rid in WHEY_NARRATIVE_REPORTS:
-        try:
-            raw = fetch_mars(rid)
-            results = raw.get("results", []) if isinstance(raw, dict) else []
-            if results:
-                print(f"[DEBUG] Whey narrative candidate {rid} first row keys: {list(results[0].keys())}")
-            txt = _collect_narrative(raw)
-            if txt and any(a in txt.lower() for p in ("WPC80", "WPI") for a in WHEY_PRODUCTS[p]["aliases"]):
-                narrative_text = txt
-                used_report = rid
-                for row in results:
-                    narr_pub = normalize_date(row.get("published_date") or row.get("report_date")) or narr_pub
-                    narr_period = row.get("report_period") or row.get("reporting_period") or narr_period
-                print(f"[DEBUG] Using report {rid} for WPC80/WPI narrative ({len(txt)} chars)")
-                break
-        except Exception as e:
-            print(f"  [whey] narrative candidate {rid} failed: {e}")
-            continue
-
-    src_label = (f"USDA AMS Dairy Market News, weekly whey narrative (report {used_report})"
-                 if used_report else "USDA AMS Dairy Market News, weekly whey narrative")
-    status = detect_status(narrative_text)
-    for code in ("WPC80", "WPI"):
-        lo, hi, ex = parse_whey_range(narrative_text, WHEY_PRODUCTS[code]["aliases"])
-        note = None
-        if lo is None:
-            note = "No range parsed from DMN narrative; confirm narrative report id in CI logs."
+        stype = stype_default
+        if row is not None:
+            lo, hi, excerpt = _structured_range(row)
+            if lo is not None:
+                stype = "formal"
+        if lo is None:  # no structured row/price -> narrative
+            lo, hi, excerpt = parse_whey_range(narrative, aliases)
+            stype = "narrative"
+        note = None if lo is not None else \
+            f"No {code} range in report 1053 (structured or narrative) for {latest_date or 'latest week'}."
         products[code] = _build_product(
-            code, lo, hi, "narrative", src_label, used_report,
-            narr_pub, narr_period, ex,
-            detect_status_near(narrative_text, WHEY_PRODUCTS[code]["aliases"]), note=note)
+            code, lo, hi, stype,
+            formal_src if stype == "formal" else narr_src,
+            WHEY_WPC34_REPORT, published, period, excerpt,
+            detect_status_near(narrative, aliases), note=note)
 
-    # Stable order: WPC80, WPI, WPC34.
-    order = ["WPC80", "WPI", "WPC34"]
-    out = [products[c] for c in order if c in products]
+    # WPI: narrative only (report 1053 has no WPI grade rows).
+    aliases = WHEY_PRODUCTS["WPI"]["aliases"]
+    lo, hi, ex = parse_whey_range(narrative, aliases)
+    products["WPI"] = _build_product(
+        "WPI", lo, hi, "narrative", narr_src, WHEY_WPC34_REPORT,
+        published, period, ex, detect_status_near(narrative, aliases),
+        note=None if lo is not None else
+        f"No WPI range in the report 1053 narrative for {latest_date or 'latest week'}.")
+
+    out = [products[c] for c in ("WPC80", "WPI", "WPC34") if c in products]
     parsed = sum(1 for p in out if p["mid"] is not None)
-    print(f"  whey: {parsed}/{len(out)} products with a parsed range")
+    print(f"  whey: {parsed}/{len(out)} products parsed (week {latest_date})")
     return out
 
 
