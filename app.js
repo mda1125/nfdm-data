@@ -1213,7 +1213,7 @@ function renderWhey() {
   var host = document.getElementById('whey-cards');
   if (!host) return;
   if (!RAW || !RAW.whey || !RAW.whey.products || !RAW.whey.products.length) {
-    host.innerHTML = '<div style="color:#6e7681;font-size:12px;padding:8px">Whey ingredient data not available yet.</div>';
+    host.innerHTML = '<div style="color:#6e7681;font-size:12px;padding:8px">Whey market data not available yet.</div>';
     return;
   }
 
