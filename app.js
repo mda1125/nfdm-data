@@ -6,7 +6,8 @@ const DATA_URLS = {
   futuresHistory: 'https://mda1125.github.io/nfdm-data/data/futures_history.json',
   fundamentals: 'https://mda1125.github.io/nfdm-data/data/fundamentals.json',
   sugar: 'https://mda1125.github.io/nfdm-data/data/sugar.json',
-  sugarFutures: 'https://mda1125.github.io/nfdm-data/data/sugar_futures.json'
+  sugarFutures: 'https://mda1125.github.io/nfdm-data/data/sugar_futures.json',
+  whey: 'https://mda1125.github.io/nfdm-data/data/whey.json'
 };
 
 let RAW = null;
@@ -111,7 +112,8 @@ async function fetchLiveData() {
       fetch(DATA_URLS.fundamentals, {cache: 'no-store'}).catch(function(){ return null; }),
       fetch(DATA_URLS.futuresHistory, {cache: 'no-store'}).catch(function(){ return null; }),
       fetch(DATA_URLS.sugar, {cache: 'no-store'}).catch(function(){ return null; }),
-      fetch(DATA_URLS.sugarFutures, {cache: 'no-store'}).catch(function(){ return null; })
+      fetch(DATA_URLS.sugarFutures, {cache: 'no-store'}).catch(function(){ return null; }),
+      fetch(DATA_URLS.whey, {cache: 'no-store'}).catch(function(){ return null; })
     ]);
     if (!responses[0].ok || !responses[1].ok || !responses[2].ok) {
       throw new Error('HTTP ' + responses[0].status + '/' + responses[1].status + '/' + responses[2].status);
@@ -186,6 +188,14 @@ async function fetchLiveData() {
         data: sugarFutJ.data.map(function(d){return {month: d.month, label: d.label, settle: +d.settle_cents_lb, usd_kg: +d.settle_usd_kg, volume: +(d.volume || 0)};})
       };
     }
+    var wheyJ = null;
+    if (responses[8] && responses[8].ok) {
+      try { wheyJ = await responses[8].json(); } catch(e) { wheyJ = null; }
+    }
+    var whey = null;
+    if (wheyJ && wheyJ.data && wheyJ.data.length) {
+      whey = {updated_at: wheyJ.updated_at || '', products: wheyJ.data};
+    }
     const stamps = [cmeJ.updated_at, nassJ.updated_at, c4J.updated_at].filter(Boolean);
     lastUpdated = stamps.sort().reverse()[0] || new Date().toISOString();
     dataMode = 'live';
@@ -194,8 +204,9 @@ async function fetchLiveData() {
     if (fund) toastMsg += ' · ' + fund.length + ' supply';
     if (futHist) toastMsg += ' · ' + futHist.length + ' snapshots';
     if (sugar) toastMsg += ' · ' + sugar.data.length + ' sugar';
+    if (whey) toastMsg += ' · ' + whey.products.length + ' whey';
     showToast(toastMsg);
-    return {cme: cme, nass: nass, c4: c4, futures: futures, fund: fund, futHist: futHist, sugar: sugar, sugarFut: sugarFut};
+    return {cme: cme, nass: nass, c4: c4, futures: futures, fund: fund, futHist: futHist, sugar: sugar, sugarFut: sugarFut, whey: whey};
   } catch (err) {
     console.warn('Live fetch failed:', err);
     dataMode = 'error';
@@ -518,6 +529,9 @@ function buildCharts() {
         }).join('');
     }
   }
+
+  // Whey ingredient market overview (cards, no chart)
+  renderWhey();
 
   // Seasonals
   var ctxSeas = document.getElementById('chart-seasonals');
@@ -1193,6 +1207,83 @@ function buildAccuracyView() {
       tblAcc.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px;color:#6e7681">No settled predictions yet. As futures snapshots accumulate and contract months expire, accuracy data will appear here automatically.</td></tr>';
     }
   }
+}
+
+function renderWhey() {
+  var host = document.getElementById('whey-cards');
+  if (!host) return;
+  if (!RAW || !RAW.whey || !RAW.whey.products || !RAW.whey.products.length) {
+    host.innerHTML = '<div style="color:#6e7681;font-size:12px;padding:8px">Whey ingredient data not available yet.</div>';
+    return;
+  }
+
+  var STATUS_COLORS = {tight:'#f87171', firm:'#e6a817', balanced:'#60a5fa', soft:'#4ade80', unknown:'#6e7681'};
+  var CONF_COLORS = {high:'#4ade80', medium:'#e6a817', low:'#f87171'};
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];
+    });
+  }
+  function badge(text, color) {
+    return '<span class="whey-badge" style="background:' + color + '22;color:' + color + ';border:1px solid ' + color + '44">' + esc(text) + '</span>';
+  }
+  function usd(v, dp) { return v == null ? '—' : '$' + (+v).toFixed(dp == null ? 2 : dp); }
+  function usdMt(v) { return v == null ? '—' : '$' + Math.round(v).toLocaleString('en-US'); }
+  function daysSince(dateStr) {
+    if (!dateStr) return null;
+    var d = new Date(dateStr);
+    if (isNaN(d)) return null;
+    return Math.floor((Date.now() - d.getTime()) / 86400000);
+  }
+
+  host.innerHTML = RAW.whey.products.map(function(p) {
+    var status = (p.status || 'unknown').toLowerCase();
+    var conf = (p.confidence || 'low').toLowerCase();
+    var sColor = STATUS_COLORS[status] || STATUS_COLORS.unknown;
+    var cColor = CONF_COLORS[conf] || CONF_COLORS.low;
+    var srcLabel = p.source_type === 'formal' ? 'Formal range' : 'Narrative indication';
+    var srcColor = p.source_type === 'formal' ? '#4ade80' : '#a78bfa';
+
+    // Freshness from published date (fallback last_verified).
+    var age = daysSince(p.published_date || p.last_verified);
+    var freshColor = age == null ? '#6e7681' : (age <= 8 ? '#4ade80' : (age <= 14 ? '#e6a817' : '#f87171'));
+    var freshText = age == null ? 'freshness unknown' : (age === 0 ? 'today' : age + ' day' + (age === 1 ? '' : 's') + ' ago');
+
+    var badges = badge(status.toUpperCase(), sColor) +
+                 badge(conf.toUpperCase() + ' CONF', cColor) +
+                 badge(srcLabel, srcColor);
+
+    var rangeLine, midLine, mtLine;
+    if (p.mid == null) {
+      rangeLine = '<div class="whey-range" style="font-size:16px;color:#6e7681">No current range parsed</div>';
+      midLine = '';
+      mtLine = '';
+    } else {
+      rangeLine = '<div class="whey-range">' + usd(p.low) + ' – ' + usd(p.high) + '<span style="font-size:12px;color:#6e7681;font-weight:400"> /lb</span></div>';
+      midLine = '<div class="whey-mid">Midpoint <strong style="color:#e6edf3">' + usd(p.mid) + '/lb</strong></div>';
+      mtLine = '<div class="whey-mt">' + usdMt(p.low_mt) + ' – ' + usdMt(p.high_mt) + ' /MT · mid ' + usdMt(p.mid_mt) + '</div>';
+    }
+
+    var meta = '<div class="whey-meta">' +
+      (p.reporting_period ? 'Period: ' + esc(p.reporting_period) + '<br>' : '') +
+      'Source: ' + esc(p.source_report || 'USDA Dairy Market News') +
+      (p.published_date ? '<br>Published: ' + esc(p.published_date) : '') +
+      '<br>Last verified: <span style="color:' + freshColor + '">● ' + freshText + '</span>' +
+      '</div>';
+
+    var quote = p.excerpt ? '<div class="whey-quote">“' + esc(p.excerpt) + '”</div>' : '';
+    var interp = p.interpretation ? '<div class="whey-interp">' + esc(p.interpretation) + '</div>' : '';
+    var note = p.note ? '<div class="whey-interp" style="color:#f87171">Note: ' + esc(p.note) + '</div>' : '';
+
+    return '<div class="whey-card">' +
+      '<div class="whey-card-hdr">' +
+        '<div><div class="whey-name">' + esc(p.name || p.code) + '</div><div class="whey-code">' + esc(p.code) + '</div></div>' +
+        '<div class="whey-badges">' + badges + '</div>' +
+      '</div>' +
+      rangeLine + midLine + mtLine + meta + quote + interp + note +
+    '</div>';
+  }).join('');
 }
 
 function showView(name, el) {

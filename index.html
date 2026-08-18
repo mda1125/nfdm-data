@@ -69,6 +69,20 @@ a{color:#58a6ff}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
 .class4-compare{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
 .c4-card{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:12px;text-align:center}
+.disclaimer-banner{background:#e6a8170f;border:1px solid #e6a81733;border-left:3px solid #e6a817;border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:12px;color:#c9a24a;line-height:1.5}
+.whey-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.whey-card{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:16px 18px}
+.whey-card-hdr{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px}
+.whey-name{font-size:14px;font-weight:600;color:#e6edf3}
+.whey-code{font-size:11px;color:#6e7681;margin-top:1px}
+.whey-badges{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
+.whey-badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:.4px;white-space:nowrap}
+.whey-range{font-size:22px;font-weight:700;color:#e6edf3;margin:4px 0 2px}
+.whey-mid{font-size:12px;color:#8b949e}
+.whey-mt{font-size:11px;color:#6e7681;margin-top:2px}
+.whey-meta{font-size:11px;color:#6e7681;margin-top:10px;line-height:1.6}
+.whey-quote{background:#0d1117;border:1px solid #30363d;border-left:3px solid #6e7681;border-radius:6px;padding:9px 12px;margin-top:10px;font-size:11px;color:#a5d6ff;font-style:italic;line-height:1.5}
+.whey-interp{font-size:11px;color:#9ca3af;margin-top:10px;line-height:1.5}
 .c4-label{font-size:10px;color:#6e7681;margin-bottom:6px}
 .c4-val{font-size:20px;font-weight:700}
 .c4-sub{font-size:10px;color:#6e7681;margin-top:4px}
@@ -122,6 +136,7 @@ a{color:#58a6ff}
     <div class="nav-item" data-view="seasonals"><span class="nav-icon">⛅</span>Seasonals</div>
     <div class="nav-item" data-view="fundamentals"><span class="nav-icon">⚖</span>Fundamentals</div>
     <div class="nav-item" data-view="sugar"><span class="nav-icon">◇</span>Sugar #11</div>
+    <div class="nav-item" data-view="whey"><span class="nav-icon">⬢</span>Whey ingredients</div>
     <div class="nav-item" data-view="recent"><span class="nav-icon">≡</span>Recent prices</div>
   </nav>
   <div class="sb-sources">
@@ -132,6 +147,7 @@ a{color:#58a6ff}
     <div>Futures via <a href="https://finance.yahoo.com/quote/GNF=F/" target="_blank">CME GNF</a></div>
     <div>Supply via <a href="https://quickstats.nass.usda.gov" target="_blank">NASS QuickStats</a></div>
     <div>Sugar via <a href="https://finance.yahoo.com/quote/SB=F/" target="_blank">ICE SB</a></div>
+    <div>Whey via <a href="https://mymarketnews.ams.usda.gov" target="_blank">USDA Dairy Market News</a></div>
   </div>
 </div>
 
@@ -375,6 +391,17 @@ a{color:#58a6ff}
           <div class="panel-hdr"><h2>Futures detail</h2><p id="sugar-futures-date">—</p></div>
           <table class="data-table" id="tbl-sugar-futures"></table>
         </div>
+      </div>
+    </div>
+
+    <div id="view-whey" class="view">
+      <div class="disclaimer-banner">
+        <strong>Public market indications — not executed buyer prices.</strong>
+        Ranges are drawn from USDA Dairy Market News. WPC34 is a formally published range; WPC80 and WPI are read from the weekly market narrative. USDA data is confidentially collected from manufacturers, end users, brokers, and traders. Midpoints are indications before freight and conversion costs, not executable quotes or transaction-weighted averages. This product uses USDA data but is not endorsed or certified by USDA.
+      </div>
+      <div class="panel">
+        <div class="panel-hdr"><h2>Whey ingredient market overview</h2><p id="whey-note">USDA Dairy Market News weekly indications · low / midpoint / high per product</p></div>
+        <div class="whey-grid" id="whey-cards"></div>
       </div>
     </div>
 
