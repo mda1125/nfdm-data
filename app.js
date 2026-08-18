@@ -242,7 +242,9 @@ function joinCmeNass(cme, nass) {
   }).filter(function(n){return n.cmeavg !== null;});
 }
 
-const COLORS = {cme:'#e6a817', nass:'#60a5fa', ma:'#a78bfa', c4a:'#4ade80', c4i:'#e6a817', grid:'rgba(48,54,61,0.8)', tick:'#6e7681'};
+const COLORS = {cme:'#e6a817', nass:'#60a5fa', ma:'#a78bfa', c4a:'#4ade80', c4i:'#e6a817', grid:'rgba(48,54,61,0.8)', tick:'#6e7681', milkProtein:'#2dd4bf'};
+// Rule-of-thumb: estimated milk protein price ≈ NFDM price × this multiplier.
+const MILK_PROTEIN_MULT = 3.2;
 
 function baseOpts(yLabel) {
   return {
@@ -457,6 +459,62 @@ function buildCharts() {
           var diffStr = spotLine ? (diff >= 0 ? '+' : '') + diff.toFixed(4) : '—';
           var diffCol = diff >= 0 ? '#4ade80' : '#f87171';
           return '<tr><td>' + d.label + '</td><td style="text-align:right">$' + d.settle.toFixed(4) + '</td><td style="text-align:right;color:' + diffCol + '">' + diffStr + '</td><td style="text-align:right">' + (d.volume || '—') + '</td></tr>';
+        }).join('');
+    }
+  }
+
+  // Milk protein estimate (NFDM futures curve × MILK_PROTEIN_MULT)
+  var ctxMP = document.getElementById('chart-milkprotein');
+  if (ctxMP && RAW.futures && RAW.futures.data.length) {
+    var mpd = RAW.futures.data;
+    var mpSpot = RAW.futures.spot ? RAW.futures.spot * MILK_PROTEIN_MULT : null;
+    var mpSpotAnnotation = mpSpot ? {
+      type: 'line', yMin: mpSpot, yMax: mpSpot,
+      borderColor: '#4ade80', borderWidth: 1.5, borderDash: [6,3],
+      label: {display: true, content: 'Spot $' + mpSpot.toFixed(4), position: 'start', backgroundColor: '#4ade8033', color: '#4ade80', font: {size: 10}}
+    } : null;
+    charts.milkProtein = new Chart(ctxMP, {
+      type: 'line',
+      data: {
+        labels: mpd.map(function(d){return d.label;}),
+        datasets: [{
+          label: 'Milk protein (est.)',
+          data: mpd.map(function(d){return d.settle * MILK_PROTEIN_MULT;}),
+          borderColor: COLORS.milkProtein, backgroundColor: 'rgba(45,212,191,0.08)',
+          borderWidth: 2, pointRadius: 4, pointBackgroundColor: COLORS.milkProtein,
+          tension: 0.3, fill: true
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        interaction: {mode: 'index', intersect: false},
+        plugins: {
+          legend: {display: false},
+          tooltip: {backgroundColor: '#1f2937', borderColor: '#374151', borderWidth: 1, titleColor: '#e6edf3', bodyColor: '#9ca3af', padding: 10,
+            callbacks: {label: function(ctx){return '$' + ctx.parsed.y.toFixed(4) + '/lb (est.)';}}},
+          annotation: mpSpotAnnotation ? {annotations: {spotLine: mpSpotAnnotation}} : undefined
+        },
+        scales: {
+          x: {ticks: {color: COLORS.tick, maxRotation: 45, font: {size: 11}}, grid: {color: COLORS.grid}},
+          y: {ticks: {color: COLORS.tick, callback: function(v){return '$' + v.toFixed(2);}}, grid: {color: COLORS.grid}, title: {display: true, text: '$/lb (est.)', color: COLORS.tick}}
+        }
+      }
+    });
+
+    var mpFront = mpd[0].settle * MILK_PROTEIN_MULT, mpBack = mpd[mpd.length - 1].settle * MILK_PROTEIN_MULT;
+    if (mpSpot) setText('kpi-mp-spot', '$' + mpSpot.toFixed(4));
+    setText('kpi-mp-front', '$' + mpFront.toFixed(4));
+    setText('kpi-mp-front-label', mpd[0].label + ' · $/lb (est.)');
+    setText('kpi-mp-back', '$' + mpBack.toFixed(4));
+    setText('kpi-mp-back-label', mpd[mpd.length - 1].label + ' · $/lb (est.)');
+
+    var mpDate = document.getElementById('mp-trade-date');
+    if (mpDate) mpDate.textContent = 'Trade date: ' + (RAW.futures.trade_date || '—') + ' · multiplier ×' + MILK_PROTEIN_MULT;
+    var tblMP = document.getElementById('tbl-milkprotein');
+    if (tblMP) {
+      tblMP.innerHTML = '<tr><th>Contract</th><th style="text-align:right">NFDM settle</th><th style="text-align:right">Milk protein (est.)</th></tr>' +
+        mpd.map(function(d){
+          return '<tr><td>' + d.label + '</td><td style="text-align:right">$' + d.settle.toFixed(4) + '</td><td style="text-align:right;color:' + COLORS.milkProtein + '">$' + (d.settle * MILK_PROTEIN_MULT).toFixed(4) + '</td></tr>';
         }).join('');
     }
   }

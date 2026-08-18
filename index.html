@@ -117,6 +117,7 @@ a{color:#58a6ff}
     <div class="nav-item" data-view="basis"><span class="nav-icon">≈</span>Basis spread</div>
     <div class="nav-item" data-view="class4"><span class="nav-icon">⊞</span>Class IV impact</div>
     <div class="nav-item" data-view="futures"><span class="nav-icon">⌇</span>Futures curve</div>
+    <div class="nav-item" data-view="milkprotein"><span class="nav-icon">⬗</span>Milk protein (est.)</div>
     <div class="nav-item" data-view="accuracy"><span class="nav-icon">◎</span>Futures accuracy</div>
     <div class="nav-item" data-view="seasonals"><span class="nav-icon">⛅</span>Seasonals</div>
     <div class="nav-item" data-view="fundamentals"><span class="nav-icon">⚖</span>Fundamentals</div>
@@ -254,6 +255,26 @@ a{color:#58a6ff}
       <div class="panel">
         <div class="panel-hdr"><h2>Settlement detail</h2><p id="futures-trade-date">—</p></div>
         <table class="data-table" id="tbl-futures"></table>
+      </div>
+    </div>
+
+    <div id="view-milkprotein" class="view">
+      <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="kpi"><div class="kpi-tag" style="background:#2dd4bf22;color:#2dd4bf;border:1px solid #2dd4bf44">SPOT (EST.)</div><div class="kpi-val" id="kpi-mp-spot">—</div><div class="kpi-meta" id="kpi-mp-spot-label">CME cash spot × 3.2</div></div>
+        <div class="kpi"><div class="kpi-tag" style="background:#2dd4bf22;color:#2dd4bf;border:1px solid #2dd4bf44">FRONT (EST.)</div><div class="kpi-val" id="kpi-mp-front">—</div><div class="kpi-meta" id="kpi-mp-front-label">—</div></div>
+        <div class="kpi"><div class="kpi-tag" style="background:#2dd4bf22;color:#2dd4bf;border:1px solid #2dd4bf44">BACK (EST.)</div><div class="kpi-val" id="kpi-mp-back">—</div><div class="kpi-meta" id="kpi-mp-back-label">—</div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-hdr"><h2>Milk protein forward curve (estimate)</h2><p>Estimated milk protein price = NFDM futures settlement × 3.2, by contract month · dashed line = current CME cash spot × 3.2</p></div>
+        <div style="display:flex;gap:16px;margin:10px 0;font-size:11px;color:#6e7681">
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:3px;background:#2dd4bf;display:inline-block;border-radius:2px"></span>Milk protein (est.)</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:2px;border-top:2px dashed #4ade80;display:inline-block"></span>Spot × 3.2</span>
+        </div>
+        <div class="chart-wrap" style="height:300px"><canvas id="chart-milkprotein" role="img" aria-label="Milk protein estimated forward curve"></canvas></div>
+      </div>
+      <div class="panel">
+        <div class="panel-hdr"><h2>Estimate detail</h2><p id="mp-trade-date">—</p></div>
+        <table class="data-table" id="tbl-milkprotein"></table>
       </div>
     </div>
 
