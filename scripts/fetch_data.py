@@ -393,19 +393,6 @@ def _structured_range(row):
     return None, None, None
 
 
-def _grade_matches(row, code):
-    """True if a report row is the structured line for this product. Report 1053's
-    commodity is already 'Whey Protein Concentrate', so match on the grade number
-    (34/80) in the grade fields; falls back to word aliases in the title/desc."""
-    grade_key = WHEY_PRODUCTS[code].get("grade_key")
-    grade_blob = (str(row.get("grade", "")) + " " + str(row.get("other_Grades", ""))).lower()
-    if grade_key and grade_key in grade_blob:
-        return True
-    text_blob = " ".join(str(row.get(k, "")) for k in
-                         ("report_title", "lot_Desc")).lower()
-    return any(a in text_blob for a in WHEY_PRODUCTS[code]["aliases"])
-
-
 def _build_product(code, low, high, source_type, source_report, report_id,
                    published_date, reporting_period, excerpt, status, note=None):
     mid = None if (low is None or high is None) else round((low + high) / 2, 4)
@@ -486,37 +473,51 @@ def fetch_whey():
 
     products = {}
 
-    # WPC34 / WPC80: structured row if a matching grade exists this week, else
-    # fall back to the latest narrative.
-    for code, stype_default in (("WPC34", "formal"), ("WPC80", "narrative")):
-        aliases = WHEY_PRODUCTS[code]["aliases"]
-        row = next((r for r in latest if _grade_matches(r, code)), None)
-        lo = hi = None
-        excerpt = None
-        stype = stype_default
-        if row is not None:
-            lo, hi, excerpt = _structured_range(row)
-            if lo is not None:
-                stype = "formal"
-        if lo is None:  # no structured row/price -> narrative
-            lo, hi, excerpt = parse_whey_range(narrative, aliases)
-            stype = "narrative"
-        note = None if lo is not None else \
-            f"No {code} range in report 1053 (structured or narrative) for {latest_date or 'latest week'}."
-        products[code] = _build_product(
-            code, lo, hi, stype,
-            formal_src if stype == "formal" else narr_src,
-            WHEY_WPC34_REPORT, published, period, excerpt,
-            detect_status_near(narrative, aliases), note=note)
+    def gblob(r):
+        return (str(r.get("grade", "")) + " " + str(r.get("other_Grades", ""))).lower()
 
-    # WPI: narrative only (report 1053 has no WPI grade rows).
-    aliases = WHEY_PRODUCTS["WPI"]["aliases"]
-    lo, hi, ex = parse_whey_range(narrative, aliases)
-    products["WPI"] = _build_product(
-        "WPI", lo, hi, "narrative", narr_src, WHEY_WPC34_REPORT,
-        published, period, ex, detect_status_near(narrative, aliases),
-        note=None if lo is not None else
-        f"No WPI range in the report 1053 narrative for {latest_date or 'latest week'}.")
+    # WPC34: report 1053's own structured product (Central/West WPC price). Prefer
+    # an explicit 34 grade row; else the sole/first structured row that isn't an
+    # explicit 80 line. The 'grade' field is a quality grade (e.g. "Extra Grade"),
+    # not the protein %, so we can't rely on it to say "34".
+    row34 = next((r for r in latest if "34" in gblob(r) and _structured_range(r)[0] is not None), None)
+    if row34 is None:
+        row34 = next((r for r in latest
+                      if "80" not in gblob(r) and _structured_range(r)[0] is not None), None)
+    lo, hi, sx = _structured_range(row34) if row34 else (None, None, None)
+    if lo is not None:
+        grade = row34.get("grade") or "—"
+        excerpt = f"WPC (Central/West), {grade}: mostly ${lo:.2f}–${hi:.2f}/lb ({sx})"
+        products["WPC34"] = _build_product(
+            "WPC34", lo, hi, "formal", formal_src, WHEY_WPC34_REPORT,
+            published, period, excerpt, detect_status_near(narrative, WHEY_PRODUCTS["WPC34"]["aliases"]))
+    else:
+        nlo, nhi, nex = parse_whey_range(narrative, WHEY_PRODUCTS["WPC34"]["aliases"])
+        products["WPC34"] = _build_product(
+            "WPC34", nlo, nhi, "narrative", narr_src, WHEY_WPC34_REPORT,
+            published, period, nex, detect_status_near(narrative, WHEY_PRODUCTS["WPC34"]["aliases"]),
+            note=None if nlo is not None else
+            f"No WPC34 structured row or narrative range in report 1053 for {latest_date or 'latest week'}.")
+
+    # WPC80, WPI: narrative (report 1053 has no structured rows for these; use a
+    # structured grade row only if one ever appears).
+    for code in ("WPC80", "WPI"):
+        aliases = WHEY_PRODUCTS[code]["aliases"]
+        gk = WHEY_PRODUCTS[code]["grade_key"]
+        row = next((r for r in latest if gk and gk in gblob(r) and _structured_range(r)[0] is not None), None)
+        if row is not None:
+            lo, hi, sx = _structured_range(row)
+            products[code] = _build_product(
+                code, lo, hi, "formal", formal_src, WHEY_WPC34_REPORT,
+                published, period, f"{code} {row.get('grade')}: mostly ${lo:.2f}–${hi:.2f}/lb ({sx})",
+                detect_status_near(narrative, aliases))
+        else:
+            lo, hi, ex = parse_whey_range(narrative, aliases)
+            products[code] = _build_product(
+                code, lo, hi, "narrative", narr_src, WHEY_WPC34_REPORT,
+                published, period, ex, detect_status_near(narrative, aliases),
+                note=None if lo is not None else
+                f"No {code} range in the report 1053 narrative for {latest_date or 'latest week'}.")
 
     out = [products[c] for c in ("WPC80", "WPI", "WPC34") if c in products]
     parsed = sum(1 for p in out if p["mid"] is not None)
