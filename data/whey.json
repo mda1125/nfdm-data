@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-18T21:33:26.425338Z",
+  "updated_at": "2026-08-18T21:47:32.344343Z",
   "count": 3,
   "data": [
     {
@@ -15,7 +15,7 @@
       "source_report": "USDA AMS Dairy Market News, report 1053 (weekly whey narrative)",
       "source_report_id": "1053",
       "published_date": "2026-08-13",
-      "last_verified": "2026-08-18T21:33:26.423046Z",
+      "last_verified": "2026-08-18T21:47:32.342699Z",
       "status": "firm",
       "confidence": "medium",
       "source_type": "narrative",
@@ -36,7 +36,7 @@
       "source_report": "USDA AMS Dairy Market News, report 1053 (weekly whey narrative)",
       "source_report_id": "1053",
       "published_date": "2026-08-13",
-      "last_verified": "2026-08-18T21:33:26.423485Z",
+      "last_verified": "2026-08-18T21:47:32.343092Z",
       "status": "firm",
       "confidence": "medium",
       "source_type": "narrative",
@@ -47,23 +47,23 @@
     {
       "code": "WPC34",
       "name": "Whey Protein Concentrate 34%",
-      "low": null,
-      "mid": null,
-      "high": null,
-      "low_mt": null,
-      "mid_mt": null,
-      "high_mt": null,
+      "low": 2.0,
+      "mid": 2.12,
+      "high": 2.24,
+      "low_mt": 4409.2,
+      "mid_mt": 4673.8,
+      "high_mt": 4938.3,
       "reporting_period": "Aug 10-14, 2026",
-      "source_report": "USDA AMS Dairy Market News, report 1053 (weekly whey narrative)",
+      "source_report": "USDA AMS Dairy Market News, report 1053 (Whey Protein Concentrate, Central/West U.S.)",
       "source_report_id": "1053",
       "published_date": "2026-08-13",
-      "last_verified": "2026-08-18T21:33:26.422835Z",
+      "last_verified": "2026-08-18T21:47:32.342545Z",
       "status": "unknown",
-      "confidence": "low",
-      "source_type": "narrative",
-      "excerpt": null,
-      "interpretation": "No current WPC34 range parsed from the USDA source. Shown for reference only.",
-      "note": "No WPC34 range in report 1053 (structured or narrative) for 2026-08-14."
+      "confidence": "high",
+      "source_type": "formal",
+      "excerpt": "WPC (Central/West), Extra Grade: mostly $2.00\u2013$2.24/lb (mostly_low_price=2, mostly_high_price=2.24)",
+      "interpretation": "Market indication WPC34 $2.00-$2.24/lb (midpoint $2.12). This is a formally published USDA range, a market indication before freight and conversion costs \u2014 not an executable quote or a transaction-weighted average.",
+      "note": null
     }
   ]
 }
