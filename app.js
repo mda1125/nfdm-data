@@ -533,6 +533,9 @@ function buildCharts() {
   // Whey ingredient market overview (cards, no chart)
   renderWhey();
 
+  // Booking Signal (forward lock-vs-float decision view, cards + table)
+  buildBookingSignal();
+
   // Seasonals
   var ctxSeas = document.getElementById('chart-seasonals');
   if (ctxSeas && RAW.nass.length) {
@@ -979,28 +982,7 @@ function buildAccuracyView() {
 
   var allMonths = Object.keys(monthlyActuals).sort();
 
-  var comparisons = [];
-  snapshots.forEach(function(snap) {
-    var snapDate = snap.trade_date;
-    var snapYM = snapDate.slice(0, 7);
-    (snap.contracts || []).forEach(function(c) {
-      var actual = monthlyActuals[c.month];
-      if (actual === undefined) return;
-      var snapParts = snapYM.split('-');
-      var cParts = c.month.split('-');
-      var horizon = (+cParts[0] - +snapParts[0]) * 12 + (+cParts[1] - +snapParts[1]);
-      if (horizon < 0) return;
-      comparisons.push({
-        snapDate: snapDate,
-        month: c.month,
-        predicted: c.settle,
-        actual: actual,
-        error: +(c.settle - actual).toFixed(4),
-        absError: +Math.abs(c.settle - actual).toFixed(4),
-        horizon: horizon
-      });
-    });
-  });
+  var comparisons = computeFuturesReliability().comparisons;
 
   setText('kpi-acc-snaps', '' + snapshots.length);
   var settledMonths = {};
@@ -1299,6 +1281,189 @@ function renderWhey() {
       rangeLine + midLine + wowLine + mtLine + meta + quote + interp + note +
     '</div>';
   }).join('');
+}
+
+// Build futures-vs-realized comparisons and per-horizon reliability stats from the
+// archived daily curve snapshots (futures_history) vs realized CME monthly averages.
+// Shared by the Accuracy view and the Booking Signal.
+function computeFuturesReliability() {
+  var monthlyActuals = computeMonthlyAvgs(RAW.cme || []);
+  var snapshots = RAW.futHist || [];
+  var comparisons = [];
+  snapshots.forEach(function(snap) {
+    var snapYM = (snap.trade_date || '').slice(0, 7);
+    (snap.contracts || []).forEach(function(c) {
+      var actual = monthlyActuals[c.month];
+      if (actual === undefined) return;
+      var sp = snapYM.split('-'), cp = c.month.split('-');
+      var horizon = (+cp[0] - +sp[0]) * 12 + (+cp[1] - +sp[1]);
+      if (horizon < 0) return;
+      comparisons.push({
+        snapDate: snap.trade_date, month: c.month, predicted: c.settle, actual: actual,
+        spot: (snap.spot != null ? snap.spot : null),
+        error: +(c.settle - actual).toFixed(4),
+        absError: +Math.abs(c.settle - actual).toFixed(4),
+        horizon: horizon
+      });
+    });
+  });
+  var byH = {};
+  comparisons.forEach(function(c) {
+    var b = byH[c.horizon] || (byH[c.horizon] = {abs: [], signed: [], dir: 0, hits: 0});
+    b.abs.push(c.absError); b.signed.push(c.error);
+    if (c.spot != null) {  // did the curve call direction vs the snapshot-date spot?
+      var pd = c.predicted - c.spot, ad = c.actual - c.spot;
+      if (pd !== 0 && ad !== 0) { b.dir += 1; if ((pd > 0) === (ad > 0)) b.hits += 1; }
+    }
+  });
+  var byHorizon = {};
+  Object.keys(byH).forEach(function(h) {
+    var b = byH[h], n = b.abs.length;
+    byHorizon[h] = {
+      n: n,
+      mae: b.abs.reduce(function(s, v){return s + v;}, 0) / n,
+      bias: b.signed.reduce(function(s, v){return s + v;}, 0) / n,
+      hitRate: b.dir >= 4 ? b.hits / b.dir : null,
+      dirN: b.dir
+    };
+  });
+  return {comparisons: comparisons, byHorizon: byHorizon};
+}
+
+// Percentile (0-100) of a price within the trailing `years` of daily CME spot.
+function pricePercentile(price, years) {
+  if (price == null || !RAW.cme || !RAW.cme.length) return null;
+  var cutoff = new Date();
+  cutoff.setFullYear(cutoff.getFullYear() - years);
+  var vals = RAW.cme.filter(function(d){return d.date >= cutoff;}).map(function(d){return d.price;});
+  if (vals.length < 20) return null;
+  var below = vals.filter(function(v){return v <= price;}).length;
+  return Math.round(below / vals.length * 100);
+}
+
+// Rule-based lock-vs-float lean from cheap/rich band x historical curve bias, hedged
+// by sample size. Returns {lean, color, text}. bias>0 = curve has run above realized.
+function bookingVerdict(pct, bias, n) {
+  if (pct == null) return {lean: 'No data', color: '#6e7681', text: 'Not enough history to assess this contract yet.'};
+  var band = pct <= 33 ? 'cheap' : (pct >= 67 ? 'rich' : 'mid');
+  var relTag = n >= 20 ? 'High' : (n >= 8 ? 'Med' : 'Low');
+  if (bias == null || n < 4) {
+    return {lean: 'Level only', color: '#a78bfa',
+      text: 'Level is the ' + pct + 'th percentile of the last 5 years, but too few settled forecasts exist at this horizon to judge the curve’s reliability yet.'};
+  }
+  var over = bias > 0;  // curve historically priced above realized -> tends to ease
+  var biasTxt = 'the curve has historically run ' + (over ? 'above' : 'at/below')
+    + ' realized at this horizon (n=' + n + ', ' + relTag + ' confidence)';
+  if (band === 'cheap') {
+    return over
+      ? {lean: 'Book base + stagger', color: '#4ade80', text: 'Cheap vs history (' + pct + 'th pct) and ' + biasTxt + ' — favorable entry; lock a base layer and stagger the rest, as the curve tends to ease.'}
+      : {lean: 'Lean lock', color: '#4ade80', text: 'Cheap vs history (' + pct + 'th pct) and ' + biasTxt + ' — lean toward locking more of this quarter now.'};
+  }
+  if (band === 'rich') {
+    return over
+      ? {lean: 'Wait / minimal', color: '#f87171', text: 'Expensive vs history (' + pct + 'th pct) and ' + biasTxt + ' — keep cover minimal and wait for softening.'}
+      : {lean: 'Hedge selectively', color: '#e6a817', text: 'Expensive vs history (' + pct + 'th pct) but ' + biasTxt + ' — hedge selectively rather than fully floating.'};
+  }
+  return {lean: 'Stagger', color: '#e6a817', text: 'Mid-range (' + pct + 'th pct); ' + biasTxt + ' — stagger entries' + (over ? '.' : ', tilting toward locking.')};
+}
+
+// Booking Signal: group the NFDM forward curve into quarters and pair each with a
+// percentile band + horizon reliability + a lock-vs-float lean.
+function buildBookingSignal() {
+  var host = document.getElementById('booking-cards');
+  if (!host) return;
+  if (!RAW || !RAW.futures || !RAW.futures.data || !RAW.futures.data.length) {
+    host.innerHTML = '<div style="color:#6e7681;font-size:12px;padding:8px">Forward curve not available yet.</div>';
+    return;
+  }
+  var rel = computeFuturesReliability().byHorizon;
+  var baseYM = (RAW.futures.trade_date || '').slice(0, 7).split('-');
+  var baseY = +baseYM[0], baseM = +baseYM[1];
+
+  function esc(s){return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function usd(v){return v == null ? '—' : '$' + (+v).toFixed(4);}
+  function nearestRel(h) {  // horizon bucket within ±1mo, else null (don't borrow
+    for (var d = 0; d <= 1; d++) {  // distant stats — far horizons aren't settled yet)
+      if (rel[h - d] && rel[h - d].n) return rel[h - d];
+      if (rel[h + d] && rel[h + d].n) return rel[h + d];
+    }
+    return null;
+  }
+
+  // Group contract months into calendar quarters.
+  var quarters = {};
+  RAW.futures.data.forEach(function(c) {
+    var p = c.month.split('-'), y = +p[0], m = +p[1];
+    var q = Math.ceil(m / 3);
+    var key = y + '-Q' + q;
+    var horizon = (y - baseY) * 12 + (m - baseM);
+    (quarters[key] || (quarters[key] = {key: key, y: y, q: q, settles: [], months: [], horizons: []}));
+    quarters[key].settles.push(c.settle);
+    quarters[key].months.push(c);
+    quarters[key].horizons.push(horizon);
+  });
+  var keys = Object.keys(quarters).sort();
+  // Drop a fully-elapsed current quarter (all horizons < 0); keep next ~5.
+  keys = keys.filter(function(k){return Math.max.apply(null, quarters[k].horizons) >= 0;}).slice(0, 5);
+
+  var mn = ['Q1','Q2','Q3','Q4'];
+  host.innerHTML = keys.map(function(k) {
+    var q = quarters[k];
+    var avg = q.settles.reduce(function(s, v){return s + v;}, 0) / q.settles.length;
+    var avgH = Math.max(0, Math.round(q.horizons.reduce(function(s, v){return s + v;}, 0) / q.horizons.length));
+    var pct = pricePercentile(avg, 5);
+    var pct1 = pricePercentile(avg, 1), pct3 = pricePercentile(avg, 3);
+    var r = nearestRel(avgH);
+    var bias = r ? r.bias : null, n = r ? r.n : 0;
+    var biasPct = (bias != null && avg) ? (bias / avg * 100) : null;
+    var v = bookingVerdict(pct, bias, n);
+
+    var pctColor = pct == null ? '#6e7681' : (pct <= 33 ? '#4ade80' : (pct >= 67 ? '#f87171' : '#e6a817'));
+    var pctText = pct == null ? 'insufficient history'
+      : pct + 'th pct vs 5-yr' + (pct <= 33 ? ' · cheap' : (pct >= 67 ? ' · rich' : ' · mid-range'));
+
+    var relLine = r
+      ? 'Curve bias ' + (bias >= 0 ? '+' : '') + (bias * 100).toFixed(1) + '¢/lb'
+        + (biasPct != null ? ' (' + (biasPct >= 0 ? '+' : '') + biasPct.toFixed(1) + '%)' : '')
+        + ' · MAE ' + (r.mae * 100).toFixed(1) + '¢ · n=' + n
+        + (r.hitRate != null ? ' · ' + Math.round(r.hitRate * 100) + '% dir. hit' : '')
+      : 'No settled forecasts at ~' + avgH + 'mo horizon yet';
+
+    return '<div class="whey-card">' +
+      '<div class="whey-card-hdr">' +
+        '<div><div class="whey-name">' + mn[q.q - 1] + ' ' + q.y + '</div>' +
+        '<div class="whey-code">NFDM · ~' + avgH + 'mo out · ' + q.months.length + ' contract' + (q.months.length > 1 ? 's' : '') + '</div></div>' +
+        '<div class="whey-badges"><span class="whey-badge" style="background:' + v.color + '22;color:' + v.color + ';border:1px solid ' + v.color + '44">' + esc(v.lean) + '</span></div>' +
+      '</div>' +
+      '<div class="whey-range">' + usd(avg) + '<span style="font-size:12px;color:#6e7681;font-weight:400"> /lb avg curve</span></div>' +
+      '<div class="whey-mid" style="color:' + pctColor + '">' + pctText + '</div>' +
+      '<div class="whey-mt">' + relLine + '</div>' +
+      (pct1 != null || pct3 != null ? '<div class="whey-mt">vs 1-yr: ' + (pct1 == null ? '—' : pct1 + 'th') + ' · 3-yr: ' + (pct3 == null ? '—' : pct3 + 'th') + '</div>' : '') +
+      '<div class="whey-interp">' + esc(v.text) + '</div>' +
+    '</div>';
+  }).join('');
+
+  // Contract-month detail table.
+  var tbl = document.getElementById('tbl-booking');
+  if (tbl) {
+    var rowsHtml = RAW.futures.data.map(function(c) {
+      var p = c.month.split('-'), y = +p[0], m = +p[1];
+      var horizon = Math.max(0, (y - baseY) * 12 + (m - baseM));
+      var pct = pricePercentile(c.settle, 5);
+      var r = nearestRel(horizon);
+      var biasPct = (r && r.bias != null && c.settle) ? (r.bias / c.settle * 100) : null;
+      var pctCol = pct == null ? '#6e7681' : (pct <= 33 ? '#4ade80' : (pct >= 67 ? '#f87171' : '#e6a817'));
+      return '<tr><td>' + esc(c.label) + '</td>' +
+        '<td style="text-align:right">$' + c.settle.toFixed(4) + '</td>' +
+        '<td style="text-align:right;color:' + pctCol + '">' + (pct == null ? '—' : pct + 'th') + '</td>' +
+        '<td style="text-align:right">' + horizon + 'mo</td>' +
+        '<td style="text-align:right">' + (biasPct == null ? '—' : (biasPct >= 0 ? '+' : '') + biasPct.toFixed(1) + '%') + '</td>' +
+        '<td style="text-align:right">' + (r ? r.n : 0) + '</td></tr>';
+    }).join('');
+    tbl.innerHTML = '<tr><th>Contract</th><th style="text-align:right">Curve</th>' +
+      '<th style="text-align:right">5-yr pct</th><th style="text-align:right">Horizon</th>' +
+      '<th style="text-align:right">Curve bias</th><th style="text-align:right">n</th></tr>' + rowsHtml;
+  }
 }
 
 function showView(name, el) {
