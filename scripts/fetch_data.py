@@ -50,6 +50,27 @@ def fetch_mars(slug, params=None):
     return fetch_with_retry(url, headers=MARS_HEADERS, params=params)
 
 
+def discover_reports():
+    """TEMP one-off: list MARS reports for dairy dry products (slug_id + title).
+    Used to find report IDs to expand coverage; remove after reading CI logs."""
+    kw = ["whey", "lactose", "permeate", "protein concentrate", "protein isolate",
+          "milk protein", "casein", "nonfat dry milk", "dry whey", "dry buttermilk",
+          "dry products", "mpc", "wpc", "wpi", "npd"]
+    try:
+        cat = fetch_with_retry(MARS_BASE, headers=MARS_HEADERS)
+    except Exception as e:
+        print(f"[DISCOVER] catalog fetch failed: {e}")
+        return
+    reports = cat if isinstance(cat, list) else cat.get("reports", cat.get("results", []))
+    print(f"[DISCOVER] catalog has {len(reports)} reports; dairy dry-product matches:")
+    for r in reports:
+        title = str(r.get("report_title") or r.get("title") or r.get("report_name") or "")
+        rid = r.get("slug_id") or r.get("report_id") or r.get("slug_name") or r.get("id")
+        markets = r.get("markets") or r.get("market_types") or ""
+        if any(k in title.lower() for k in kw):
+            print(f"[DISCOVER]   id={rid} | {title} | markets={markets}")
+
+
 def parse_num(val):
     """Parse a numeric string that may contain commas or be None."""
     if val is None:
@@ -780,6 +801,12 @@ def write_json(name, data):
 
 if __name__ == "__main__":
     failures = []
+
+    print("Discovering dairy report IDs (temporary)...")
+    try:
+        discover_reports()
+    except Exception as e:
+        print(f"Discovery failed: {e}")
 
     print("Fetching NDPSR NFDM (report 2993)...")
     try:
