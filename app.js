@@ -1254,6 +1254,21 @@ function renderWhey() {
                  badge(conf.toUpperCase() + ' CONF', cColor) +
                  badge(srcLabel, srcColor);
 
+    // Week-over-week % change (colored, like the Vesper index column).
+    var wowLine = '';
+    if (p.mid != null) {
+      if (p.wow_pct == null) {
+        wowLine = '<div class="whey-mid" style="color:#6e7681">— · w/w (needs next weekly report)</div>';
+      } else {
+        var up = p.wow_pct > 0, flat = p.wow_pct === 0;
+        var wc = flat ? '#e6a817' : (up ? '#4ade80' : '#f87171');
+        var arrow = flat ? '→' : (up ? '▲' : '▼');
+        wowLine = '<div class="whey-mid" style="color:' + wc + '">' + arrow + ' ' +
+                  (up ? '+' : '') + p.wow_pct.toFixed(2) + '% w/w' +
+                  (p.prev_mid != null ? '<span style="color:#6e7681"> · prev ' + usd(p.prev_mid) + '</span>' : '') + '</div>';
+      }
+    }
+
     var rangeLine, midLine, mtLine;
     if (p.mid == null) {
       rangeLine = '<div class="whey-range" style="font-size:16px;color:#6e7681">No current range parsed</div>';
@@ -1281,7 +1296,7 @@ function renderWhey() {
         '<div><div class="whey-name">' + esc(p.name || p.code) + '</div><div class="whey-code">' + esc(p.code) + '</div></div>' +
         '<div class="whey-badges">' + badges + '</div>' +
       '</div>' +
-      rangeLine + midLine + mtLine + meta + quote + interp + note +
+      rangeLine + midLine + wowLine + mtLine + meta + quote + interp + note +
     '</div>';
   }).join('');
 }

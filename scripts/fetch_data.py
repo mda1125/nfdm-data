@@ -190,44 +190,49 @@ def fetch_cme_spot():
 
 
 # ---------------------------------------------------------------------------
-# Whey ingredient intelligence (WPC80, WPI, WPC34) — USDA Dairy Market News.
+# Whey Market intelligence — USDA Dairy Market News (keyed MMN/MARS API, same as
+# CME spot / report 1603). These products are NOT on the public MPR API.
 #
-# These products are NOT on the public MPR API; they come from the keyed MMN/MARS
-# API (same as CME spot / report 1603). WPC34 (report 1053) is published as a
-# formal low/high/mostly range; WPC80 and WPI appear only as prose ranges in the
-# DMN weekly whey narrative, so they are regex-parsed from text.
+# Report IDs confirmed from the live MARS catalog (all "Point of Sale - Dairy",
+# same schema: price_min/max, mostly_low/high_price, grade, report_begin/end_date,
+# report_narrative):
+#   1053 Whey Protein Concentrate - Central & West   (WPC34 structured; WPC80/WPI narrative)
+#   1045/1046/1047 Dry Whey - Central / West / East   (structured)
+#   1052 Lactose - Central & West                     (structured)
 #
-# The exact MARS field names / narrative report id cannot be verified without the
-# API key, so this fetcher is defensive and logs the report shape (like
-# fetch_cme_spot). Refine WHEY_NARRATIVE_REPORTS / field matching from the first
-# CI run's [DEBUG] output.
+# Structured products read the latest week's mostly/min-max range (formal, high
+# confidence). Narrative products (WPC80/WPI) are regex-parsed from 1053's latest
+# narrative (medium). No USDA report exists for MPC/MPI or whey permeate.
 # ---------------------------------------------------------------------------
 MT_PER_LB = 2204.62
 
-# Report 1053 = "Whey Protein Concentrate - Central and West U.S." — structured
-# weekly rows (price_min/max, mostly_low/high_price, grade) plus a report narrative
-# that also comments on WPC 80% and WPI. Confirmed from CI logs. One report powers
-# all three products: WPC34/WPC80 structured where a grade row exists, WPC80/WPI
-# from the latest week's narrative otherwise.
-WHEY_WPC34_REPORT = "1053"
+WHEY_WPC34_REPORT = "1053"  # narrative source for WPC80/WPI
 
 WHEY_PRODUCTS = {
-    "WPC80": {
-        "name": "Whey Protein Concentrate 80%",
-        "aliases": ["wpc 80", "wpc80", "whey protein concentrate 80", "80% wpc", "wpc 80%"],
-        "grade_key": "80",
-    },
-    "WPI": {
-        "name": "Whey Protein Isolate",
-        "aliases": ["whey protein isolate", "wpi", "protein isolate"],
-        "grade_key": None,
-    },
-    "WPC34": {
-        "name": "Whey Protein Concentrate 34%",
-        "aliases": ["wpc 34", "wpc34", "whey protein concentrate 34", "34% wpc", "wpc 34%"],
-        "grade_key": "34",
-    },
+    "WPC80": {"name": "Whey Protein Concentrate 80%",
+              "aliases": ["wpc 80", "wpc80", "whey protein concentrate 80", "80% wpc", "wpc 80%"],
+              "grade_key": "80"},
+    "WPI": {"name": "Whey Protein Isolate",
+            "aliases": ["whey protein isolate", "wpi", "protein isolate"],
+            "grade_key": None},
+    "WPC34": {"name": "Whey Protein Concentrate 34%",
+              "aliases": ["wpc 34", "wpc34", "whey protein concentrate 34", "34% wpc", "wpc 34%"],
+              "grade_key": "34"},
+    "DRYWHEY": {"name": "Dry Whey (sweet whey powder)",
+                "aliases": ["dry whey", "sweet whey"], "grade_key": None},
+    "LACTOSE": {"name": "Lactose",
+                "aliases": ["lactose"], "grade_key": None},
 }
+
+# Ordered product config: proteins first, then commodities. 'reports' lists the
+# structured MARS report id(s) (multiple = regional, combined into a U.S. range).
+WHEY_MARKET = [
+    {"code": "WPC80", "mode": "narrative", "narrative_report": "1053"},
+    {"code": "WPI", "mode": "narrative", "narrative_report": "1053"},
+    {"code": "WPC34", "mode": "structured", "reports": ["1053"], "exclude_grade": "80"},
+    {"code": "DRYWHEY", "mode": "structured", "reports": ["1045", "1046", "1047"]},
+    {"code": "LACTOSE", "mode": "structured", "reports": ["1052"]},
+]
 
 STATUS_KEYWORDS = ["tight", "firm", "balanced", "soft", "steady"]
 
@@ -394,7 +399,8 @@ def _structured_range(row):
 
 
 def _build_product(code, low, high, source_type, source_report, report_id,
-                   published_date, reporting_period, excerpt, status, note=None):
+                   published_date, reporting_period, excerpt, status, note=None,
+                   wow_pct=None, prev_mid=None):
     mid = None if (low is None or high is None) else round((low + high) / 2, 4)
     if low is None or high is None:
         confidence = "low"
@@ -432,97 +438,161 @@ def _build_product(code, low, high, source_type, source_report, report_id,
         "excerpt": excerpt,
         "interpretation": interp,
         "note": note,
+        "wow_pct": wow_pct,
+        "prev_mid": prev_mid,
     }
 
 
-def fetch_whey():
-    """Fetch WPC34, WPC80 and WPI whey indications from report 1053.
+_REPORT_CACHE = {}
 
-    Report 1053 carries structured weekly rows (price_min/max, mostly_low/high,
-    grade) plus a report narrative that also comments on WPC 80% and WPI. We scope
-    everything to the LATEST report week: structured ranges where a grade row
-    exists (formal, high confidence), narrative parsing otherwise (medium).
-    """
-    formal_src = "USDA AMS Dairy Market News, report 1053 (Whey Protein Concentrate, Central/West U.S.)"
-    narr_src = "USDA AMS Dairy Market News, report 1053 (weekly whey narrative)"
 
-    def missing(code, note):
-        return _build_product(code, None, None, "narrative", narr_src,
-                              WHEY_WPC34_REPORT, "", "", None, "unknown", note=note)
+def _get_report(rid):
+    """Fetch a MARS report once per run (1053 powers WPC34/WPC80/WPI)."""
+    if rid not in _REPORT_CACHE:
+        _REPORT_CACHE[rid] = fetch_mars(rid)
+    return _REPORT_CACHE[rid]
 
-    try:
-        raw = fetch_mars(WHEY_WPC34_REPORT)
-    except Exception as e:
-        print(f"  [whey] report {WHEY_WPC34_REPORT} fetch failed: {e}")
-        note = f"Fetch failed: {e}"
-        return [missing(c, note) for c in ("WPC80", "WPI", "WPC34")]
 
-    results = raw.get("results", []) if isinstance(raw, dict) else []
-    latest, latest_date = _latest_rows(results)
-    if results:
-        print(f"[DEBUG] report {WHEY_WPC34_REPORT}: {len(results)} rows, latest={latest_date}, "
-              f"{len(latest)} latest-week rows")
-        for r in latest[:8]:
-            print(f"[DEBUG]   grade={r.get('grade')!r} other={r.get('other_Grades')!r} "
-                  f"min={r.get('price_min')} max={r.get('price_max')} "
-                  f"mostly={r.get('mostly_low_price')}-{r.get('mostly_high_price')}")
+def fetch_structured_product(code, report_ids, exclude_grade=None):
+    """Latest-week structured $/lb range for a product, combining regional reports
+    into one U.S. range. Returns a dict (low/high/excerpt/published/period/
+    narrative) or None if nothing structured parsed."""
+    regions = []  # one entry per report that yielded a structured row
+    narr_parts = []
+    for rid in report_ids:
+        try:
+            raw = _get_report(rid)
+        except Exception as e:
+            print(f"  [whey] {code} report {rid} failed: {e}")
+            continue
+        results = raw.get("results", []) if isinstance(raw, dict) else []
+        latest, wk = _latest_rows(results)
+        narr_parts.append(_collect_narrative(latest))
+        row = None
+        for r in latest:
+            gb = (str(r.get("grade", "")) + " " + str(r.get("other_Grades", ""))).lower()
+            if exclude_grade and exclude_grade in gb:
+                continue
+            if _structured_range(r)[0] is not None:
+                row = r
+                break
+        if row is None:
+            continue
+        lo, hi, sx = _structured_range(row)
+        regions.append({"week": wk, "low": lo, "high": hi,
+                        "region": row.get("region") or rid,
+                        "published": normalize_date(row.get("published_date")),
+                        "period": _fmt_period(row), "grade": row.get("grade"), "sx": sx})
+        print(f"[DEBUG] {code} report {rid}: week={wk} region={row.get('region')!r} "
+              f"grade={row.get('grade')!r} mostly={lo}-{hi}")
+    if not regions:
+        return None
 
-    period = _fmt_period(latest[0]) if latest else ""
-    published = normalize_date(latest[0].get("published_date")) if latest else ""
-    narrative = _collect_narrative(latest)
-
-    products = {}
-
-    def gblob(r):
-        return (str(r.get("grade", "")) + " " + str(r.get("other_Grades", ""))).lower()
-
-    # WPC34: report 1053's own structured product (Central/West WPC price). Prefer
-    # an explicit 34 grade row; else the sole/first structured row that isn't an
-    # explicit 80 line. The 'grade' field is a quality grade (e.g. "Extra Grade"),
-    # not the protein %, so we can't rely on it to say "34".
-    row34 = next((r for r in latest if "34" in gblob(r) and _structured_range(r)[0] is not None), None)
-    if row34 is None:
-        row34 = next((r for r in latest
-                      if "80" not in gblob(r) and _structured_range(r)[0] is not None), None)
-    lo, hi, sx = _structured_range(row34) if row34 else (None, None, None)
-    if lo is not None:
-        grade = row34.get("grade") or "—"
-        excerpt = f"WPC (Central/West), {grade}: mostly ${lo:.2f}–${hi:.2f}/lb ({sx})"
-        products["WPC34"] = _build_product(
-            "WPC34", lo, hi, "formal", formal_src, WHEY_WPC34_REPORT,
-            published, period, excerpt, detect_status_near(narrative, WHEY_PRODUCTS["WPC34"]["aliases"]))
+    freshest = max(r["week"] for r in regions if r["week"]) if any(r["week"] for r in regions) else ""
+    fresh = [r for r in regions if r["week"] == freshest] or regions
+    low = min(r["low"] for r in fresh)
+    high = max(r["high"] for r in fresh)
+    names = ", ".join(str(r["region"]) for r in fresh)
+    pubs = [r["published"] for r in fresh if r["published"]]
+    published = max(pubs) if pubs else ""
+    if len(fresh) > 1:
+        excerpt = f"{WHEY_PRODUCTS[code]['name']} — U.S. mostly range across {names}: ${low:.2f}–${high:.2f}/lb"
     else:
-        nlo, nhi, nex = parse_whey_range(narrative, WHEY_PRODUCTS["WPC34"]["aliases"])
-        products["WPC34"] = _build_product(
-            "WPC34", nlo, nhi, "narrative", narr_src, WHEY_WPC34_REPORT,
-            published, period, nex, detect_status_near(narrative, WHEY_PRODUCTS["WPC34"]["aliases"]),
-            note=None if nlo is not None else
-            f"No WPC34 structured row or narrative range in report 1053 for {latest_date or 'latest week'}.")
+        excerpt = f"{WHEY_PRODUCTS[code]['name']} ({names}), {fresh[0]['grade']}: mostly ${low:.2f}–${high:.2f}/lb ({fresh[0]['sx']})"
+    return {"low": low, "high": high, "excerpt": excerpt, "published": published,
+            "period": fresh[0]["period"], "narrative": "\n".join(narr_parts)}
 
-    # WPC80, WPI: narrative (report 1053 has no structured rows for these; use a
-    # structured grade row only if one ever appears).
-    for code in ("WPC80", "WPI"):
+
+def fetch_whey():
+    """Fetch the Whey Market products (config-driven; see WHEY_MARKET).
+
+    Structured products (WPC34, Dry Whey, Lactose) read the latest week's
+    mostly/min-max range from their MMN point-of-sale report(s), combining
+    regional reports into a U.S. range (formal, high confidence). Narrative
+    products (WPC80, WPI) are parsed from report 1053's latest narrative (medium).
+    Each product degrades to null + note on failure rather than crashing the run.
+    """
+    products = {}
+    for cfg in WHEY_MARKET:
+        code = cfg["code"]
         aliases = WHEY_PRODUCTS[code]["aliases"]
-        gk = WHEY_PRODUCTS[code]["grade_key"]
-        row = next((r for r in latest if gk and gk in gblob(r) and _structured_range(r)[0] is not None), None)
-        if row is not None:
-            lo, hi, sx = _structured_range(row)
+        try:
+            if cfg["mode"] == "structured":
+                rids = cfg["reports"]
+                src = f"USDA AMS Dairy Market News (report{'s' if len(rids) > 1 else ''} {'/'.join(rids)})"
+                res = fetch_structured_product(code, rids, cfg.get("exclude_grade"))
+                if res:
+                    products[code] = _build_product(
+                        code, res["low"], res["high"], "formal", src, "/".join(rids),
+                        res["published"], res["period"], res["excerpt"],
+                        detect_status_near(res["narrative"], aliases))
+                else:
+                    products[code] = _build_product(
+                        code, None, None, "formal", src, "/".join(rids), "", "", None,
+                        "unknown", note=f"No structured range in report(s) {'/'.join(rids)}.")
+            else:  # narrative
+                rid = cfg["narrative_report"]
+                raw = _get_report(rid)
+                results = raw.get("results", []) if isinstance(raw, dict) else []
+                latest, wk = _latest_rows(results)
+                narrative = _collect_narrative(latest)
+                published = normalize_date(latest[0].get("published_date")) if latest else ""
+                period = _fmt_period(latest[0]) if latest else ""
+                lo, hi, ex = parse_whey_range(narrative, aliases)
+                products[code] = _build_product(
+                    code, lo, hi, "narrative",
+                    f"USDA AMS Dairy Market News, report {rid} (weekly whey narrative)",
+                    rid, published, period, ex, detect_status_near(narrative, aliases),
+                    note=None if lo is not None else
+                    f"No {code} range in report {rid} narrative for {wk or 'latest week'}.")
+        except Exception as e:
+            print(f"  [whey] {code} failed: {e}")
             products[code] = _build_product(
-                code, lo, hi, "formal", formal_src, WHEY_WPC34_REPORT,
-                published, period, f"{code} {row.get('grade')}: mostly ${lo:.2f}–${hi:.2f}/lb ({sx})",
-                detect_status_near(narrative, aliases))
-        else:
-            lo, hi, ex = parse_whey_range(narrative, aliases)
-            products[code] = _build_product(
-                code, lo, hi, "narrative", narr_src, WHEY_WPC34_REPORT,
-                published, period, ex, detect_status_near(narrative, aliases),
-                note=None if lo is not None else
-                f"No {code} range in the report 1053 narrative for {latest_date or 'latest week'}.")
+                code, None, None, "formal" if cfg["mode"] == "structured" else "narrative",
+                "USDA AMS Dairy Market News",
+                "/".join(cfg.get("reports", [])) or cfg.get("narrative_report", ""),
+                "", "", None, "unknown", note=f"Fetch failed: {e}")
 
-    out = [products[c] for c in ("WPC80", "WPI", "WPC34") if c in products]
+    out = [products[c["code"]] for c in WHEY_MARKET if c["code"] in products]
     parsed = sum(1 for p in out if p["mid"] is not None)
-    print(f"  whey: {parsed}/{len(out)} products parsed (week {latest_date})")
+    print(f"  whey: {parsed}/{len(out)} products parsed")
     return out
+
+
+def archive_whey_snapshot(products):
+    """Upsert each product's midpoint into data/whey_history.json, keyed by the
+    product's reporting week (published_date). Repeated daily runs in the same
+    USDA week overwrite that week's entry, so history holds one point per week."""
+    path = DATA_DIR / "whey_history.json"
+    hist = json.loads(path.read_text()) if path.exists() else {"products": {}}
+    ph = hist.setdefault("products", {})
+    for p in products:
+        week = p.get("published_date") or ""
+        if p.get("mid") is None or not week:
+            continue
+        series = ph.setdefault(p["code"], [])
+        series[:] = [s for s in series if s.get("week") != week]
+        series.append({"week": week, "mid": p["mid"]})
+        series.sort(key=lambda s: s["week"])
+    hist["updated_at"] = datetime.utcnow().isoformat() + "Z"
+    path.write_text(json.dumps(hist, indent=2))
+    weeks = max((len(v) for v in ph.values()), default=0)
+    print(f"Archived whey snapshot ({len(ph)} products, up to {weeks} weeks each)")
+    return hist
+
+
+def apply_whey_wow(products, history):
+    """Attach week-over-week % change to each product from its history (two most
+    recent distinct weeks). Null until at least two report weeks are archived."""
+    ph = history.get("products", {})
+    for p in products:
+        series = ph.get(p["code"], [])
+        by_week = sorted({s["week"]: s["mid"] for s in series}.items())
+        if p.get("mid") is not None and len(by_week) >= 2:
+            prev_mid = by_week[-2][1]
+            if prev_mid:
+                p["prev_mid"] = prev_mid
+                p["wow_pct"] = round((p["mid"] - prev_mid) / prev_mid * 100, 2)
 
 
 QUICKSTATS_KEY = os.environ.get('QUICKSTATS_API_KEY', '')
@@ -802,9 +872,12 @@ if __name__ == "__main__":
         print(f"CME fetch failed: {e}")
         failures.append("cme")
 
-    print("Fetching whey ingredients (WPC80/WPI/WPC34 via MMN)...")
+    print("Fetching Whey Market (WPC/WPI/Dry Whey/Lactose via MMN)...")
     try:
-        write_json("whey", fetch_whey())
+        whey_products = fetch_whey()
+        whey_history = archive_whey_snapshot(whey_products)
+        apply_whey_wow(whey_products, whey_history)
+        write_json("whey", whey_products)
     except Exception as e:
         print(f"Whey fetch failed: {e}")
         failures.append("whey")
