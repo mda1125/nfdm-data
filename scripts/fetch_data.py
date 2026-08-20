@@ -230,7 +230,8 @@ WHEY_MARKET = [
     {"code": "WPC80", "mode": "narrative", "narrative_report": "1053"},
     {"code": "WPI", "mode": "narrative", "narrative_report": "1053"},
     {"code": "WPC34", "mode": "structured", "reports": ["1053"], "exclude_grade": "80"},
-    {"code": "DRYWHEY", "mode": "structured", "reports": ["1045", "1046", "1047"]},
+    {"code": "DRYWHEY", "mode": "structured", "reports": ["1045", "1046", "1047"],
+     "include_grades": ["extra", "grade a", "edible"]},  # food-grade only (skip animal-feed rows)
     {"code": "LACTOSE", "mode": "structured", "reports": ["1052"]},
 ]
 
@@ -453,10 +454,14 @@ def _get_report(rid):
     return _REPORT_CACHE[rid]
 
 
-def fetch_structured_product(code, report_ids, exclude_grade=None):
+def fetch_structured_product(code, report_ids, exclude_grade=None, include_grades=None):
     """Latest-week structured $/lb range for a product, combining regional reports
     into one U.S. range. Returns a dict (low/high/excerpt/published/period/
-    narrative) or None if nothing structured parsed."""
+    narrative) or None if nothing structured parsed.
+
+    exclude_grade skips rows whose grade contains it (e.g. WPC's '80'); when
+    include_grades is set a row must match one of them (e.g. food grades only,
+    skipping animal-feed rows). A region with no qualifying row is dropped."""
     regions = []  # one entry per report that yielded a structured row
     narr_parts = []
     for rid in report_ids:
@@ -470,8 +475,11 @@ def fetch_structured_product(code, report_ids, exclude_grade=None):
         narr_parts.append(_collect_narrative(latest))
         row = None
         for r in latest:
-            gb = (str(r.get("grade", "")) + " " + str(r.get("other_Grades", ""))).lower()
+            gb = (str(r.get("grade", "")) + " " + str(r.get("other_Grades", "")) + " "
+                  + str(r.get("application", ""))).lower()
             if exclude_grade and exclude_grade in gb:
+                continue
+            if include_grades and not any(g in gb for g in include_grades):
                 continue
             if _structured_range(r)[0] is not None:
                 row = r
@@ -520,7 +528,8 @@ def fetch_whey():
             if cfg["mode"] == "structured":
                 rids = cfg["reports"]
                 src = f"USDA AMS Dairy Market News (report{'s' if len(rids) > 1 else ''} {'/'.join(rids)})"
-                res = fetch_structured_product(code, rids, cfg.get("exclude_grade"))
+                res = fetch_structured_product(code, rids, cfg.get("exclude_grade"),
+                                               cfg.get("include_grades"))
                 if res:
                     products[code] = _build_product(
                         code, res["low"], res["high"], "formal", src, "/".join(rids),
