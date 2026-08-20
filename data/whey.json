@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-19T13:42:41.628274Z",
+  "updated_at": "2026-08-20T02:56:14.014958Z",
   "count": 3,
   "data": [
     {
@@ -15,7 +15,7 @@
       "source_report": "USDA AMS Dairy Market News, report 1053 (weekly whey narrative)",
       "source_report_id": "1053",
       "published_date": "2026-08-13",
-      "last_verified": "2026-08-19T13:42:41.626528Z",
+      "last_verified": "2026-08-20T02:56:14.012934Z",
       "status": "firm",
       "confidence": "medium",
       "source_type": "narrative",
@@ -36,7 +36,7 @@
       "source_report": "USDA AMS Dairy Market News, report 1053 (weekly whey narrative)",
       "source_report_id": "1053",
       "published_date": "2026-08-13",
-      "last_verified": "2026-08-19T13:42:41.626862Z",
+      "last_verified": "2026-08-20T02:56:14.013436Z",
       "status": "firm",
       "confidence": "medium",
       "source_type": "narrative",
@@ -57,7 +57,7 @@
       "source_report": "USDA AMS Dairy Market News, report 1053 (Whey Protein Concentrate, Central/West U.S.)",
       "source_report_id": "1053",
       "published_date": "2026-08-13",
-      "last_verified": "2026-08-19T13:42:41.626331Z",
+      "last_verified": "2026-08-20T02:56:14.012730Z",
       "status": "unknown",
       "confidence": "high",
       "source_type": "formal",
