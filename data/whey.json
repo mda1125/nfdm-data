@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-08-20T02:56:14.014958Z",
-  "count": 3,
+  "updated_at": "2026-08-20T03:06:56.434850Z",
+  "count": 5,
   "data": [
     {
       "code": "WPC80",
@@ -15,13 +15,15 @@
       "source_report": "USDA AMS Dairy Market News, report 1053 (weekly whey narrative)",
       "source_report_id": "1053",
       "published_date": "2026-08-13",
-      "last_verified": "2026-08-20T02:56:14.012934Z",
+      "last_verified": "2026-08-20T03:06:51.707257Z",
       "status": "firm",
       "confidence": "medium",
       "source_type": "narrative",
       "excerpt": "Regular WPC 80% is reported from $12 to $13.",
       "interpretation": "Market indication WPC80 $12.00-$13.00/lb (midpoint $12.50). This is a DMN narrative reading, a market indication before freight and conversion costs \u2014 not an executable quote or a transaction-weighted average.",
-      "note": null
+      "note": null,
+      "wow_pct": null,
+      "prev_mid": null
     },
     {
       "code": "WPI",
@@ -36,13 +38,15 @@
       "source_report": "USDA AMS Dairy Market News, report 1053 (weekly whey narrative)",
       "source_report_id": "1053",
       "published_date": "2026-08-13",
-      "last_verified": "2026-08-20T02:56:14.013436Z",
+      "last_verified": "2026-08-20T03:06:51.738372Z",
       "status": "firm",
       "confidence": "medium",
       "source_type": "narrative",
       "excerpt": "WPI prices range from $14 to the upper $14s.",
       "interpretation": "Market indication WPI $14.00-$14.80/lb (midpoint $14.40). This is a DMN narrative reading, a market indication before freight and conversion costs \u2014 not an executable quote or a transaction-weighted average.",
-      "note": null
+      "note": null,
+      "wow_pct": null,
+      "prev_mid": null
     },
     {
       "code": "WPC34",
@@ -54,16 +58,64 @@
       "mid_mt": 4673.8,
       "high_mt": 4938.3,
       "reporting_period": "Aug 10-14, 2026",
-      "source_report": "USDA AMS Dairy Market News, report 1053 (Whey Protein Concentrate, Central/West U.S.)",
+      "source_report": "USDA AMS Dairy Market News (report 1053)",
       "source_report_id": "1053",
       "published_date": "2026-08-13",
-      "last_verified": "2026-08-20T02:56:14.012730Z",
+      "last_verified": "2026-08-20T03:06:51.769492Z",
       "status": "unknown",
       "confidence": "high",
       "source_type": "formal",
-      "excerpt": "WPC (Central/West), Extra Grade: mostly $2.00\u2013$2.24/lb (mostly_low_price=2, mostly_high_price=2.24)",
+      "excerpt": "Whey Protein Concentrate 34% (Central/West US), Extra Grade: mostly $2.00\u2013$2.24/lb (mostly_low_price=2, mostly_high_price=2.24)",
       "interpretation": "Market indication WPC34 $2.00-$2.24/lb (midpoint $2.12). This is a formally published USDA range, a market indication before freight and conversion costs \u2014 not an executable quote or a transaction-weighted average.",
-      "note": null
+      "note": null,
+      "wow_pct": null,
+      "prev_mid": null
+    },
+    {
+      "code": "DRYWHEY",
+      "name": "Dry Whey (sweet whey powder)",
+      "low": 0.35,
+      "mid": 0.535,
+      "high": 0.72,
+      "low_mt": 771.6,
+      "mid_mt": 1179.5,
+      "high_mt": 1587.3,
+      "reporting_period": "Aug 10-14, 2026",
+      "source_report": "USDA AMS Dairy Market News (reports 1045/1046/1047)",
+      "source_report_id": "1045/1046/1047",
+      "published_date": "2026-08-13",
+      "last_verified": "2026-08-20T03:06:55.638850Z",
+      "status": "firm",
+      "confidence": "high",
+      "source_type": "formal",
+      "excerpt": "Dry Whey (sweet whey powder) \u2014 U.S. mostly range across Central, West, East: $0.35\u2013$0.72/lb",
+      "interpretation": "Market indication DRYWHEY $0.35-$0.72/lb (midpoint $0.54). This is a formally published USDA range, a market indication before freight and conversion costs \u2014 not an executable quote or a transaction-weighted average.",
+      "note": null,
+      "wow_pct": null,
+      "prev_mid": null
+    },
+    {
+      "code": "LACTOSE",
+      "name": "Lactose",
+      "low": 0.62,
+      "mid": 0.67,
+      "high": 0.72,
+      "low_mt": 1366.9,
+      "mid_mt": 1477.1,
+      "high_mt": 1587.3,
+      "reporting_period": "Aug 10-14, 2026",
+      "source_report": "USDA AMS Dairy Market News (report 1052)",
+      "source_report_id": "1052",
+      "published_date": "2026-08-13",
+      "last_verified": "2026-08-20T03:06:56.434438Z",
+      "status": "firm",
+      "confidence": "high",
+      "source_type": "formal",
+      "excerpt": "Lactose (Central/West US), N/A: mostly $0.62\u2013$0.72/lb (mostly_low_price=0.62, mostly_high_price=0.72)",
+      "interpretation": "Market indication LACTOSE $0.62-$0.72/lb (midpoint $0.67). This is a formally published USDA range, a market indication before freight and conversion costs \u2014 not an executable quote or a transaction-weighted average.",
+      "note": null,
+      "wow_pct": null,
+      "prev_mid": null
     }
   ]
 }
