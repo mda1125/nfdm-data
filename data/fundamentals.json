@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-08-21T13:44:02.143752Z",
-  "count": 102,
+  "updated_at": "2026-08-24T13:50:59.385474Z",
+  "count": 103,
   "data": [
     {
       "month": "2018-01",
@@ -816,7 +816,11 @@
       "nfdm_stocks": 243161000.0,
       "butter_production": 208178000.0,
       "butter_stocks": 332130000.0,
-      "milk_production": 19705000000.0
+      "milk_production": 19829000000.0
+    },
+    {
+      "month": "2026-07",
+      "milk_production": 20145000000.0
     }
   ]
 }
