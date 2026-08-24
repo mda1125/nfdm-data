@@ -16,6 +16,23 @@ let charts = {};
 let lastUpdated = null;
 let dataMode = 'simulated';
 
+async function fetchWithRetry(url, opts, retries, delayMs) {
+  retries = retries == null ? 2 : retries;
+  delayMs = delayMs == null ? 600 : delayMs;
+  let lastErr = null;
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const res = await fetch(url, opts);
+      if (res.ok) return res;
+      lastErr = new Error('HTTP ' + res.status);
+    } catch (err) {
+      lastErr = err;
+    }
+    if (attempt < retries) await new Promise(function(r){ setTimeout(r, delayMs * (attempt + 1)); });
+  }
+  throw lastErr;
+}
+
 function showToast(msg, isError) {
   const t = document.createElement('div');
   t.className = 'toast' + (isError ? ' error' : '');
@@ -39,14 +56,20 @@ function setStatusPill() {
 
 function genData() {
   const MS = 86400000;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
   const cme = [], nass = [], c4 = [];
   const cmeSeeds = [[0,1.08],[30,1.12],[60,1.09],[90,1.15],[120,1.28],[150,1.35],[180,1.55],[210,1.72],[240,1.90],[270,2.05],[300,2.15],[330,2.20],[360,2.26]];
   let tradingDay = 0;
-  for (let d = new Date('2024-10-14'); d <= new Date('2026-04-29'); d = new Date(d.getTime()+MS)) {
+  for (let d = new Date('2024-10-14'); d <= today; d = new Date(d.getTime()+MS)) {
     const dow = d.getDay();
     if (dow === 0 || dow === 6) continue;
     const pct = tradingDay/403*360;
-    let price = 1.08;
+    // Beyond the last seed breakpoint (i.e. past the authored curve), hold at
+    // the last known level instead of falling through to the first seed's
+    // price — otherwise the "current" price snaps down to 1.08 once the
+    // fallback outlives the seed data it was written against.
+    let price = cmeSeeds[cmeSeeds.length - 1][1];
     for (let i = 0; i < cmeSeeds.length-1; i++) {
       if (pct >= cmeSeeds[i][0] && pct <= cmeSeeds[i+1][0]) {
         const t = (pct - cmeSeeds[i][0]) / (cmeSeeds[i+1][0] - cmeSeeds[i][0]);
@@ -70,7 +93,7 @@ function genData() {
     return ns[ns.length-1].p;
   }
   let nd = new Date('2012-03-03');
-  while (nd <= new Date('2026-03-27')) {
+  while (nd <= today) {
     const base = interpNass(nd.getTime());
     nass.push({date: new Date(nd), price: +(base + (Math.random()-0.5)*0.008).toFixed(4)});
     nd = new Date(nd.getTime() + 7*MS);
@@ -87,7 +110,7 @@ function genData() {
     return cs[cs.length-1].p;
   }
   let cd = new Date('2012-04-01');
-  while (cd <= new Date('2026-04-01')) {
+  while (cd <= today) {
     const announced = +interpC4(cd.getTime()).toFixed(2);
     const nfdmM = interpNass(cd.getTime()) + (Math.random()-0.3)*0.06;
     const butter = 1.80 + Math.random()*0.80;
@@ -105,9 +128,9 @@ async function fetchLiveData() {
   if (btn) btn.classList.add('loading');
   try {
     const responses = await Promise.all([
-      fetch(DATA_URLS.cme, {cache: 'no-store'}),
-      fetch(DATA_URLS.nass, {cache: 'no-store'}),
-      fetch(DATA_URLS.c4, {cache: 'no-store'}),
+      fetchWithRetry(DATA_URLS.cme, {cache: 'no-store'}),
+      fetchWithRetry(DATA_URLS.nass, {cache: 'no-store'}),
+      fetchWithRetry(DATA_URLS.c4, {cache: 'no-store'}),
       fetch(DATA_URLS.futures, {cache: 'no-store'}).catch(function(){ return null; }),
       fetch(DATA_URLS.fundamentals, {cache: 'no-store'}).catch(function(){ return null; }),
       fetch(DATA_URLS.futuresHistory, {cache: 'no-store'}).catch(function(){ return null; }),
@@ -115,9 +138,9 @@ async function fetchLiveData() {
       fetch(DATA_URLS.sugarFutures, {cache: 'no-store'}).catch(function(){ return null; }),
       fetch(DATA_URLS.whey, {cache: 'no-store'}).catch(function(){ return null; })
     ]);
-    if (!responses[0].ok || !responses[1].ok || !responses[2].ok) {
-      throw new Error('HTTP ' + responses[0].status + '/' + responses[1].status + '/' + responses[2].status);
-    }
+    // fetchWithRetry only resolves once cme/nass/c4 are .ok (retrying transient
+    // failures first) or throws after exhausting retries, so no separate
+    // .ok check is needed here.
     const mainJsons = await Promise.all(responses.slice(0,3).map(function(r){return r.json();}));
     var futJ = null, fundJ = null, futHistJ = null;
     if (responses[3] && responses[3].ok) {
