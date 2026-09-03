@@ -3,6 +3,7 @@ name: Fetch NFDM data
 on:
   schedule:
     - cron: '0 13 * * 1-5'   # 1pm UTC = 6am PT, weekdays only
+    - cron: '0 17 * * 1-5'   # 5pm UTC = 10am PT, backup in case the morning run doesn't fire
   workflow_dispatch:          # lets you trigger manually from GitHub UI
 
 env:
