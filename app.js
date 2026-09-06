@@ -1,13 +1,13 @@
 const DATA_URLS = {
-  cme:  'https://mda1125.github.io/nfdm-data/data/cme.json',
-  nass: 'https://mda1125.github.io/nfdm-data/data/nass.json',
-  c4:   'https://mda1125.github.io/nfdm-data/data/class_iv.json',
-  futures: 'https://mda1125.github.io/nfdm-data/data/futures.json',
-  futuresHistory: 'https://mda1125.github.io/nfdm-data/data/futures_history.json',
-  fundamentals: 'https://mda1125.github.io/nfdm-data/data/fundamentals.json',
-  sugar: 'https://mda1125.github.io/nfdm-data/data/sugar.json',
-  sugarFutures: 'https://mda1125.github.io/nfdm-data/data/sugar_futures.json',
-  whey: 'https://mda1125.github.io/nfdm-data/data/whey.json'
+  cme:  'data/cme.json',
+  nass: 'data/nass.json',
+  c4:   'data/class_iv.json',
+  futures: 'data/futures.json',
+  futuresHistory: 'data/futures_history.json',
+  fundamentals: 'data/fundamentals.json',
+  sugar: 'data/sugar.json',
+  sugarFutures: 'data/sugar_futures.json',
+  whey: 'data/whey.json'
 };
 
 let RAW = null;
