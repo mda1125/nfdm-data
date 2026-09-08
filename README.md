@@ -23,28 +23,6 @@ those files and is served via GitHub Pages.
 
 Uses USDA data but is not endorsed or certified by USDA.
 
-## Cocoa market notes
-
-Price/curve data (`data/cocoa.json`, `data/cocoa_futures.json`) is fetched
-automatically. Narrative commentary is not — `data/cocoa_notes.json` is
-intentionally left for an external process (an analyst, an LLM agent, etc.)
-to write on its own schedule, using the fetched price data plus outside
-context. The dashboard just reads whatever is there; if the file is missing
-or malformed the "Market outlook" panel shows an empty-state message instead
-of erroring.
-
-Expected shape:
-
-```json
-{
-  "week_of": "YYYY-MM-DD",
-  "summary": "string",
-  "weather": "string",
-  "products": "string",
-  "outlook": "string",
-  "booking": ["string", "string", "..."]
-}
-```
-
-All fields are optional — omit a key and that subsection is skipped. `booking`
-renders as a bulleted list; everything else renders as a paragraph.
+Narrative market commentary (cocoa, sugar, etc.) is not generated here — it's
+handled by the Daily Dairy Newsletter's n8n workflow, which has its own LLM
+step for writing analysis.
