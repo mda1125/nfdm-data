@@ -7,6 +7,9 @@ const DATA_URLS = {
   fundamentals: 'data/fundamentals.json',
   sugar: 'data/sugar.json',
   sugarFutures: 'data/sugar_futures.json',
+  cocoa: 'data/cocoa.json',
+  cocoaFutures: 'data/cocoa_futures.json',
+  cocoaNotes: 'data/cocoa_notes.json',
   whey: 'data/whey.json'
 };
 
@@ -136,6 +139,9 @@ async function fetchLiveData() {
       fetch(DATA_URLS.futuresHistory, {cache: 'no-store'}).catch(function(){ return null; }),
       fetch(DATA_URLS.sugar, {cache: 'no-store'}).catch(function(){ return null; }),
       fetch(DATA_URLS.sugarFutures, {cache: 'no-store'}).catch(function(){ return null; }),
+      fetch(DATA_URLS.cocoa, {cache: 'no-store'}).catch(function(){ return null; }),
+      fetch(DATA_URLS.cocoaFutures, {cache: 'no-store'}).catch(function(){ return null; }),
+      fetch(DATA_URLS.cocoaNotes, {cache: 'no-store'}).catch(function(){ return null; }),
       fetch(DATA_URLS.whey, {cache: 'no-store'}).catch(function(){ return null; })
     ]);
     // fetchWithRetry only resolves once cme/nass/c4 are .ok (retrying transient
@@ -158,6 +164,16 @@ async function fetchLiveData() {
     }
     if (responses[7] && responses[7].ok) {
       try { sugarFutJ = await responses[7].json(); } catch(e) { sugarFutJ = null; }
+    }
+    var cocoaJ = null, cocoaFutJ = null, cocoaNotesJ = null;
+    if (responses[8] && responses[8].ok) {
+      try { cocoaJ = await responses[8].json(); } catch(e) { cocoaJ = null; }
+    }
+    if (responses[9] && responses[9].ok) {
+      try { cocoaFutJ = await responses[9].json(); } catch(e) { cocoaFutJ = null; }
+    }
+    if (responses[10] && responses[10].ok) {
+      try { cocoaNotesJ = await responses[10].json(); } catch(e) { cocoaNotesJ = null; }
     }
     const cmeJ = mainJsons[0], nassJ = mainJsons[1], c4J = mainJsons[2];
     const cme = (cmeJ.data || cmeJ).map(function(d){return {date: new Date(d.date), price: +d.price};});
@@ -211,9 +227,25 @@ async function fetchLiveData() {
         data: sugarFutJ.data.map(function(d){return {month: d.month, label: d.label, settle: +d.settle_cents_lb, usd_kg: +d.settle_usd_kg, volume: +(d.volume || 0)};})
       };
     }
+    var cocoa = null;
+    if (cocoaJ && cocoaJ.data && cocoaJ.data.length) {
+      cocoa = {
+        current_usd_mt: cocoaJ.current_usd_mt || null,
+        current_usd_lb: cocoaJ.current_usd_lb || null,
+        data: cocoaJ.data.map(function(d){return {date: new Date(d.date), price: +d.price_usd_mt, usd_lb: +d.price_usd_lb};})
+      };
+    }
+    var cocoaFut = null;
+    if (cocoaFutJ && cocoaFutJ.data && cocoaFutJ.data.length) {
+      cocoaFut = {
+        trade_date: cocoaFutJ.trade_date || '',
+        data: cocoaFutJ.data.map(function(d){return {month: d.month, label: d.label, settle: +d.settle_usd_mt, usd_lb: +d.settle_usd_lb, volume: +(d.volume || 0)};})
+      };
+    }
+    var cocoaNotes = (cocoaNotesJ && cocoaNotesJ.summary) ? cocoaNotesJ : null;
     var wheyJ = null;
-    if (responses[8] && responses[8].ok) {
-      try { wheyJ = await responses[8].json(); } catch(e) { wheyJ = null; }
+    if (responses[11] && responses[11].ok) {
+      try { wheyJ = await responses[11].json(); } catch(e) { wheyJ = null; }
     }
     var whey = null;
     if (wheyJ && wheyJ.data && wheyJ.data.length) {
@@ -227,9 +259,10 @@ async function fetchLiveData() {
     if (fund) toastMsg += ' · ' + fund.length + ' supply';
     if (futHist) toastMsg += ' · ' + futHist.length + ' snapshots';
     if (sugar) toastMsg += ' · ' + sugar.data.length + ' sugar';
+    if (cocoa) toastMsg += ' · ' + cocoa.data.length + ' cocoa';
     if (whey) toastMsg += ' · ' + whey.products.length + ' whey';
     showToast(toastMsg);
-    return {cme: cme, nass: nass, c4: c4, futures: futures, fund: fund, futHist: futHist, sugar: sugar, sugarFut: sugarFut, whey: whey};
+    return {cme: cme, nass: nass, c4: c4, futures: futures, fund: fund, futHist: futHist, sugar: sugar, sugarFut: sugarFut, cocoa: cocoa, cocoaFut: cocoaFut, cocoaNotes: cocoaNotes, whey: whey};
   } catch (err) {
     console.warn('Live fetch failed:', err);
     dataMode = 'error';
@@ -877,6 +910,119 @@ function buildCharts() {
     }
     var sfDate = document.getElementById('sugar-futures-date');
     if (sfDate) sfDate.textContent = 'Trade date: ' + (RAW.sugarFut.trade_date || '—');
+  }
+
+  // Cocoa
+  if (RAW.cocoa && RAW.cocoa.data.length) {
+    var cocoaFilt = filterByDays(RAW.cocoa.data, activeDays);
+    var ctxCocoa = document.getElementById('chart-cocoa-spot');
+    if (ctxCocoa && cocoaFilt.length) {
+      charts.cocoaSpot = new Chart(ctxCocoa, {
+        type: 'line',
+        data: {
+          labels: cocoaFilt.map(function(d){return fmtDate(d.date);}),
+          datasets: [{
+            label: 'NY Cocoa',
+            data: cocoaFilt.map(function(d){return d.price;}),
+            borderColor: '#c2703d', backgroundColor: 'rgba(194,112,61,0.08)',
+            borderWidth: 1.5, pointRadius: 0, tension: 0.3, fill: true
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          interaction: {mode: 'index', intersect: false},
+          plugins: {
+            legend: {display: false},
+            tooltip: {backgroundColor: '#1f2937', borderColor: '#374151', borderWidth: 1, titleColor: '#e6edf3', bodyColor: '#9ca3af', padding: 10,
+              callbacks: {label: function(ctx){return '$' + ctx.parsed.y.toFixed(0) + '/mt ($' + (ctx.parsed.y / 2204.62).toFixed(3) + '/lb)';}}}
+          },
+          scales: {
+            x: {ticks: {color: COLORS.tick, maxTicksLimit: 8, maxRotation: 0}, grid: {color: COLORS.grid}},
+            y: {ticks: {color: COLORS.tick, callback: function(v){return '$' + v.toFixed(0);}}, grid: {color: COLORS.grid}, title: {display: true, text: '$/metric ton', color: COLORS.tick}}
+          }
+        }
+      });
+    }
+
+    setText('kpi-cocoa-spot', RAW.cocoa.current_usd_mt ? '$' + RAW.cocoa.current_usd_mt.toFixed(0) : '—');
+    setText('kpi-cocoa-spot-label', 'NY Cocoa · $/mt');
+    setText('kpi-cocoa-lb', RAW.cocoa.current_usd_lb ? '$' + RAW.cocoa.current_usd_lb.toFixed(3) : '—');
+    setText('kpi-cocoa-lb-label', 'NY Cocoa · $/lb');
+  }
+
+  if (RAW.cocoaFut && RAW.cocoaFut.data.length) {
+    var cf = RAW.cocoaFut.data;
+    var ctxCocoaFut = document.getElementById('chart-cocoa-futures');
+    if (ctxCocoaFut) {
+      charts.cocoaFut = new Chart(ctxCocoaFut, {
+        type: 'line',
+        data: {
+          labels: cf.map(function(d){return d.label;}),
+          datasets: [{
+            label: 'Settlement',
+            data: cf.map(function(d){return d.settle;}),
+            borderColor: '#c2703d', backgroundColor: 'rgba(194,112,61,0.1)',
+            borderWidth: 2, pointRadius: 4, pointBackgroundColor: '#c2703d',
+            tension: 0.3, fill: true
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          interaction: {mode: 'index', intersect: false},
+          plugins: {
+            legend: {display: false},
+            tooltip: {backgroundColor: '#1f2937', borderColor: '#374151', borderWidth: 1, titleColor: '#e6edf3', bodyColor: '#9ca3af', padding: 10,
+              callbacks: {label: function(ctx){return '$' + ctx.parsed.y.toFixed(0) + '/mt ($' + (ctx.parsed.y / 2204.62).toFixed(3) + '/lb)';}}}
+          },
+          scales: {
+            x: {ticks: {color: COLORS.tick, maxRotation: 45, font: {size: 11}}, grid: {color: COLORS.grid}},
+            y: {ticks: {color: COLORS.tick, callback: function(v){return '$' + v.toFixed(0);}}, grid: {color: COLORS.grid}, title: {display: true, text: '$/metric ton', color: COLORS.tick}}
+          }
+        }
+      });
+    }
+
+    var cfFront = cf[0], cfBack = cf[cf.length - 1];
+    var cfSpread = cfBack.settle - cfFront.settle;
+    setText('kpi-cocoa-curve', (cfSpread >= 0 ? '+' : '') + '$' + cfSpread.toFixed(0));
+    setText('kpi-cocoa-curve-label', cfFront.label + ' → ' + cfBack.label + (cfSpread >= 0 ? ' · Contango' : ' · Backwardation'));
+
+    var tblCF = document.getElementById('tbl-cocoa-futures');
+    if (tblCF) {
+      tblCF.innerHTML = '<tr><th>Contract</th><th style="text-align:right">Settle ($/mt)</th><th style="text-align:right">$/lb</th><th style="text-align:right">Volume</th></tr>' +
+        cf.map(function(d){
+          return '<tr><td>' + d.label + '</td><td style="text-align:right">$' + d.settle.toFixed(0) + '</td><td style="text-align:right">$' + d.usd_lb.toFixed(3) + '</td><td style="text-align:right">' + (d.volume || '—') + '</td></tr>';
+        }).join('');
+    }
+    var cfDate = document.getElementById('cocoa-futures-date');
+    if (cfDate) cfDate.textContent = 'Trade date: ' + (RAW.cocoaFut.trade_date || '—');
+  }
+
+  var cocoaOutlookEl = document.getElementById('cocoa-outlook');
+  if (cocoaOutlookEl) {
+    if (RAW.cocoaNotes) {
+      var cn = RAW.cocoaNotes;
+      var sections = [
+        ['Summary', cn.summary],
+        ['Weather & crop conditions', cn.weather],
+        ['Cocoa products', cn.products],
+        ['Outlook', cn.outlook]
+      ].filter(function(s){ return s[1]; });
+      var html = sections.map(function(s){
+        return '<h3 style="margin:14px 0 4px;font-size:13px;color:#9ca3af">' + s[0] + '</h3><p style="margin:0;line-height:1.55">' + s[1] + '</p>';
+      }).join('');
+      if (cn.booking && cn.booking.length) {
+        html += '<h3 style="margin:14px 0 6px;font-size:13px;color:#9ca3af">Booking recommendation</h3>' +
+          '<ul style="margin:0;padding-left:18px;line-height:1.6">' +
+          cn.booking.map(function(b){ return '<li>' + b + '</li>'; }).join('') +
+          '</ul>';
+      }
+      cocoaOutlookEl.innerHTML = html;
+      var cnMeta = document.getElementById('cocoa-notes-date');
+      if (cnMeta) cnMeta.textContent = cn.week_of ? 'Week of ' + cn.week_of : '';
+    } else {
+      cocoaOutlookEl.innerHTML = '<p style="color:#6e7681;margin:0">No market notes on file yet — add data/cocoa_notes.json to populate this panel.</p>';
+    }
   }
 
   // Futures accuracy

@@ -692,6 +692,8 @@ MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
 YAHOO_BASE = "https://query1.finance.yahoo.com/v8/finance/chart"
 
 SUGAR_FUTURES_MONTHS = [2, 4, 6, 9]  # Mar(H), May(K), Jul(N), Oct(V)
+COCOA_FUTURES_MONTHS = [2, 4, 6, 8, 11]  # Mar(H), May(K), Jul(N), Sep(U), Dec(Z)
+MT_TO_LB = 2204.62
 
 
 def fetch_futures():
@@ -813,6 +815,86 @@ def fetch_sugar_futures():
                 "label": f"{month_name} {year % 100:02d}",
                 "settle_cents_lb": round(price, 2),
                 "settle_usd_kg": round(price * 2.20462 / 100, 4),
+                "volume": volume or 0,
+            })
+        except Exception as e:
+            print(f"  Skipping {sym}: {e}")
+            continue
+
+    out.sort(key=lambda x: x["month"])
+    return out
+
+
+def fetch_cocoa_spot():
+    """Fetch NY cocoa (CC=F) daily prices from Yahoo Finance — 5 year history."""
+    r = requests.get(
+        f"{YAHOO_BASE}/CC=F",
+        params={"interval": "1d", "range": "5y"},
+        headers={"User-Agent": "Mozilla/5.0"},
+        timeout=30,
+    )
+    if r.status_code != 200:
+        raise Exception(f"Yahoo returned HTTP {r.status_code}")
+    data = r.json()
+    result = data.get("chart", {}).get("result", [])
+    if not result:
+        raise Exception("No chart data returned for CC=F")
+
+    timestamps = result[0].get("timestamp", [])
+    closes = result[0].get("indicators", {}).get("quote", [{}])[0].get("close", [])
+    meta = result[0].get("meta", {})
+
+    out = []
+    for ts, close in zip(timestamps, closes):
+        if close is not None and close > 0:
+            dt = datetime.utcfromtimestamp(ts)
+            out.append({
+                "date": dt.strftime("%Y-%m-%d"),
+                "price_usd_mt": round(close, 2),
+                "price_usd_lb": round(close / MT_TO_LB, 4),
+            })
+    out.sort(key=lambda x: x["date"])
+    return out, meta.get("regularMarketPrice")
+
+
+def fetch_cocoa_futures():
+    """Fetch NY cocoa futures curve from Yahoo Finance (CC contracts on ICE US/NYB)."""
+    now = datetime.utcnow()
+    symbols = []
+    for offset in range(36):
+        m = (now.month - 1 + offset) % 12
+        y = now.year + (now.month - 1 + offset) // 12
+        if m not in COCOA_FUTURES_MONTHS:
+            continue
+        code = MONTH_CODES[m]
+        sym = f"CC{code}{y % 100:02d}.NYB"
+        symbols.append((sym, f"{y}-{m + 1:02d}", MONTH_NAMES[m], y))
+
+    out = []
+    for sym, iso_month, month_name, year in symbols:
+        try:
+            r = requests.get(
+                f"{YAHOO_BASE}/{sym}",
+                params={"interval": "1d", "range": "1d"},
+                headers={"User-Agent": "Mozilla/5.0"},
+                timeout=10,
+            )
+            if r.status_code != 200:
+                continue
+            data = r.json()
+            result = data.get("chart", {}).get("result", [])
+            if not result:
+                continue
+            meta = result[0].get("meta", {})
+            price = meta.get("regularMarketPrice")
+            if not price or price <= 0:
+                continue
+            volume = meta.get("regularMarketVolume", 0)
+            out.append({
+                "month": iso_month,
+                "label": f"{month_name} {year % 100:02d}",
+                "settle_usd_mt": round(price, 2),
+                "settle_usd_lb": round(price / MT_TO_LB, 4),
                 "volume": volume or 0,
             })
         except Exception as e:
@@ -950,6 +1032,39 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"Sugar futures fetch failed: {e}")
         failures.append("sugar_futures")
+
+    print("Fetching NY Cocoa spot (Yahoo Finance)...")
+    try:
+        cocoa_data, cocoa_current = fetch_cocoa_spot()
+        path = DATA_DIR / "cocoa.json"
+        payload = {
+            "updated_at": datetime.utcnow().isoformat() + "Z",
+            "current_usd_mt": cocoa_current,
+            "current_usd_lb": round(cocoa_current / MT_TO_LB, 4) if cocoa_current else None,
+            "count": len(cocoa_data),
+            "data": cocoa_data,
+        }
+        path.write_text(json.dumps(payload, indent=2))
+        print(f"Wrote {len(cocoa_data)} days to {path}")
+    except Exception as e:
+        print(f"Cocoa spot fetch failed: {e}")
+        failures.append("cocoa")
+
+    print("Fetching NY Cocoa futures curve (Yahoo Finance)...")
+    try:
+        cocoa_curve = fetch_cocoa_futures()
+        path = DATA_DIR / "cocoa_futures.json"
+        payload = {
+            "updated_at": datetime.utcnow().isoformat() + "Z",
+            "trade_date": datetime.utcnow().strftime("%Y-%m-%d"),
+            "count": len(cocoa_curve),
+            "data": cocoa_curve,
+        }
+        path.write_text(json.dumps(payload, indent=2))
+        print(f"Wrote {len(cocoa_curve)} contracts to {path}")
+    except Exception as e:
+        print(f"Cocoa futures fetch failed: {e}")
+        failures.append("cocoa_futures")
 
     if failures:
         print(f"\nCompleted with {len(failures)} failure(s): {', '.join(failures)}")

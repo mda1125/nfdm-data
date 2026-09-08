@@ -137,6 +137,7 @@ a{color:#58a6ff}
     <div class="nav-item" data-view="seasonals"><span class="nav-icon">⛅</span>Seasonals</div>
     <div class="nav-item" data-view="fundamentals"><span class="nav-icon">⚖</span>Fundamentals</div>
     <div class="nav-item" data-view="sugar"><span class="nav-icon">◇</span>Sugar #11</div>
+    <div class="nav-item" data-view="cocoa"><span class="nav-icon">◆</span>Cocoa Market</div>
     <div class="nav-item" data-view="whey"><span class="nav-icon">⬢</span>Whey Market</div>
     <div class="nav-item" data-view="recent"><span class="nav-icon">≡</span>Recent prices</div>
   </nav>
@@ -148,6 +149,7 @@ a{color:#58a6ff}
     <div>Futures via <a href="https://finance.yahoo.com/quote/GNF=F/" target="_blank">CME GNF</a></div>
     <div>Supply via <a href="https://quickstats.nass.usda.gov" target="_blank">NASS QuickStats</a></div>
     <div>Sugar via <a href="https://finance.yahoo.com/quote/SB=F/" target="_blank">ICE SB</a></div>
+    <div>Cocoa via <a href="https://finance.yahoo.com/quote/CC=F/" target="_blank">ICE CC</a></div>
     <div>Whey via <a href="https://mymarketnews.ams.usda.gov" target="_blank">USDA Dairy Market News</a></div>
   </div>
 </div>
@@ -407,6 +409,32 @@ a{color:#58a6ff}
           <div class="panel-hdr"><h2>Futures detail</h2><p id="sugar-futures-date">—</p></div>
           <table class="data-table" id="tbl-sugar-futures"></table>
         </div>
+      </div>
+    </div>
+
+    <div id="view-cocoa" class="view">
+      <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="kpi"><div class="kpi-tag" style="background:#c2703d22;color:#dda06f;border:1px solid #c2703d44">SPOT</div><div class="kpi-val" id="kpi-cocoa-spot">—</div><div class="kpi-meta" id="kpi-cocoa-spot-label">current $/mt</div></div>
+        <div class="kpi"><div class="kpi-tag" style="background:#7c3aed22;color:#a78bfa;border:1px solid #7c3aed44">USD/LB</div><div class="kpi-val" id="kpi-cocoa-lb">—</div><div class="kpi-meta" id="kpi-cocoa-lb-label">current $/lb</div></div>
+        <div class="kpi"><div class="kpi-tag" style="background:#e6a81722;color:#e6a817;border:1px solid #e6a81744">CURVE</div><div class="kpi-val" id="kpi-cocoa-curve">—</div><div class="kpi-meta" id="kpi-cocoa-curve-label">front-to-back spread</div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-hdr"><h2>NY Cocoa daily spot ($/metric ton)</h2><p>ICE US cocoa futures — front-month continuous contract (CC=F)</p></div>
+        <div class="chart-wrap" style="height:300px"><canvas id="chart-cocoa-spot" role="img" aria-label="Cocoa spot price"></canvas></div>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="panel-hdr"><h2>Cocoa futures curve</h2><p>ICE CC settlement prices by contract month</p></div>
+          <div class="chart-wrap" style="height:260px"><canvas id="chart-cocoa-futures" role="img" aria-label="Cocoa futures curve"></canvas></div>
+        </div>
+        <div class="panel">
+          <div class="panel-hdr"><h2>Futures detail</h2><p id="cocoa-futures-date">—</p></div>
+          <table class="data-table" id="tbl-cocoa-futures"></table>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-hdr"><h2>Market outlook</h2><p id="cocoa-notes-date">—</p></div>
+        <div id="cocoa-outlook" style="font-size:13px;color:#c9d1d9">—</div>
       </div>
     </div>
 
