@@ -2,8 +2,8 @@ name: Fetch NFDM data
 
 on:
   schedule:
-    - cron: '0 13 * * 1-5'   # 1pm UTC = 6am PT, weekdays only
-    - cron: '0 17 * * 1-5'   # 5pm UTC = 10am PT, backup in case the morning run doesn't fire
+    - cron: '7 12 * * 1-5'    # 12:07 UTC = 5:07am PT, weekdays only — off-hour to dodge GH scheduling congestion
+    - cron: '23 14 * * 1-5'   # 14:23 UTC = 7:23am PT — backup, still ~1.5hr buffer before 9am PT newsletter
   workflow_dispatch:          # lets you trigger manually from GitHub UI
 
 env:
