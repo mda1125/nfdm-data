@@ -6,6 +6,7 @@
       content="default-src 'none'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data: blob:; font-src 'self'; base-uri 'self'; form-action 'self';">
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>The Dairy Desk</title>
+<link rel="icon" type="image/png" href="assets/thedairydesk.png"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
 <style>
@@ -14,7 +15,7 @@ body{font-family:system-ui,sans-serif;background:#0d1117;color:#e6edf3;display:f
 a{color:#58a6ff}
 #sidebar{width:200px;min-width:200px;background:#161b22;border-right:1px solid #30363d;display:flex;flex-direction:column}
 .sb-logo{padding:16px;border-bottom:1px solid #30363d}
-.sb-logo .logo-icon{width:32px;height:32px;border-radius:8px;background:#e6a817;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#0d1117;margin-bottom:8px}
+.sb-logo .logo-icon{width:72px;height:72px;margin-bottom:8px;object-fit:contain}
 .sb-logo .logo-title{font-size:14px;font-weight:600}
 .sb-logo .logo-sub{font-size:11px;color:#8b949e}
 .sb-nav{padding:8px 0;flex:1}
@@ -121,7 +122,7 @@ a{color:#58a6ff}
 
 <div id="sidebar">
   <div class="sb-logo">
-    <div class="logo-icon">DD</div>
+    <img class="logo-icon" src="assets/thedairydesk.png" alt="The Dairy Desk"/>
     <div class="logo-title">The Dairy Desk</div>
     <div class="logo-sub">Dairy ingredient markets</div>
   </div>
