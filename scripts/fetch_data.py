@@ -139,8 +139,20 @@ def fetch_class_iv():
     return out
 
 
-def fetch_cme_spot():
-    """Report 1603 (CME Group Daily Cash Trading WTD) via MMN API — requires DATAMART_API_KEY."""
+_PRICE_SKIP_KEYS = (
+    "date", "report_date", "published_date", "commodity",
+    "report_title", "slug_name", "slug_id", "narrative",
+    "office_name", "office_code", "office_city", "office_state",
+    "market_location_name", "market_location_city",
+    "market_location_state", "market_type", "market_type_category",
+    "created_date",
+)
+
+
+def _fetch_1603_rows():
+    """Report 1603 (CME Group Daily Cash Trading WTD) via MMN API — requires
+    DATAMART_API_KEY. Fetched once and shared by the NFDM and butter filters
+    below so we only pay for the call once."""
     raw = fetch_mars("1603")
     results = raw.get("results", [])
 
@@ -155,6 +167,37 @@ def fetch_cme_spot():
             for r in results[:3]:
                 print(f"[DEBUG]   {json.dumps(r, indent=2)}")
 
+        butter_rows = [r for r in results if "butter" in str(r).lower()]
+        if butter_rows:
+            print(f"[DEBUG] First butter-matching row: {json.dumps(butter_rows[0], indent=2)}")
+        else:
+            print(f"[DEBUG] No rows contain 'butter'.")
+
+    return results
+
+
+def _extract_price(row):
+    """Pull the first positive numeric field from a report row, skipping the
+    known non-price keys. Shared by the CME spot and butter filters."""
+    for key in row:
+        if key.lower() in _PRICE_SKIP_KEYS:
+            continue
+        val = row[key]
+        if val is not None:
+            try:
+                p = parse_num(val)
+                if p > 0:
+                    print(f"[DEBUG] Using field '{key}' = {p} for price")
+                    return p
+            except (ValueError, TypeError):
+                continue
+    return None
+
+
+def fetch_cme_spot():
+    """Report 1603 (CME Group Daily Cash Trading WTD), NFDM rows."""
+    results = _fetch_1603_rows()
+
     out = []
     for row in results:
         try:
@@ -162,25 +205,36 @@ def fetch_cme_spot():
             if "nonfat" not in commodity and "nfdm" not in commodity:
                 continue
             date = normalize_date(row.get("report_date") or row.get("published_date") or row.get("date"))
-            price = None
-            for key in row:
-                if key.lower() in ("date", "report_date", "published_date", "commodity",
-                                    "report_title", "slug_name", "slug_id", "narrative",
-                                    "office_name", "office_code", "office_city", "office_state",
-                                    "market_location_name", "market_location_city",
-                                    "market_location_state", "market_type", "market_type_category",
-                                    "created_date"):
-                    continue
-                val = row[key]
-                if val is not None:
-                    try:
-                        p = parse_num(val)
-                        if p > 0:
-                            price = p
-                            print(f"[DEBUG] Using field '{key}' = {p} for price")
-                            break
-                    except (ValueError, TypeError):
-                        continue
+            price = _extract_price(row)
+            if date and price:
+                out.append({"date": date, "price": price})
+        except (TypeError, ValueError):
+            continue
+    out.sort(key=lambda x: x["date"])
+    return out
+
+
+def fetch_cme_butter():
+    """Report 1603 (CME Group Daily Cash Trading WTD), Grade AA butter rows.
+
+    Matches loosely on 'butter' in the stringified row (same approach as the
+    NFDM filter above), explicitly excluding buttermilk since that word also
+    contains 'butter'. Once a live run's [DEBUG] output confirms the actual
+    commodity/grade field names, tighten this to match those fields directly
+    instead of the whole stringified row — see butter-fix-spec.md caution."""
+    results = _fetch_1603_rows()
+
+    out = []
+    for row in results:
+        try:
+            commodity = str(row).lower()
+            if "butter" not in commodity or "buttermilk" in commodity:
+                continue
+            grade = str(row.get("grade") or row.get("Grade") or "").lower()
+            if grade and "aa" not in grade:
+                continue
+            date = normalize_date(row.get("report_date") or row.get("published_date") or row.get("date"))
+            price = _extract_price(row)
             if date and price:
                 out.append({"date": date, "price": price})
         except (TypeError, ValueError):
@@ -962,6 +1016,13 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"CME fetch failed: {e}")
         failures.append("cme")
+
+    print("Fetching CME butter (report 1603)...")
+    try:
+        write_json("butter", fetch_cme_butter())
+    except Exception as e:
+        print(f"Butter fetch failed: {e}")
+        failures.append("butter")
 
     print("Fetching Whey Market (WPC/WPI/Dry Whey/Lactose via MMN)...")
     try:

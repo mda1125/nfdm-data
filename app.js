@@ -1,5 +1,6 @@
 const DATA_URLS = {
   cme:  'data/cme.json',
+  butter: 'data/butter.json',
   nass: 'data/nass.json',
   c4:   'data/class_iv.json',
   futures: 'data/futures.json',
@@ -60,8 +61,9 @@ function genData() {
   const MS = 86400000;
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  const cme = [], nass = [], c4 = [];
+  const cme = [], butter = [], nass = [], c4 = [];
   const cmeSeeds = [[0,1.08],[30,1.12],[60,1.09],[90,1.15],[120,1.28],[150,1.35],[180,1.55],[210,1.72],[240,1.90],[270,2.05],[300,2.15],[330,2.20],[360,2.26]];
+  const butterSeeds = [[0,1.75],[30,1.85],[60,2.05],[90,2.20],[120,2.35],[150,2.55],[180,2.40],[210,2.20],[240,2.10],[270,2.00],[300,1.95],[330,2.05],[360,2.15]];
   let tradingDay = 0;
   for (let d = new Date('2024-10-14'); d <= today; d = new Date(d.getTime()+MS)) {
     const dow = d.getDay();
@@ -81,6 +83,17 @@ function genData() {
     }
     price += (Math.random() - 0.45) * 0.012;
     cme.push({date: new Date(d), price: +price.toFixed(4)});
+
+    let bprice = butterSeeds[butterSeeds.length - 1][1];
+    for (let i = 0; i < butterSeeds.length-1; i++) {
+      if (pct >= butterSeeds[i][0] && pct <= butterSeeds[i+1][0]) {
+        const t = (pct - butterSeeds[i][0]) / (butterSeeds[i+1][0] - butterSeeds[i][0]);
+        bprice = butterSeeds[i][1] + (butterSeeds[i+1][1] - butterSeeds[i][1]) * t;
+        break;
+      }
+    }
+    bprice += (Math.random() - 0.5) * 0.02;
+    butter.push({date: new Date(d), price: +bprice.toFixed(4)});
     tradingDay++;
   }
   const nassSeeds = [['2012-03-01',0.95],['2014-07-01',2.05],['2016-07-01',0.72],['2018-01-01',0.97],['2020-01-01',0.88],['2022-07-01',1.95],['2024-01-01',1.10],['2025-07-01',1.72],['2026-03-27',1.96]];
@@ -115,14 +128,14 @@ function genData() {
   while (cd <= today) {
     const announced = +interpC4(cd.getTime()).toFixed(2);
     const nfdmM = interpNass(cd.getTime()) + (Math.random()-0.3)*0.06;
-    const butter = 1.80 + Math.random()*0.80;
+    const butterAvg = 1.80 + Math.random()*0.80;
     const skim = ((nfdmM - 0.1678) * 0.99) * 9;
-    const bfat = (butter - 0.1715) * 1.211;
+    const bfat = (butterAvg - 0.1715) * 1.211;
     const implied = +((skim*0.965 + bfat*3.5) * 100).toFixed(2);
-    c4.push({date: new Date(cd), announced: announced, implied: Math.max(10, implied), nfdm: +nfdmM.toFixed(4), butter: +butter.toFixed(4), skim: +(skim*100).toFixed(2), bfat: +(bfat*100).toFixed(2)});
+    c4.push({date: new Date(cd), announced: announced, implied: Math.max(10, implied), nfdm: +nfdmM.toFixed(4), butter: +butterAvg.toFixed(4), skim: +(skim*100).toFixed(2), bfat: +(bfat*100).toFixed(2)});
     cd = new Date(cd.getFullYear(), cd.getMonth()+1, 1);
   }
-  return {cme: cme, nass: nass, c4: c4};
+  return {cme: cme, butter: butter, nass: nass, c4: c4};
 }
 
 async function fetchLiveData() {
@@ -140,7 +153,8 @@ async function fetchLiveData() {
       fetch(DATA_URLS.sugarFutures, {cache: 'no-store'}).catch(function(){ return null; }),
       fetch(DATA_URLS.cocoa, {cache: 'no-store'}).catch(function(){ return null; }),
       fetch(DATA_URLS.cocoaFutures, {cache: 'no-store'}).catch(function(){ return null; }),
-      fetch(DATA_URLS.whey, {cache: 'no-store'}).catch(function(){ return null; })
+      fetch(DATA_URLS.whey, {cache: 'no-store'}).catch(function(){ return null; }),
+      fetch(DATA_URLS.butter, {cache: 'no-store'}).catch(function(){ return null; })
     ]);
     // fetchWithRetry only resolves once cme/nass/c4 are .ok (retrying transient
     // failures first) or throws after exhausting retries, so no separate
@@ -245,6 +259,14 @@ async function fetchLiveData() {
     if (wheyJ && wheyJ.data && wheyJ.data.length) {
       whey = {updated_at: wheyJ.updated_at || '', products: wheyJ.data};
     }
+    var butterJ = null;
+    if (responses[11] && responses[11].ok) {
+      try { butterJ = await responses[11].json(); } catch(e) { butterJ = null; }
+    }
+    var butter = null;
+    if (butterJ && butterJ.data && butterJ.data.length) {
+      butter = butterJ.data.map(function(d){return {date: new Date(d.date), price: +d.price};});
+    }
     const stamps = [cmeJ.updated_at, nassJ.updated_at, c4J.updated_at].filter(Boolean);
     lastUpdated = stamps.sort().reverse()[0] || new Date().toISOString();
     dataMode = 'live';
@@ -255,8 +277,9 @@ async function fetchLiveData() {
     if (sugar) toastMsg += ' · ' + sugar.data.length + ' sugar';
     if (cocoa) toastMsg += ' · ' + cocoa.data.length + ' cocoa';
     if (whey) toastMsg += ' · ' + whey.products.length + ' whey';
+    if (butter) toastMsg += ' · ' + butter.length + ' butter';
     showToast(toastMsg);
-    return {cme: cme, nass: nass, c4: c4, futures: futures, fund: fund, futHist: futHist, sugar: sugar, sugarFut: sugarFut, cocoa: cocoa, cocoaFut: cocoaFut, whey: whey};
+    return {cme: cme, butter: butter, nass: nass, c4: c4, futures: futures, fund: fund, futHist: futHist, sugar: sugar, sugarFut: sugarFut, cocoa: cocoa, cocoaFut: cocoaFut, whey: whey};
   } catch (err) {
     console.warn('Live fetch failed:', err);
     dataMode = 'error';
@@ -332,6 +355,7 @@ function fmtMonth(d) {
 function buildCharts() {
   if (!RAW) return;
   const cmeFilt = filterByDays(RAW.cme, activeDays);
+  const butterFilt = filterByDays(RAW.butter || [], activeDays);
   const nassFilt = filterByDays(RAW.nass, activeDays);
   const joined = joinCmeNass(cmeFilt, nassFilt);
   const c4Filt = filterByDays(RAW.c4, activeDays);
@@ -403,6 +427,18 @@ function buildCharts() {
 
   const ctxB = document.getElementById('chart-basis');
   if (ctxB && joined.length) charts.basis = new Chart(ctxB, {type: 'bar', data: basisData(), options: baseOpts('$/lb')});
+
+  const ctxBu = document.getElementById('chart-butter');
+  if (ctxBu && butterFilt.length) {
+    charts.butter = new Chart(ctxBu, {
+      type: 'line',
+      data: {
+        labels: butterFilt.map(function(d){return fmtDate(d.date);}),
+        datasets: [{label: 'CME butter spot', data: butterFilt.map(function(d){return d.price;}), borderColor: '#f87171', borderWidth: 1.5, pointRadius: 0, tension: 0.3, fill: {target: 'origin', above: 'rgba(248,113,113,0.06)'}}]
+      },
+      options: baseOpts('$/lb')
+    });
+  }
 
   const ctxBF = document.getElementById('chart-basis-full');
   if (ctxBF && joined.length) charts.basisFull = new Chart(ctxBF, {type: 'bar', data: basisData(), options: baseOpts('$/lb')});
@@ -1025,6 +1061,14 @@ function buildCharts() {
       setText('kpi-cme-mtd', monthNames[mtdM] + ' MTD avg $' + mtdAvg.toFixed(4) + ' (' + mtdPrices.length + ' obs)');
     }
   }
+  const butterArr = RAW.butter || [];
+  const latestButter = butterArr[butterArr.length-1];
+  const prevButter = butterArr[butterArr.length-2];
+  if (latestButter) {
+    setText('kpi-butter', '$' + latestButter.price.toFixed(4));
+    setText('kpi-butter-date', 'as of ' + fmtDate(latestButter.date) + ' · $/lb (CME Grade AA)');
+    if (prevButter) setDelta('kpi-butter-delta', latestButter.price - prevButter.price, 'day');
+  }
   if (latestNass) {
     setText('kpi-nass', '$' + latestNass.price.toFixed(4));
     setText('kpi-nass-date', 'week ending ' + fmtDate(latestNass.date) + ' · $/lb');
@@ -1042,7 +1086,7 @@ function buildCharts() {
   }
   if (latestC4) {
     setText('kpi-c4', '$' + latestC4.announced.toFixed(2));
-    setText('kpi-c4-implied', 'Implied from CME $' + latestC4.implied.toFixed(2) + ' · $/cwt');
+    setText('kpi-c4-implied', 'Implied from CME NFDM avg + monthly butter avg $' + (latestC4.butter != null ? latestC4.butter.toFixed(4) : '—') + '/lb');
     const cd = latestC4.implied - latestC4.announced;
     const ce = document.getElementById('kpi-c4-delta');
     if (ce) {
@@ -1056,7 +1100,7 @@ function buildCharts() {
     const delta = latestC4.implied - latestC4.announced;
     c4c.innerHTML = [
       {l: 'Announced Class IV', v: '$' + latestC4.announced.toFixed(2) + '/cwt', s: 'USDA FMMO – latest', col: '#4ade80'},
-      {l: 'Implied Class IV', v: '$' + latestC4.implied.toFixed(2) + '/cwt', s: 'From CME avg + butter', col: '#e6a817'},
+      {l: 'Implied Class IV', v: '$' + latestC4.implied.toFixed(2) + '/cwt', s: 'From CME NFDM avg + monthly butter avg (not the daily CME butter tile)', col: '#e6a817'},
       {l: 'Delta', v: (delta >= 0 ? '+' : '') + '$' + delta.toFixed(2) + '/cwt', s: 'Positive = CME leading', col: delta >= 0 ? '#4ade80' : '#f87171'}
     ].map(function(x){return '<div class="c4-card"><div class="c4-label">' + x.l + '</div><div class="c4-val" style="color:' + x.col + '">' + x.v + '</div><div class="c4-sub">' + x.s + '</div></div>';}).join('');
   }
@@ -1074,6 +1118,13 @@ function buildCharts() {
     {h: 'Date', f: function(r){return fmtDate(r.date);}},
     {h: 'Price', right: true, f: function(r){return '$' + r.price.toFixed(4);}},
     {h: 'Chg', right: true, f: function(r,i){const idx = cmeRecent.indexOf(r); const next = cmeRecent[idx+1]; if (!next) return '—'; const d = r.price - next.price; return (d >= 0 ? '+' : '') + d.toFixed(4);}, color: function(r){const idx = cmeRecent.indexOf(r); const next = cmeRecent[idx+1]; if (!next) return '#6e7681'; return r.price >= next.price ? '#4ade80' : '#f87171';}}
+  ]);
+
+  const butterRecent = butterArr.slice(-20).reverse();
+  buildTable('tbl-butter', butterRecent, [
+    {h: 'Date', f: function(r){return fmtDate(r.date);}},
+    {h: 'Price', right: true, f: function(r){return '$' + r.price.toFixed(4);}},
+    {h: 'Chg', right: true, f: function(r,i){const idx = butterRecent.indexOf(r); const next = butterRecent[idx+1]; if (!next) return '—'; const d = r.price - next.price; return (d >= 0 ? '+' : '') + d.toFixed(4);}, color: function(r){const idx = butterRecent.indexOf(r); const next = butterRecent[idx+1]; if (!next) return '#6e7681'; return r.price >= next.price ? '#4ade80' : '#f87171';}}
   ]);
 
   const nassRecent = RAW.nass.slice(-20).reverse();

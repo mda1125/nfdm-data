@@ -180,6 +180,7 @@ a{color:#58a6ff}
     <div id="view-overview" class="view active">
       <div class="kpi-grid">
         <div class="kpi"><div class="kpi-tag tag-cme">CME</div><div class="kpi-val" id="kpi-cme">—</div><div class="kpi-meta" id="kpi-cme-date">as of —</div><div class="kpi-delta" id="kpi-cme-delta"></div><div class="kpi-meta" id="kpi-cme-mtd" style="margin-top:4px;color:#f472b6"></div></div>
+        <div class="kpi"><div class="kpi-tag tag-basis">BUTTER</div><div class="kpi-val" id="kpi-butter">—</div><div class="kpi-meta" id="kpi-butter-date">as of —</div><div class="kpi-delta" id="kpi-butter-delta"></div></div>
         <div class="kpi"><div class="kpi-tag tag-nass">NASS</div><div class="kpi-val" id="kpi-nass">—</div><div class="kpi-meta" id="kpi-nass-date">week ending —</div><div class="kpi-delta" id="kpi-nass-delta"></div></div>
         <div class="kpi"><div class="kpi-tag tag-basis">BASIS</div><div class="kpi-val" id="kpi-basis">—</div><div class="kpi-meta" id="kpi-basis-avg">30-day avg —</div><div class="kpi-delta" id="kpi-basis-delta"></div></div>
         <div class="kpi"><div class="kpi-tag tag-class4">CLASS IV</div><div class="kpi-val" id="kpi-c4">—</div><div class="kpi-meta" id="kpi-c4-implied">Implied —</div><div class="kpi-delta" id="kpi-c4-delta"></div></div>
@@ -202,9 +203,14 @@ a{color:#58a6ff}
           <div class="chart-wrap" style="height:180px"><canvas id="chart-basis" role="img" aria-label="Basis spread"></canvas></div>
         </div>
         <div class="panel">
-          <div class="panel-hdr"><h2>Class IV — announced vs implied</h2><p>Implied uses monthly CME avg + butter</p></div>
+          <div class="panel-hdr"><h2>Class IV — announced vs implied</h2><p>Implied uses monthly CME NFDM avg + monthly butter avg (not the daily CME butter tile below)</p></div>
           <div class="chart-wrap" style="height:180px"><canvas id="chart-c4-mini" role="img" aria-label="Class IV mini chart"></canvas></div>
         </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-hdr"><h2>CME butter daily spot ($/lb)</h2><p>Grade AA, report 1603 — a different series (and period) than the monthly butter avg the Class IV calc above uses</p></div>
+        <div class="chart-wrap" style="height:180px"><canvas id="chart-butter" role="img" aria-label="CME butter daily spot"></canvas></div>
       </div>
 
       <div class="panel">
@@ -449,9 +455,12 @@ a{color:#58a6ff}
     <div id="view-recent" class="view">
       <div class="two-col">
         <div class="panel"><div class="panel-hdr"><h2>Recent CME daily spot ($/lb)</h2></div><table class="data-table" id="tbl-cme"></table></div>
-        <div class="panel"><div class="panel-hdr"><h2>Recent NASS weekly survey ($/lb)</h2></div><table class="data-table" id="tbl-nass"></table></div>
+        <div class="panel"><div class="panel-hdr"><h2>Recent CME butter daily spot ($/lb)</h2><p>Grade AA</p></div><table class="data-table" id="tbl-butter"></table></div>
       </div>
-      <div class="panel"><div class="panel-hdr"><h2>Class IV announced prices ($/cwt)</h2></div><table class="data-table" id="tbl-c4"></table></div>
+      <div class="two-col">
+        <div class="panel"><div class="panel-hdr"><h2>Recent NASS weekly survey ($/lb)</h2></div><table class="data-table" id="tbl-nass"></table></div>
+        <div class="panel"><div class="panel-hdr"><h2>Class IV announced prices ($/cwt)</h2><p>Butter column is the monthly NASS average, not the daily CME series above</p></div><table class="data-table" id="tbl-c4"></table></div>
+      </div>
     </div>
 
   </div>
