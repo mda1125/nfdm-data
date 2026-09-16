@@ -195,14 +195,19 @@ def _extract_price(row):
 
 
 def fetch_cme_spot():
-    """Report 1603 (CME Group Daily Cash Trading WTD), NFDM rows."""
+    """Report 1603 (CME Group Daily Cash Trading WTD), NFDM rows.
+
+    Confirmed live 2026-09-16 that report 1603 rows carry a clean, exact
+    'commodity' field (e.g. "Nonfat Dry Milk", "Butter", "Dry Whey") — match
+    on that field directly rather than the whole stringified row, which also
+    contains report_title/narrative-ish text that could false-positive."""
     results = _fetch_1603_rows()
 
     out = []
     for row in results:
         try:
-            commodity = str(row).lower()
-            if "nonfat" not in commodity and "nfdm" not in commodity:
+            commodity = str(row.get("commodity") or "").lower()
+            if "nonfat" not in commodity:
                 continue
             date = normalize_date(row.get("report_date") or row.get("published_date") or row.get("date"))
             price = _extract_price(row)
@@ -217,20 +222,20 @@ def fetch_cme_spot():
 def fetch_cme_butter():
     """Report 1603 (CME Group Daily Cash Trading WTD), Grade AA butter rows.
 
-    Matches loosely on 'butter' in the stringified row (same approach as the
-    NFDM filter above), explicitly excluding buttermilk since that word also
-    contains 'butter'. Once a live run's [DEBUG] output confirms the actual
-    commodity/grade field names, tighten this to match those fields directly
-    instead of the whole stringified row — see butter-fix-spec.md caution."""
+    Same 2026-09-16 confirmation as fetch_cme_spot(): matches the exact
+    'commodity' field ("Butter") rather than the whole stringified row, so
+    'buttermilk' (which isn't a commodity in this report but would still be
+    excluded if it ever appeared) can't false-positive. grade came back as
+    the exact string "Grade AA" for butter rows that day."""
     results = _fetch_1603_rows()
 
     out = []
     for row in results:
         try:
-            commodity = str(row).lower()
+            commodity = str(row.get("commodity") or "").lower()
             if "butter" not in commodity or "buttermilk" in commodity:
                 continue
-            grade = str(row.get("grade") or row.get("Grade") or "").lower()
+            grade = str(row.get("grade") or "").lower()
             if grade and "aa" not in grade:
                 continue
             date = normalize_date(row.get("report_date") or row.get("published_date") or row.get("date"))
