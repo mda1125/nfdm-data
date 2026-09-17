@@ -745,6 +745,153 @@ def fetch_fundamentals():
     return out
 
 
+CENSUS_KEY = os.environ.get('CENSUS_API_KEY', '')
+CENSUS_EXPORTS_BASE = "https://api.census.gov/data/timeseries/intltrade/exports/hs"
+# Census only publishes QTY_1_MO/UNIT_QY1 at the 10-digit HS10 level, not HS6 —
+# at HS6 (COMM_LVL=HS6, E_COMMODITY=040210) quantity comes back as 0/"-" for
+# every row. 0402100000 is the sole HS10 code under HS6 040210 (verified live —
+# no sibling codes), so nothing is lost by querying at HS10 instead.
+NFDM_HS_CODE = "0402100000"
+NFDM_HS_DESC = "Milk and cream in powder, fat content <= 1.5% (NFDM/SMP)"
+KG_TO_LB = 2.20462
+EXPORTS_START_YEAR = 2018
+EXPORTS_TOP_N = 5
+
+
+def fetch_census_exports(year):
+    """Fetch one calendar year of NFDM/SMP exports by destination from Census."""
+    params = {
+        "get": "CTY_CODE,CTY_NAME,ALL_VAL_MO,QTY_1_MO,UNIT_QY1,YEAR,MONTH",
+        "E_COMMODITY": NFDM_HS_CODE,
+        "COMM_LVL": "HS10",
+        "SUMMARY_LVL": "DET",
+        "time": str(year),
+        "key": CENSUS_KEY,
+    }
+    rows = fetch_with_retry(CENSUS_EXPORTS_BASE, params=params)
+    if not rows or len(rows) < 2:
+        return []
+    header = rows[0]
+    return [dict(zip(header, row)) for row in rows[1:]]
+
+
+def fetch_exports():
+    """Fetch NFDM/SMP (HS 040210) exports by destination from the Census trade API.
+
+    Returns (rows, top_countries): one dict per month, plus the ranked top-N
+    destination metadata the dashboard uses for labels and colors.
+    """
+    if not CENSUS_KEY:
+        print("  CENSUS_API_KEY not set, skipping exports")
+        return [], []
+
+    by_month = {}   # "2026-05" -> {"MEXICO": {"volume_lb": x, "value_usd": y}, ...}
+    world = {}       # "2026-05" -> {"volume_lb": x, "value_usd": y}  (CTY_CODE == "-")
+    cty_codes = {}   # "MEXICO" -> "2010"
+    this_year = datetime.utcnow().year
+
+    for year in range(EXPORTS_START_YEAR, this_year + 1):
+        try:
+            raw = fetch_census_exports(year)
+        except Exception as e:
+            print(f"  {year} failed: {e}")
+            continue
+        kept = 0
+        for row in raw:
+            code = (row.get("CTY_CODE") or "").strip()
+            name = (row.get("CTY_NAME") or "").strip()
+            yr, mo = row.get("YEAR"), row.get("MONTH")
+            if not code or not yr or not mo:
+                continue
+            try:
+                month = f"{yr}-{int(mo):02d}"
+            except (ValueError, TypeError):
+                continue
+            val = parse_num(row.get("ALL_VAL_MO"))
+            qty = parse_num(row.get("QTY_1_MO"))
+            unit = (row.get("UNIT_QY1") or "").strip().upper()
+            vol = qty * KG_TO_LB if unit in ("KG", "") else 0.0
+            if code == "-":
+                t = world.setdefault(month, {"volume_lb": 0.0, "value_usd": 0.0})
+                t["volume_lb"] += vol
+                t["value_usd"] += val
+            else:
+                c = by_month.setdefault(month, {}).setdefault(
+                    name, {"volume_lb": 0.0, "value_usd": 0.0})
+                c["volume_lb"] += vol
+                c["value_usd"] += val
+                cty_codes.setdefault(name, code)
+            kept += 1
+        print(f"  {year}: {kept} country-month rows")
+
+    months = sorted(by_month.keys())
+    if not months:
+        return [], []
+
+    # Rank top N by trailing-12-month volume (falls back to value if volume is sparse).
+    ttm_months = months[-12:]
+    totals = {}
+    for m in ttm_months:
+        for name, c in by_month[m].items():
+            t = totals.setdefault(name, {"volume_lb": 0.0, "value_usd": 0.0})
+            t["volume_lb"] += c["volume_lb"]
+            t["value_usd"] += c["value_usd"]
+
+    rank_key = "volume_lb" if any(v["volume_lb"] for v in totals.values()) else "value_usd"
+    ranked = sorted(totals.items(), key=lambda kv: kv[1][rank_key], reverse=True)[:EXPORTS_TOP_N]
+    ttm_world_lb = sum(world.get(m, {}).get("volume_lb", 0.0) for m in ttm_months)
+    ttm_world_usd = sum(world.get(m, {}).get("value_usd", 0.0) for m in ttm_months)
+
+    top_countries = []
+    for i, (name, t) in enumerate(ranked):
+        share_base = ttm_world_lb if rank_key == "volume_lb" else ttm_world_usd
+        share = round(t[rank_key] / share_base * 100, 1) if share_base else 0.0
+        top_countries.append({
+            "rank": i + 1,
+            "code": cty_codes.get(name, ""),
+            "name": name,
+            "ttm_lb": round(t["volume_lb"]),
+            "ttm_usd": round(t["value_usd"]),
+            "ttm_share_pct": share,
+        })
+
+    top_names = [c["name"] for c in top_countries]
+
+    out = []
+    for m in months:
+        countries = by_month[m]
+        row_total_lb = world.get(m, {}).get("volume_lb") or sum(
+            c["volume_lb"] for c in countries.values())
+        row_total_usd = world.get(m, {}).get("value_usd") or sum(
+            c["value_usd"] for c in countries.values())
+        if not row_total_lb and not row_total_usd:
+            continue
+
+        top_lb = sum(countries.get(n, {}).get("volume_lb", 0.0) for n in top_names)
+        top_usd = sum(countries.get(n, {}).get("value_usd", 0.0) for n in top_names)
+        if row_total_lb and top_lb > row_total_lb * 1.02:
+            print(f"  warning: {m} top-{EXPORTS_TOP_N} exceeds world total "
+                  f"({top_lb / 1e6:.1f}M vs {row_total_lb / 1e6:.1f}M) — check grain/groupings")
+
+        row = {
+            "month": m,
+            "total_lb": round(row_total_lb),
+            "total_usd": round(row_total_usd),
+            "countries": {
+                n: {"volume_lb": round(countries[n]["volume_lb"]),
+                    "value_usd": round(countries[n]["value_usd"])}
+                for n in top_names if n in countries
+            },
+            "rest_of_world": {
+                "volume_lb": round(max(0.0, row_total_lb - top_lb)),
+                "value_usd": round(max(0.0, row_total_usd - top_usd)),
+            },
+        }
+        out.append(row)
+
+    return out, top_countries
+
+
 MONTH_CODES = "FGHJKMNQUVXZ"
 MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -1045,6 +1192,27 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"Fundamentals fetch failed: {e}")
         failures.append("fundamentals")
+
+    print("Fetching NFDM/SMP exports by destination (Census trade API)...")
+    try:
+        exp_rows, exp_top = fetch_exports()
+        if exp_rows:
+            payload = {
+                "updated_at": datetime.utcnow().isoformat() + "Z",
+                "hs_code": NFDM_HS_CODE,
+                "hs_desc": NFDM_HS_DESC,
+                "unit": "lb",
+                "top_countries": exp_top,
+                "count": len(exp_rows),
+                "data": exp_rows,
+            }
+            (DATA_DIR / "exports.json").write_text(json.dumps(payload, indent=2))
+            print(f"  wrote {len(exp_rows)} months to data/exports.json")
+        else:
+            print("  no export rows — leaving data/exports.json unchanged")
+    except Exception as e:
+        print(f"Exports fetch failed: {e}")
+        failures.append("exports")
 
     print("Fetching NFDM futures curve (Yahoo Finance)...")
     try:

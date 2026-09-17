@@ -6,6 +6,7 @@ const DATA_URLS = {
   futures: 'data/futures.json',
   futuresHistory: 'data/futures_history.json',
   fundamentals: 'data/fundamentals.json',
+  exports: 'data/exports.json',
   sugar: 'data/sugar.json',
   sugarFutures: 'data/sugar_futures.json',
   cocoa: 'data/cocoa.json',
@@ -154,7 +155,8 @@ async function fetchLiveData() {
       fetch(DATA_URLS.cocoa, {cache: 'no-store'}).catch(function(){ return null; }),
       fetch(DATA_URLS.cocoaFutures, {cache: 'no-store'}).catch(function(){ return null; }),
       fetch(DATA_URLS.whey, {cache: 'no-store'}).catch(function(){ return null; }),
-      fetch(DATA_URLS.butter, {cache: 'no-store'}).catch(function(){ return null; })
+      fetch(DATA_URLS.butter, {cache: 'no-store'}).catch(function(){ return null; }),
+      fetch(DATA_URLS.exports, {cache: 'no-store'}).catch(function(){ return null; })
     ]);
     // fetchWithRetry only resolves once cme/nass/c4 are .ok (retrying transient
     // failures first) or throws after exhausting retries, so no separate
@@ -267,6 +269,19 @@ async function fetchLiveData() {
     if (butterJ && butterJ.data && butterJ.data.length) {
       butter = butterJ.data.map(function(d){return {date: new Date(d.date), price: +d.price};});
     }
+    var expJ = null;
+    if (responses[12] && responses[12].ok) {
+      try { expJ = await responses[12].json(); } catch(e) { expJ = null; }
+    }
+    var exports_ = null;
+    if (expJ && expJ.data && expJ.data.length) {
+      exports_ = {
+        hs_code: expJ.hs_code || '',
+        unit: expJ.unit || 'lb',
+        top_countries: expJ.top_countries || [],
+        data: expJ.data
+      };
+    }
     const stamps = [cmeJ.updated_at, nassJ.updated_at, c4J.updated_at].filter(Boolean);
     lastUpdated = stamps.sort().reverse()[0] || new Date().toISOString();
     dataMode = 'live';
@@ -278,8 +293,9 @@ async function fetchLiveData() {
     if (cocoa) toastMsg += ' · ' + cocoa.data.length + ' cocoa';
     if (whey) toastMsg += ' · ' + whey.products.length + ' whey';
     if (butter) toastMsg += ' · ' + butter.length + ' butter';
+    if (exports_) toastMsg += ' · ' + exports_.data.length + ' exports';
     showToast(toastMsg);
-    return {cme: cme, butter: butter, nass: nass, c4: c4, futures: futures, fund: fund, futHist: futHist, sugar: sugar, sugarFut: sugarFut, cocoa: cocoa, cocoaFut: cocoaFut, whey: whey};
+    return {cme: cme, butter: butter, nass: nass, c4: c4, futures: futures, fund: fund, futHist: futHist, sugar: sugar, sugarFut: sugarFut, cocoa: cocoa, cocoaFut: cocoaFut, whey: whey, exports: exports_};
   } catch (err) {
     console.warn('Live fetch failed:', err);
     dataMode = 'error';
@@ -852,6 +868,165 @@ function buildCharts() {
             '<td style="text-align:right">' + (d.butter_production ? fmtM(d.butter_production) : '—') + '</td>' +
             '<td style="text-align:right">' + (d.butter_stocks ? fmtM(d.butter_stocks) : '—') + '</td>' +
             '<td style="text-align:right">' + (d.milk_production ? (d.milk_production/1e9).toFixed(1)+'B' : '—') + '</td></tr>';
+        }).join('');
+    }
+  }
+
+  // Export markets
+  if (RAW.exports && RAW.exports.data.length) {
+    var ed = RAW.exports.data;
+    var eTop = RAW.exports.top_countries || [];
+    var EM = 1e6;
+    var eLabels = ed.map(function(d){
+      var p = d.month.split('-');
+      var mn = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      return mn[+p[1]-1] + ' ' + p[0].slice(2);
+    });
+    var EXP_COLORS = ['#60a5fa','#4ade80','#a78bfa','#e6a817','#2dd4bf'];
+    var ROW_COLOR = '#6b7280';
+
+    function eVal(d, name) {
+      var c = d.countries && d.countries[name];
+      return c && c.volume_lb ? c.volume_lb / EM : 0;
+    }
+    function eRoW(d) {
+      return d.rest_of_world && d.rest_of_world.volume_lb ? d.rest_of_world.volume_lb / EM : 0;
+    }
+    function escExp(s) {
+      return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});
+    }
+
+    var eDatasets = eTop.map(function(c, idx){
+      return {
+        label: c.name,
+        data: ed.map(function(d){ return eVal(d, c.name); }),
+        backgroundColor: EXP_COLORS[idx % EXP_COLORS.length],
+        borderWidth: 0
+      };
+    });
+    eDatasets.push({
+      label: 'Rest of world',
+      data: ed.map(eRoW),
+      backgroundColor: ROW_COLOR,
+      borderWidth: 0
+    });
+
+    var ctxExpStack = document.getElementById('chart-exp-stack');
+    if (ctxExpStack) {
+      charts.expStack = new Chart(ctxExpStack, {
+        type: 'bar', data: {labels: eLabels, datasets: eDatasets},
+        options: {responsive:true, maintainAspectRatio:false, interaction:{mode:'index',intersect:false},
+          plugins:{legend:{display:true,labels:{color:COLORS.tick,boxWidth:10,font:{size:10}}}, tooltip:{backgroundColor:'#1f2937',borderColor:'#374151',borderWidth:1,titleColor:'#e6edf3',bodyColor:'#9ca3af',padding:10,callbacks:{label:function(ctx){return ctx.dataset.label+': '+ctx.parsed.y.toFixed(1)+'M lbs';}}}},
+          scales:{x:{stacked:true,ticks:{color:COLORS.tick,maxTicksLimit:12,maxRotation:0},grid:{color:COLORS.grid}},y:{stacked:true,ticks:{color:COLORS.tick,callback:function(v){return v+'M';}},grid:{color:COLORS.grid},title:{display:true,text:'M lbs',color:COLORS.tick}}}}
+      });
+    }
+
+    var ctxExpTotal = document.getElementById('chart-exp-total');
+    if (ctxExpTotal) {
+      charts.expTotal = new Chart(ctxExpTotal, {
+        type: 'line', data: {labels: eLabels, datasets: [{
+          label: 'Total exports', data: ed.map(function(d){return d.total_lb ? d.total_lb/EM : null;}),
+          borderColor: COLORS.nass, backgroundColor: 'rgba(96,165,250,0.08)', borderWidth: 2, pointRadius: 0, tension: 0.3, fill: true
+        }]},
+        options: {responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}, tooltip:{backgroundColor:'#1f2937',borderColor:'#374151',borderWidth:1,titleColor:'#e6edf3',bodyColor:'#9ca3af',padding:10,callbacks:{label:function(ctx){return (ctx.parsed.y).toFixed(1)+'M lbs';}}}},
+          scales:{x:{ticks:{color:COLORS.tick,maxTicksLimit:10,maxRotation:0},grid:{color:COLORS.grid}},y:{ticks:{color:COLORS.tick,callback:function(v){return v+'M';}},grid:{color:COLORS.grid},title:{display:true,text:'M lbs',color:COLORS.tick}}}}
+      });
+    }
+
+    var ctxExpShare = document.getElementById('chart-exp-share');
+    if (ctxExpShare) {
+      var shareDatasets = eTop.map(function(c, idx){
+        return {
+          label: c.name,
+          data: ed.map(function(d){ var t = d.total_lb || 0; return t ? eVal(d, c.name)*EM/t*100 : 0; }),
+          backgroundColor: EXP_COLORS[idx % EXP_COLORS.length],
+          borderWidth: 0
+        };
+      });
+      shareDatasets.push({
+        label: 'Rest of world',
+        data: ed.map(function(d){ var t = d.total_lb || 0; return t ? eRoW(d)*EM/t*100 : 0; }),
+        backgroundColor: ROW_COLOR,
+        borderWidth: 0
+      });
+      charts.expShare = new Chart(ctxExpShare, {
+        type: 'bar', data: {labels: eLabels, datasets: shareDatasets},
+        options: {responsive:true, maintainAspectRatio:false, interaction:{mode:'index',intersect:false},
+          plugins:{legend:{display:false}, tooltip:{backgroundColor:'#1f2937',borderColor:'#374151',borderWidth:1,titleColor:'#e6edf3',bodyColor:'#9ca3af',padding:10,callbacks:{label:function(ctx){return ctx.dataset.label+': '+ctx.parsed.y.toFixed(0)+'%';}}}},
+          scales:{x:{stacked:true,ticks:{color:COLORS.tick,maxTicksLimit:12,maxRotation:0},grid:{color:COLORS.grid}},y:{stacked:true,max:100,ticks:{color:COLORS.tick,callback:function(v){return v+'%';}},grid:{color:COLORS.grid}}}}
+      });
+    }
+
+    function findLatestExp(arr) {
+      for (var i = arr.length - 1; i >= 0; i--) { if (arr[i].total_lb) return {row: arr[i], idx: i}; }
+      return null;
+    }
+    function findMonthExp(arr, month) {
+      for (var i = arr.length - 1; i >= 0; i--) { if (arr[i].month === month) return arr[i]; }
+      return null;
+    }
+    function shiftMonthExp(month, n) {
+      var p = month.split('-'), y = +p[0], m = +p[1] - n;
+      while (m < 1) { m += 12; y -= 1; }
+      return y + '-' + (m < 10 ? '0' : '') + m;
+    }
+    function fmtMlb(v) { return (v/EM).toFixed(0) + 'M'; }
+    function fmtMonthLabelExp(m) { var p=m.split('-'); var mn=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return mn[+p[1]-1]+' '+p[0]; }
+
+    var latestExp = findLatestExp(ed);
+    if (latestExp) {
+      var lRow = latestExp.row;
+      setText('kpi-exp-total', fmtMlb(lRow.total_lb));
+      setText('kpi-exp-total-label', fmtMonthLabelExp(lRow.month));
+      var prevMoRow = findMonthExp(ed, shiftMonthExp(lRow.month, 1));
+      if (prevMoRow) {
+        var dExp = lRow.total_lb - prevMoRow.total_lb;
+        var eExp = document.getElementById('kpi-exp-total-delta');
+        if (eExp) { eExp.className = 'kpi-delta ' + (dExp>=0?'up':'down'); eExp.textContent = (dExp>=0?'↑ +':'↓ ') + fmtMlb(Math.abs(dExp)) + ' · vs prior month'; }
+      }
+
+      var yoyMonth = shiftMonthExp(lRow.month, 12);
+      var yoyRow = findMonthExp(ed, yoyMonth);
+      if (yoyRow && yoyRow.total_lb) {
+        var yoyPct = (lRow.total_lb - yoyRow.total_lb) / yoyRow.total_lb * 100;
+        setText('kpi-exp-yoy', (yoyPct>=0?'+':'') + yoyPct.toFixed(1) + '%');
+        setText('kpi-exp-yoy-label', 'vs ' + fmtMonthLabelExp(yoyMonth));
+      }
+
+      if (eTop.length) {
+        var top1 = eTop[0];
+        var top1Vol = eVal(lRow, top1.name) * EM;
+        setText('kpi-exp-top', top1.name);
+        setText('kpi-exp-top-label', (lRow.total_lb ? (top1Vol/lRow.total_lb*100).toFixed(0) : '0') + '% of ' + fmtMonthLabelExp(lRow.month));
+      }
+
+      var recent12 = ed.slice(-12), prior12 = ed.slice(-24, -12);
+      var ttmSum = recent12.reduce(function(s,d){return s + (d.total_lb||0);}, 0);
+      var priorSum = prior12.reduce(function(s,d){return s + (d.total_lb||0);}, 0);
+      setText('kpi-exp-ttm', fmtMlb(ttmSum));
+      if (prior12.length === 12) {
+        var dTtm = ttmSum - priorSum;
+        var eTtm = document.getElementById('kpi-exp-ttm-delta');
+        if (eTtm) { eTtm.className = 'kpi-delta ' + (dTtm>=0?'up':'down'); eTtm.textContent = (dTtm>=0?'↑ +':'↓ ') + fmtMlb(Math.abs(dTtm)) + ' · vs prior 12 months'; }
+      }
+    }
+
+    var tblExp = document.getElementById('tbl-exp');
+    if (tblExp) {
+      var recentE = ed.slice(-18).reverse();
+      tblExp.innerHTML =
+        '<tr><th>Month</th><th style="text-align:right">Total</th>' +
+        eTop.map(function(c){ return '<th style="text-align:right">' + escExp(c.name) + '</th>'; }).join('') +
+        '<th style="text-align:right">Rest of world</th><th style="text-align:right">Value</th></tr>' +
+        recentE.map(function(d){
+          return '<tr><td>' + d.month + '</td>' +
+            '<td style="text-align:right">' + (d.total_lb ? fmtMlb(d.total_lb) : '—') + '</td>' +
+            eTop.map(function(c){
+              var v = d.countries && d.countries[c.name];
+              return '<td style="text-align:right">' + (v && v.volume_lb ? fmtMlb(v.volume_lb) : '—') + '</td>';
+            }).join('') +
+            '<td style="text-align:right">' + (d.rest_of_world && d.rest_of_world.volume_lb ? fmtMlb(d.rest_of_world.volume_lb) : '—') + '</td>' +
+            '<td style="text-align:right">' + (d.total_usd ? '$' + (d.total_usd/EM).toFixed(0) + 'M' : '—') + '</td></tr>';
         }).join('');
     }
   }

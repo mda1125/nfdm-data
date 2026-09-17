@@ -1,0 +1,3244 @@
+{
+  "updated_at": "2026-09-17T13:59:56.789844Z",
+  "hs_code": "0402100000",
+  "hs_desc": "Milk and cream in powder, fat content <= 1.5% (NFDM/SMP)",
+  "unit": "lb",
+  "top_countries": [
+    {
+      "rank": 1,
+      "code": "2010",
+      "name": "MEXICO",
+      "ttm_lb": 790780725,
+      "ttm_usd": 1163686149,
+      "ttm_share_pct": 55.1
+    },
+    {
+      "rank": 2,
+      "code": "5650",
+      "name": "PHILIPPINES",
+      "ttm_lb": 179554897,
+      "ttm_usd": 239638665,
+      "ttm_share_pct": 12.5
+    },
+    {
+      "rank": 3,
+      "code": "5600",
+      "name": "INDONESIA",
+      "ttm_lb": 81285581,
+      "ttm_usd": 104395497,
+      "ttm_share_pct": 5.7
+    },
+    {
+      "rank": 4,
+      "code": "3010",
+      "name": "COLOMBIA",
+      "ttm_lb": 60473218,
+      "ttm_usd": 80585686,
+      "ttm_share_pct": 4.2
+    },
+    {
+      "rank": 5,
+      "code": "5520",
+      "name": "VIETNAM",
+      "ttm_lb": 58088679,
+      "ttm_usd": 71960241,
+      "ttm_share_pct": 4.0
+    }
+  ],
+  "count": 103,
+  "data": [
+    {
+      "month": "2018-01",
+      "total_lb": 110493711,
+      "total_usd": 92169855,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 46151782,
+          "value_usd": 37537859
+        },
+        "PHILIPPINES": {
+          "volume_lb": 10810189,
+          "value_usd": 9025126
+        },
+        "INDONESIA": {
+          "volume_lb": 12795614,
+          "value_usd": 10813499
+        },
+        "COLOMBIA": {
+          "volume_lb": 2797270,
+          "value_usd": 2345602
+        },
+        "VIETNAM": {
+          "volume_lb": 7098987,
+          "value_usd": 6458505
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 30839869,
+        "value_usd": 25989264
+      }
+    },
+    {
+      "month": "2018-02",
+      "total_lb": 145762596,
+      "total_usd": 121261634,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 58576793,
+          "value_usd": 48194054
+        },
+        "PHILIPPINES": {
+          "volume_lb": 13155334,
+          "value_usd": 10696119
+        },
+        "INDONESIA": {
+          "volume_lb": 14501990,
+          "value_usd": 12055438
+        },
+        "COLOMBIA": {
+          "volume_lb": 2421378,
+          "value_usd": 2731084
+        },
+        "VIETNAM": {
+          "volume_lb": 13995642,
+          "value_usd": 11635827
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 43111459,
+        "value_usd": 35949112
+      }
+    },
+    {
+      "month": "2018-03",
+      "total_lb": 145782764,
+      "total_usd": 120450615,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 70223655,
+          "value_usd": 57831498
+        },
+        "PHILIPPINES": {
+          "volume_lb": 8620064,
+          "value_usd": 7118338
+        },
+        "INDONESIA": {
+          "volume_lb": 8867037,
+          "value_usd": 7356110
+        },
+        "COLOMBIA": {
+          "volume_lb": 1157298,
+          "value_usd": 976877
+        },
+        "VIETNAM": {
+          "volume_lb": 8271789,
+          "value_usd": 6782373
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 48642921,
+        "value_usd": 40385419
+      }
+    },
+    {
+      "month": "2018-04",
+      "total_lb": 168328451,
+      "total_usd": 134173432,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 69342788,
+          "value_usd": 55051121
+        },
+        "PHILIPPINES": {
+          "volume_lb": 19258182,
+          "value_usd": 15116654
+        },
+        "INDONESIA": {
+          "volume_lb": 16550358,
+          "value_usd": 14072588
+        },
+        "COLOMBIA": {
+          "volume_lb": 1241856,
+          "value_usd": 981098
+        },
+        "VIETNAM": {
+          "volume_lb": 12723373,
+          "value_usd": 10236305
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 49211894,
+        "value_usd": 38715666
+      }
+    },
+    {
+      "month": "2018-05",
+      "total_lb": 154259675,
+      "total_usd": 126718832,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 73416996,
+          "value_usd": 61378643
+        },
+        "PHILIPPINES": {
+          "volume_lb": 17360648,
+          "value_usd": 13853259
+        },
+        "INDONESIA": {
+          "volume_lb": 8742138,
+          "value_usd": 7042899
+        },
+        "COLOMBIA": {
+          "volume_lb": 1796950,
+          "value_usd": 1378614
+        },
+        "VIETNAM": {
+          "volume_lb": 8827594,
+          "value_usd": 7405438
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 44115348,
+        "value_usd": 35659979
+      }
+    },
+    {
+      "month": "2018-06",
+      "total_lb": 126438528,
+      "total_usd": 106752516,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 56219047,
+          "value_usd": 48826598
+        },
+        "PHILIPPINES": {
+          "volume_lb": 20573073,
+          "value_usd": 16133472
+        },
+        "INDONESIA": {
+          "volume_lb": 6526046,
+          "value_usd": 5415572
+        },
+        "COLOMBIA": {
+          "volume_lb": 376439,
+          "value_usd": 292664
+        },
+        "VIETNAM": {
+          "volume_lb": 6146681,
+          "value_usd": 5559968
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 36597243,
+        "value_usd": 30524242
+      }
+    },
+    {
+      "month": "2018-07",
+      "total_lb": 120139144,
+      "total_usd": 101007265,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 55295154,
+          "value_usd": 47908989
+        },
+        "PHILIPPINES": {
+          "volume_lb": 19222867,
+          "value_usd": 15100587
+        },
+        "INDONESIA": {
+          "volume_lb": 11255901,
+          "value_usd": 9473859
+        },
+        "COLOMBIA": {
+          "volume_lb": 231223,
+          "value_usd": 128082
+        },
+        "VIETNAM": {
+          "volume_lb": 2474243,
+          "value_usd": 2158981
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 31659756,
+        "value_usd": 26236767
+      }
+    },
+    {
+      "month": "2018-08",
+      "total_lb": 138455200,
+      "total_usd": 117443650,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 80524138,
+          "value_usd": 68283001
+        },
+        "PHILIPPINES": {
+          "volume_lb": 22210940,
+          "value_usd": 17902082
+        },
+        "INDONESIA": {
+          "volume_lb": 9868915,
+          "value_usd": 8191856
+        },
+        "COLOMBIA": {
+          "volume_lb": 260985,
+          "value_usd": 165255
+        },
+        "VIETNAM": {
+          "volume_lb": 2145935,
+          "value_usd": 2315672
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 23444286,
+        "value_usd": 20585784
+      }
+    },
+    {
+      "month": "2018-09",
+      "total_lb": 115171692,
+      "total_usd": 101213918,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 65679453,
+          "value_usd": 57499761
+        },
+        "PHILIPPINES": {
+          "volume_lb": 15034075,
+          "value_usd": 12516659
+        },
+        "INDONESIA": {
+          "volume_lb": 9323669,
+          "value_usd": 7700012
+        },
+        "COLOMBIA": {
+          "volume_lb": 45239,
+          "value_usd": 39600
+        },
+        "VIETNAM": {
+          "volume_lb": 4941365,
+          "value_usd": 4539159
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 20147892,
+        "value_usd": 18918727
+      }
+    },
+    {
+      "month": "2018-10",
+      "total_lb": 133713181,
+      "total_usd": 119644677,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 72209985,
+          "value_usd": 65435446
+        },
+        "PHILIPPINES": {
+          "volume_lb": 13502636,
+          "value_usd": 11776032
+        },
+        "INDONESIA": {
+          "volume_lb": 14556830,
+          "value_usd": 13225169
+        },
+        "COLOMBIA": {
+          "volume_lb": 1374982,
+          "value_usd": 1244268
+        },
+        "VIETNAM": {
+          "volume_lb": 7136959,
+          "value_usd": 6182206
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 24931790,
+        "value_usd": 21781556
+      }
+    },
+    {
+      "month": "2018-11",
+      "total_lb": 105500437,
+      "total_usd": 97102392,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 62428178,
+          "value_usd": 58444534
+        },
+        "PHILIPPINES": {
+          "volume_lb": 9734996,
+          "value_usd": 8463114
+        },
+        "INDONESIA": {
+          "volume_lb": 8250019,
+          "value_usd": 7283327
+        },
+        "COLOMBIA": {
+          "volume_lb": 1696885,
+          "value_usd": 1496200
+        },
+        "VIETNAM": {
+          "volume_lb": 2188577,
+          "value_usd": 1930719
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 21201782,
+        "value_usd": 19484498
+      }
+    },
+    {
+      "month": "2018-12",
+      "total_lb": 112196864,
+      "total_usd": 105059369,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 59883467,
+          "value_usd": 57047097
+        },
+        "PHILIPPINES": {
+          "volume_lb": 18687902,
+          "value_usd": 16773895
+        },
+        "INDONESIA": {
+          "volume_lb": 1523833,
+          "value_usd": 1424237
+        },
+        "COLOMBIA": {
+          "volume_lb": 10878014,
+          "value_usd": 9773920
+        },
+        "VIETNAM": {
+          "volume_lb": 2326101,
+          "value_usd": 2044354
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 18897546,
+        "value_usd": 17995866
+      }
+    },
+    {
+      "month": "2019-01",
+      "total_lb": 109457128,
+      "total_usd": 105489990,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 62166549,
+          "value_usd": 60356938
+        },
+        "PHILIPPINES": {
+          "volume_lb": 15663814,
+          "value_usd": 14413870
+        },
+        "INDONESIA": {
+          "volume_lb": 5536242,
+          "value_usd": 5351892
+        },
+        "COLOMBIA": {
+          "volume_lb": 4735720,
+          "value_usd": 4535975
+        },
+        "VIETNAM": {
+          "volume_lb": 3816519,
+          "value_usd": 3215751
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 17538283,
+        "value_usd": 17615564
+      }
+    },
+    {
+      "month": "2019-02",
+      "total_lb": 121888166,
+      "total_usd": 120408556,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 58960377,
+          "value_usd": 59496850
+        },
+        "PHILIPPINES": {
+          "volume_lb": 17269531,
+          "value_usd": 15818607
+        },
+        "INDONESIA": {
+          "volume_lb": 7995826,
+          "value_usd": 7922061
+        },
+        "COLOMBIA": {
+          "volume_lb": 2139738,
+          "value_usd": 2189001
+        },
+        "VIETNAM": {
+          "volume_lb": 13198013,
+          "value_usd": 12433351
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 22324681,
+        "value_usd": 22548686
+      }
+    },
+    {
+      "month": "2019-03",
+      "total_lb": 132873706,
+      "total_usd": 135489704,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 56741028,
+          "value_usd": 57749396
+        },
+        "PHILIPPINES": {
+          "volume_lb": 9359436,
+          "value_usd": 8791323
+        },
+        "INDONESIA": {
+          "volume_lb": 16292380,
+          "value_usd": 17189087
+        },
+        "COLOMBIA": {
+          "volume_lb": 295058,
+          "value_usd": 245547
+        },
+        "VIETNAM": {
+          "volume_lb": 17157956,
+          "value_usd": 17274188
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 33027849,
+        "value_usd": 34240163
+      }
+    },
+    {
+      "month": "2019-04",
+      "total_lb": 125706332,
+      "total_usd": 128686291,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 55048405,
+          "value_usd": 55897176
+        },
+        "PHILIPPINES": {
+          "volume_lb": 18764458,
+          "value_usd": 19686552
+        },
+        "INDONESIA": {
+          "volume_lb": 9757040,
+          "value_usd": 10176418
+        },
+        "COLOMBIA": {
+          "volume_lb": 395220,
+          "value_usd": 363775
+        },
+        "VIETNAM": {
+          "volume_lb": 13618628,
+          "value_usd": 13389248
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 28122582,
+        "value_usd": 29173122
+      }
+    },
+    {
+      "month": "2019-05",
+      "total_lb": 141193746,
+      "total_usd": 146882051,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 73714532,
+          "value_usd": 77909280
+        },
+        "PHILIPPINES": {
+          "volume_lb": 10120473,
+          "value_usd": 10379469
+        },
+        "INDONESIA": {
+          "volume_lb": 17953515,
+          "value_usd": 18887428
+        },
+        "COLOMBIA": {
+          "volume_lb": 871625,
+          "value_usd": 887295
+        },
+        "VIETNAM": {
+          "volume_lb": 9682702,
+          "value_usd": 9784669
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 28850899,
+        "value_usd": 29033910
+      }
+    },
+    {
+      "month": "2019-06",
+      "total_lb": 94387646,
+      "total_usd": 101200026,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 52681368,
+          "value_usd": 56717318
+        },
+        "PHILIPPINES": {
+          "volume_lb": 10252585,
+          "value_usd": 10726210
+        },
+        "INDONESIA": {
+          "volume_lb": 6940900,
+          "value_usd": 7396467
+        },
+        "COLOMBIA": {
+          "volume_lb": 4617471,
+          "value_usd": 4956222
+        },
+        "VIETNAM": {
+          "volume_lb": 4303480,
+          "value_usd": 4574221
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 15591842,
+        "value_usd": 16829588
+      }
+    },
+    {
+      "month": "2019-07",
+      "total_lb": 109195841,
+      "total_usd": 119593110,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 60276987,
+          "value_usd": 66840072
+        },
+        "PHILIPPINES": {
+          "volume_lb": 8864391,
+          "value_usd": 9595371
+        },
+        "INDONESIA": {
+          "volume_lb": 4400695,
+          "value_usd": 4828368
+        },
+        "COLOMBIA": {
+          "volume_lb": 5358179,
+          "value_usd": 5648858
+        },
+        "VIETNAM": {
+          "volume_lb": 3617519,
+          "value_usd": 4025723
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 26678069,
+        "value_usd": 28654718
+      }
+    },
+    {
+      "month": "2019-08",
+      "total_lb": 112702624,
+      "total_usd": 123460948,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 61354120,
+          "value_usd": 67102399
+        },
+        "PHILIPPINES": {
+          "volume_lb": 8481764,
+          "value_usd": 9528357
+        },
+        "INDONESIA": {
+          "volume_lb": 9270626,
+          "value_usd": 10190181
+        },
+        "COLOMBIA": {
+          "volume_lb": 4613798,
+          "value_usd": 5159582
+        },
+        "VIETNAM": {
+          "volume_lb": 7351991,
+          "value_usd": 7819520
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 21630325,
+        "value_usd": 23660909
+      }
+    },
+    {
+      "month": "2019-09",
+      "total_lb": 144149083,
+      "total_usd": 156966471,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 75255552,
+          "value_usd": 82675909
+        },
+        "PHILIPPINES": {
+          "volume_lb": 9344055,
+          "value_usd": 10420167
+        },
+        "INDONESIA": {
+          "volume_lb": 17254106,
+          "value_usd": 18727863
+        },
+        "COLOMBIA": {
+          "volume_lb": 2210859,
+          "value_usd": 2448913
+        },
+        "VIETNAM": {
+          "volume_lb": 13417381,
+          "value_usd": 14298306
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 26667130,
+        "value_usd": 28395313
+      }
+    },
+    {
+      "month": "2019-10",
+      "total_lb": 156142994,
+      "total_usd": 172973098,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 71256061,
+          "value_usd": 79879440
+        },
+        "PHILIPPINES": {
+          "volume_lb": 12205182,
+          "value_usd": 13611328
+        },
+        "INDONESIA": {
+          "volume_lb": 21255110,
+          "value_usd": 23260535
+        },
+        "COLOMBIA": {
+          "volume_lb": 4319863,
+          "value_usd": 4870689
+        },
+        "VIETNAM": {
+          "volume_lb": 11272899,
+          "value_usd": 12521382
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 35833880,
+        "value_usd": 38829724
+      }
+    },
+    {
+      "month": "2019-11",
+      "total_lb": 151921813,
+      "total_usd": 171028293,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 50632712,
+          "value_usd": 58360418
+        },
+        "PHILIPPINES": {
+          "volume_lb": 20613563,
+          "value_usd": 22267579
+        },
+        "INDONESIA": {
+          "volume_lb": 16301844,
+          "value_usd": 18035380
+        },
+        "COLOMBIA": {
+          "volume_lb": 9510506,
+          "value_usd": 10641802
+        },
+        "VIETNAM": {
+          "volume_lb": 9763565,
+          "value_usd": 11342896
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 45099623,
+        "value_usd": 50380218
+      }
+    },
+    {
+      "month": "2019-12",
+      "total_lb": 153360925,
+      "total_usd": 176689448,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 55436160,
+          "value_usd": 65923070
+        },
+        "PHILIPPINES": {
+          "volume_lb": 14815016,
+          "value_usd": 15863669
+        },
+        "INDONESIA": {
+          "volume_lb": 15375370,
+          "value_usd": 17291724
+        },
+        "COLOMBIA": {
+          "volume_lb": 14919437,
+          "value_usd": 17277178
+        },
+        "VIETNAM": {
+          "volume_lb": 12308504,
+          "value_usd": 14159155
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 40506438,
+        "value_usd": 46174652
+      }
+    },
+    {
+      "month": "2020-01",
+      "total_lb": 152190155,
+      "total_usd": 185744933,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 56101715,
+          "value_usd": 70677052
+        },
+        "PHILIPPINES": {
+          "volume_lb": 23237475,
+          "value_usd": 26678026
+        },
+        "INDONESIA": {
+          "volume_lb": 17466318,
+          "value_usd": 20689905
+        },
+        "COLOMBIA": {
+          "volume_lb": 5234870,
+          "value_usd": 6615159
+        },
+        "VIETNAM": {
+          "volume_lb": 10785252,
+          "value_usd": 13494713
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 39364524,
+        "value_usd": 47590078
+      }
+    },
+    {
+      "month": "2020-02",
+      "total_lb": 120326449,
+      "total_usd": 149674462,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 45156076,
+          "value_usd": 57345439
+        },
+        "PHILIPPINES": {
+          "volume_lb": 14050815,
+          "value_usd": 16690582
+        },
+        "INDONESIA": {
+          "volume_lb": 13542544,
+          "value_usd": 16365670
+        },
+        "COLOMBIA": {
+          "volume_lb": 3376426,
+          "value_usd": 4226872
+        },
+        "VIETNAM": {
+          "volume_lb": 8778837,
+          "value_usd": 11625214
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 35421751,
+        "value_usd": 43420685
+      }
+    },
+    {
+      "month": "2020-03",
+      "total_lb": 137725045,
+      "total_usd": 172372461,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 47833733,
+          "value_usd": 59946697
+        },
+        "PHILIPPINES": {
+          "volume_lb": 7774645,
+          "value_usd": 9538872
+        },
+        "INDONESIA": {
+          "volume_lb": 22673481,
+          "value_usd": 28041845
+        },
+        "COLOMBIA": {
+          "volume_lb": 3955961,
+          "value_usd": 4644315
+        },
+        "VIETNAM": {
+          "volume_lb": 13534649,
+          "value_usd": 17497412
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 41952576,
+        "value_usd": 52703320
+      }
+    },
+    {
+      "month": "2020-04",
+      "total_lb": 151575174,
+      "total_usd": 175996836,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 41868035,
+          "value_usd": 44823239
+        },
+        "PHILIPPINES": {
+          "volume_lb": 26792092,
+          "value_usd": 30982416
+        },
+        "INDONESIA": {
+          "volume_lb": 21791119,
+          "value_usd": 26958491
+        },
+        "COLOMBIA": {
+          "volume_lb": 1211467,
+          "value_usd": 1404474
+        },
+        "VIETNAM": {
+          "volume_lb": 10827268,
+          "value_usd": 13811143
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 49085192,
+        "value_usd": 58017073
+      }
+    },
+    {
+      "month": "2020-05",
+      "total_lb": 176555220,
+      "total_usd": 193860399,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 53496608,
+          "value_usd": 53884862
+        },
+        "PHILIPPINES": {
+          "volume_lb": 29826013,
+          "value_usd": 34364337
+        },
+        "INDONESIA": {
+          "volume_lb": 26908631,
+          "value_usd": 32133054
+        },
+        "COLOMBIA": {
+          "volume_lb": 3228366,
+          "value_usd": 3366843
+        },
+        "VIETNAM": {
+          "volume_lb": 16110219,
+          "value_usd": 17233395
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 46985384,
+        "value_usd": 52877908
+      }
+    },
+    {
+      "month": "2020-06",
+      "total_lb": 167233778,
+      "total_usd": 174962604,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 59430717,
+          "value_usd": 61096042
+        },
+        "PHILIPPINES": {
+          "volume_lb": 17979781,
+          "value_usd": 20161168
+        },
+        "INDONESIA": {
+          "volume_lb": 14260695,
+          "value_usd": 15724617
+        },
+        "COLOMBIA": {
+          "volume_lb": 4924916,
+          "value_usd": 4680009
+        },
+        "VIETNAM": {
+          "volume_lb": 8962891,
+          "value_usd": 9069662
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 61674778,
+        "value_usd": 64231106
+      }
+    },
+    {
+      "month": "2020-07",
+      "total_lb": 166954982,
+      "total_usd": 171655454,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 57408020,
+          "value_usd": 59613436
+        },
+        "PHILIPPINES": {
+          "volume_lb": 24486086,
+          "value_usd": 24610365
+        },
+        "INDONESIA": {
+          "volume_lb": 18045408,
+          "value_usd": 18442626
+        },
+        "COLOMBIA": {
+          "volume_lb": 4631166,
+          "value_usd": 4941144
+        },
+        "VIETNAM": {
+          "volume_lb": 10682204,
+          "value_usd": 10074106
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 51702098,
+        "value_usd": 53973777
+      }
+    },
+    {
+      "month": "2020-08",
+      "total_lb": 152023241,
+      "total_usd": 160084345,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 53156849,
+          "value_usd": 56213377
+        },
+        "PHILIPPINES": {
+          "volume_lb": 24724487,
+          "value_usd": 25650328
+        },
+        "INDONESIA": {
+          "volume_lb": 16001132,
+          "value_usd": 16739612
+        },
+        "COLOMBIA": {
+          "volume_lb": 3712750,
+          "value_usd": 3835072
+        },
+        "VIETNAM": {
+          "volume_lb": 12131737,
+          "value_usd": 12884472
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 42296285,
+        "value_usd": 44761484
+      }
+    },
+    {
+      "month": "2020-09",
+      "total_lb": 134848356,
+      "total_usd": 144047648,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 52000936,
+          "value_usd": 56067489
+        },
+        "PHILIPPINES": {
+          "volume_lb": 29762275,
+          "value_usd": 31724419
+        },
+        "INDONESIA": {
+          "volume_lb": 10917565,
+          "value_usd": 11993827
+        },
+        "COLOMBIA": {
+          "volume_lb": 2411235,
+          "value_usd": 2247012
+        },
+        "VIETNAM": {
+          "volume_lb": 4191931,
+          "value_usd": 4547517
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 35564414,
+        "value_usd": 37467384
+      }
+    },
+    {
+      "month": "2020-10",
+      "total_lb": 169850880,
+      "total_usd": 186031232,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 65759758,
+          "value_usd": 73614353
+        },
+        "PHILIPPINES": {
+          "volume_lb": 28984309,
+          "value_usd": 31755777
+        },
+        "INDONESIA": {
+          "volume_lb": 22212373,
+          "value_usd": 24313518
+        },
+        "COLOMBIA": {
+          "volume_lb": 5611179,
+          "value_usd": 5875316
+        },
+        "VIETNAM": {
+          "volume_lb": 9565418,
+          "value_usd": 10474091
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 37717843,
+        "value_usd": 39998177
+      }
+    },
+    {
+      "month": "2020-11",
+      "total_lb": 137104626,
+      "total_usd": 155955323,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 56487766,
+          "value_usd": 65817172
+        },
+        "PHILIPPINES": {
+          "volume_lb": 14586121,
+          "value_usd": 16172038
+        },
+        "INDONESIA": {
+          "volume_lb": 19400292,
+          "value_usd": 21864253
+        },
+        "COLOMBIA": {
+          "volume_lb": 11790460,
+          "value_usd": 12908242
+        },
+        "VIETNAM": {
+          "volume_lb": 3150003,
+          "value_usd": 3341533
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 31689984,
+        "value_usd": 35852085
+      }
+    },
+    {
+      "month": "2020-12",
+      "total_lb": 133105348,
+      "total_usd": 152495500,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 57301775,
+          "value_usd": 65810036
+        },
+        "PHILIPPINES": {
+          "volume_lb": 12803192,
+          "value_usd": 14574903
+        },
+        "INDONESIA": {
+          "volume_lb": 11473901,
+          "value_usd": 12803728
+        },
+        "COLOMBIA": {
+          "volume_lb": 13465486,
+          "value_usd": 15229625
+        },
+        "VIETNAM": {
+          "volume_lb": 6917474,
+          "value_usd": 7942294
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 31143520,
+        "value_usd": 36134914
+      }
+    },
+    {
+      "month": "2021-01",
+      "total_lb": 138297916,
+      "total_usd": 159932411,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 53457017,
+          "value_usd": 61977779
+        },
+        "PHILIPPINES": {
+          "volume_lb": 21441382,
+          "value_usd": 24824895
+        },
+        "INDONESIA": {
+          "volume_lb": 9803189,
+          "value_usd": 11352063
+        },
+        "COLOMBIA": {
+          "volume_lb": 2888107,
+          "value_usd": 2850804
+        },
+        "VIETNAM": {
+          "volume_lb": 15121165,
+          "value_usd": 17327154
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 35587055,
+        "value_usd": 41599716
+      }
+    },
+    {
+      "month": "2021-02",
+      "total_lb": 152951641,
+      "total_usd": 179114010,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 57554670,
+          "value_usd": 67893977
+        },
+        "PHILIPPINES": {
+          "volume_lb": 20712744,
+          "value_usd": 24672570
+        },
+        "INDONESIA": {
+          "volume_lb": 12328892,
+          "value_usd": 13742112
+        },
+        "COLOMBIA": {
+          "volume_lb": 629174,
+          "value_usd": 754035
+        },
+        "VIETNAM": {
+          "volume_lb": 17152096,
+          "value_usd": 19649374
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 44574065,
+        "value_usd": 52401942
+      }
+    },
+    {
+      "month": "2021-03",
+      "total_lb": 190577060,
+      "total_usd": 229299271,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 60046073,
+          "value_usd": 71636332
+        },
+        "PHILIPPINES": {
+          "volume_lb": 19554801,
+          "value_usd": 23484876
+        },
+        "INDONESIA": {
+          "volume_lb": 22219801,
+          "value_usd": 26726988
+        },
+        "COLOMBIA": {
+          "volume_lb": 1552295,
+          "value_usd": 1871311
+        },
+        "VIETNAM": {
+          "volume_lb": 21298366,
+          "value_usd": 26068332
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 65905724,
+        "value_usd": 79511432
+      }
+    },
+    {
+      "month": "2021-04",
+      "total_lb": 175860278,
+      "total_usd": 209546748,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 60622290,
+          "value_usd": 73351284
+        },
+        "PHILIPPINES": {
+          "volume_lb": 14615081,
+          "value_usd": 17028742
+        },
+        "INDONESIA": {
+          "volume_lb": 11750922,
+          "value_usd": 14366011
+        },
+        "COLOMBIA": {
+          "volume_lb": 2266292,
+          "value_usd": 2819072
+        },
+        "VIETNAM": {
+          "volume_lb": 17099271,
+          "value_usd": 19530491
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 69506422,
+        "value_usd": 82451148
+      }
+    },
+    {
+      "month": "2021-05",
+      "total_lb": 191311236,
+      "total_usd": 233710899,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 67464093,
+          "value_usd": 84284308
+        },
+        "PHILIPPINES": {
+          "volume_lb": 25337144,
+          "value_usd": 28304356
+        },
+        "INDONESIA": {
+          "volume_lb": 15299503,
+          "value_usd": 18617276
+        },
+        "COLOMBIA": {
+          "volume_lb": 2557672,
+          "value_usd": 3167970
+        },
+        "VIETNAM": {
+          "volume_lb": 16327083,
+          "value_usd": 20057430
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 64325741,
+        "value_usd": 79279559
+      }
+    },
+    {
+      "month": "2021-06",
+      "total_lb": 177445031,
+      "total_usd": 224011566,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 76162178,
+          "value_usd": 97566242
+        },
+        "PHILIPPINES": {
+          "volume_lb": 16108140,
+          "value_usd": 18653511
+        },
+        "INDONESIA": {
+          "volume_lb": 22930125,
+          "value_usd": 28913302
+        },
+        "COLOMBIA": {
+          "volume_lb": 2349122,
+          "value_usd": 3079146
+        },
+        "VIETNAM": {
+          "volume_lb": 8777719,
+          "value_usd": 11278253
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 51117748,
+        "value_usd": 64521112
+      }
+    },
+    {
+      "month": "2021-07",
+      "total_lb": 157234651,
+      "total_usd": 201902437,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 64198757,
+          "value_usd": 84442280
+        },
+        "PHILIPPINES": {
+          "volume_lb": 13404698,
+          "value_usd": 16698209
+        },
+        "INDONESIA": {
+          "volume_lb": 11121197,
+          "value_usd": 14155240
+        },
+        "COLOMBIA": {
+          "volume_lb": 5220900,
+          "value_usd": 6621858
+        },
+        "VIETNAM": {
+          "volume_lb": 8111055,
+          "value_usd": 10358840
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 55178045,
+        "value_usd": 69626010
+      }
+    },
+    {
+      "month": "2021-08",
+      "total_lb": 171994349,
+      "total_usd": 222847848,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 71633659,
+          "value_usd": 92528268
+        },
+        "PHILIPPINES": {
+          "volume_lb": 29238965,
+          "value_usd": 37797007
+        },
+        "INDONESIA": {
+          "volume_lb": 13543298,
+          "value_usd": 17583461
+        },
+        "COLOMBIA": {
+          "volume_lb": 3494973,
+          "value_usd": 4559101
+        },
+        "VIETNAM": {
+          "volume_lb": 11638414,
+          "value_usd": 14582452
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 42445040,
+        "value_usd": 55797559
+      }
+    },
+    {
+      "month": "2021-09",
+      "total_lb": 153899734,
+      "total_usd": 200317962,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 60359539,
+          "value_usd": 79532812
+        },
+        "PHILIPPINES": {
+          "volume_lb": 21932093,
+          "value_usd": 27096935
+        },
+        "INDONESIA": {
+          "volume_lb": 15597113,
+          "value_usd": 20706834
+        },
+        "COLOMBIA": {
+          "volume_lb": 2637045,
+          "value_usd": 3369742
+        },
+        "VIETNAM": {
+          "volume_lb": 9277698,
+          "value_usd": 11460996
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 44096245,
+        "value_usd": 58150643
+      }
+    },
+    {
+      "month": "2021-10",
+      "total_lb": 144579207,
+      "total_usd": 194380826,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 60890974,
+          "value_usd": 83254264
+        },
+        "PHILIPPINES": {
+          "volume_lb": 28010958,
+          "value_usd": 36913449
+        },
+        "INDONESIA": {
+          "volume_lb": 11709173,
+          "value_usd": 15811177
+        },
+        "COLOMBIA": {
+          "volume_lb": 6965464,
+          "value_usd": 9615290
+        },
+        "VIETNAM": {
+          "volume_lb": 7187176,
+          "value_usd": 9465815
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 29815462,
+        "value_usd": 39320831
+      }
+    },
+    {
+      "month": "2021-11",
+      "total_lb": 158007190,
+      "total_usd": 219088395,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 58931803,
+          "value_usd": 85348100
+        },
+        "PHILIPPINES": {
+          "volume_lb": 20398502,
+          "value_usd": 27459122
+        },
+        "INDONESIA": {
+          "volume_lb": 13032298,
+          "value_usd": 17005108
+        },
+        "COLOMBIA": {
+          "volume_lb": 16316807,
+          "value_usd": 22238371
+        },
+        "VIETNAM": {
+          "volume_lb": 12716630,
+          "value_usd": 18151236
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 36611150,
+        "value_usd": 48886458
+      }
+    },
+    {
+      "month": "2021-12",
+      "total_lb": 127084151,
+      "total_usd": 183965378,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 55085200,
+          "value_usd": 82149753
+        },
+        "PHILIPPINES": {
+          "volume_lb": 17209965,
+          "value_usd": 23511527
+        },
+        "INDONESIA": {
+          "volume_lb": 9584786,
+          "value_usd": 13559452
+        },
+        "COLOMBIA": {
+          "volume_lb": 6767090,
+          "value_usd": 9547690
+        },
+        "VIETNAM": {
+          "volume_lb": 13832187,
+          "value_usd": 20066316
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 24604924,
+        "value_usd": 35130640
+      }
+    },
+    {
+      "month": "2022-01",
+      "total_lb": 132762507,
+      "total_usd": 197949247,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 45492166,
+          "value_usd": 70437383
+        },
+        "PHILIPPINES": {
+          "volume_lb": 31993578,
+          "value_usd": 45768030
+        },
+        "INDONESIA": {
+          "volume_lb": 12088247,
+          "value_usd": 17356934
+        },
+        "COLOMBIA": {
+          "volume_lb": 2974482,
+          "value_usd": 4431245
+        },
+        "VIETNAM": {
+          "volume_lb": 8777194,
+          "value_usd": 13128827
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 31436841,
+        "value_usd": 46826828
+      }
+    },
+    {
+      "month": "2022-02",
+      "total_lb": 144368564,
+      "total_usd": 225367182,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 54774716,
+          "value_usd": 88628391
+        },
+        "PHILIPPINES": {
+          "volume_lb": 23491884,
+          "value_usd": 36543856
+        },
+        "INDONESIA": {
+          "volume_lb": 12656426,
+          "value_usd": 19664482
+        },
+        "COLOMBIA": {
+          "volume_lb": 1807008,
+          "value_usd": 2815766
+        },
+        "VIETNAM": {
+          "volume_lb": 11176718,
+          "value_usd": 17344308
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 40461812,
+        "value_usd": 60370379
+      }
+    },
+    {
+      "month": "2022-03",
+      "total_lb": 175528317,
+      "total_usd": 286899109,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 63239983,
+          "value_usd": 107825887
+        },
+        "PHILIPPINES": {
+          "volume_lb": 25029622,
+          "value_usd": 41695005
+        },
+        "INDONESIA": {
+          "volume_lb": 18853330,
+          "value_usd": 27719324
+        },
+        "COLOMBIA": {
+          "volume_lb": 2490072,
+          "value_usd": 4108781
+        },
+        "VIETNAM": {
+          "volume_lb": 12977923,
+          "value_usd": 22100085
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 52937386,
+        "value_usd": 83450027
+      }
+    },
+    {
+      "month": "2022-04",
+      "total_lb": 166984793,
+      "total_usd": 286852919,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 58166048,
+          "value_usd": 101877270
+        },
+        "PHILIPPINES": {
+          "volume_lb": 32446971,
+          "value_usd": 56044608
+        },
+        "INDONESIA": {
+          "volume_lb": 14815955,
+          "value_usd": 23698669
+        },
+        "COLOMBIA": {
+          "volume_lb": 4835719,
+          "value_usd": 7868783
+        },
+        "VIETNAM": {
+          "volume_lb": 9951652,
+          "value_usd": 18429878
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 46768447,
+        "value_usd": 78933711
+      }
+    },
+    {
+      "month": "2022-05",
+      "total_lb": 180911596,
+      "total_usd": 325426753,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 65904092,
+          "value_usd": 117246481
+        },
+        "PHILIPPINES": {
+          "volume_lb": 24041679,
+          "value_usd": 44140227
+        },
+        "INDONESIA": {
+          "volume_lb": 24486833,
+          "value_usd": 45598137
+        },
+        "COLOMBIA": {
+          "volume_lb": 3497850,
+          "value_usd": 5750259
+        },
+        "VIETNAM": {
+          "volume_lb": 11383802,
+          "value_usd": 21935107
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 51597339,
+        "value_usd": 90756542
+      }
+    },
+    {
+      "month": "2022-06",
+      "total_lb": 150163108,
+      "total_usd": 268740914,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 67271795,
+          "value_usd": 118386373
+        },
+        "PHILIPPINES": {
+          "volume_lb": 12076049,
+          "value_usd": 21436401
+        },
+        "INDONESIA": {
+          "volume_lb": 13568283,
+          "value_usd": 24808959
+        },
+        "COLOMBIA": {
+          "volume_lb": 3749245,
+          "value_usd": 5957178
+        },
+        "VIETNAM": {
+          "volume_lb": 5952694,
+          "value_usd": 11231362
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 47545042,
+        "value_usd": 86920641
+      }
+    },
+    {
+      "month": "2022-07",
+      "total_lb": 140577965,
+      "total_usd": 254661646,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 55279511,
+          "value_usd": 99070538
+        },
+        "PHILIPPINES": {
+          "volume_lb": 16945391,
+          "value_usd": 30888790
+        },
+        "INDONESIA": {
+          "volume_lb": 17544800,
+          "value_usd": 31365798
+        },
+        "COLOMBIA": {
+          "volume_lb": 2546371,
+          "value_usd": 4588084
+        },
+        "VIETNAM": {
+          "volume_lb": 2494539,
+          "value_usd": 4476135
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 45767353,
+        "value_usd": 84272301
+      }
+    },
+    {
+      "month": "2022-08",
+      "total_lb": 144436164,
+      "total_usd": 259558785,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 70370051,
+          "value_usd": 124090672
+        },
+        "PHILIPPINES": {
+          "volume_lb": 21582862,
+          "value_usd": 40496818
+        },
+        "INDONESIA": {
+          "volume_lb": 10428655,
+          "value_usd": 19113902
+        },
+        "COLOMBIA": {
+          "volume_lb": 2545271,
+          "value_usd": 4173021
+        },
+        "VIETNAM": {
+          "volume_lb": 1740040,
+          "value_usd": 3066075
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 37769285,
+        "value_usd": 68618297
+      }
+    },
+    {
+      "month": "2022-09",
+      "total_lb": 147014426,
+      "total_usd": 252429871,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 73890705,
+          "value_usd": 121979313
+        },
+        "PHILIPPINES": {
+          "volume_lb": 19498861,
+          "value_usd": 36074244
+        },
+        "INDONESIA": {
+          "volume_lb": 12101642,
+          "value_usd": 21932417
+        },
+        "COLOMBIA": {
+          "volume_lb": 3701971,
+          "value_usd": 6405710
+        },
+        "VIETNAM": {
+          "volume_lb": 4292781,
+          "value_usd": 7164509
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 33528465,
+        "value_usd": 58873678
+      }
+    },
+    {
+      "month": "2022-10",
+      "total_lb": 160049784,
+      "total_usd": 267499494,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 83704320,
+          "value_usd": 136563613
+        },
+        "PHILIPPINES": {
+          "volume_lb": 14819601,
+          "value_usd": 25548667
+        },
+        "INDONESIA": {
+          "volume_lb": 17251972,
+          "value_usd": 29601458
+        },
+        "COLOMBIA": {
+          "volume_lb": 2451099,
+          "value_usd": 4060458
+        },
+        "VIETNAM": {
+          "volume_lb": 8050600,
+          "value_usd": 13402976
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 33772192,
+        "value_usd": 58322322
+      }
+    },
+    {
+      "month": "2022-11",
+      "total_lb": 159035725,
+      "total_usd": 255961025,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 83563149,
+          "value_usd": 128667784
+        },
+        "PHILIPPINES": {
+          "volume_lb": 17613412,
+          "value_usd": 29356930
+        },
+        "INDONESIA": {
+          "volume_lb": 14568078,
+          "value_usd": 25506901
+        },
+        "COLOMBIA": {
+          "volume_lb": 4613192,
+          "value_usd": 7245877
+        },
+        "VIETNAM": {
+          "volume_lb": 7292261,
+          "value_usd": 12033816
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 31385632,
+        "value_usd": 53149717
+      }
+    },
+    {
+      "month": "2022-12",
+      "total_lb": 143214514,
+      "total_usd": 224411683,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 74775239,
+          "value_usd": 114366969
+        },
+        "PHILIPPINES": {
+          "volume_lb": 15186884,
+          "value_usd": 24532970
+        },
+        "INDONESIA": {
+          "volume_lb": 8655212,
+          "value_usd": 14614532
+        },
+        "COLOMBIA": {
+          "volume_lb": 11391882,
+          "value_usd": 17195675
+        },
+        "VIETNAM": {
+          "volume_lb": 3825569,
+          "value_usd": 6483547
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 29379727,
+        "value_usd": 47217990
+      }
+    },
+    {
+      "month": "2023-01",
+      "total_lb": 149892012,
+      "total_usd": 230612379,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 80132714,
+          "value_usd": 119434411
+        },
+        "PHILIPPINES": {
+          "volume_lb": 17856699,
+          "value_usd": 28729582
+        },
+        "INDONESIA": {
+          "volume_lb": 10603144,
+          "value_usd": 17382590
+        },
+        "COLOMBIA": {
+          "volume_lb": 6571401,
+          "value_usd": 9539989
+        },
+        "VIETNAM": {
+          "volume_lb": 2237983,
+          "value_usd": 3599143
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 32490071,
+        "value_usd": 51926664
+      }
+    },
+    {
+      "month": "2023-02",
+      "total_lb": 139557730,
+      "total_usd": 200574722,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 77539451,
+          "value_usd": 105906910
+        },
+        "PHILIPPINES": {
+          "volume_lb": 15891124,
+          "value_usd": 23646755
+        },
+        "INDONESIA": {
+          "volume_lb": 11821931,
+          "value_usd": 18736720
+        },
+        "COLOMBIA": {
+          "volume_lb": 3386947,
+          "value_usd": 4649289
+        },
+        "VIETNAM": {
+          "volume_lb": 2390029,
+          "value_usd": 3732420
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 28528250,
+        "value_usd": 43902628
+      }
+    },
+    {
+      "month": "2023-03",
+      "total_lb": 172333693,
+      "total_usd": 234838040,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 93708244,
+          "value_usd": 123782270
+        },
+        "PHILIPPINES": {
+          "volume_lb": 7085351,
+          "value_usd": 10155723
+        },
+        "INDONESIA": {
+          "volume_lb": 18698681,
+          "value_usd": 27866204
+        },
+        "COLOMBIA": {
+          "volume_lb": 6904850,
+          "value_usd": 8863827
+        },
+        "VIETNAM": {
+          "volume_lb": 6723072,
+          "value_usd": 8855963
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 39213494,
+        "value_usd": 55314053
+      }
+    },
+    {
+      "month": "2023-04",
+      "total_lb": 147649072,
+      "total_usd": 195386698,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 74268114,
+          "value_usd": 95375395
+        },
+        "PHILIPPINES": {
+          "volume_lb": 15740707,
+          "value_usd": 22010412
+        },
+        "INDONESIA": {
+          "volume_lb": 11296230,
+          "value_usd": 16385679
+        },
+        "COLOMBIA": {
+          "volume_lb": 3647352,
+          "value_usd": 4789251
+        },
+        "VIETNAM": {
+          "volume_lb": 8929968,
+          "value_usd": 11636894
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 33766701,
+        "value_usd": 45189067
+      }
+    },
+    {
+      "month": "2023-05",
+      "total_lb": 176280447,
+      "total_usd": 231682759,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 86389671,
+          "value_usd": 109876232
+        },
+        "PHILIPPINES": {
+          "volume_lb": 21848516,
+          "value_usd": 29322681
+        },
+        "INDONESIA": {
+          "volume_lb": 17138226,
+          "value_usd": 23879956
+        },
+        "COLOMBIA": {
+          "volume_lb": 2861910,
+          "value_usd": 3573884
+        },
+        "VIETNAM": {
+          "volume_lb": 11283675,
+          "value_usd": 13885103
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 36758449,
+        "value_usd": 51144903
+      }
+    },
+    {
+      "month": "2023-06",
+      "total_lb": 149395089,
+      "total_usd": 189337738,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 81623447,
+          "value_usd": 101097432
+        },
+        "PHILIPPINES": {
+          "volume_lb": 13114118,
+          "value_usd": 16839627
+        },
+        "INDONESIA": {
+          "volume_lb": 9657730,
+          "value_usd": 12134078
+        },
+        "COLOMBIA": {
+          "volume_lb": 3113999,
+          "value_usd": 3872111
+        },
+        "VIETNAM": {
+          "volume_lb": 6317462,
+          "value_usd": 7537707
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 35568332,
+        "value_usd": 47856783
+      }
+    },
+    {
+      "month": "2023-07",
+      "total_lb": 143847260,
+      "total_usd": 181999471,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 62976324,
+          "value_usd": 77996083
+        },
+        "PHILIPPINES": {
+          "volume_lb": 16018599,
+          "value_usd": 20091416
+        },
+        "INDONESIA": {
+          "volume_lb": 13272705,
+          "value_usd": 17453200
+        },
+        "COLOMBIA": {
+          "volume_lb": 3760868,
+          "value_usd": 4441241
+        },
+        "VIETNAM": {
+          "volume_lb": 8930911,
+          "value_usd": 10180683
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 38887852,
+        "value_usd": 51836848
+      }
+    },
+    {
+      "month": "2023-08",
+      "total_lb": 151628263,
+      "total_usd": 186331698,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 74352357,
+          "value_usd": 89954384
+        },
+        "PHILIPPINES": {
+          "volume_lb": 21122211,
+          "value_usd": 26645135
+        },
+        "INDONESIA": {
+          "volume_lb": 15610597,
+          "value_usd": 19580723
+        },
+        "COLOMBIA": {
+          "volume_lb": 2901249,
+          "value_usd": 3556661
+        },
+        "VIETNAM": {
+          "volume_lb": 8388753,
+          "value_usd": 9727489
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 29253096,
+        "value_usd": 36867306
+      }
+    },
+    {
+      "month": "2023-09",
+      "total_lb": 119768786,
+      "total_usd": 147186288,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 62542214,
+          "value_usd": 75195951
+        },
+        "PHILIPPINES": {
+          "volume_lb": 10047121,
+          "value_usd": 11977083
+        },
+        "INDONESIA": {
+          "volume_lb": 10954534,
+          "value_usd": 13885393
+        },
+        "COLOMBIA": {
+          "volume_lb": 4289082,
+          "value_usd": 5045688
+        },
+        "VIETNAM": {
+          "volume_lb": 2841160,
+          "value_usd": 3289555
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 29094674,
+        "value_usd": 37792618
+      }
+    },
+    {
+      "month": "2023-10",
+      "total_lb": 143016061,
+      "total_usd": 173343272,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 79980657,
+          "value_usd": 96381004
+        },
+        "PHILIPPINES": {
+          "volume_lb": 17165714,
+          "value_usd": 19938385
+        },
+        "INDONESIA": {
+          "volume_lb": 8815634,
+          "value_usd": 11237469
+        },
+        "COLOMBIA": {
+          "volume_lb": 2874721,
+          "value_usd": 3467530
+        },
+        "VIETNAM": {
+          "volume_lb": 9972286,
+          "value_usd": 11877541
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 24207049,
+        "value_usd": 30441343
+      }
+    },
+    {
+      "month": "2023-11",
+      "total_lb": 148585023,
+      "total_usd": 180203524,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 76100244,
+          "value_usd": 91445206
+        },
+        "PHILIPPINES": {
+          "volume_lb": 24462750,
+          "value_usd": 30513168
+        },
+        "INDONESIA": {
+          "volume_lb": 9218716,
+          "value_usd": 11282260
+        },
+        "COLOMBIA": {
+          "volume_lb": 2952200,
+          "value_usd": 3636505
+        },
+        "VIETNAM": {
+          "volume_lb": 3218174,
+          "value_usd": 3606964
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 32632940,
+        "value_usd": 39719421
+      }
+    },
+    {
+      "month": "2023-12",
+      "total_lb": 142618956,
+      "total_usd": 172198585,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 70769173,
+          "value_usd": 85542954
+        },
+        "PHILIPPINES": {
+          "volume_lb": 9991735,
+          "value_usd": 11920094
+        },
+        "INDONESIA": {
+          "volume_lb": 5757215,
+          "value_usd": 7314062
+        },
+        "COLOMBIA": {
+          "volume_lb": 6594100,
+          "value_usd": 7898731
+        },
+        "VIETNAM": {
+          "volume_lb": 10087781,
+          "value_usd": 11070819
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 39418952,
+        "value_usd": 48451925
+      }
+    },
+    {
+      "month": "2024-01",
+      "total_lb": 128414201,
+      "total_usd": 158281909,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 62391546,
+          "value_usd": 76518196
+        },
+        "PHILIPPINES": {
+          "volume_lb": 11602781,
+          "value_usd": 13837567
+        },
+        "INDONESIA": {
+          "volume_lb": 9099245,
+          "value_usd": 11108356
+        },
+        "COLOMBIA": {
+          "volume_lb": 2076562,
+          "value_usd": 2560196
+        },
+        "VIETNAM": {
+          "volume_lb": 1892069,
+          "value_usd": 2319061
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 41351998,
+        "value_usd": 51938533
+      }
+    },
+    {
+      "month": "2024-02",
+      "total_lb": 146762914,
+      "total_usd": 182186692,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 67300100,
+          "value_usd": 81991157
+        },
+        "PHILIPPINES": {
+          "volume_lb": 14119848,
+          "value_usd": 18494363
+        },
+        "INDONESIA": {
+          "volume_lb": 13975430,
+          "value_usd": 17235749
+        },
+        "COLOMBIA": {
+          "volume_lb": 3932332,
+          "value_usd": 4789069
+        },
+        "VIETNAM": {
+          "volume_lb": 12799451,
+          "value_usd": 15848989
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 34635753,
+        "value_usd": 43827365
+      }
+    },
+    {
+      "month": "2024-03",
+      "total_lb": 143279722,
+      "total_usd": 177542349,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 58969127,
+          "value_usd": 71556282
+        },
+        "PHILIPPINES": {
+          "volume_lb": 15337868,
+          "value_usd": 18982171
+        },
+        "INDONESIA": {
+          "volume_lb": 7301351,
+          "value_usd": 9248991
+        },
+        "COLOMBIA": {
+          "volume_lb": 5930287,
+          "value_usd": 7246633
+        },
+        "VIETNAM": {
+          "volume_lb": 10589332,
+          "value_usd": 12966355
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 45151757,
+        "value_usd": 57541917
+      }
+    },
+    {
+      "month": "2024-04",
+      "total_lb": 144093414,
+      "total_usd": 176008067,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 72990660,
+          "value_usd": 87451578
+        },
+        "PHILIPPINES": {
+          "volume_lb": 15727409,
+          "value_usd": 18908335
+        },
+        "INDONESIA": {
+          "volume_lb": 10043534,
+          "value_usd": 12365468
+        },
+        "COLOMBIA": {
+          "volume_lb": 4111519,
+          "value_usd": 4961102
+        },
+        "VIETNAM": {
+          "volume_lb": 2127873,
+          "value_usd": 2554508
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 39092419,
+        "value_usd": 49767076
+      }
+    },
+    {
+      "month": "2024-05",
+      "total_lb": 134345248,
+      "total_usd": 162041643,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 76545974,
+          "value_usd": 90014693
+        },
+        "PHILIPPINES": {
+          "volume_lb": 11623087,
+          "value_usd": 14219745
+        },
+        "INDONESIA": {
+          "volume_lb": 6639603,
+          "value_usd": 8471748
+        },
+        "COLOMBIA": {
+          "volume_lb": 3892215,
+          "value_usd": 4869335
+        },
+        "VIETNAM": {
+          "volume_lb": 5969714,
+          "value_usd": 7160838
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 29674655,
+        "value_usd": 37305284
+      }
+    },
+    {
+      "month": "2024-06",
+      "total_lb": 133390112,
+      "total_usd": 160269776,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 65167024,
+          "value_usd": 78007078
+        },
+        "PHILIPPINES": {
+          "volume_lb": 15354407,
+          "value_usd": 18876243
+        },
+        "INDONESIA": {
+          "volume_lb": 15761726,
+          "value_usd": 18488708
+        },
+        "COLOMBIA": {
+          "volume_lb": 3956537,
+          "value_usd": 4811246
+        },
+        "VIETNAM": {
+          "volume_lb": 5488117,
+          "value_usd": 6540953
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 27662302,
+        "value_usd": 33545548
+      }
+    },
+    {
+      "month": "2024-07",
+      "total_lb": 156369499,
+      "total_usd": 190161207,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 74582142,
+          "value_usd": 89469315
+        },
+        "PHILIPPINES": {
+          "volume_lb": 26299853,
+          "value_usd": 32599645
+        },
+        "INDONESIA": {
+          "volume_lb": 13486139,
+          "value_usd": 16597249
+        },
+        "COLOMBIA": {
+          "volume_lb": 4316734,
+          "value_usd": 5290789
+        },
+        "VIETNAM": {
+          "volume_lb": 6942311,
+          "value_usd": 8311235
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 30742319,
+        "value_usd": 37892974
+      }
+    },
+    {
+      "month": "2024-08",
+      "total_lb": 151112918,
+      "total_usd": 181222940,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 80935390,
+          "value_usd": 98024932
+        },
+        "PHILIPPINES": {
+          "volume_lb": 29729532,
+          "value_usd": 35275295
+        },
+        "INDONESIA": {
+          "volume_lb": 11878667,
+          "value_usd": 13642782
+        },
+        "COLOMBIA": {
+          "volume_lb": 4759940,
+          "value_usd": 5830963
+        },
+        "VIETNAM": {
+          "volume_lb": 2807998,
+          "value_usd": 3280338
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 21001391,
+        "value_usd": 25168630
+      }
+    },
+    {
+      "month": "2024-09",
+      "total_lb": 136688444,
+      "total_usd": 172134344,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 77063239,
+          "value_usd": 98226846
+        },
+        "PHILIPPINES": {
+          "volume_lb": 15582426,
+          "value_usd": 19525806
+        },
+        "INDONESIA": {
+          "volume_lb": 9656141,
+          "value_usd": 11568431
+        },
+        "COLOMBIA": {
+          "volume_lb": 4137648,
+          "value_usd": 5042642
+        },
+        "VIETNAM": {
+          "volume_lb": 2719690,
+          "value_usd": 3180403
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 27529299,
+        "value_usd": 34590216
+      }
+    },
+    {
+      "month": "2024-10",
+      "total_lb": 135327279,
+      "total_usd": 175418827,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 85399291,
+          "value_usd": 112209186
+        },
+        "PHILIPPINES": {
+          "volume_lb": 11083908,
+          "value_usd": 13867504
+        },
+        "INDONESIA": {
+          "volume_lb": 4898968,
+          "value_usd": 6063208
+        },
+        "COLOMBIA": {
+          "volume_lb": 1343767,
+          "value_usd": 1743456
+        },
+        "VIETNAM": {
+          "volume_lb": 4913547,
+          "value_usd": 6067214
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 27687798,
+        "value_usd": 35468259
+      }
+    },
+    {
+      "month": "2024-11",
+      "total_lb": 121123646,
+      "total_usd": 158844681,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 70040874,
+          "value_usd": 93616641
+        },
+        "PHILIPPINES": {
+          "volume_lb": 14654861,
+          "value_usd": 17782405
+        },
+        "INDONESIA": {
+          "volume_lb": 2786269,
+          "value_usd": 3629860
+        },
+        "COLOMBIA": {
+          "volume_lb": 2053273,
+          "value_usd": 2612569
+        },
+        "VIETNAM": {
+          "volume_lb": 3807621,
+          "value_usd": 4819729
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 27780747,
+        "value_usd": 36383477
+      }
+    },
+    {
+      "month": "2024-12",
+      "total_lb": 110052624,
+      "total_usd": 148923588,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 68517747,
+          "value_usd": 92846654
+        },
+        "PHILIPPINES": {
+          "volume_lb": 11373128,
+          "value_usd": 14786283
+        },
+        "INDONESIA": {
+          "volume_lb": 3118395,
+          "value_usd": 4028077
+        },
+        "COLOMBIA": {
+          "volume_lb": 1820053,
+          "value_usd": 2502637
+        },
+        "VIETNAM": {
+          "volume_lb": 1848475,
+          "value_usd": 2378176
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 23374827,
+        "value_usd": 32381761
+      }
+    },
+    {
+      "month": "2025-01",
+      "total_lb": 102954200,
+      "total_usd": 140847357,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 64162304,
+          "value_usd": 87710755
+        },
+        "PHILIPPINES": {
+          "volume_lb": 8813350,
+          "value_usd": 12690774
+        },
+        "INDONESIA": {
+          "volume_lb": 4842516,
+          "value_usd": 6381493
+        },
+        "COLOMBIA": {
+          "volume_lb": 726652,
+          "value_usd": 924337
+        },
+        "VIETNAM": {
+          "volume_lb": 1385423,
+          "value_usd": 1844509
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 23023956,
+        "value_usd": 31295489
+      }
+    },
+    {
+      "month": "2025-02",
+      "total_lb": 106617661,
+      "total_usd": 147368190,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 65226095,
+          "value_usd": 89552453
+        },
+        "PHILIPPINES": {
+          "volume_lb": 8407012,
+          "value_usd": 12121377
+        },
+        "INDONESIA": {
+          "volume_lb": 5929515,
+          "value_usd": 8209452
+        },
+        "COLOMBIA": {
+          "volume_lb": 3091212,
+          "value_usd": 4239519
+        },
+        "VIETNAM": {
+          "volume_lb": 1787784,
+          "value_usd": 2371852
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 22176043,
+        "value_usd": 30873537
+      }
+    },
+    {
+      "month": "2025-03",
+      "total_lb": 142531417,
+      "total_usd": 190305241,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 74745300,
+          "value_usd": 98139640
+        },
+        "PHILIPPINES": {
+          "volume_lb": 20114730,
+          "value_usd": 28502577
+        },
+        "INDONESIA": {
+          "volume_lb": 6631426,
+          "value_usd": 8224486
+        },
+        "COLOMBIA": {
+          "volume_lb": 5437109,
+          "value_usd": 7242255
+        },
+        "VIETNAM": {
+          "volume_lb": 6559144,
+          "value_usd": 8135789
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 29043708,
+        "value_usd": 40060494
+      }
+    },
+    {
+      "month": "2025-04",
+      "total_lb": 112732889,
+      "total_usd": 143089829,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 64610547,
+          "value_usd": 79139770
+        },
+        "PHILIPPINES": {
+          "volume_lb": 9098923,
+          "value_usd": 12538368
+        },
+        "INDONESIA": {
+          "volume_lb": 5416806,
+          "value_usd": 7087146
+        },
+        "COLOMBIA": {
+          "volume_lb": 6218232,
+          "value_usd": 7902450
+        },
+        "VIETNAM": {
+          "volume_lb": 5209083,
+          "value_usd": 6600673
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 22179297,
+        "value_usd": 29821422
+      }
+    },
+    {
+      "month": "2025-05",
+      "total_lb": 137032283,
+      "total_usd": 173615365,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 77478671,
+          "value_usd": 96049355
+        },
+        "PHILIPPINES": {
+          "volume_lb": 11738078,
+          "value_usd": 15788690
+        },
+        "INDONESIA": {
+          "volume_lb": 5229081,
+          "value_usd": 6508526
+        },
+        "COLOMBIA": {
+          "volume_lb": 6267243,
+          "value_usd": 8174720
+        },
+        "VIETNAM": {
+          "volume_lb": 5951817,
+          "value_usd": 7279593
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 30367393,
+        "value_usd": 39814481
+      }
+    },
+    {
+      "month": "2025-06",
+      "total_lb": 130774205,
+      "total_usd": 168076600,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 74110171,
+          "value_usd": 94462234
+        },
+        "PHILIPPINES": {
+          "volume_lb": 14252690,
+          "value_usd": 19012554
+        },
+        "INDONESIA": {
+          "volume_lb": 6003143,
+          "value_usd": 7746886
+        },
+        "COLOMBIA": {
+          "volume_lb": 5443868,
+          "value_usd": 7098413
+        },
+        "VIETNAM": {
+          "volume_lb": 5495282,
+          "value_usd": 6816725
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 25469051,
+        "value_usd": 32939788
+      }
+    },
+    {
+      "month": "2025-07",
+      "total_lb": 132305146,
+      "total_usd": 172151978,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 75585820,
+          "value_usd": 97205363
+        },
+        "PHILIPPINES": {
+          "volume_lb": 21734396,
+          "value_usd": 29030369
+        },
+        "INDONESIA": {
+          "volume_lb": 6074581,
+          "value_usd": 8268012
+        },
+        "COLOMBIA": {
+          "volume_lb": 3105979,
+          "value_usd": 4079552
+        },
+        "VIETNAM": {
+          "volume_lb": 6541233,
+          "value_usd": 7907005
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 19263136,
+        "value_usd": 25661677
+      }
+    },
+    {
+      "month": "2025-08",
+      "total_lb": 124833517,
+      "total_usd": 160153573,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 63524185,
+          "value_usd": 82397063
+        },
+        "PHILIPPINES": {
+          "volume_lb": 21294619,
+          "value_usd": 25822601
+        },
+        "INDONESIA": {
+          "volume_lb": 7530510,
+          "value_usd": 9839606
+        },
+        "COLOMBIA": {
+          "volume_lb": 3607323,
+          "value_usd": 4836752
+        },
+        "VIETNAM": {
+          "volume_lb": 5610910,
+          "value_usd": 7060320
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 23265970,
+        "value_usd": 30197231
+      }
+    },
+    {
+      "month": "2025-09",
+      "total_lb": 110442461,
+      "total_usd": 143130956,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 63716602,
+          "value_usd": 81896995
+        },
+        "PHILIPPINES": {
+          "volume_lb": 12053114,
+          "value_usd": 15374890
+        },
+        "INDONESIA": {
+          "volume_lb": 8923105,
+          "value_usd": 11532755
+        },
+        "COLOMBIA": {
+          "volume_lb": 4832152,
+          "value_usd": 6399095
+        },
+        "VIETNAM": {
+          "volume_lb": 1276504,
+          "value_usd": 1486211
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 19640984,
+        "value_usd": 26441010
+      }
+    },
+    {
+      "month": "2025-10",
+      "total_lb": 136495643,
+      "total_usd": 173151437,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 71294598,
+          "value_usd": 88604423
+        },
+        "PHILIPPINES": {
+          "volume_lb": 14703003,
+          "value_usd": 19740123
+        },
+        "INDONESIA": {
+          "volume_lb": 5000173,
+          "value_usd": 6342051
+        },
+        "COLOMBIA": {
+          "volume_lb": 4708969,
+          "value_usd": 6045973
+        },
+        "VIETNAM": {
+          "volume_lb": 6027874,
+          "value_usd": 7350738
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 34761026,
+        "value_usd": 45068129
+      }
+    },
+    {
+      "month": "2025-11",
+      "total_lb": 121643976,
+      "total_usd": 151972761,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 60454265,
+          "value_usd": 73604622
+        },
+        "PHILIPPINES": {
+          "volume_lb": 12851958,
+          "value_usd": 17082660
+        },
+        "INDONESIA": {
+          "volume_lb": 7099137,
+          "value_usd": 9108997
+        },
+        "COLOMBIA": {
+          "volume_lb": 6168802,
+          "value_usd": 7791803
+        },
+        "VIETNAM": {
+          "volume_lb": 6908320,
+          "value_usd": 8378818
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 28161494,
+        "value_usd": 36005861
+      }
+    },
+    {
+      "month": "2025-12",
+      "total_lb": 130622536,
+      "total_usd": 160918020,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 69187144,
+          "value_usd": 84051461
+        },
+        "PHILIPPINES": {
+          "volume_lb": 13338870,
+          "value_usd": 16604087
+        },
+        "INDONESIA": {
+          "volume_lb": 4467094,
+          "value_usd": 5377230
+        },
+        "COLOMBIA": {
+          "volume_lb": 7324755,
+          "value_usd": 10083667
+        },
+        "VIETNAM": {
+          "volume_lb": 9310141,
+          "value_usd": 10863357
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 26994531,
+        "value_usd": 33938218
+      }
+    },
+    {
+      "month": "2026-01",
+      "total_lb": 122966170,
+      "total_usd": 150751201,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 68115123,
+          "value_usd": 82941554
+        },
+        "PHILIPPINES": {
+          "volume_lb": 15108484,
+          "value_usd": 19077764
+        },
+        "INDONESIA": {
+          "volume_lb": 11352759,
+          "value_usd": 13930399
+        },
+        "COLOMBIA": {
+          "volume_lb": 4809733,
+          "value_usd": 5758875
+        },
+        "VIETNAM": {
+          "volume_lb": 5146915,
+          "value_usd": 6218596
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 18433156,
+        "value_usd": 22824013
+      }
+    },
+    {
+      "month": "2026-02",
+      "total_lb": 115413160,
+      "total_usd": 148056800,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 61068966,
+          "value_usd": 81132636
+        },
+        "PHILIPPINES": {
+          "volume_lb": 8406000,
+          "value_usd": 10417678
+        },
+        "INDONESIA": {
+          "volume_lb": 8870090,
+          "value_usd": 10520817
+        },
+        "COLOMBIA": {
+          "volume_lb": 7391161,
+          "value_usd": 9679771
+        },
+        "VIETNAM": {
+          "volume_lb": 4846778,
+          "value_usd": 5662941
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 24830165,
+        "value_usd": 30642957
+      }
+    },
+    {
+      "month": "2026-03",
+      "total_lb": 131289142,
+      "total_usd": 182005827,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 69750279,
+          "value_usd": 105848657
+        },
+        "PHILIPPINES": {
+          "volume_lb": 13964729,
+          "value_usd": 17467579
+        },
+        "INDONESIA": {
+          "volume_lb": 4616917,
+          "value_usd": 5712822
+        },
+        "COLOMBIA": {
+          "volume_lb": 6775893,
+          "value_usd": 8639993
+        },
+        "VIETNAM": {
+          "volume_lb": 6954293,
+          "value_usd": 7930764
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 29227031,
+        "value_usd": 36406012
+      }
+    },
+    {
+      "month": "2026-04",
+      "total_lb": 124271777,
+      "total_usd": 189244832,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 65668804,
+          "value_usd": 112941152
+        },
+        "PHILIPPINES": {
+          "volume_lb": 23466879,
+          "value_usd": 29808569
+        },
+        "INDONESIA": {
+          "volume_lb": 5138566,
+          "value_usd": 6425683
+        },
+        "COLOMBIA": {
+          "volume_lb": 7197379,
+          "value_usd": 9712826
+        },
+        "VIETNAM": {
+          "volume_lb": 4992944,
+          "value_usd": 6049436
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 17807205,
+        "value_usd": 24307166
+      }
+    },
+    {
+      "month": "2026-05",
+      "total_lb": 109578569,
+      "total_usd": 187962043,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 67249925,
+          "value_usd": 127097351
+        },
+        "PHILIPPINES": {
+          "volume_lb": 14115935,
+          "value_usd": 19489766
+        },
+        "INDONESIA": {
+          "volume_lb": 7642304,
+          "value_usd": 10811489
+        },
+        "COLOMBIA": {
+          "volume_lb": 3042010,
+          "value_usd": 4470260
+        },
+        "VIETNAM": {
+          "volume_lb": 2652303,
+          "value_usd": 3119177
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 14876092,
+        "value_usd": 22974000
+      }
+    },
+    {
+      "month": "2026-06",
+      "total_lb": 105860056,
+      "total_usd": 191019801,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 63995630,
+          "value_usd": 124608941
+        },
+        "PHILIPPINES": {
+          "volume_lb": 20145156,
+          "value_usd": 30691442
+        },
+        "INDONESIA": {
+          "volume_lb": 3465063,
+          "value_usd": 4921935
+        },
+        "COLOMBIA": {
+          "volume_lb": 3188817,
+          "value_usd": 4847522
+        },
+        "VIETNAM": {
+          "volume_lb": 2712814,
+          "value_usd": 4773050
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 12352576,
+        "value_usd": 21176911
+      }
+    },
+    {
+      "month": "2026-07",
+      "total_lb": 101486368,
+      "total_usd": 176844950,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 66755204,
+          "value_usd": 118561294
+        },
+        "PHILIPPINES": {
+          "volume_lb": 10106150,
+          "value_usd": 18061506
+        },
+        "INDONESIA": {
+          "volume_lb": 7179863,
+          "value_usd": 9871713
+        },
+        "COLOMBIA": {
+          "volume_lb": 1426224,
+          "value_usd": 2319149
+        },
+        "VIETNAM": {
+          "volume_lb": 1648884,
+          "value_usd": 3066833
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 14370044,
+        "value_usd": 24964455
+      }
+    }
+  ]
+}

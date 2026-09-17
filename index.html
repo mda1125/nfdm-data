@@ -137,6 +137,7 @@ a{color:#58a6ff}
     <div class="nav-item" data-view="booking"><span class="nav-icon">◈</span>Booking Signal</div>
     <div class="nav-item" data-view="seasonals"><span class="nav-icon">⛅</span>Seasonals</div>
     <div class="nav-item" data-view="fundamentals"><span class="nav-icon">⚖</span>Fundamentals</div>
+    <div class="nav-item" data-view="exports"><span class="nav-icon">⇄</span>Export Markets</div>
     <div class="nav-item" data-view="sugar"><span class="nav-icon">◇</span>Sugar #11</div>
     <div class="nav-item" data-view="cocoa"><span class="nav-icon">◆</span>Cocoa Market</div>
     <div class="nav-item" data-view="whey"><span class="nav-icon">⬢</span>Whey Market</div>
@@ -149,6 +150,7 @@ a{color:#58a6ff}
     <div>Class IV via <a href="https://mpr.datamart.ams.usda.gov" target="_blank">USDA FMMO</a></div>
     <div>Futures via <a href="https://finance.yahoo.com/quote/GNF=F/" target="_blank">CME GNF</a></div>
     <div>Supply via <a href="https://quickstats.nass.usda.gov" target="_blank">NASS QuickStats</a></div>
+    <div>Exports via <a href="https://www.census.gov/foreign-trade/" target="_blank">Census trade data</a></div>
     <div>Sugar via <a href="https://finance.yahoo.com/quote/SB=F/" target="_blank">ICE SB</a></div>
     <div>Cocoa via <a href="https://finance.yahoo.com/quote/CC=F/" target="_blank">ICE CC</a></div>
     <div>Whey via <a href="https://mymarketnews.ams.usda.gov" target="_blank">USDA Dairy Market News</a></div>
@@ -394,6 +396,33 @@ a{color:#58a6ff}
       <div class="panel">
         <div class="panel-hdr"><h2>Supply data</h2><p id="fund-note">Source: USDA NASS QuickStats. This product uses the NASS API but is not endorsed or certified by NASS.</p></div>
         <table class="data-table" id="tbl-fund"></table>
+      </div>
+    </div>
+
+    <div id="view-exports" class="view">
+      <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr)">
+        <div class="kpi"><div class="kpi-tag tag-nass">TOTAL EXPORTS</div><div class="kpi-val" id="kpi-exp-total">—</div><div class="kpi-meta" id="kpi-exp-total-label">latest month</div><div class="kpi-delta" id="kpi-exp-total-delta"></div></div>
+        <div class="kpi"><div class="kpi-tag tag-class4">YEAR OVER YEAR</div><div class="kpi-val" id="kpi-exp-yoy">—</div><div class="kpi-meta" id="kpi-exp-yoy-label">vs same month prior year</div></div>
+        <div class="kpi"><div class="kpi-tag tag-cme">TOP DESTINATION</div><div class="kpi-val" id="kpi-exp-top" style="font-size:20px">—</div><div class="kpi-meta" id="kpi-exp-top-label">share of latest month</div></div>
+        <div class="kpi"><div class="kpi-tag tag-basis">TRAILING 12M</div><div class="kpi-val" id="kpi-exp-ttm">—</div><div class="kpi-meta" id="kpi-exp-ttm-label">rolling 12-month total</div><div class="kpi-delta" id="kpi-exp-ttm-delta"></div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-hdr"><h2>NFDM/SMP exports by destination</h2><p>Monthly export volume, top 5 buyers + rest of world (million lbs)</p></div>
+        <div class="chart-wrap" style="height:340px"><canvas id="chart-exp-stack" role="img" aria-label="NFDM exports by destination"></canvas></div>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="panel-hdr"><h2>Total monthly exports</h2><p>All destinations (million lbs)</p></div>
+          <div class="chart-wrap" style="height:220px"><canvas id="chart-exp-total" role="img" aria-label="Total NFDM exports"></canvas></div>
+        </div>
+        <div class="panel">
+          <div class="panel-hdr"><h2>Destination mix</h2><p>Share of monthly volume by buyer (%)</p></div>
+          <div class="chart-wrap" style="height:220px"><canvas id="chart-exp-share" role="img" aria-label="Export destination share"></canvas></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-hdr"><h2>Export detail</h2><p id="exp-note">Source: U.S. Census Bureau international trade data, HS 040210 (milk &amp; cream in powder, ≤1.5% fat). Released roughly 5-6 weeks after month end.</p></div>
+        <table class="data-table" id="tbl-exp"></table>
       </div>
     </div>
 
