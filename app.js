@@ -12,7 +12,8 @@ const DATA_URLS = {
   cocoa: 'data/cocoa.json',
   cocoaFutures: 'data/cocoa_futures.json',
   whey: 'data/whey.json',
-  wheyHistory: 'data/whey_history.json'
+  wheyHistory: 'data/whey_history.json',
+  wheyCall: 'data/whey_market_call.json'
 };
 
 let RAW = null;
@@ -158,7 +159,8 @@ async function fetchLiveData() {
       fetch(DATA_URLS.whey, {cache: 'no-store'}).catch(function(){ return null; }),
       fetch(DATA_URLS.butter, {cache: 'no-store'}).catch(function(){ return null; }),
       fetch(DATA_URLS.exports, {cache: 'no-store'}).catch(function(){ return null; }),
-      fetch(DATA_URLS.wheyHistory, {cache: 'no-store'}).catch(function(){ return null; })
+      fetch(DATA_URLS.wheyHistory, {cache: 'no-store'}).catch(function(){ return null; }),
+      fetch(DATA_URLS.wheyCall, {cache: 'no-store'}).catch(function(){ return null; })
     ]);
     // fetchWithRetry only resolves once cme/nass/c4 are .ok (retrying transient
     // failures first) or throws after exhausting retries, so no separate
@@ -292,6 +294,14 @@ async function fetchLiveData() {
     if (wheyHistJ && wheyHistJ.products) {
       wheyHist = wheyHistJ.products;
     }
+    var wheyCallJ = null;
+    if (responses[14] && responses[14].ok) {
+      try { wheyCallJ = await responses[14].json(); } catch(e) { wheyCallJ = null; }
+    }
+    var wheyCall = null;
+    if (wheyCallJ && wheyCallJ.log && wheyCallJ.log.length) {
+      wheyCall = {latest: wheyCallJ.latest || wheyCallJ.log[wheyCallJ.log.length - 1], log: wheyCallJ.log};
+    }
     const stamps = [cmeJ.updated_at, nassJ.updated_at, c4J.updated_at].filter(Boolean);
     lastUpdated = stamps.sort().reverse()[0] || new Date().toISOString();
     dataMode = 'live';
@@ -303,10 +313,11 @@ async function fetchLiveData() {
     if (cocoa) toastMsg += ' · ' + cocoa.data.length + ' cocoa';
     if (whey) toastMsg += ' · ' + whey.products.length + ' whey';
     if (wheyHist) toastMsg += ' · whey history';
+    if (wheyCall) toastMsg += ' · whey call';
     if (butter) toastMsg += ' · ' + butter.length + ' butter';
     if (exports_) toastMsg += ' · ' + exports_.data.length + ' exports';
     showToast(toastMsg);
-    return {cme: cme, butter: butter, nass: nass, c4: c4, futures: futures, fund: fund, futHist: futHist, sugar: sugar, sugarFut: sugarFut, cocoa: cocoa, cocoaFut: cocoaFut, whey: whey, wheyHist: wheyHist, exports: exports_};
+    return {cme: cme, butter: butter, nass: nass, c4: c4, futures: futures, fund: fund, futHist: futHist, sugar: sugar, sugarFut: sugarFut, cocoa: cocoa, cocoaFut: cocoaFut, whey: whey, wheyHist: wheyHist, wheyCall: wheyCall, exports: exports_};
   } catch (err) {
     console.warn('Live fetch failed:', err);
     dataMode = 'error';
@@ -649,6 +660,10 @@ function buildCharts() {
   // Whey booking lean: direction + cross-category conviction, no forward price
   // (whey has no futures market and not enough weekly history yet for a seasonal estimate)
   buildWheyLean();
+
+  // WPC80 market call: a distinct, single-number analyst-style guess, logged
+  // weekly for future scoring — separate from the Booking Lean card above.
+  buildWheyMarketCall();
 
   // Booking Signal (forward lock-vs-float decision view, cards + table)
   buildBookingSignal();
@@ -1783,6 +1798,112 @@ function buildWheyLean() {
       '<div class="whey-interp">' + esc(convictionNote) + '</div>' +
     '</div>';
   }).join('');
+}
+
+// Join the weekly WPC80 market-call log against realized whey_history.json prices
+// for calls whose target quarter has since accumulated actual weekly readings.
+// Returns [] until a logged call's target quarter is far enough in the past to
+// have real data — which, given ~22-week target horizons, will be a while.
+function wheyCallScoring(log, wpc80History) {
+  if (!log || !log.length || !wpc80History || !wpc80History.length) return [];
+  return log.map(function(e) {
+    var parts = (e.target_quarter || '').split('-Q');
+    if (parts.length !== 2) return null;
+    var qy = +parts[0], qn = +parts[1];
+    var qStart = new Date(qy, (qn - 1) * 3, 1);
+    var qEnd = new Date(qy, qn * 3, 0);
+    var realizedPts = wpc80History.filter(function(h) {
+      var d = new Date(h.week);
+      return h.mid != null && d >= qStart && d <= qEnd;
+    });
+    if (!realizedPts.length) return null;
+    var realized = realizedPts.reduce(function(s, h){ return s + h.mid; }, 0) / realizedPts.length;
+    return {
+      as_of: e.as_of, target_label: e.target_label, blended: e.blended, realized: realized,
+      error: +(e.blended - realized).toFixed(4),
+      errorPct: realized ? +((e.blended - realized) / realized * 100).toFixed(1) : null
+    };
+  }).filter(Boolean);
+}
+
+// WPC80 market call: a single analyst-style number for a rolling forward quarter,
+// deliberately distinct from the Booking Lean cards above — no lean/conviction
+// badges here. It shows the blended call, the range across the contributing
+// methods, and each method's own implied price with its reasoning, so anyone
+// reading can see which signals pushed the number up or down. Computed weekly by
+// scripts/fetch_data.py (compute_whey_market_call) and logged to
+// data/whey_market_call.json so past calls can be scored once real data catches up.
+function buildWheyMarketCall() {
+  var host = document.getElementById('whey-call-card');
+  var logHost = document.getElementById('tbl-whey-call-log');
+  var scoreHost = document.getElementById('whey-call-scoring');
+  if (!host) return;
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function usd(v) { return v == null ? '—' : '$' + (+v).toFixed(2); }
+
+  if (!RAW || !RAW.wheyCall || !RAW.wheyCall.latest) {
+    host.innerHTML = '<div class="whey-card" style="color:#6e7681;font-size:12px">No whey market call has been logged yet.</div>';
+    if (logHost) logHost.innerHTML = '';
+    if (scoreHost) scoreHost.innerHTML = '';
+    return;
+  }
+
+  var call = RAW.wheyCall.latest;
+  var methodLabels = {naive: 'Straight-line trend', dampened: 'Dampened trend', nfdm_crosscheck: 'NFDM cross-check'};
+
+  var methodRows = Object.keys(call.methods || {}).map(function(k) {
+    var m = call.methods[k];
+    if (!m || m.price == null) return '';
+    return '<div style="margin-top:8px;padding-top:8px;border-top:1px solid #21262d">' +
+      '<div style="display:flex;justify-content:space-between;font-size:12px;color:#e6edf3;font-weight:600">' +
+        '<span>' + esc(methodLabels[k] || k) + '</span>' +
+        '<span>' + usd(m.price) + ' <span style="color:#6e7681;font-weight:400">· weight ' + Math.round(m.weight * 100) + '%</span></span>' +
+      '</div>' +
+      '<div style="font-size:11px;color:#9ca3af;margin-top:3px;line-height:1.5">' + esc(m.note) + '</div>' +
+    '</div>';
+  }).join('');
+
+  host.innerHTML = '<div class="whey-card">' +
+    '<div class="whey-card-hdr">' +
+      '<div><div class="whey-name">' + esc(call.product) + ' → ' + esc(call.target_label) + '</div>' +
+      '<div class="whey-code">~' + call.weeks_out + ' weeks out · current ' + usd(call.current_price) + '/lb</div></div>' +
+    '</div>' +
+    '<div class="whey-range">' + usd(call.blended) + '<span style="font-size:12px;color:#6e7681;font-weight:400"> /lb blended call</span></div>' +
+    '<div class="whey-mid">Range across methods: ' + usd(call.range.low) + ' – ' + usd(call.range.high) + '</div>' +
+    methodRows +
+    (call.qualitative ? '<div style="margin-top:10px;padding-top:10px;border-top:1px solid #21262d;font-size:11px;color:#9ca3af;line-height:1.5">' + esc(call.qualitative.note) + '</div>' : '') +
+    '<div class="whey-interp" style="color:#6e7681">One analyst-style guess for discussion, not a target price or a recommendation to book at. Logged ' + esc(call.as_of) + ' (' + esc(call.iso_week) + ').</div>' +
+  '</div>';
+
+  var log = (RAW.wheyCall.log || []).slice();
+  if (logHost) {
+    var rows = log.slice().reverse().map(function(e) {
+      return '<tr><td>' + esc(e.as_of) + '</td><td>' + esc(e.target_label) + '</td>' +
+        '<td style="text-align:right">' + usd(e.blended) + '</td>' +
+        '<td style="text-align:right">' + usd(e.range.low) + ' – ' + usd(e.range.high) + '</td>' +
+        '<td style="text-align:right">' + (e.qualitative && e.qualitative.reallocation_active ? 'Yes' : 'No') + '</td></tr>';
+    }).join('');
+    logHost.innerHTML = '<tr><th>Week of</th><th>Target</th><th style="text-align:right">Blended call</th>' +
+      '<th style="text-align:right">Range</th><th style="text-align:right">Reallocation active</th></tr>' + rows;
+  }
+
+  if (scoreHost) {
+    var scored = wheyCallScoring(log, RAW.wheyHist && RAW.wheyHist.WPC80);
+    if (!scored.length) {
+      scoreHost.innerHTML = 'No logged call has reached its target quarter yet — once WPC80 price history covers a call’s target quarter, this will compare the blended call against what actually happened.';
+    } else {
+      scoreHost.innerHTML = '<table class="data-table"><tr><th>Called</th><th>Target</th>' +
+        '<th style="text-align:right">Blended</th><th style="text-align:right">Realized</th><th style="text-align:right">Error</th></tr>' +
+        scored.map(function(s) {
+          return '<tr><td>' + esc(s.as_of) + '</td><td>' + esc(s.target_label) + '</td>' +
+            '<td style="text-align:right">' + usd(s.blended) + '</td>' +
+            '<td style="text-align:right">' + usd(s.realized) + '</td>' +
+            '<td style="text-align:right">' + (s.error >= 0 ? '+' : '') + s.error.toFixed(2) +
+            (s.errorPct != null ? ' (' + (s.errorPct >= 0 ? '+' : '') + s.errorPct + '%)' : '') + '</td></tr>';
+        }).join('') + '</table>';
+    }
+  }
 }
 
 // Build futures-vs-realized comparisons and per-horizon reliability stats from the

@@ -663,6 +663,170 @@ def apply_whey_wow(products, history):
                 p["wow_pct"] = round((p["mid"] - prev_mid) / prev_mid * 100, 2)
 
 
+# ---------------------------------------------------------------------------
+# Whey market call (WPC80): a single-number analyst-style guess for a rolling
+# forward quarter, distinct from the Whey Booking Lean shown on the dashboard.
+# Whey has no futures market and (so far) only a few weeks of published history,
+# so there's no defensible curve-implied or seasonal price the way NFDM's
+# Booking Signal works. This is explicitly a market call, not a forecast or a
+# recommendation: one blended number from whatever signals exist that week,
+# with each contributing method's own implied price shown next to it, logged
+# weekly so the calls can be scored against realized prices once the target
+# quarter's history actually publishes. The weighting scheme below is a
+# tunable hypothesis, not a settled model -- that's the point of the log.
+# ---------------------------------------------------------------------------
+WHEY_CALL_PRODUCT = "WPC80"
+WHEY_CALL_DAMPEN_WEEKS = 4  # weeks of the observed trend applied before holding flat
+
+
+def _target_quarter(as_of):
+    """Roll 2 full calendar quarters ahead of as_of (skip the current quarter and
+    the next one), e.g. Sep 2026 (Q3) -> 2027 Q1. Recomputed every run so the
+    target advances automatically as time passes."""
+    q = (as_of.month - 1) // 3 + 1 + 2
+    y = as_of.year + (q - 1) // 4
+    q = (q - 1) % 4 + 1
+    return y, q
+
+
+def _quarter_mid_month(q):
+    return (q - 1) * 3 + 2
+
+
+def _weekly_rate(history):
+    """Geometric average weekly % change across the trailing published weeks,
+    and the latest mid. (None, None) if fewer than 2 weeks exist."""
+    pts = sorted((s for s in (history or []) if s.get("mid") is not None), key=lambda s: s["week"])
+    if len(pts) < 2 or not pts[0]["mid"]:
+        return None, None
+    first, last, weeks = pts[0]["mid"], pts[-1]["mid"], len(pts) - 1
+    if weeks == 0:
+        return None, None
+    weekly = (last / first) ** (1.0 / weeks) - 1
+    return weekly, last
+
+
+def compute_whey_market_call(whey_history_products, futures_curve, spot, as_of=None):
+    """One blended analyst-style price call for WHEY_CALL_PRODUCT at a rolling
+    forward quarter, plus each contributing method's own implied price and
+    reasoning. Returns None if there isn't enough WPC80 history yet."""
+    as_of = as_of or datetime.utcnow().date()
+    weekly_rate, current = _weekly_rate(whey_history_products.get(WHEY_CALL_PRODUCT))
+    if weekly_rate is None or not current:
+        return None
+
+    ty, tq = _target_quarter(as_of)
+    target_label = f"Q{tq} {ty}"
+    weeks_out = max(0, round((datetime(ty, _quarter_mid_month(tq), 15) - datetime(as_of.year, as_of.month, as_of.day)).days / 7))
+
+    # Method A: straight-line extrapolation of the observed weekly rate, no damping.
+    naive_price = round(current * (1 + weekly_rate) ** weeks_out, 4)
+    naive_note = (f"Straight-line extrapolation of the observed weekly move "
+                  f"({weekly_rate * 100:+.2f}%/wk) held constant for all {weeks_out} weeks "
+                  f"to {target_label}. Treats the whole trailing move as durable -- tends to "
+                  f"overreact when the trailing window is short.")
+
+    # Method B: same weekly rate, applied for a limited window, then held flat --
+    # a short move is assumed to decelerate rather than persist in a straight line.
+    damp_weeks = min(weeks_out, WHEY_CALL_DAMPEN_WEEKS)
+    dampened_price = round(current * (1 + weekly_rate) ** damp_weeks, 4)
+    dampened_note = (f"Same weekly move applied for {damp_weeks} more weeks, then held flat "
+                      f"through {target_label} ({weeks_out - damp_weeks} weeks flat) -- assumes "
+                      f"a short trend decelerates rather than continuing unchanged for months.")
+
+    # Method C: cross-check against the NFDM forward curve for the same target
+    # quarter -- a loose proxy (WPC80 comes off the cheese-whey stream, not skim
+    # solids) but it captures the shared dairy-complex cycle.
+    nfdm_price, nfdm_note = None, "NFDM futures curve unavailable this run -- cross-check skipped."
+    if futures_curve and spot:
+        q_settles = [c["settle"] for c in futures_curve
+                     if len(c.get("month", "").split("-")) == 2
+                     and c["month"].split("-")[0].isdigit()
+                     and int(c["month"].split("-")[0]) == ty
+                     and (int(c["month"].split("-")[1]) - 1) // 3 + 1 == tq]
+        if q_settles:
+            q_avg = sum(q_settles) / len(q_settles)
+            discount = (q_avg - spot) / spot
+            nfdm_price = round(current * (1 + discount), 4)
+            nfdm_note = (f"NFDM curve prices {target_label} at {discount * 100:+.1f}% vs current spot; "
+                         f"applying that same move to WPC80's current price as a dairy-complex "
+                         f"cross-check (loose proxy -- different raw stream than NFDM).")
+
+    # Qualitative signal: the documented WPC80 vs WPC34/dry-whey reallocation
+    # pattern (mirrors WHEY_REALLOC_TRIO in app.js). When active, WPC80's move
+    # has a specific, product-level explanation rather than being generic noise,
+    # so the blend leans harder on WPC80's own trend and lighter on the NFDM
+    # cross-check; otherwise it leans the other way as a hedge against noise.
+    wpc34_rate, _ = _weekly_rate(whey_history_products.get("WPC34"))
+    dryw_rate, _ = _weekly_rate(whey_history_products.get("DRYWHEY"))
+    realloc_active = bool(
+        wpc34_rate is not None and dryw_rate is not None
+        and abs(weekly_rate) > 0.001 and abs(wpc34_rate) > 0.001 and abs(dryw_rate) > 0.001
+        and (wpc34_rate > 0) == (dryw_rate > 0) and (wpc34_rate > 0) != (weekly_rate > 0)
+    )
+    if realloc_active:
+        weights = {"naive": 0.20, "dampened": 0.60, "nfdm": 0.20}
+        qual_note = ("WPC80 is moving opposite WPC34 and dry whey together -- the reallocation "
+                     "pattern USDA's Jun 2026 narrative described (manufacturers shift output "
+                     "between these off the same finite whey stream as WPC80 demand shifts). "
+                     "Documented, product-specific explanation, so this call leans more on "
+                     "WPC80's own trend and less on the generic NFDM cross-check.")
+    else:
+        weights = {"naive": 0.10, "dampened": 0.55, "nfdm": 0.35}
+        qual_note = ("No reallocation pattern active this week -- no product-specific "
+                     "explanation for WPC80's move, so this call weighs the dampened trend "
+                     "and the NFDM cross-check more evenly as a hedge against noise.")
+
+    prices = {"naive": naive_price, "dampened": dampened_price}
+    if nfdm_price is not None:
+        prices["nfdm"] = nfdm_price
+    else:
+        w_sum = weights["naive"] + weights["dampened"]
+        weights = {"naive": weights["naive"] / w_sum, "dampened": weights["dampened"] / w_sum, "nfdm": 0.0}
+    blended = round(sum(prices[k] * weights[k] for k in prices), 4)
+
+    return {
+        "as_of": as_of.isoformat(),
+        "iso_week": f"{as_of.isocalendar()[0]}-W{as_of.isocalendar()[1]:02d}",
+        "product": WHEY_CALL_PRODUCT,
+        "target_quarter": f"{ty}-Q{tq}",
+        "target_label": target_label,
+        "weeks_out": weeks_out,
+        "current_price": current,
+        "methods": {
+            "naive": {"price": naive_price, "weight": round(weights["naive"], 3), "note": naive_note},
+            "dampened": {"price": dampened_price, "weight": round(weights["dampened"], 3), "note": dampened_note},
+            "nfdm_crosscheck": {"price": nfdm_price, "weight": round(weights.get("nfdm", 0), 3), "note": nfdm_note},
+        },
+        "qualitative": {"reallocation_active": realloc_active, "note": qual_note},
+        "blended": blended,
+        "range": {"low": round(min(prices.values()), 4), "high": round(max(prices.values()), 4)},
+    }
+
+
+def archive_whey_market_call(entry):
+    """Append this week's call to data/whey_market_call.json, deduped by ISO
+    week (a re-run mid-week overwrites that week's entry with the latest info,
+    rather than duplicating it). The log itself is the point: it's what
+    eventually lets us score naive vs dampened vs qualitative-adjusted calls
+    against realized prices, instead of guessing from one data point."""
+    if entry is None:
+        return None
+    path = DATA_DIR / "whey_market_call.json"
+    doc = json.loads(path.read_text()) if path.exists() else {"log": []}
+    log = doc.setdefault("log", [])
+    log[:] = [e for e in log if e.get("iso_week") != entry["iso_week"]]
+    log.append(entry)
+    log.sort(key=lambda e: e["as_of"])
+    doc["updated_at"] = datetime.utcnow().isoformat() + "Z"
+    doc["latest"] = log[-1]
+    path.write_text(json.dumps(doc, indent=2))
+    print(f"Whey market call: {entry['target_label']} blended ${entry['blended']:.2f}/lb "
+          f"(range ${entry['range']['low']:.2f}-${entry['range']['high']:.2f}), "
+          f"{len(log)} weekly entries logged")
+    return doc
+
+
 QUICKSTATS_KEY = os.environ.get('QUICKSTATS_API_KEY', '')
 QUICKSTATS_BASE = "https://quickstats.nass.usda.gov/api/api_GET/"
 
@@ -1233,6 +1397,14 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"Futures fetch failed: {e}")
         failures.append("futures")
+
+    print(f"Computing whey market call ({WHEY_CALL_PRODUCT})...")
+    try:
+        whey_call = compute_whey_market_call(whey_history.get("products", {}), curve, spot)
+        archive_whey_market_call(whey_call)
+    except Exception as e:
+        print(f"Whey market call failed: {e}")
+        failures.append("whey_call")
 
     print("Fetching Sugar #11 spot (Yahoo Finance)...")
     try:
