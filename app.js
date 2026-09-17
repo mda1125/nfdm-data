@@ -1014,13 +1014,22 @@ function buildCharts() {
     var tblExp = document.getElementById('tbl-exp');
     if (tblExp) {
       var recentE = ed.slice(-18).reverse();
+      function momCell(d) {
+        var prev = findMonthExp(ed, shiftMonthExp(d.month, 1));
+        if (!d.total_lb || !prev || !prev.total_lb) return '<td style="text-align:right">—</td>';
+        var pct = (d.total_lb - prev.total_lb) / prev.total_lb * 100;
+        var color = pct >= 0 ? '#4ade80' : '#f87171';
+        var arrow = pct >= 0 ? '↑ +' : '↓ ';
+        return '<td style="text-align:right;color:' + color + '">' + arrow + Math.abs(pct).toFixed(1) + '%</td>';
+      }
       tblExp.innerHTML =
-        '<tr><th>Month</th><th style="text-align:right">Total</th>' +
+        '<tr><th>Month</th><th style="text-align:right">Total</th><th style="text-align:right">MoM</th>' +
         eTop.map(function(c){ return '<th style="text-align:right">' + escExp(c.name) + '</th>'; }).join('') +
         '<th style="text-align:right">Rest of world</th><th style="text-align:right">Value</th></tr>' +
         recentE.map(function(d){
           return '<tr><td>' + d.month + '</td>' +
             '<td style="text-align:right">' + (d.total_lb ? fmtMlb(d.total_lb) : '—') + '</td>' +
+            momCell(d) +
             eTop.map(function(c){
               var v = d.countries && d.countries[c.name];
               return '<td style="text-align:right">' + (v && v.volume_lb ? fmtMlb(v.volume_lb) : '—') + '</td>';
