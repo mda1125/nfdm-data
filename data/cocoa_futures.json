@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-17T13:55:28.902731Z",
+  "updated_at": "2026-09-17T14:24:48.879286Z",
   "trade_date": "2026-09-17",
   "count": 10,
   "data": [
@@ -13,51 +13,51 @@
     {
       "month": "2026-12",
       "label": "Dec 26",
-      "settle_usd_mt": 5830.0,
-      "settle_usd_lb": 2.6444,
-      "volume": 5725
+      "settle_usd_mt": 5781.0,
+      "settle_usd_lb": 2.6222,
+      "volume": 7973
     },
     {
       "month": "2027-03",
       "label": "Mar 27",
-      "settle_usd_mt": 5958.0,
-      "settle_usd_lb": 2.7025,
-      "volume": 2494
+      "settle_usd_mt": 5908.0,
+      "settle_usd_lb": 2.6798,
+      "volume": 3528
     },
     {
       "month": "2027-05",
       "label": "May 27",
-      "settle_usd_mt": 6025.0,
-      "settle_usd_lb": 2.7329,
-      "volume": 884
+      "settle_usd_mt": 5958.0,
+      "settle_usd_lb": 2.7025,
+      "volume": 1398
     },
     {
       "month": "2027-07",
       "label": "Jul 27",
-      "settle_usd_mt": 6018.0,
-      "settle_usd_lb": 2.7297,
-      "volume": 551
+      "settle_usd_mt": 5961.0,
+      "settle_usd_lb": 2.7039,
+      "volume": 742
     },
     {
       "month": "2027-09",
       "label": "Sep 27",
-      "settle_usd_mt": 5987.0,
-      "settle_usd_lb": 2.7157,
-      "volume": 200
+      "settle_usd_mt": 5922.0,
+      "settle_usd_lb": 2.6862,
+      "volume": 290
     },
     {
       "month": "2027-12",
       "label": "Dec 27",
-      "settle_usd_mt": 5942.0,
-      "settle_usd_lb": 2.6952,
-      "volume": 168
+      "settle_usd_mt": 5804.0,
+      "settle_usd_lb": 2.6327,
+      "volume": 284
     },
     {
       "month": "2028-03",
       "label": "Mar 28",
       "settle_usd_mt": 5837.0,
       "settle_usd_lb": 2.6476,
-      "volume": 29
+      "volume": 47
     },
     {
       "month": "2028-05",
