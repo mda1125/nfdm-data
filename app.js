@@ -2153,3 +2153,66 @@ document.getElementById('export-btn').addEventListener('click', exportCSV);
   setStatusPill();
   buildCharts();
 })();
+
+// Ask the Desk agent widget
+var AGENT_ENDPOINT = 'https://dairydesk-agent.marc-c-david.workers.dev/chat';
+
+(function(){
+  var bubble = document.getElementById('agent-bubble');
+  var panel = document.getElementById('agent-panel');
+  var closeBtn = document.getElementById('agent-close');
+  var messages = document.getElementById('agent-messages');
+  var form = document.getElementById('agent-form');
+  var input = document.getElementById('agent-input');
+  var sendBtn = document.getElementById('agent-send');
+  var busy = false;
+
+  function addMessage(text, cls) {
+    var el = document.createElement('div');
+    el.className = 'agent-msg ' + cls;
+    el.textContent = text;
+    messages.appendChild(el);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function setBusy(state) {
+    busy = state;
+    sendBtn.disabled = state;
+    input.disabled = state;
+  }
+
+  bubble.addEventListener('click', function(){
+    panel.classList.toggle('open');
+    if (panel.classList.contains('open')) input.focus();
+  });
+  closeBtn.addEventListener('click', function(){ panel.classList.remove('open'); });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (busy) return;
+    var question = input.value.trim();
+    if (!question) return;
+    addMessage(question, 'user');
+    input.value = '';
+    setBusy(true);
+
+    fetch(AGENT_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: question })
+    }).then(function(res){
+      return res.json().then(function(data){ return { ok: res.ok, data: data }; });
+    }).then(function(result){
+      if (!result.ok) {
+        addMessage(result.data.error || 'Something went wrong.', 'err');
+        return;
+      }
+      addMessage(result.data.answer || 'No answer returned.', 'bot');
+    }).catch(function(){
+      addMessage('Could not reach the assistant. Try again shortly.', 'err');
+    }).finally(function(){
+      setBusy(false);
+      input.focus();
+    });
+  });
+})();

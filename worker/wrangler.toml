@@ -1,0 +1,13 @@
+name = "dairydesk-agent"
+main = "src/index.js"
+compatibility_date = "2026-09-17"
+
+# Rate-limit counters (per-IP, per-day). Create with:
+#   npx wrangler kv namespace create RATE_LIMIT
+# then paste the returned id below.
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "99e6c6a6c5d5460080a5acd946eb1b3d"
+
+# Secret (not set here): DEEPSEEK_API_KEY
+#   npx wrangler secret put DEEPSEEK_API_KEY
