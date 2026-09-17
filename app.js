@@ -11,7 +11,8 @@ const DATA_URLS = {
   sugarFutures: 'data/sugar_futures.json',
   cocoa: 'data/cocoa.json',
   cocoaFutures: 'data/cocoa_futures.json',
-  whey: 'data/whey.json'
+  whey: 'data/whey.json',
+  wheyHistory: 'data/whey_history.json'
 };
 
 let RAW = null;
@@ -156,7 +157,8 @@ async function fetchLiveData() {
       fetch(DATA_URLS.cocoaFutures, {cache: 'no-store'}).catch(function(){ return null; }),
       fetch(DATA_URLS.whey, {cache: 'no-store'}).catch(function(){ return null; }),
       fetch(DATA_URLS.butter, {cache: 'no-store'}).catch(function(){ return null; }),
-      fetch(DATA_URLS.exports, {cache: 'no-store'}).catch(function(){ return null; })
+      fetch(DATA_URLS.exports, {cache: 'no-store'}).catch(function(){ return null; }),
+      fetch(DATA_URLS.wheyHistory, {cache: 'no-store'}).catch(function(){ return null; })
     ]);
     // fetchWithRetry only resolves once cme/nass/c4 are .ok (retrying transient
     // failures first) or throws after exhausting retries, so no separate
@@ -282,6 +284,14 @@ async function fetchLiveData() {
         data: expJ.data
       };
     }
+    var wheyHistJ = null;
+    if (responses[13] && responses[13].ok) {
+      try { wheyHistJ = await responses[13].json(); } catch(e) { wheyHistJ = null; }
+    }
+    var wheyHist = null;
+    if (wheyHistJ && wheyHistJ.products) {
+      wheyHist = wheyHistJ.products;
+    }
     const stamps = [cmeJ.updated_at, nassJ.updated_at, c4J.updated_at].filter(Boolean);
     lastUpdated = stamps.sort().reverse()[0] || new Date().toISOString();
     dataMode = 'live';
@@ -292,10 +302,11 @@ async function fetchLiveData() {
     if (sugar) toastMsg += ' · ' + sugar.data.length + ' sugar';
     if (cocoa) toastMsg += ' · ' + cocoa.data.length + ' cocoa';
     if (whey) toastMsg += ' · ' + whey.products.length + ' whey';
+    if (wheyHist) toastMsg += ' · whey history';
     if (butter) toastMsg += ' · ' + butter.length + ' butter';
     if (exports_) toastMsg += ' · ' + exports_.data.length + ' exports';
     showToast(toastMsg);
-    return {cme: cme, butter: butter, nass: nass, c4: c4, futures: futures, fund: fund, futHist: futHist, sugar: sugar, sugarFut: sugarFut, cocoa: cocoa, cocoaFut: cocoaFut, whey: whey, exports: exports_};
+    return {cme: cme, butter: butter, nass: nass, c4: c4, futures: futures, fund: fund, futHist: futHist, sugar: sugar, sugarFut: sugarFut, cocoa: cocoa, cocoaFut: cocoaFut, whey: whey, wheyHist: wheyHist, exports: exports_};
   } catch (err) {
     console.warn('Live fetch failed:', err);
     dataMode = 'error';
@@ -634,6 +645,10 @@ function buildCharts() {
 
   // Whey ingredient market overview (cards, no chart)
   renderWhey();
+
+  // Whey booking lean: direction + cross-category conviction, no forward price
+  // (whey has no futures market and not enough weekly history yet for a seasonal estimate)
+  buildWheyLean();
 
   // Booking Signal (forward lock-vs-float decision view, cards + table)
   buildBookingSignal();
@@ -1650,6 +1665,94 @@ function renderWhey() {
         '<div class="whey-badges">' + badges + '</div>' +
       '</div>' +
       rangeLine + midLine + wowLine + mtLine + meta + quote + interp + note +
+    '</div>';
+  }).join('');
+}
+
+// Direction + conviction read for one whey category from its trailing published USDA
+// weeks. No futures market and no multi-year seasonal history exist yet for whey
+// (unlike NFDM), so this deliberately stops at "which way, how confidently" rather
+// than projecting a forward price.
+function wheyTrend(history) {
+  if (!history || history.length < 2) return null;
+  var pts = history.slice().sort(function(a, b){ return a.week < b.week ? -1 : (a.week > b.week ? 1 : 0); });
+  var first = pts[0].mid, last = pts[pts.length - 1].mid;
+  if (first == null || last == null || !first) return null;
+  var pct = (last - first) / first * 100;
+  var lean = Math.abs(pct) < 2 ? 'Range-bound' : (pct < 0 ? 'Softening' : 'Firming');
+  return {pct: pct, weeks: pts.length - 1, first: first, last: last, lean: lean, n: pts.length};
+}
+
+// Whey booking lean cards: per-category trend + a conviction flag based on whether
+// sibling whey categories moved the same direction over the same weeks. This
+// cross-category corroboration is available today from the existing weekly history,
+// unlike a seasonal or futures-implied price, which needs years of depth we don't have.
+function buildWheyLean() {
+  var host = document.getElementById('whey-lean-cards');
+  if (!host) return;
+  if (!RAW || !RAW.wheyHist) {
+    host.innerHTML = '<div style="color:#6e7681;font-size:12px;padding:8px">Whey price history not available yet — this signal needs at least 2 weekly USDA readings per category.</div>';
+    return;
+  }
+
+  var LEAN_COLORS = {Softening: '#f87171', Firming: '#4ade80', 'Range-bound': '#e6a817'};
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function usd(v) { return v == null ? '—' : '$' + (+v).toFixed(2); }
+  function badge(text, color) { return '<span class="whey-badge" style="background:' + color + '22;color:' + color + ';border:1px solid ' + color + '44">' + esc(text) + '</span>'; }
+
+  var codes = Object.keys(RAW.wheyHist);
+  var trends = {};
+  codes.forEach(function(code) { trends[code] = wheyTrend(RAW.wheyHist[code]); });
+
+  var names = {};
+  (RAW.whey && RAW.whey.products || []).forEach(function(p) { names[p.code] = p.name; });
+
+  host.innerHTML = codes.map(function(code) {
+    var t = trends[code];
+    var name = names[code] || code;
+
+    if (!t) {
+      return '<div class="whey-card">' +
+        '<div class="whey-card-hdr"><div><div class="whey-name">' + esc(name) + '</div><div class="whey-code">' + esc(code) + '</div></div></div>' +
+        '<div class="whey-interp" style="color:#6e7681">Not enough weekly history yet to read a trend.</div>' +
+      '</div>';
+    }
+
+    var conviction = null, convColor, convictionNote;
+    if (t.lean === 'Range-bound') {
+      convictionNote = 'No clear directional move over the trailing ' + t.weeks + ' week' + (t.weeks === 1 ? '' : 's') + ' of published USDA reports.';
+    } else {
+      var agree = 0, contradict = 0;
+      codes.forEach(function(c) {
+        if (c === code || !trends[c] || trends[c].lean === 'Range-bound') return;
+        if (trends[c].lean === t.lean) agree++; else contradict++;
+      });
+      if (contradict > 0) {
+        conviction = 'Low'; convColor = '#f87171';
+        convictionNote = 'Contradicted — at least one sibling whey category moved the opposite direction over the same weeks. Could be an isolated move rather than a broad shift.';
+      } else if (agree > 0) {
+        conviction = 'High'; convColor = '#4ade80';
+        convictionNote = 'Corroborated — other whey categories moved the same direction over the same weeks.';
+      } else {
+        conviction = 'Low'; convColor = '#e6a817';
+        convictionNote = 'Isolated — no sibling category shows enough of its own trend yet to corroborate this move.';
+      }
+    }
+
+    var leanColor = LEAN_COLORS[t.lean] || '#6e7681';
+    var arrow = t.lean === 'Firming' ? '▲' : (t.lean === 'Softening' ? '▼' : '→');
+    var badges = badge(t.lean.toUpperCase(), leanColor) + (conviction ? badge(conviction.toUpperCase() + ' CONVICTION', convColor) : '');
+
+    return '<div class="whey-card">' +
+      '<div class="whey-card-hdr">' +
+        '<div><div class="whey-name">' + esc(name) + '</div><div class="whey-code">' + esc(code) + '</div></div>' +
+        '<div class="whey-badges">' + badges + '</div>' +
+      '</div>' +
+      '<div class="whey-range">' + usd(t.last) + '<span style="font-size:12px;color:#6e7681;font-weight:400"> /lb latest</span></div>' +
+      '<div class="whey-mid" style="color:' + leanColor + '">' + arrow + ' ' + (t.pct >= 0 ? '+' : '') + t.pct.toFixed(1) + '% over ' + t.weeks + ' wk' + (t.weeks === 1 ? '' : 's') + '</div>' +
+      '<div class="whey-mt">From ' + usd(t.first) + ' · ' + t.n + ' published reading' + (t.n === 1 ? '' : 's') + '</div>' +
+      '<div class="whey-interp">' + esc(convictionNote) + '</div>' +
     '</div>';
   }).join('');
 }
