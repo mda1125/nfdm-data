@@ -1683,6 +1683,22 @@ function wheyTrend(history) {
   return {pct: pct, weeks: pts.length - 1, first: first, last: last, lean: lean, n: pts.length};
 }
 
+// Documented substitution mechanism: USDA's weekly narrative (Jun 2026) described
+// manufacturers shifting output between WPC80 and WPC34/dry whey when buyer demand for
+// WPC80 shifts, since all three draw from the same finite raw-whey stream. Under that
+// mechanism, WPC80 moving one way while WPC34 AND dry whey move together the other way
+// is one supply reallocation surfacing as three price moves, not three independent,
+// mutually-contradicting ones — so it should read as corroborating, not contradicting.
+// This is a tracked hypothesis (one report + a handful of weeks of data), not a locked-in
+// rule: keep watching it, and revisit if WPC80 and WPC34 start moving together instead.
+var WHEY_REALLOC_TRIO = ['WPC80', 'WPC34', 'DRYWHEY'];
+function wheyReallocationPattern(trends) {
+  var wpc80 = trends.WPC80, wpc34 = trends.WPC34, dryWhey = trends.DRYWHEY;
+  if (!wpc80 || !wpc34 || !dryWhey) return false;
+  if (wpc80.lean === 'Range-bound' || wpc34.lean === 'Range-bound' || dryWhey.lean === 'Range-bound') return false;
+  return wpc34.lean === dryWhey.lean && wpc34.lean !== wpc80.lean;
+}
+
 // Whey booking lean cards: per-category trend + a conviction flag based on whether
 // sibling whey categories moved the same direction over the same weeks. This
 // cross-category corroboration is available today from the existing weekly history,
@@ -1719,18 +1735,28 @@ function buildWheyLean() {
       '</div>';
     }
 
-    var conviction = null, convColor, convictionNote;
+    var conviction = null, convColor, convictionNote, isRealloc = false;
     if (t.lean === 'Range-bound') {
       convictionNote = 'No clear directional move over the trailing ' + t.weeks + ' week' + (t.weeks === 1 ? '' : 's') + ' of published USDA reports.';
     } else {
+      var inTrio = WHEY_REALLOC_TRIO.indexOf(code) !== -1;
+      isRealloc = inTrio && wheyReallocationPattern(trends);
+      // When the reallocation pattern fires, the other two trio members' move is
+      // already explained by it — don't let that double-count as a generic
+      // contradiction/agreement; only weigh sibling categories outside the trio.
+      var excluded = isRealloc ? WHEY_REALLOC_TRIO.filter(function(c){ return c !== code; }) : [];
       var agree = 0, contradict = 0;
       codes.forEach(function(c) {
-        if (c === code || !trends[c] || trends[c].lean === 'Range-bound') return;
+        if (c === code || !trends[c] || trends[c].lean === 'Range-bound' || excluded.indexOf(c) !== -1) return;
         if (trends[c].lean === t.lean) agree++; else contradict++;
       });
-      if (contradict > 0) {
+      if (isRealloc) {
+        conviction = 'Elevated'; convColor = '#4ade80';
+        convictionNote = 'Reallocation pattern — WPC80 moved opposite WPC34/dry whey. USDA’s Jun 2026 note described manufacturers shifting output between these off the same finite whey stream when WPC80 demand shifts, so this reads as one supply move, not three unrelated ones. Tracked hypothesis, not a locked-in rule — revisit if WPC80 and WPC34 start moving together instead.' +
+          (contradict > 0 ? ' Separately contradicted by another, unrelated category over the same weeks.' : '');
+      } else if (contradict > 0) {
         conviction = 'Low'; convColor = '#f87171';
-        convictionNote = 'Contradicted — at least one sibling whey category moved the opposite direction over the same weeks. Could be an isolated move rather than a broad shift.';
+        convictionNote = 'Contradicted — at least one sibling whey category moved the opposite direction over the same weeks, with no documented mechanism linking the two. Could be an isolated move rather than a broad shift.';
       } else if (agree > 0) {
         conviction = 'High'; convColor = '#4ade80';
         convictionNote = 'Corroborated — other whey categories moved the same direction over the same weeks.';
@@ -1742,7 +1768,9 @@ function buildWheyLean() {
 
     var leanColor = LEAN_COLORS[t.lean] || '#6e7681';
     var arrow = t.lean === 'Firming' ? '▲' : (t.lean === 'Softening' ? '▼' : '→');
-    var badges = badge(t.lean.toUpperCase(), leanColor) + (conviction ? badge(conviction.toUpperCase() + ' CONVICTION', convColor) : '');
+    var badges = badge(t.lean.toUpperCase(), leanColor) +
+      (conviction ? badge(conviction.toUpperCase() + ' CONVICTION', convColor) : '') +
+      (isRealloc ? badge('REALLOCATION PATTERN', '#a78bfa') : '');
 
     return '<div class="whey-card">' +
       '<div class="whey-card-hdr">' +
