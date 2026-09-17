@@ -110,10 +110,13 @@ export default {
         })
       });
     } catch (err) {
+      console.log('DeepSeek fetch threw:', err && err.message);
       return Response.json({ error: 'Upstream request failed' }, { status: 502, headers: corsHeaders(origin) });
     }
 
     if (!upstream.ok) {
+      const bodyText = await upstream.text();
+      console.log('DeepSeek returned', upstream.status, bodyText);
       return Response.json({ error: 'AI provider error' }, { status: 502, headers: corsHeaders(origin) });
     }
 
