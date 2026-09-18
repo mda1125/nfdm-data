@@ -18,6 +18,14 @@ const DATA_URLS = {
 
 let RAW = null;
 let activeDays = 180;
+
+// Parses a "YYYY-MM-DD" string as local midnight, not UTC midnight.
+// new Date("2026-09-17") is UTC midnight, which renders as Sep 16 in any
+// timezone west of UTC (all of the US) via toLocaleDateString/getMonth/etc.
+function parseLocalDate(s) {
+  var p = String(s).split('-');
+  return new Date(+p[0], +p[1] - 1, +p[2]);
+}
 let charts = {};
 let lastUpdated = null;
 let dataMode = 'simulated';
@@ -191,11 +199,11 @@ async function fetchLiveData() {
       try { cocoaFutJ = await responses[9].json(); } catch(e) { cocoaFutJ = null; }
     }
     const cmeJ = mainJsons[0], nassJ = mainJsons[1], c4J = mainJsons[2];
-    const cme = (cmeJ.data || cmeJ).map(function(d){return {date: new Date(d.date), price: +d.price};});
-    const nass = (nassJ.data || nassJ).map(function(d){return {date: new Date(d.date), price: +d.price, volume: +(d.volume || 0), final: d.final !== false};});
+    const cme = (cmeJ.data || cmeJ).map(function(d){return {date: parseLocalDate(d.date), price: +d.price};});
+    const nass = (nassJ.data || nassJ).map(function(d){return {date: parseLocalDate(d.date), price: +d.price, volume: +(d.volume || 0), final: d.final !== false};});
     const c4 = (c4J.data || c4J).map(function(d){
       return {
-        date: new Date(d.date),
+        date: parseLocalDate(d.date),
         announced: +d.announced,
         implied: +(d.implied || 0),
         nfdm: +(d.nfdm_avg || d.nfdm || 0),
@@ -232,7 +240,7 @@ async function fetchLiveData() {
       sugar = {
         current_cents_lb: sugarJ.current_cents_lb || null,
         current_usd_kg: sugarJ.current_usd_kg || null,
-        data: sugarJ.data.map(function(d){return {date: new Date(d.date), price: +d.price_cents_lb, usd_kg: +d.price_usd_kg};})
+        data: sugarJ.data.map(function(d){return {date: parseLocalDate(d.date), price: +d.price_cents_lb, usd_kg: +d.price_usd_kg};})
       };
     }
     var sugarFut = null;
@@ -247,7 +255,7 @@ async function fetchLiveData() {
       cocoa = {
         current_usd_mt: cocoaJ.current_usd_mt || null,
         current_usd_lb: cocoaJ.current_usd_lb || null,
-        data: cocoaJ.data.map(function(d){return {date: new Date(d.date), price: +d.price_usd_mt, usd_lb: +d.price_usd_lb};})
+        data: cocoaJ.data.map(function(d){return {date: parseLocalDate(d.date), price: +d.price_usd_mt, usd_lb: +d.price_usd_lb};})
       };
     }
     var cocoaFut = null;
@@ -271,7 +279,7 @@ async function fetchLiveData() {
     }
     var butter = null;
     if (butterJ && butterJ.data && butterJ.data.length) {
-      butter = butterJ.data.map(function(d){return {date: new Date(d.date), price: +d.price};});
+      butter = butterJ.data.map(function(d){return {date: parseLocalDate(d.date), price: +d.price};});
     }
     var expJ = null;
     if (responses[12] && responses[12].ok) {
@@ -1813,7 +1821,7 @@ function wheyCallScoring(log, wpc80History) {
     var qStart = new Date(qy, (qn - 1) * 3, 1);
     var qEnd = new Date(qy, qn * 3, 0);
     var realizedPts = wpc80History.filter(function(h) {
-      var d = new Date(h.week);
+      var d = parseLocalDate(h.week);
       return h.mid != null && d >= qStart && d <= qEnd;
     });
     if (!realizedPts.length) return null;
