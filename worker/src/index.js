@@ -211,7 +211,8 @@ export default {
           'Authorization': 'Bearer ' + env.DEEPSEEK_API_KEY
         },
         body: JSON.stringify({
-          model: 'deepseek-chat',
+          model: 'deepseek-flash',
+          thinking: { type: 'disabled' },
           messages: [
             { role: 'system', content: SYSTEM_PROMPT },
             { role: 'system', content: 'Current market snapshot (fetched live, may lag a few minutes):\n' + snapshot },
@@ -235,6 +236,9 @@ export default {
     const result = await upstream.json();
     const answer = (result && result.choices && result.choices[0] && result.choices[0].message
       && result.choices[0].message.content) || 'No answer returned.';
+    if (answer === 'No answer returned.') {
+      console.log('DeepSeek 200 with no usable content:', JSON.stringify(result));
+    }
 
     return Response.json({ answer: answer }, { headers: corsHeaders(origin) });
   }
