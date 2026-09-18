@@ -110,6 +110,7 @@ a{color:#58a6ff}
 .agent-form input:focus{outline:1px solid #e6a817}
 .agent-form button{background:#e6a817;color:#0d1117;border:none;border-radius:6px;padding:6px 10px;font-size:12px;font-weight:600;cursor:pointer}
 .agent-form button:disabled{opacity:.5;cursor:default}
+.agent-disclosure{font-size:9px;color:#6e7681;padding:0 14px 10px;line-height:1.4}
 @media(max-width:420px){
   #agent-panel{width:calc(100vw - 24px);right:12px;bottom:76px}
   #agent-bubble{right:12px;bottom:16px}
@@ -550,6 +551,7 @@ a{color:#58a6ff}
     <input id="agent-input" type="text" maxlength="500" placeholder="Ask a question…" autocomplete="off"/>
     <button type="submit" id="agent-send">Send</button>
   </form>
+  <div class="agent-disclosure">AI-generated responses. Don't submit sensitive, confidential, credential, health, financial, or personal information.</div>
 </div>
 
 <script src="app.js?v=2"></script>
