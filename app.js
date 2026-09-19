@@ -13,7 +13,8 @@ const DATA_URLS = {
   cocoaFutures: 'data/cocoa_futures.json',
   whey: 'data/whey.json',
   wheyHistory: 'data/whey_history.json',
-  wheyCall: 'data/whey_market_call.json'
+  wheyCall: 'data/whey_market_call.json',
+  status: 'data/status.json'
 };
 
 let RAW = null;
@@ -168,7 +169,8 @@ async function fetchLiveData() {
       fetch(DATA_URLS.butter, {cache: 'no-store'}).catch(function(){ return null; }),
       fetch(DATA_URLS.exports, {cache: 'no-store'}).catch(function(){ return null; }),
       fetch(DATA_URLS.wheyHistory, {cache: 'no-store'}).catch(function(){ return null; }),
-      fetch(DATA_URLS.wheyCall, {cache: 'no-store'}).catch(function(){ return null; })
+      fetch(DATA_URLS.wheyCall, {cache: 'no-store'}).catch(function(){ return null; }),
+      fetch(DATA_URLS.status, {cache: 'no-store'}).catch(function(){ return null; })
     ]);
     // fetchWithRetry only resolves once cme/nass/c4 are .ok (retrying transient
     // failures first) or throws after exhausting retries, so no separate
@@ -310,6 +312,12 @@ async function fetchLiveData() {
     if (wheyCallJ && wheyCallJ.log && wheyCallJ.log.length) {
       wheyCall = {latest: wheyCallJ.latest || wheyCallJ.log[wheyCallJ.log.length - 1], log: wheyCallJ.log};
     }
+    var statusJ = null;
+    if (responses[15] && responses[15].ok) {
+      try { statusJ = await responses[15].json(); } catch(e) { statusJ = null; }
+    }
+    var status = (statusJ && statusJ.sources) ? {generatedAt: statusJ.generated_at, sources: statusJ.sources} : null;
+
     const stamps = [cmeJ.updated_at, nassJ.updated_at, c4J.updated_at].filter(Boolean);
     lastUpdated = stamps.sort().reverse()[0] || new Date().toISOString();
     dataMode = 'live';
@@ -325,7 +333,7 @@ async function fetchLiveData() {
     if (butter) toastMsg += ' · ' + butter.length + ' butter';
     if (exports_) toastMsg += ' · ' + exports_.data.length + ' exports';
     showToast(toastMsg);
-    return {cme: cme, butter: butter, nass: nass, c4: c4, futures: futures, fund: fund, futHist: futHist, sugar: sugar, sugarFut: sugarFut, cocoa: cocoa, cocoaFut: cocoaFut, whey: whey, wheyHist: wheyHist, wheyCall: wheyCall, exports: exports_};
+    return {cme: cme, butter: butter, nass: nass, c4: c4, futures: futures, fund: fund, futHist: futHist, sugar: sugar, sugarFut: sugarFut, cocoa: cocoa, cocoaFut: cocoaFut, whey: whey, wheyHist: wheyHist, wheyCall: wheyCall, exports: exports_, status: status};
   } catch (err) {
     console.warn('Live fetch failed:', err);
     dataMode = 'error';
@@ -398,8 +406,63 @@ function fmtMonth(d) {
   return d.toLocaleDateString('en-US', {month: 'short', year: '2-digit'});
 }
 
+var DH_LABELS = {fresh: 'FRESH', aging: 'AGING', stale: 'STALE', error: 'ERROR', unknown: 'UNKNOWN'};
+
+function renderDataHealth(status) {
+  var summaryEl = document.getElementById('status-health');
+  var bannerEl = document.getElementById('datahealth-banner');
+  var tbl = document.getElementById('tbl-datahealth');
+  var sources = (status && status.sources) || [];
+
+  if (summaryEl) {
+    if (!sources.length) {
+      summaryEl.innerHTML = '';
+    } else {
+      var needsAttention = sources.filter(function(s){ return s.state === 'stale' || s.state === 'error'; });
+      var freshCount = sources.length - needsAttention.length;
+      if (needsAttention.length === 0) {
+        summaryEl.innerHTML = '<span class="status-pill status-live">✓ ' + freshCount + '/' + sources.length + ' SOURCES CURRENT</span>';
+      } else {
+        summaryEl.innerHTML = '<span class="status-pill status-err">⚠ ' + needsAttention.length + ' SOURCE' + (needsAttention.length > 1 ? 'S' : '') + ' NEED ATTENTION</span>';
+      }
+    }
+  }
+
+  if (bannerEl) {
+    var flagged = sources.filter(function(s){ return s.state === 'stale' || s.state === 'error'; });
+    if (flagged.length) {
+      bannerEl.style.display = '';
+      bannerEl.innerHTML = '<strong>' + flagged.length + ' data source' + (flagged.length > 1 ? 's' : '') + ' need' + (flagged.length > 1 ? '' : 's') + ' attention:</strong> ' +
+        flagged.map(function(s){
+          return s.label + (s.latest_date ? ' (last updated ' + s.latest_date + ', ' + s.age_days + 'd ago)' : ' (no data)');
+        }).join(' · ');
+    } else {
+      bannerEl.style.display = 'none';
+      bannerEl.innerHTML = '';
+    }
+  }
+
+  if (tbl) {
+    if (!sources.length) {
+      tbl.innerHTML = '<tr><th>Source</th><th>As of</th><th style="text-align:right">Age</th><th>Status</th></tr>' +
+        '<tr><td colspan="4" style="color:#6e7681">Freshness data not available yet.</td></tr>';
+    } else {
+      tbl.innerHTML = '<tr><th>Source</th><th>As of</th><th style="text-align:right">Age</th><th>Status</th></tr>' +
+        sources.map(function(s){
+          var badgeClass = 'dh-' + (s.state || 'unknown');
+          var ageTxt = (s.age_days == null) ? '—' : s.age_days.toFixed(1) + 'd';
+          return '<tr><td>' + s.label + '</td>' +
+            '<td>' + (s.latest_date || '—') + '</td>' +
+            '<td style="text-align:right">' + ageTxt + '</td>' +
+            '<td><span class="dh-badge ' + badgeClass + '">' + (DH_LABELS[s.state] || 'UNKNOWN') + '</span></td></tr>';
+        }).join('');
+    }
+  }
+}
+
 function buildCharts() {
   if (!RAW) return;
+  renderDataHealth(RAW.status);
   const cmeFilt = filterByDays(RAW.cme, activeDays);
   const butterFilt = filterByDays(RAW.butter || [], activeDays);
   const nassFilt = filterByDays(RAW.nass, activeDays);

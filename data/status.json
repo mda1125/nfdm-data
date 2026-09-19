@@ -1,0 +1,105 @@
+{
+  "generated_at": "2026-09-19T00:04:36.085398Z",
+  "sources": [
+    {
+      "key": "cme",
+      "label": "CME spot",
+      "latest_date": "2026-09-18",
+      "age_days": 1.0,
+      "expected_fresh_days": 4,
+      "expected_stale_days": 7,
+      "fetch_ok_this_run": true,
+      "state": "fresh"
+    },
+    {
+      "key": "butter",
+      "label": "CME butter",
+      "latest_date": "2026-09-18",
+      "age_days": 1.0,
+      "expected_fresh_days": 4,
+      "expected_stale_days": 7,
+      "fetch_ok_this_run": true,
+      "state": "fresh"
+    },
+    {
+      "key": "nass",
+      "label": "NASS NDPSR",
+      "latest_date": "2026-09-12",
+      "age_days": 7.0,
+      "expected_fresh_days": 8,
+      "expected_stale_days": 11,
+      "fetch_ok_this_run": true,
+      "state": "fresh"
+    },
+    {
+      "key": "class_iv",
+      "label": "FMMO Class IV",
+      "latest_date": "2026-08-29",
+      "age_days": 21.0,
+      "expected_fresh_days": 40,
+      "expected_stale_days": 50,
+      "fetch_ok_this_run": true,
+      "state": "fresh"
+    },
+    {
+      "key": "futures",
+      "label": "NFDM futures curve",
+      "latest_date": "2026-09-18",
+      "age_days": 1.0,
+      "expected_fresh_days": 4,
+      "expected_stale_days": 7,
+      "fetch_ok_this_run": true,
+      "state": "fresh"
+    },
+    {
+      "key": "fundamentals",
+      "label": "Supply fundamentals",
+      "latest_date": "2026-07-31",
+      "age_days": 50.0,
+      "expected_fresh_days": 55,
+      "expected_stale_days": 85,
+      "fetch_ok_this_run": true,
+      "state": "fresh"
+    },
+    {
+      "key": "exports",
+      "label": "Export markets",
+      "latest_date": "2026-07-31",
+      "age_days": 50.0,
+      "expected_fresh_days": 55,
+      "expected_stale_days": 85,
+      "fetch_ok_this_run": true,
+      "state": "fresh"
+    },
+    {
+      "key": "sugar",
+      "label": "Sugar #11",
+      "latest_date": "2026-09-18",
+      "age_days": 1.0,
+      "expected_fresh_days": 4,
+      "expected_stale_days": 7,
+      "fetch_ok_this_run": true,
+      "state": "fresh"
+    },
+    {
+      "key": "cocoa",
+      "label": "Cocoa",
+      "latest_date": "2026-09-18",
+      "age_days": 1.0,
+      "expected_fresh_days": 4,
+      "expected_stale_days": 7,
+      "fetch_ok_this_run": true,
+      "state": "fresh"
+    },
+    {
+      "key": "whey",
+      "label": "Whey indications",
+      "latest_date": "2026-09-17",
+      "age_days": 2.0,
+      "expected_fresh_days": 8,
+      "expected_stale_days": 11,
+      "fetch_ok_this_run": true,
+      "state": "fresh"
+    }
+  ]
+}

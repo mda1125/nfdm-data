@@ -24,6 +24,11 @@ those files and is served via GitHub Pages.
 
 Uses USDA data but is not endorsed or certified by USDA.
 
-Narrative market commentary (cocoa, sugar, etc.) is not generated here — it's
-handled by the Daily Dairy Newsletter's n8n workflow, which has its own LLM
-step for writing analysis.
+## Distribution
+
+Push distribution is handled outside this repo by **The Dairy Desk** n8n
+workflow (weekday 9am schedule, also runnable manually): it Firecrawl-scrapes
+this dashboard, runs a freshness guard to catch stale/simulated/missing data
+before anything goes out, has an LLM write the market briefing, renders the
+HTML newsletter, and sends it via Gmail. Narrative commentary (cocoa, sugar,
+etc.) is written there, not by [`fetch_data.py`](scripts/fetch_data.py).

@@ -21,6 +21,90 @@ MARS_BASE = "https://marsapi.ams.usda.gov/services/v1.2/reports"
 DATA_DIR = Path(__file__).parent.parent / "data"
 DATA_DIR.mkdir(exist_ok=True)
 
+def _month_end(month_str):
+    """'YYYY-MM' -> 'YYYY-MM-DD' for the last day of that month."""
+    if not month_str:
+        return None
+    year, mon = int(month_str[:4]), int(month_str[5:7])
+    nxt = datetime(year + 1, 1, 1) if mon == 12 else datetime(year, mon + 1, 1)
+    return (nxt - timedelta(days=1)).strftime("%Y-%m-%d")
+
+
+# (key, label, filename, extractor(parsed_json) -> "YYYY-MM-DD" or None)
+# Extractor reads the latest *data point's own date*, not updated_at (script
+# run time) — a normal weekend/reporting-lag gap on a daily series shouldn't
+# read as stale. Monthly sources use month-END (not month-start): Census/NASS
+# publish ~5-6 weeks after a month closes, so measuring from month-start would
+# make an on-schedule data point look ~30 days staler than it really is.
+STATUS_SOURCES = [
+    ("cme", "CME spot", "cme.json", lambda d: (d.get("data") or [{}])[-1].get("date")),
+    ("butter", "CME butter", "butter.json", lambda d: (d.get("data") or [{}])[-1].get("date")),
+    ("nass", "NASS NDPSR", "nass.json", lambda d: (d.get("data") or [{}])[-1].get("date")),
+    ("class_iv", "FMMO Class IV", "class_iv.json", lambda d: (d.get("data") or [{}])[-1].get("date")),
+    ("futures", "NFDM futures curve", "futures.json", lambda d: d.get("trade_date")),
+    ("fundamentals", "Supply fundamentals", "fundamentals.json",
+     lambda d: _month_end((d.get("data") or [{}])[-1].get("month"))),
+    ("exports", "Export markets", "exports.json",
+     lambda d: _month_end((d.get("data") or [{}])[-1].get("month"))),
+    ("sugar", "Sugar #11", "sugar.json", lambda d: (d.get("data") or [{}])[-1].get("date")),
+    ("cocoa", "Cocoa", "cocoa.json", lambda d: (d.get("data") or [{}])[-1].get("date")),
+    ("whey", "Whey indications", "whey.json",
+     lambda d: max([r.get("published_date") for r in (d.get("data") or []) if r.get("published_date")], default=None)),
+]
+
+# (fresh_through_days, stale_after_days) — anything beyond the second value
+# is "stale"; between the two is "aging". fundamentals/exports are generous
+# (measured from month-end) because a healthy ~5-6wk-lag release can leave
+# the latest point looking ~70-80 days old right before the next one lands.
+CADENCE_DAYS = {
+    "cme": (4, 7), "butter": (4, 7), "nass": (8, 11), "class_iv": (40, 50),
+    "futures": (4, 7), "fundamentals": (55, 85), "exports": (55, 85),
+    "sugar": (4, 7), "cocoa": (4, 7), "whey": (8, 11),
+}
+
+
+def compute_status(failures):
+    now = datetime.utcnow()
+    sources = []
+    for key, label, filename, extractor in STATUS_SOURCES:
+        latest = None
+        try:
+            parsed = json.loads((DATA_DIR / filename).read_text())
+            latest = extractor(parsed)
+        except Exception:
+            latest = None
+
+        age_days = None
+        if latest:
+            try:
+                age_days = (now - datetime.strptime(latest[:10], "%Y-%m-%d")).total_seconds() / 86400
+            except Exception:
+                age_days = None
+
+        fresh_days, stale_days = CADENCE_DAYS[key]
+        if key in failures:
+            state = "error"
+        elif age_days is None:
+            state = "unknown"
+        elif age_days <= fresh_days:
+            state = "fresh"
+        elif age_days <= stale_days:
+            state = "aging"
+        else:
+            state = "stale"
+
+        sources.append({
+            "key": key,
+            "label": label,
+            "latest_date": latest,
+            "age_days": round(age_days, 1) if age_days is not None else None,
+            "expected_fresh_days": fresh_days,
+            "expected_stale_days": stale_days,
+            "fetch_ok_this_run": key not in failures,
+            "state": state,
+        })
+    return sources
+
 
 def fetch_with_retry(url, headers=None, params=None, timeout=30, retries=3):
     """Fetch a URL with retry logic for transient failures."""
@@ -1477,3 +1561,14 @@ if __name__ == "__main__":
         print("Partial data was still written for sources that succeeded.")
     else:
         print("\nDone — all sources fetched successfully.")
+
+    status = compute_status(failures)
+    (DATA_DIR / "status.json").write_text(json.dumps({
+        "generated_at": datetime.utcnow().isoformat() + "Z",
+        "sources": status,
+    }, indent=2))
+    stale_or_error = [s["key"] for s in status if s["state"] in ("stale", "error")]
+    if stale_or_error:
+        print(f"Data health: {len(stale_or_error)} source(s) stale/error: {', '.join(stale_or_error)}")
+    else:
+        print("Data health: all sources fresh or aging.")
