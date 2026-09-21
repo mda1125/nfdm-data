@@ -1,63 +1,63 @@
 {
-  "updated_at": "2026-09-21T12:09:20.660248Z",
+  "updated_at": "2026-09-21T14:25:07.026466Z",
   "trade_date": "2026-09-21",
   "count": 9,
   "data": [
     {
       "month": "2026-12",
       "label": "Dec 26",
-      "settle_usd_mt": 5524.0,
-      "settle_usd_lb": 2.5056,
-      "volume": 4508
+      "settle_usd_mt": 5312.0,
+      "settle_usd_lb": 2.4095,
+      "volume": 10688
     },
     {
       "month": "2027-03",
       "label": "Mar 27",
-      "settle_usd_mt": 5636.0,
-      "settle_usd_lb": 2.5564,
-      "volume": 2434
+      "settle_usd_mt": 5441.0,
+      "settle_usd_lb": 2.468,
+      "volume": 5661
     },
     {
       "month": "2027-05",
       "label": "May 27",
-      "settle_usd_mt": 5676.0,
-      "settle_usd_lb": 2.5746,
-      "volume": 1191
+      "settle_usd_mt": 5507.0,
+      "settle_usd_lb": 2.4979,
+      "volume": 3095
     },
     {
       "month": "2027-07",
       "label": "Jul 27",
-      "settle_usd_mt": 5714.0,
-      "settle_usd_lb": 2.5918,
-      "volume": 778
+      "settle_usd_mt": 5552.0,
+      "settle_usd_lb": 2.5183,
+      "volume": 2093
     },
     {
       "month": "2027-09",
       "label": "Sep 27",
-      "settle_usd_mt": 5687.0,
-      "settle_usd_lb": 2.5796,
-      "volume": 305
+      "settle_usd_mt": 5558.0,
+      "settle_usd_lb": 2.5211,
+      "volume": 820
     },
     {
       "month": "2027-12",
       "label": "Dec 27",
-      "settle_usd_mt": 5612.0,
-      "settle_usd_lb": 2.5456,
-      "volume": 124
+      "settle_usd_mt": 5492.0,
+      "settle_usd_lb": 2.4911,
+      "volume": 295
     },
     {
       "month": "2028-03",
       "label": "Mar 28",
-      "settle_usd_mt": 5552.0,
-      "settle_usd_lb": 2.5183,
-      "volume": 43
+      "settle_usd_mt": 5425.0,
+      "settle_usd_lb": 2.4607,
+      "volume": 147
     },
     {
       "month": "2028-05",
       "label": "May 28",
       "settle_usd_mt": 5330.0,
       "settle_usd_lb": 2.4177,
-      "volume": 2
+      "volume": 11
     },
     {
       "month": "2028-07",
