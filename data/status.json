@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T18:08:59.345128Z",
+  "generated_at": "2026-09-22T20:16:31.258762Z",
   "sources": [
     {
       "key": "cme",
@@ -54,8 +54,8 @@
     {
       "key": "fundamentals",
       "label": "Supply fundamentals",
-      "latest_date": "2026-07-31",
-      "age_days": 53.8,
+      "latest_date": "2026-08-31",
+      "age_days": 22.8,
       "expected_fresh_days": 55,
       "expected_stale_days": 85,
       "fetch_ok_this_run": true,
