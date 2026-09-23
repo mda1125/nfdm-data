@@ -56,8 +56,14 @@ STATUS_SOURCES = [
 # is "stale"; between the two is "aging". fundamentals/exports are generous
 # (measured from month-end) because a healthy ~5-6wk-lag release can leave
 # the latest point looking ~70-80 days old right before the next one lands.
+# nass is similarly generous: NDPSR publishes weekly on Thursdays, 5 days
+# after the Saturday week it covers (confirmed via git history — the week-
+# ending Sep 12 row first landed in a Thu Sep 17 commit), so a healthy data
+# point's age (measured from its own week-ending date, not publish date)
+# normally ranges ~5-12 days across one weekly cycle. A tighter (8, 11)
+# window false-alarmed every Tue/Wed, before that week's real publish.
 CADENCE_DAYS = {
-    "cme": (4, 7), "butter": (4, 7), "nass": (8, 11), "class_iv": (40, 50),
+    "cme": (4, 7), "butter": (4, 7), "nass": (9, 13), "class_iv": (40, 50),
     "futures": (4, 7), "fundamentals": (55, 85), "exports": (55, 85),
     "sugar": (4, 7), "cocoa": (4, 7), "whey": (8, 11),
 }
