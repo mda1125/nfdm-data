@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T18:26:43.845838Z",
+  "generated_at": "2026-09-23T20:16:46.647191Z",
   "sources": [
     {
       "key": "cme",
@@ -24,12 +24,12 @@
     {
       "key": "nass",
       "label": "NASS NDPSR",
-      "latest_date": "2026-09-12",
-      "age_days": 11.8,
+      "latest_date": "2026-09-19",
+      "age_days": 4.8,
       "expected_fresh_days": 9,
       "expected_stale_days": 13,
       "fetch_ok_this_run": true,
-      "state": "aging"
+      "state": "fresh"
     },
     {
       "key": "class_iv",
