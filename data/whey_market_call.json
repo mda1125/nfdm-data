@@ -45,12 +45,12 @@
       "current_price": 11.0,
       "methods": {
         "naive": {
-          "price": 6.4301,
+          "price": 7.0321,
           "weight": 0.2,
-          "note": "Straight-line extrapolation of the observed weekly move (-2.52%/wk) held constant for all 21 weeks to Q1 2027. Treats the whole trailing move as durable -- tends to overreact when the trailing window is short."
+          "note": "Straight-line extrapolation of the observed weekly move (-2.11%/wk) held constant for all 21 weeks to Q1 2027. Treats the whole trailing move as durable -- tends to overreact when the trailing window is short."
         },
         "dampened": {
-          "price": 9.9307,
+          "price": 10.1014,
           "weight": 0.6,
           "note": "Same weekly move applied for 4 more weeks, then held flat through Q1 2027 (17 weeks flat) -- assumes a short trend decelerates rather than continuing unchanged for months."
         },
@@ -64,14 +64,14 @@
         "reallocation_active": true,
         "note": "WPC80 is moving opposite WPC34 and dry whey together -- the reallocation pattern USDA's Jun 2026 narrative described (manufacturers shift output between these off the same finite whey stream as WPC80 demand shifts). Documented, product-specific explanation, so this call leans more on WPC80's own trend and less on the generic NFDM cross-check."
       },
-      "blended": 9.3744,
+      "blended": 9.5972,
       "range": {
-        "low": 6.4301,
+        "low": 7.0321,
         "high": 10.6499
       }
     }
   ],
-  "updated_at": "2026-09-24T17:02:55.496749Z",
+  "updated_at": "2026-09-24T18:28:23.423548Z",
   "latest": {
     "as_of": "2026-09-24",
     "iso_week": "2026-W39",
@@ -82,12 +82,12 @@
     "current_price": 11.0,
     "methods": {
       "naive": {
-        "price": 6.4301,
+        "price": 7.0321,
         "weight": 0.2,
-        "note": "Straight-line extrapolation of the observed weekly move (-2.52%/wk) held constant for all 21 weeks to Q1 2027. Treats the whole trailing move as durable -- tends to overreact when the trailing window is short."
+        "note": "Straight-line extrapolation of the observed weekly move (-2.11%/wk) held constant for all 21 weeks to Q1 2027. Treats the whole trailing move as durable -- tends to overreact when the trailing window is short."
       },
       "dampened": {
-        "price": 9.9307,
+        "price": 10.1014,
         "weight": 0.6,
         "note": "Same weekly move applied for 4 more weeks, then held flat through Q1 2027 (17 weeks flat) -- assumes a short trend decelerates rather than continuing unchanged for months."
       },
@@ -101,9 +101,9 @@
       "reallocation_active": true,
       "note": "WPC80 is moving opposite WPC34 and dry whey together -- the reallocation pattern USDA's Jun 2026 narrative described (manufacturers shift output between these off the same finite whey stream as WPC80 demand shifts). Documented, product-specific explanation, so this call leans more on WPC80's own trend and less on the generic NFDM cross-check."
     },
-    "blended": 9.3744,
+    "blended": 9.5972,
     "range": {
-      "low": 6.4301,
+      "low": 7.0321,
       "high": 10.6499
     }
   }
