@@ -71,7 +71,7 @@
       }
     },
     {
-      "as_of": "2026-09-28",
+      "as_of": "2026-09-29",
       "iso_week": "2026-W40",
       "product": "WPC80",
       "target_quarter": "2027-Q1",
@@ -106,9 +106,9 @@
       }
     }
   ],
-  "updated_at": "2026-09-28T20:36:01.694445Z",
+  "updated_at": "2026-09-29T12:09:13.115265Z",
   "latest": {
-    "as_of": "2026-09-28",
+    "as_of": "2026-09-29",
     "iso_week": "2026-W40",
     "product": "WPC80",
     "target_quarter": "2027-Q1",
