@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-09-30T12:08:50.441598Z",
-  "current_usd_mt": 5380.0,
-  "current_usd_lb": 2.4403,
+  "updated_at": "2026-09-30T14:24:10.482101Z",
+  "current_usd_mt": 5364.0,
+  "current_usd_lb": 2.4331,
   "count": 1257,
   "data": [
     {
@@ -6286,8 +6286,8 @@
     },
     {
       "date": "2026-09-30",
-      "price_usd_mt": 5380.0,
-      "price_usd_lb": 2.4403
+      "price_usd_mt": 5364.0,
+      "price_usd_lb": 2.4331
     }
   ]
 }
