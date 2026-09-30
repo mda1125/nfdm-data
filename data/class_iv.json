@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-09-30T17:57:28.600367Z",
-  "count": 174,
+  "updated_at": "2026-09-30T19:26:29.778515Z",
+  "count": 175,
   "data": [
     {
       "date": "2012-03-24",
@@ -1915,6 +1915,17 @@
       "butterfat": 1.5107,
       "nfdm_avg": 1.5985,
       "butter_avg": 1.4747
+    },
+    {
+      "date": "2026-09-26",
+      "month": "Sep",
+      "year": 2026,
+      "announced": 18.94,
+      "implied": 19.34,
+      "skim": 14.27,
+      "butterfat": 1.4762,
+      "nfdm_avg": 1.7891,
+      "butter_avg": 1.4462
     }
   ]
 }
