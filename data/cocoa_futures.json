@@ -1,63 +1,63 @@
 {
-  "updated_at": "2026-10-01T14:24:36.710516Z",
+  "updated_at": "2026-10-01T18:23:59.065584Z",
   "trade_date": "2026-10-01",
   "count": 9,
   "data": [
     {
       "month": "2026-12",
       "label": "Dec 26",
-      "settle_usd_mt": 5116.0,
-      "settle_usd_lb": 2.3206,
-      "volume": 12873
+      "settle_usd_mt": 5448.0,
+      "settle_usd_lb": 2.4712,
+      "volume": 29119
     },
     {
       "month": "2027-03",
       "label": "Mar 27",
-      "settle_usd_mt": 5211.0,
-      "settle_usd_lb": 2.3637,
-      "volume": 6681
+      "settle_usd_mt": 5521.0,
+      "settle_usd_lb": 2.5043,
+      "volume": 19278
     },
     {
       "month": "2027-05",
       "label": "May 27",
-      "settle_usd_mt": 5269.0,
-      "settle_usd_lb": 2.39,
-      "volume": 2054
+      "settle_usd_mt": 5557.0,
+      "settle_usd_lb": 2.5206,
+      "volume": 6759
     },
     {
       "month": "2027-07",
       "label": "Jul 27",
-      "settle_usd_mt": 5325.0,
-      "settle_usd_lb": 2.4154,
-      "volume": 1432
+      "settle_usd_mt": 5599.0,
+      "settle_usd_lb": 2.5397,
+      "volume": 3033
     },
     {
       "month": "2027-09",
       "label": "Sep 27",
-      "settle_usd_mt": 5330.0,
-      "settle_usd_lb": 2.4177,
-      "volume": 698
+      "settle_usd_mt": 5603.0,
+      "settle_usd_lb": 2.5415,
+      "volume": 1112
     },
     {
       "month": "2027-12",
       "label": "Dec 27",
-      "settle_usd_mt": 5282.0,
-      "settle_usd_lb": 2.3959,
-      "volume": 622
+      "settle_usd_mt": 5514.0,
+      "settle_usd_lb": 2.5011,
+      "volume": 759
     },
     {
       "month": "2028-03",
       "label": "Mar 28",
-      "settle_usd_mt": 5218.0,
-      "settle_usd_lb": 2.3668,
-      "volume": 321
+      "settle_usd_mt": 5428.0,
+      "settle_usd_lb": 2.4621,
+      "volume": 354
     },
     {
       "month": "2028-05",
       "label": "May 28",
       "settle_usd_mt": 5178.0,
       "settle_usd_lb": 2.3487,
-      "volume": 24
+      "volume": 26
     },
     {
       "month": "2028-07",

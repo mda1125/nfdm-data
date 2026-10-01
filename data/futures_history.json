@@ -8208,47 +8208,47 @@
     },
     {
       "trade_date": "2026-10-01",
-      "spot": 1.989,
+      "spot": 1.9988,
       "contracts": [
         {
           "month": "2026-10",
-          "settle": 1.989
+          "settle": 1.9988
         },
         {
           "month": "2026-11",
-          "settle": 2.005
+          "settle": 2.03
         },
         {
           "month": "2026-12",
-          "settle": 1.9227
+          "settle": 1.955
         },
         {
           "month": "2027-01",
-          "settle": 1.8555
+          "settle": 1.895
         },
         {
           "month": "2027-02",
-          "settle": 1.8095
+          "settle": 1.8462
         },
         {
           "month": "2027-03",
-          "settle": 1.7763
+          "settle": 1.7943
         },
         {
           "month": "2027-04",
-          "settle": 1.73
+          "settle": 1.7603
         },
         {
           "month": "2027-05",
-          "settle": 1.7
+          "settle": 1.73
         },
         {
           "month": "2027-06",
-          "settle": 1.685
+          "settle": 1.7195
         },
         {
           "month": "2027-07",
-          "settle": 1.6843
+          "settle": 1.7097
         },
         {
           "month": "2027-08",
