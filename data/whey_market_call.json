@@ -71,75 +71,75 @@
       }
     },
     {
-      "as_of": "2026-09-30",
+      "as_of": "2026-10-01",
       "iso_week": "2026-W40",
       "product": "WPC80",
-      "target_quarter": "2027-Q1",
-      "target_label": "Q1 2027",
-      "weeks_out": 20,
+      "target_quarter": "2027-Q2",
+      "target_label": "Q2 2027",
+      "weeks_out": 32,
       "current_price": 11.0,
       "methods": {
         "naive": {
-          "price": 7.1835,
+          "price": 5.5629,
           "weight": 0.2,
-          "note": "Straight-line extrapolation of the observed weekly move (-2.11%/wk) held constant for all 20 weeks to Q1 2027. Treats the whole trailing move as durable -- tends to overreact when the trailing window is short."
+          "note": "Straight-line extrapolation of the observed weekly move (-2.11%/wk) held constant for all 32 weeks to Q2 2027. Treats the whole trailing move as durable -- tends to overreact when the trailing window is short."
         },
         "dampened": {
           "price": 10.1014,
           "weight": 0.6,
-          "note": "Same weekly move applied for 4 more weeks, then held flat through Q1 2027 (16 weeks flat) -- assumes a short trend decelerates rather than continuing unchanged for months."
+          "note": "Same weekly move applied for 4 more weeks, then held flat through Q2 2027 (28 weeks flat) -- assumes a short trend decelerates rather than continuing unchanged for months."
         },
         "nfdm_crosscheck": {
-          "price": 11.1494,
+          "price": 9.4207,
           "weight": 0.2,
-          "note": "NFDM curve prices Q1 2027 at +1.4% vs current spot; applying that same move to WPC80's current price as a dairy-complex cross-check (loose proxy -- different raw stream than NFDM)."
+          "note": "NFDM curve prices Q2 2027 at -14.4% vs current spot; applying that same move to WPC80's current price as a dairy-complex cross-check (loose proxy -- different raw stream than NFDM)."
         }
       },
       "qualitative": {
         "reallocation_active": true,
         "note": "WPC80 is moving opposite WPC34 and dry whey together -- the reallocation pattern USDA's Jun 2026 narrative described (manufacturers shift output between these off the same finite whey stream as WPC80 demand shifts). Documented, product-specific explanation, so this call leans more on WPC80's own trend and less on the generic NFDM cross-check."
       },
-      "blended": 9.7274,
+      "blended": 9.0576,
       "range": {
-        "low": 7.1835,
-        "high": 11.1494
+        "low": 5.5629,
+        "high": 10.1014
       }
     }
   ],
-  "updated_at": "2026-09-30T20:16:04.321336Z",
+  "updated_at": "2026-10-01T12:09:15.379184Z",
   "latest": {
-    "as_of": "2026-09-30",
+    "as_of": "2026-10-01",
     "iso_week": "2026-W40",
     "product": "WPC80",
-    "target_quarter": "2027-Q1",
-    "target_label": "Q1 2027",
-    "weeks_out": 20,
+    "target_quarter": "2027-Q2",
+    "target_label": "Q2 2027",
+    "weeks_out": 32,
     "current_price": 11.0,
     "methods": {
       "naive": {
-        "price": 7.1835,
+        "price": 5.5629,
         "weight": 0.2,
-        "note": "Straight-line extrapolation of the observed weekly move (-2.11%/wk) held constant for all 20 weeks to Q1 2027. Treats the whole trailing move as durable -- tends to overreact when the trailing window is short."
+        "note": "Straight-line extrapolation of the observed weekly move (-2.11%/wk) held constant for all 32 weeks to Q2 2027. Treats the whole trailing move as durable -- tends to overreact when the trailing window is short."
       },
       "dampened": {
         "price": 10.1014,
         "weight": 0.6,
-        "note": "Same weekly move applied for 4 more weeks, then held flat through Q1 2027 (16 weeks flat) -- assumes a short trend decelerates rather than continuing unchanged for months."
+        "note": "Same weekly move applied for 4 more weeks, then held flat through Q2 2027 (28 weeks flat) -- assumes a short trend decelerates rather than continuing unchanged for months."
       },
       "nfdm_crosscheck": {
-        "price": 11.1494,
+        "price": 9.4207,
         "weight": 0.2,
-        "note": "NFDM curve prices Q1 2027 at +1.4% vs current spot; applying that same move to WPC80's current price as a dairy-complex cross-check (loose proxy -- different raw stream than NFDM)."
+        "note": "NFDM curve prices Q2 2027 at -14.4% vs current spot; applying that same move to WPC80's current price as a dairy-complex cross-check (loose proxy -- different raw stream than NFDM)."
       }
     },
     "qualitative": {
       "reallocation_active": true,
       "note": "WPC80 is moving opposite WPC34 and dry whey together -- the reallocation pattern USDA's Jun 2026 narrative described (manufacturers shift output between these off the same finite whey stream as WPC80 demand shifts). Documented, product-specific explanation, so this call leans more on WPC80's own trend and less on the generic NFDM cross-check."
     },
-    "blended": 9.7274,
+    "blended": 9.0576,
     "range": {
-      "low": 7.1835,
-      "high": 11.1494
+      "low": 5.5629,
+      "high": 10.1014
     }
   }
 }
