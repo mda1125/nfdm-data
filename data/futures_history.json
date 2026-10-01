@@ -8208,11 +8208,11 @@
     },
     {
       "trade_date": "2026-10-01",
-      "spot": 1.9988,
+      "spot": 2.0,
       "contracts": [
         {
           "month": "2026-10",
-          "settle": 1.9988
+          "settle": 2.0
         },
         {
           "month": "2026-11",
