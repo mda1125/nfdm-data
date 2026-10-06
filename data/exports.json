@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-06T12:10:02.422268Z",
+  "updated_at": "2026-10-06T14:24:52.955466Z",
   "hs_code": "0402100000",
   "hs_desc": "Milk and cream in powder, fat content <= 1.5% (NFDM/SMP)",
   "unit": "lb",
@@ -8,44 +8,44 @@
       "rank": 1,
       "code": "2010",
       "name": "MEXICO",
-      "ttm_lb": 790780725,
-      "ttm_usd": 1163686149,
-      "ttm_share_pct": 55.1
+      "ttm_lb": 794617878,
+      "ttm_usd": 1194453331,
+      "ttm_share_pct": 56.3
     },
     {
       "rank": 2,
       "code": "5650",
       "name": "PHILIPPINES",
-      "ttm_lb": 179554897,
-      "ttm_usd": 239638665,
-      "ttm_share_pct": 12.5
+      "ttm_lb": 160425319,
+      "ttm_usd": 217739603,
+      "ttm_share_pct": 11.4
     },
     {
       "rank": 3,
       "code": "5600",
       "name": "INDONESIA",
-      "ttm_lb": 81285581,
-      "ttm_usd": 104395497,
-      "ttm_share_pct": 5.7
+      "ttm_lb": 81268169,
+      "ttm_usd": 106654794,
+      "ttm_share_pct": 5.8
     },
     {
       "rank": 4,
       "code": "3010",
       "name": "COLOMBIA",
-      "ttm_lb": 60473218,
-      "ttm_usd": 80585686,
-      "ttm_share_pct": 4.2
+      "ttm_lb": 62496475,
+      "ttm_usd": 85187176,
+      "ttm_share_pct": 4.4
     },
     {
       "rank": 5,
       "code": "5520",
       "name": "VIETNAM",
-      "ttm_lb": 58088679,
-      "ttm_usd": 71960241,
-      "ttm_share_pct": 4.0
+      "ttm_lb": 53307324,
+      "ttm_usd": 66491411,
+      "ttm_share_pct": 3.8
     }
   ],
-  "count": 103,
+  "count": 104,
   "data": [
     {
       "month": "2018-01",
@@ -3238,6 +3238,37 @@
       "rest_of_world": {
         "volume_lb": 14370044,
         "value_usd": 24964455
+      }
+    },
+    {
+      "month": "2026-08",
+      "total_lb": 100803051,
+      "total_usd": 168513420,
+      "countries": {
+        "MEXICO": {
+          "volume_lb": 67361337,
+          "value_usd": 113164245
+        },
+        "PHILIPPINES": {
+          "volume_lb": 2165040,
+          "value_usd": 3923539
+        },
+        "INDONESIA": {
+          "volume_lb": 7513098,
+          "value_usd": 12098903
+        },
+        "COLOMBIA": {
+          "volume_lb": 5630580,
+          "value_usd": 9438242
+        },
+        "VIETNAM": {
+          "volume_lb": 829554,
+          "value_usd": 1591490
+        }
+      },
+      "rest_of_world": {
+        "volume_lb": 17303441,
+        "value_usd": 28297001
       }
     }
   ]
