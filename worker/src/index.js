@@ -99,8 +99,24 @@ async function buildMarketSnapshot() {
       const rows = d.data;
       const last = rows[rows.length - 1];
       const prior = rows[rows.length - 2];
+      // Monthly averages bucketed by week-ending date; last 3 months, newest first.
+      const byMonth = {};
+      rows.forEach(function (r) {
+        const m = r.date.slice(0, 7);
+        (byMonth[m] = byMonth[m] || []).push(r);
+      });
+      const months = Object.keys(byMonth).sort().slice(-3).reverse();
+      const monthLines = months.map(function (m) {
+        const g = byMonth[m];
+        const avg = g.reduce(function (s, r) { return s + r.price; }, 0) / g.length;
+        const vol = g.reduce(function (s, r) { return s + (r.volume || 0); }, 0);
+        const wavg = vol ? g.reduce(function (s, r) { return s + r.price * (r.volume || 0); }, 0) / vol : avg;
+        return '  ' + m + ': avg $' + avg.toFixed(4) + ' (volume-weighted $' + wavg.toFixed(4) +
+          '), ' + g.length + ' weekly prints' + (m === last.date.slice(0, 7) ? ' so far' : '');
+      });
       return 'NDPSR (USDA survey) NFDM: $' + last.price + '/lb, week of ' + last.date +
-        (prior ? ' vs $' + prior.price + ' prior week' + fmtPct(pctChange(prior.price, last.price)) : '');
+        (prior ? ' vs $' + prior.price + ' prior week' + fmtPct(pctChange(prior.price, last.price)) : '') +
+        '\nNDPSR monthly averages (weeks bucketed by week-ending date):\n' + monthLines.join('\n');
     }),
     snapshotLine('FMMO Class IV', 'class_iv.json', (d) => {
       const rows = d.data;
