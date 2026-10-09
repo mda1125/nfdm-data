@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-08T20:16:21.681115Z",
-  "trade_date": "2026-10-08",
+  "updated_at": "2026-10-09T12:09:04.894695Z",
+  "trade_date": "2026-10-09",
   "count": 9,
   "data": [
     {
@@ -8,56 +8,56 @@
       "label": "Dec 26",
       "settle_usd_mt": 5617.0,
       "settle_usd_lb": 2.5478,
-      "volume": 15790
+      "volume": 1644
     },
     {
       "month": "2027-03",
       "label": "Mar 27",
-      "settle_usd_mt": 5729.0,
-      "settle_usd_lb": 2.5986,
-      "volume": 11145
+      "settle_usd_mt": 5726.0,
+      "settle_usd_lb": 2.5973,
+      "volume": 1347
     },
     {
       "month": "2027-05",
       "label": "May 27",
-      "settle_usd_mt": 5782.0,
-      "settle_usd_lb": 2.6227,
-      "volume": 4539
+      "settle_usd_mt": 5768.0,
+      "settle_usd_lb": 2.6163,
+      "volume": 592
     },
     {
       "month": "2027-07",
       "label": "Jul 27",
-      "settle_usd_mt": 5809.0,
-      "settle_usd_lb": 2.6349,
-      "volume": 3116
+      "settle_usd_mt": 5793.0,
+      "settle_usd_lb": 2.6277,
+      "volume": 354
     },
     {
       "month": "2027-09",
       "label": "Sep 27",
-      "settle_usd_mt": 5796.0,
-      "settle_usd_lb": 2.629,
-      "volume": 811
+      "settle_usd_mt": 5784.0,
+      "settle_usd_lb": 2.6236,
+      "volume": 101
     },
     {
       "month": "2027-12",
       "label": "Dec 27",
-      "settle_usd_mt": 5734.0,
-      "settle_usd_lb": 2.6009,
-      "volume": 438
+      "settle_usd_mt": 5723.0,
+      "settle_usd_lb": 2.5959,
+      "volume": 72
     },
     {
       "month": "2028-03",
       "label": "Mar 28",
-      "settle_usd_mt": 5731.0,
-      "settle_usd_lb": 2.5995,
-      "volume": 62
+      "settle_usd_mt": 5667.0,
+      "settle_usd_lb": 2.5705,
+      "volume": 39
     },
     {
       "month": "2028-05",
       "label": "May 28",
-      "settle_usd_mt": 5597.0,
-      "settle_usd_lb": 2.5388,
-      "volume": 5
+      "settle_usd_mt": 5615.0,
+      "settle_usd_lb": 2.5469,
+      "volume": 33
     },
     {
       "month": "2028-07",
