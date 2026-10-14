@@ -160,7 +160,7 @@
           "note": "Same weekly move applied for 4 more weeks, then held flat through Q2 2027 (26 weeks flat) -- assumes a short trend decelerates rather than continuing unchanged for months."
         },
         "nfdm_crosscheck": {
-          "price": 8.094,
+          "price": 8.0936,
           "weight": 0.2,
           "note": "NFDM curve prices Q2 2027 at -12.5% vs current spot; applying that same move to WPC80's current price as a dairy-complex cross-check (loose proxy -- different raw stream than NFDM)."
         }
@@ -172,11 +172,11 @@
       "blended": 6.9912,
       "range": {
         "low": 2.9906,
-        "high": 8.094
+        "high": 8.0936
       }
     }
   ],
-  "updated_at": "2026-10-14T17:02:54.126397Z",
+  "updated_at": "2026-10-14T18:41:48.458005Z",
   "latest": {
     "as_of": "2026-10-14",
     "iso_week": "2026-W42",
@@ -197,7 +197,7 @@
         "note": "Same weekly move applied for 4 more weeks, then held flat through Q2 2027 (26 weeks flat) -- assumes a short trend decelerates rather than continuing unchanged for months."
       },
       "nfdm_crosscheck": {
-        "price": 8.094,
+        "price": 8.0936,
         "weight": 0.2,
         "note": "NFDM curve prices Q2 2027 at -12.5% vs current spot; applying that same move to WPC80's current price as a dairy-complex cross-check (loose proxy -- different raw stream than NFDM)."
       }
@@ -209,7 +209,7 @@
     "blended": 6.9912,
     "range": {
       "low": 2.9906,
-      "high": 8.094
+      "high": 8.0936
     }
   }
 }
