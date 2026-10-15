@@ -160,7 +160,7 @@
           "note": "Same weekly move applied for 4 more weeks, then held flat through Q2 2027 (26 weeks flat) -- assumes a short trend decelerates rather than continuing unchanged for months."
         },
         "nfdm_crosscheck": {
-          "price": 8.4118,
+          "price": 8.4126,
           "weight": 0.2,
           "note": "NFDM curve prices Q2 2027 at -13.7% vs current spot; applying that same move to WPC80's current price as a dairy-complex cross-check (loose proxy -- different raw stream than NFDM)."
         }
@@ -169,14 +169,14 @@
         "reallocation_active": true,
         "note": "WPC80 is moving opposite WPC34 and dry whey together -- the reallocation pattern USDA's Jun 2026 narrative described (manufacturers shift output between these off the same finite whey stream as WPC80 demand shifts). Documented, product-specific explanation, so this call leans more on WPC80's own trend and less on the generic NFDM cross-check."
       },
-      "blended": 7.7726,
+      "blended": 7.7728,
       "range": {
         "low": 4.2591,
         "high": 8.7307
       }
     }
   ],
-  "updated_at": "2026-10-15T18:21:58.338396Z",
+  "updated_at": "2026-10-15T20:16:16.935490Z",
   "latest": {
     "as_of": "2026-10-15",
     "iso_week": "2026-W42",
@@ -197,7 +197,7 @@
         "note": "Same weekly move applied for 4 more weeks, then held flat through Q2 2027 (26 weeks flat) -- assumes a short trend decelerates rather than continuing unchanged for months."
       },
       "nfdm_crosscheck": {
-        "price": 8.4118,
+        "price": 8.4126,
         "weight": 0.2,
         "note": "NFDM curve prices Q2 2027 at -13.7% vs current spot; applying that same move to WPC80's current price as a dairy-complex cross-check (loose proxy -- different raw stream than NFDM)."
       }
@@ -206,7 +206,7 @@
       "reallocation_active": true,
       "note": "WPC80 is moving opposite WPC34 and dry whey together -- the reallocation pattern USDA's Jun 2026 narrative described (manufacturers shift output between these off the same finite whey stream as WPC80 demand shifts). Documented, product-specific explanation, so this call leans more on WPC80's own trend and less on the generic NFDM cross-check."
     },
-    "blended": 7.7726,
+    "blended": 7.7728,
     "range": {
       "low": 4.2591,
       "high": 8.7307
