@@ -1,63 +1,63 @@
 {
-  "updated_at": "2026-10-19T12:09:05.870480Z",
+  "updated_at": "2026-10-19T14:24:47.237733Z",
   "trade_date": "2026-10-19",
   "count": 9,
   "data": [
     {
       "month": "2026-12",
       "label": "Dec 26",
-      "settle_usd_mt": 5632.0,
-      "settle_usd_lb": 2.5546,
-      "volume": 2803
+      "settle_usd_mt": 5656.0,
+      "settle_usd_lb": 2.5655,
+      "volume": 6908
     },
     {
       "month": "2027-03",
       "label": "Mar 27",
-      "settle_usd_mt": 5733.0,
-      "settle_usd_lb": 2.6004,
-      "volume": 1830
+      "settle_usd_mt": 5754.0,
+      "settle_usd_lb": 2.61,
+      "volume": 5002
     },
     {
       "month": "2027-05",
       "label": "May 27",
-      "settle_usd_mt": 5790.0,
-      "settle_usd_lb": 2.6263,
-      "volume": 550
+      "settle_usd_mt": 5802.0,
+      "settle_usd_lb": 2.6317,
+      "volume": 1663
     },
     {
       "month": "2027-07",
       "label": "Jul 27",
-      "settle_usd_mt": 5817.0,
-      "settle_usd_lb": 2.6385,
-      "volume": 320
+      "settle_usd_mt": 5819.0,
+      "settle_usd_lb": 2.6395,
+      "volume": 852
     },
     {
       "month": "2027-09",
       "label": "Sep 27",
-      "settle_usd_mt": 5808.0,
-      "settle_usd_lb": 2.6345,
-      "volume": 127
+      "settle_usd_mt": 5812.0,
+      "settle_usd_lb": 2.6363,
+      "volume": 456
     },
     {
       "month": "2027-12",
       "label": "Dec 27",
-      "settle_usd_mt": 5764.0,
-      "settle_usd_lb": 2.6145,
-      "volume": 77
+      "settle_usd_mt": 5767.0,
+      "settle_usd_lb": 2.6159,
+      "volume": 275
     },
     {
       "month": "2028-03",
       "label": "Mar 28",
-      "settle_usd_mt": 5721.0,
-      "settle_usd_lb": 2.595,
-      "volume": 22
+      "settle_usd_mt": 5723.0,
+      "settle_usd_lb": 2.5959,
+      "volume": 64
     },
     {
       "month": "2028-05",
       "label": "May 28",
-      "settle_usd_mt": 5674.0,
-      "settle_usd_lb": 2.5737,
-      "volume": 24
+      "settle_usd_mt": 5685.0,
+      "settle_usd_lb": 2.5787,
+      "volume": 50
     },
     {
       "month": "2028-07",
