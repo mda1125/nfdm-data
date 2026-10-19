@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-19T19:59:57.499423Z",
+  "updated_at": "2026-10-19T20:17:45.696360Z",
   "trade_date": "2026-10-19",
   "count": 11,
   "data": [
@@ -29,14 +29,14 @@
       "label": "Oct 27",
       "settle_cents_lb": 19.3,
       "settle_usd_kg": 0.4255,
-      "volume": 10892
+      "volume": 10890
     },
     {
       "month": "2028-03",
       "label": "Mar 28",
       "settle_cents_lb": 19.6,
       "settle_usd_kg": 0.4321,
-      "volume": 4194
+      "volume": 4193
     },
     {
       "month": "2028-05",
