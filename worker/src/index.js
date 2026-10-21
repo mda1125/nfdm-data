@@ -17,8 +17,9 @@ const SYSTEM_PROMPT = [
   'Scope: NFDM (nonfat dry milk) CME spot vs the USDA NDPSR survey and the basis',
   'between them, FMMO Class IV, the NFDM futures curve, milk-protein estimates,',
   'seasonality, supply fundamentals (production and stocks), NFDM/SMP export',
-  'markets by destination, sugar #11, cocoa, and whey protein (WPC34/WPC80/WPI)',
-  'indications.',
+  'markets by destination, sugar #11, cocoa, whey protein (WPC34/WPC80/WPI)',
+  'indications, and Oceania (GDT-related) FOB prices for SMP, WMP, cheddar and',
+  'butter.',
   '',
   'You will be given a "Current market snapshot" system message with live-ish',
   'numbers pulled from this site\'s data feeds (may lag the live page by up to',
@@ -39,6 +40,11 @@ const SYSTEM_PROMPT = [
   '- If a metric is not in the snapshot or you are unsure, say so plainly rather',
   '  than inventing a number -- point to the relevant chart/tab instead.',
   '- Be concise. The audience already knows dairy market terminology.',
+  '- GDT: the snapshot has USDA Dairy Market News Oceania FOB price ranges and',
+  '  a summary of the most recent GDT event, published ~2-3 days AFTER each',
+  '  auction. It does not include the GDT headline price index or same-day',
+  '  results. If asked about a GDT event newer than the one in the snapshot, say',
+  '  it is not yet in the feed and point to globaldairytrade.info.',
   '- Data on this site uses USDA sources but is not endorsed or certified by USDA.'
 ].join('\n');
 
@@ -136,6 +142,21 @@ async function buildMarketSnapshot() {
       const l = d.latest;
       return 'WPC80 forward call (' + l.target_label + ', analyst estimate, not a quote): blended $' +
         l.blended + '/lb (range $' + l.range.low + '-$' + l.range.high + '). Note: ' + l.qualitative.note;
+    }),
+    snapshotLine('GDT / Oceania', 'gdt.json', (d) => {
+      const rows = d.data;
+      const ev = rows.map(function (r) { return r.gdt_event; }).filter(Boolean)[0];
+      return 'GDT / Oceania FOB (USDA DMN report dated ' + rows[0].report_date +
+        ', covers GDT Event ' + (ev || '?') + '; published after the auction, NOT the GDT index; $/MT):\n' +
+        rows.map(function (r) {
+          const chg = r.mid_chg_pct === null || r.mid_chg_pct === undefined ? '' :
+            ' (midpoint ' + (r.mid_chg_pct >= 0 ? '+' : '') + r.mid_chg_pct + '% vs prior report)';
+          return '  ' + r.code + ': $' + r.low + '-$' + r.high + chg;
+        }).join('\n') +
+        '\nEvent commentary (USDA):\n' + rows.map(function (r) {
+          const m = (r.narrative || '').split(/\n\s*\n/).filter(function (x) { return /GDT/.test(x); })[0] || '';
+          return '  ' + r.code + ': ' + m.replace(/\s+/g, ' ').trim();
+        }).join('\n');
     }),
     snapshotLine('Sugar #11', 'sugar.json', (d) => {
       const rows = d.data;

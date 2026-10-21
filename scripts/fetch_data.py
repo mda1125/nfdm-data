@@ -48,6 +48,8 @@ STATUS_SOURCES = [
      lambda d: _month_end((d.get("data") or [{}])[-1].get("month"))),
     ("sugar", "Sugar #11", "sugar.json", lambda d: (d.get("data") or [{}])[-1].get("date")),
     ("cocoa", "Cocoa", "cocoa.json", lambda d: (d.get("data") or [{}])[-1].get("date")),
+    ("gdt", "GDT / Oceania (USDA)", "gdt.json",
+     lambda d: max([r.get("report_date") for r in (d.get("data") or []) if r.get("report_date")], default=None)),
     ("whey", "Whey indications", "whey.json",
      lambda d: max([r.get("published_date") for r in (d.get("data") or []) if r.get("published_date")], default=None)),
 ]
@@ -66,6 +68,9 @@ CADENCE_DAYS = {
     "cme": (4, 7), "butter": (4, 7), "nass": (9, 13), "class_iv": (40, 50),
     "futures": (4, 7), "fundamentals": (55, 85), "exports": (55, 85),
     "sugar": (4, 7), "cocoa": (4, 7), "whey": (8, 11),
+    # gdt: biweekly Monday report dated 14d apart; measured from report_date it
+    # is ~3d old when published (Thu) and ~17d just before the next lands.
+    "gdt": (18, 24),
 }
 
 
@@ -921,6 +926,69 @@ QUICKSTATS_KEY = os.environ.get('QUICKSTATS_API_KEY', '')
 QUICKSTATS_BASE = "https://quickstats.nass.usda.gov/api/api_GET/"
 
 
+# ---------------------------------------------------------------------------
+# GDT / Oceania — USDA Dairy Market News publishes biweekly Oceania reports
+# (FOB port, $/MT) whose narratives describe the most recent Global Dairy Trade
+# event. This is NOT the GDT feed itself: it lags each auction by ~2-3 days and
+# carries no overall GDT index figure. AMF is not covered by USDA.
+# ---------------------------------------------------------------------------
+GDT_PRODUCTS = [
+    ("SMP", "Skim Milk Powder", "1038"),
+    ("WMP", "Whole Milk Powder", "1039"),
+    ("CHEDDAR", "Cheddar Cheese", "1082"),
+    ("BUTTER", "Butter", "1099"),
+]
+GDT_EVENT_RE = re.compile(r"GDT\)?\s*Event\s*(\d+)", re.I)
+
+
+def fetch_gdt():
+    """Latest Oceania FOB range + prior-period range + narrative per product.
+    Returns a list of dicts; products whose report fails are skipped."""
+    out = []
+    for code, name, rid in GDT_PRODUCTS:
+        try:
+            results = fetch_mars(rid).get("results", [])
+        except Exception as e:
+            print(f"  [gdt] {code} report {rid} failed: {e}")
+            continue
+        rows = [r for r in results
+                if r.get("price_min") is not None and r.get("price_max") is not None]
+        if not rows:
+            continue
+        # Sort on the normalized ISO date — MM/DD/YYYY strings don't sort correctly.
+        dates = sorted({normalize_date(r.get("report_date")) for r in rows}, reverse=True)
+        latest_d = dates[0]
+        latest = next(r for r in rows if normalize_date(r.get("report_date")) == latest_d)
+        prior = None
+        if len(dates) > 1:
+            prior = next(r for r in rows if normalize_date(r.get("report_date")) == dates[1])
+        narrative = (latest.get("commodity_narrative") or "").strip()
+        ev = GDT_EVENT_RE.search(narrative)
+        mid = (latest["price_min"] + latest["price_max"]) / 2
+        prior_mid = (prior["price_min"] + prior["price_max"]) / 2 if prior else None
+        out.append({
+            "code": code,
+            "name": name,
+            "report_id": rid,
+            "report_date": latest_d,
+            "published_date": normalize_date(latest.get("published_date")),
+            "gdt_event": int(ev.group(1)) if ev else None,
+            "price_unit": latest.get("price_Unit"),
+            "lot_desc": latest.get("lot_Desc"),
+            "low": latest["price_min"],
+            "high": latest["price_max"],
+            "mid": mid,
+            "prior_report_date": dates[1] if prior else None,
+            "prior_low": prior["price_min"] if prior else None,
+            "prior_high": prior["price_max"] if prior else None,
+            "mid_chg_pct": round((mid - prior_mid) / prior_mid * 100, 1) if prior_mid else None,
+            "narrative": narrative,
+        })
+        print(f"  [gdt] {code}: {latest_d} ${latest['price_min']}-{latest['price_max']}/MT "
+              f"(event {out[-1]['gdt_event']})")
+    return out
+
+
 def fetch_quickstats(short_desc, freq="MONTHLY", year_ge=2018):
     """Fetch national-level data from USDA NASS QuickStats API."""
     params = {
@@ -1439,6 +1507,17 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"Whey fetch failed: {e}")
         failures.append("whey")
+
+    print("Fetching GDT / Oceania reports (USDA MARS 1038/1039/1082/1099)...")
+    try:
+        gdt_rows = fetch_gdt()
+        if gdt_rows:
+            write_json("gdt", gdt_rows)
+        else:
+            raise RuntimeError("no GDT rows parsed")
+    except Exception as e:
+        print(f"GDT fetch failed: {e}")
+        failures.append("gdt")
 
     print("Fetching fundamentals (NASS QuickStats)...")
     try:
