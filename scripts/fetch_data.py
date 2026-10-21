@@ -941,10 +941,16 @@ GDT_PRODUCTS = [
 GDT_EVENT_RE = re.compile(r"GDT\)?\s*Event\s*(\d+)", re.I)
 
 
+GDT_HISTORY_FROM = "2018-01-01"
+
+
 def fetch_gdt():
-    """Latest Oceania FOB range + prior-period range + narrative per product.
-    Returns a list of dicts; products whose report fails are skipped."""
+    """Latest Oceania FOB range + prior-period range + narrative per product,
+    plus a compact per-report price history (since GDT_HISTORY_FROM) built from
+    the same fetched reports. Returns (rows, history); products whose report
+    fails are skipped."""
     out = []
+    hist = {}  # iso date -> {code: [low, high]}
     for code, name, rid in GDT_PRODUCTS:
         try:
             results = fetch_mars(rid).get("results", [])
@@ -962,6 +968,11 @@ def fetch_gdt():
         prior = None
         if len(dates) > 1:
             prior = next(r for r in rows if normalize_date(r.get("report_date")) == dates[1])
+        for r in rows:
+            d = normalize_date(r.get("report_date"))
+            # Duplicate re-published rows share a date; keep the first.
+            if d >= GDT_HISTORY_FROM:
+                hist.setdefault(d, {}).setdefault(code, [r["price_min"], r["price_max"]])
         narrative = (latest.get("commodity_narrative") or "").strip()
         ev = GDT_EVENT_RE.search(narrative)
         mid = (latest["price_min"] + latest["price_max"]) / 2
@@ -986,7 +997,8 @@ def fetch_gdt():
         })
         print(f"  [gdt] {code}: {latest_d} ${latest['price_min']}-{latest['price_max']}/MT "
               f"(event {out[-1]['gdt_event']})")
-    return out
+    history = [dict(date=d, **hist[d]) for d in sorted(hist)]
+    return out, history
 
 
 def fetch_quickstats(short_desc, freq="MONTHLY", year_ge=2018):
@@ -1510,9 +1522,10 @@ if __name__ == "__main__":
 
     print("Fetching GDT / Oceania reports (USDA MARS 1038/1039/1082/1099)...")
     try:
-        gdt_rows = fetch_gdt()
+        gdt_rows, gdt_hist = fetch_gdt()
         if gdt_rows:
             write_json("gdt", gdt_rows)
+            write_json("gdt_history", gdt_hist)
         else:
             raise RuntimeError("no GDT rows parsed")
     except Exception as e:

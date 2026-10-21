@@ -14,6 +14,8 @@ const DATA_URLS = {
   whey: 'data/whey.json',
   wheyHistory: 'data/whey_history.json',
   wheyCall: 'data/whey_market_call.json',
+  gdt: 'data/gdt.json',
+  gdtHistory: 'data/gdt_history.json',
   status: 'data/status.json'
 };
 
@@ -170,7 +172,9 @@ async function fetchLiveData() {
       fetch(DATA_URLS.exports, {cache: 'no-store'}).catch(function(){ return null; }),
       fetch(DATA_URLS.wheyHistory, {cache: 'no-store'}).catch(function(){ return null; }),
       fetch(DATA_URLS.wheyCall, {cache: 'no-store'}).catch(function(){ return null; }),
-      fetch(DATA_URLS.status, {cache: 'no-store'}).catch(function(){ return null; })
+      fetch(DATA_URLS.status, {cache: 'no-store'}).catch(function(){ return null; }),
+      fetch(DATA_URLS.gdt, {cache: 'no-store'}).catch(function(){ return null; }),
+      fetch(DATA_URLS.gdtHistory, {cache: 'no-store'}).catch(function(){ return null; })
     ]);
     // fetchWithRetry only resolves once cme/nass/c4 are .ok (retrying transient
     // failures first) or throws after exhausting retries, so no separate
@@ -316,6 +320,15 @@ async function fetchLiveData() {
     if (responses[15] && responses[15].ok) {
       try { statusJ = await responses[15].json(); } catch(e) { statusJ = null; }
     }
+    var gdtJ = null, gdtHistJ = null;
+    if (responses[16] && responses[16].ok) {
+      try { gdtJ = await responses[16].json(); } catch(e) { gdtJ = null; }
+    }
+    if (responses[17] && responses[17].ok) {
+      try { gdtHistJ = await responses[17].json(); } catch(e) { gdtHistJ = null; }
+    }
+    var gdt = (gdtJ && gdtJ.data && gdtJ.data.length) ? gdtJ.data : null;
+    var gdtHist = (gdtHistJ && gdtHistJ.data && gdtHistJ.data.length) ? gdtHistJ.data : null;
     var status = (statusJ && statusJ.sources) ? {generatedAt: statusJ.generated_at, sources: statusJ.sources} : null;
 
     const stamps = [cmeJ.updated_at, nassJ.updated_at, c4J.updated_at].filter(Boolean);
@@ -333,7 +346,7 @@ async function fetchLiveData() {
     if (butter) toastMsg += ' · ' + butter.length + ' butter';
     if (exports_) toastMsg += ' · ' + exports_.data.length + ' exports';
     showToast(toastMsg);
-    return {cme: cme, butter: butter, nass: nass, c4: c4, futures: futures, fund: fund, futHist: futHist, sugar: sugar, sugarFut: sugarFut, cocoa: cocoa, cocoaFut: cocoaFut, whey: whey, wheyHist: wheyHist, wheyCall: wheyCall, exports: exports_, status: status};
+    return {cme: cme, butter: butter, nass: nass, c4: c4, futures: futures, fund: fund, futHist: futHist, sugar: sugar, sugarFut: sugarFut, cocoa: cocoa, cocoaFut: cocoaFut, whey: whey, wheyHist: wheyHist, wheyCall: wheyCall, exports: exports_, gdt: gdt, gdtHist: gdtHist, status: status};
   } catch (err) {
     console.warn('Live fetch failed:', err);
     dataMode = 'error';
@@ -1139,6 +1152,82 @@ function buildCharts() {
             '<td style="text-align:right">' + (d.total_usd ? '$' + (d.total_usd/EM).toFixed(0) + 'M' : '—') + '</td></tr>';
         }).join('');
     }
+  }
+
+  // Oceania / GDT panel (USDA DMN Oceania reports; lags each GDT event by 2-3 days)
+  if (RAW.gdt && RAW.gdt.length) {
+    (function renderGdt() {
+      function gEsc(x) { return String(x == null ? '' : x).replace(/[&<>"]/g, function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+      function money(v) { return '$' + Math.round(v).toLocaleString('en-US'); }
+      var rows = RAW.gdt;
+      var ev = rows.map(function(r){return r.gdt_event;}).filter(Boolean)[0];
+      var asOf = rows[0].report_date;
+      var host = document.getElementById('gdt-cards');
+      if (host) {
+        host.innerHTML = rows.map(function(r) {
+          var chg = r.mid_chg_pct;
+          var chgHtml = (chg === null || chg === undefined) ? '' :
+            '<span style="color:' + (chg >= 0 ? '#4ade80' : '#f87171') + '">' + (chg >= 0 ? '↑ +' : '↓ ') + Math.abs(chg).toFixed(1) + '%</span> midpoint vs prior report';
+          return '<div class="whey-card">' +
+            '<div class="whey-card-hdr"><div><div class="whey-name">' + gEsc(r.name) + '</div>' +
+            '<div class="whey-code">' + gEsc(r.code) + (r.lot_desc ? ' · ' + gEsc(r.lot_desc) : '') + '</div></div></div>' +
+            '<div class="whey-range">' + money(r.low) + '–' + money(r.high) + '</div>' +
+            '<div class="whey-mid">' + chgHtml + '</div>' +
+            '<div class="whey-mt">FOB Oceania, $/MT · midpoint ' + money(r.mid) + '</div>' +
+            '</div>';
+        }).join('');
+      }
+      var note = document.getElementById('gdt-note');
+      if (note) {
+        note.textContent = 'USDA Dairy Market News Oceania FOB port prices ($/MT) for the report dated ' + asOf +
+          (ev ? ', covering GDT Event ' + ev : '') + '. Published 2-3 days after each auction; not the GDT index, and AMF is not covered.';
+      }
+
+      // Oceania SMP vs US NFDM spot, both in $/MT. Indicative only: US spot vs FOB port.
+      var hist = RAW.gdtHist;
+      var ctx = document.getElementById('chart-gdt-smp');
+      if (ctx && hist && hist.length) {
+        var LB_PER_MT = 2204.62;
+        var cutoff = new Date(); cutoff.setFullYear(cutoff.getFullYear() - 3);
+        var cme = (RAW.cme || []).slice().sort(function(a, b){ return a.date - b.date; });
+        var ci = 0, lastCme = null, pts = [];
+        hist.forEach(function(h) {
+          if (!h.SMP) return;
+          var d = parseLocalDate(h.date);
+          if (d < cutoff) return;
+          while (ci < cme.length && cme[ci].date <= d) { lastCme = cme[ci].price; ci++; }
+          var oce = (h.SMP[0] + h.SMP[1]) / 2;
+          pts.push({d: d, oce: oce, us: lastCme ? lastCme * LB_PER_MT : null});
+        });
+        if (pts.length) {
+          charts.gdtSmp = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: pts.map(function(p){ return fmtMonth(p.d); }),
+              datasets: [
+                {label: 'Oceania SMP (FOB, midpoint)', data: pts.map(function(p){return p.oce;}), borderColor: '#60a5fa', borderWidth: 2, pointRadius: 0, tension: 0.25},
+                {label: 'US NFDM CME spot', data: pts.map(function(p){return p.us;}), borderColor: COLORS.cme, borderWidth: 2, pointRadius: 0, tension: 0.25, spanGaps: false}
+              ]
+            },
+            options: {responsive: true, maintainAspectRatio: false, interaction: {mode: 'index', intersect: false},
+              plugins: {legend: {display: true, labels: {color: COLORS.tick, boxWidth: 10, font: {size: 10}}},
+                tooltip: {backgroundColor: '#1f2937', borderColor: '#374151', borderWidth: 1, titleColor: '#e6edf3', bodyColor: '#9ca3af', padding: 10,
+                  callbacks: {title: function(items){ return items.length ? fmtDate(pts[items[0].dataIndex].d) : ''; },
+                              label: function(c){ return c.dataset.label + ': ' + (c.parsed.y == null ? 'n/a' : money(c.parsed.y) + '/MT'); }}}},
+              scales: {x: {ticks: {color: COLORS.tick, maxTicksLimit: 10, maxRotation: 0}, grid: {color: COLORS.grid}},
+                       y: {ticks: {color: COLORS.tick, callback: function(v){ return '$' + v.toLocaleString('en-US'); }}, grid: {color: COLORS.grid}, title: {display: true, text: '$/MT', color: COLORS.tick}}}}
+          });
+          var last = pts[pts.length - 1];
+          var sp = document.getElementById('gdt-spread');
+          if (sp && last.us) {
+            var diff = last.oce - last.us;
+            sp.textContent = 'Latest report (' + asOf + '): Oceania SMP midpoint ' + money(last.oce) + '/MT vs US NFDM spot ' + money(last.us) +
+              '/MT (CME $' + (last.us / LB_PER_MT).toFixed(4) + '/lb): Oceania is ' + money(Math.abs(diff)) + '/MT ' +
+              (diff >= 0 ? 'above' : 'below') + ' US. Indicative only: US spot and FOB-port prices differ in basis, grade and timing.';
+          }
+        }
+      }
+    })();
   }
 
   // Sugar
