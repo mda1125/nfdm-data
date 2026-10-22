@@ -1,63 +1,63 @@
 {
-  "updated_at": "2026-10-22T17:04:46.928834Z",
+  "updated_at": "2026-10-22T18:36:42.301551Z",
   "trade_date": "2026-10-22",
   "count": 9,
   "data": [
     {
       "month": "2026-12",
       "label": "Dec 26",
-      "settle_usd_mt": 5588.0,
-      "settle_usd_lb": 2.5347,
-      "volume": 16369
+      "settle_usd_mt": 5607.0,
+      "settle_usd_lb": 2.5433,
+      "volume": 17120
     },
     {
       "month": "2027-03",
       "label": "Mar 27",
-      "settle_usd_mt": 5695.0,
-      "settle_usd_lb": 2.5832,
-      "volume": 10983
+      "settle_usd_mt": 5714.0,
+      "settle_usd_lb": 2.5918,
+      "volume": 11448
     },
     {
       "month": "2027-05",
       "label": "May 27",
-      "settle_usd_mt": 5753.0,
-      "settle_usd_lb": 2.6095,
-      "volume": 3368
+      "settle_usd_mt": 5768.0,
+      "settle_usd_lb": 2.6163,
+      "volume": 3468
     },
     {
       "month": "2027-07",
       "label": "Jul 27",
-      "settle_usd_mt": 5774.0,
-      "settle_usd_lb": 2.619,
-      "volume": 1756
+      "settle_usd_mt": 5793.0,
+      "settle_usd_lb": 2.6277,
+      "volume": 1833
     },
     {
       "month": "2027-09",
       "label": "Sep 27",
-      "settle_usd_mt": 5775.0,
-      "settle_usd_lb": 2.6195,
-      "volume": 603
+      "settle_usd_mt": 5787.0,
+      "settle_usd_lb": 2.6249,
+      "volume": 650
     },
     {
       "month": "2027-12",
       "label": "Dec 27",
-      "settle_usd_mt": 5724.0,
-      "settle_usd_lb": 2.5964,
-      "volume": 498
+      "settle_usd_mt": 5740.0,
+      "settle_usd_lb": 2.6036,
+      "volume": 531
     },
     {
       "month": "2028-03",
       "label": "Mar 28",
-      "settle_usd_mt": 5684.0,
-      "settle_usd_lb": 2.5782,
-      "volume": 79
+      "settle_usd_mt": 5685.0,
+      "settle_usd_lb": 2.5787,
+      "volume": 81
     },
     {
       "month": "2028-05",
       "label": "May 28",
       "settle_usd_mt": 5633.0,
       "settle_usd_lb": 2.5551,
-      "volume": 35
+      "volume": 36
     },
     {
       "month": "2028-07",
