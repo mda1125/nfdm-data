@@ -1,63 +1,63 @@
 {
-  "updated_at": "2026-11-02T13:09:17.172730Z",
+  "updated_at": "2026-11-02T15:24:29.649011Z",
   "trade_date": "2026-11-02",
   "count": 9,
   "data": [
     {
       "month": "2026-12",
       "label": "Dec 26",
-      "settle_usd_mt": 5449.0,
-      "settle_usd_lb": 2.4716,
-      "volume": 6620
+      "settle_usd_mt": 5465.0,
+      "settle_usd_lb": 2.4789,
+      "volume": 9464
     },
     {
       "month": "2027-03",
       "label": "Mar 27",
-      "settle_usd_mt": 5561.0,
-      "settle_usd_lb": 2.5224,
-      "volume": 4864
+      "settle_usd_mt": 5571.0,
+      "settle_usd_lb": 2.527,
+      "volume": 7328
     },
     {
       "month": "2027-05",
       "label": "May 27",
-      "settle_usd_mt": 5612.0,
-      "settle_usd_lb": 2.5456,
-      "volume": 1482
+      "settle_usd_mt": 5619.0,
+      "settle_usd_lb": 2.5487,
+      "volume": 2633
     },
     {
       "month": "2027-07",
       "label": "Jul 27",
-      "settle_usd_mt": 5648.0,
-      "settle_usd_lb": 2.5619,
-      "volume": 501
+      "settle_usd_mt": 5650.0,
+      "settle_usd_lb": 2.5628,
+      "volume": 1278
     },
     {
       "month": "2027-09",
       "label": "Sep 27",
-      "settle_usd_mt": 5676.0,
-      "settle_usd_lb": 2.5746,
-      "volume": 162
+      "settle_usd_mt": 5654.0,
+      "settle_usd_lb": 2.5646,
+      "volume": 449
     },
     {
       "month": "2027-12",
       "label": "Dec 27",
-      "settle_usd_mt": 5600.0,
-      "settle_usd_lb": 2.5401,
-      "volume": 81
+      "settle_usd_mt": 5606.0,
+      "settle_usd_lb": 2.5428,
+      "volume": 303
     },
     {
       "month": "2028-03",
       "label": "Mar 28",
-      "settle_usd_mt": 5549.0,
-      "settle_usd_lb": 2.517,
-      "volume": 33
+      "settle_usd_mt": 5548.0,
+      "settle_usd_lb": 2.5165,
+      "volume": 144
     },
     {
       "month": "2028-05",
       "label": "May 28",
       "settle_usd_mt": 5496.0,
       "settle_usd_lb": 2.4929,
-      "volume": 15
+      "volume": 24
     },
     {
       "month": "2028-07",
