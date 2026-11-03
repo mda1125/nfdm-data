@@ -9906,27 +9906,27 @@
     },
     {
       "trade_date": "2026-11-03",
-      "spot": 2.07,
+      "spot": 2.0675,
       "contracts": [
         {
           "month": "2026-11",
-          "settle": 2.07
+          "settle": 2.0675
         },
         {
           "month": "2026-12",
-          "settle": 1.985
+          "settle": 2.0
         },
         {
           "month": "2027-01",
-          "settle": 1.9472
+          "settle": 1.96
         },
         {
           "month": "2027-02",
-          "settle": 1.89
+          "settle": 1.91
         },
         {
           "month": "2027-03",
-          "settle": 1.86
+          "settle": 1.8813
         },
         {
           "month": "2027-04",
@@ -9934,7 +9934,7 @@
         },
         {
           "month": "2027-05",
-          "settle": 1.8
+          "settle": 1.825
         },
         {
           "month": "2027-06",
