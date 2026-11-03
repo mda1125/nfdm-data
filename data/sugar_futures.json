@@ -1,84 +1,84 @@
 {
-  "updated_at": "2026-11-03T15:24:47.793093Z",
+  "updated_at": "2026-11-03T19:26:26.419014Z",
   "trade_date": "2026-11-03",
   "count": 11,
   "data": [
     {
       "month": "2027-03",
       "label": "Mar 27",
-      "settle_cents_lb": 18.45,
-      "settle_usd_kg": 0.4068,
-      "volume": 80454
+      "settle_cents_lb": 18.35,
+      "settle_usd_kg": 0.4045,
+      "volume": 128920
     },
     {
       "month": "2027-05",
       "label": "May 27",
-      "settle_cents_lb": 17.92,
-      "settle_usd_kg": 0.3951,
-      "volume": 23780
+      "settle_cents_lb": 17.83,
+      "settle_usd_kg": 0.3931,
+      "volume": 43851
     },
     {
       "month": "2027-07",
       "label": "Jul 27",
-      "settle_cents_lb": 17.59,
-      "settle_usd_kg": 0.3878,
-      "volume": 20349
+      "settle_cents_lb": 17.51,
+      "settle_usd_kg": 0.386,
+      "volume": 34341
     },
     {
       "month": "2027-10",
       "label": "Oct 27",
-      "settle_cents_lb": 17.58,
-      "settle_usd_kg": 0.3876,
-      "volume": 13422
+      "settle_cents_lb": 17.52,
+      "settle_usd_kg": 0.3862,
+      "volume": 22385
     },
     {
       "month": "2028-03",
       "label": "Mar 28",
-      "settle_cents_lb": 17.94,
-      "settle_usd_kg": 0.3955,
-      "volume": 7363
+      "settle_cents_lb": 17.91,
+      "settle_usd_kg": 0.3948,
+      "volume": 12060
     },
     {
       "month": "2028-05",
       "label": "May 28",
-      "settle_cents_lb": 16.94,
-      "settle_usd_kg": 0.3735,
-      "volume": 2501
+      "settle_cents_lb": 16.9,
+      "settle_usd_kg": 0.3726,
+      "volume": 4062
     },
     {
       "month": "2028-07",
       "label": "Jul 28",
-      "settle_cents_lb": 16.47,
-      "settle_usd_kg": 0.3631,
-      "volume": 2128
+      "settle_cents_lb": 16.42,
+      "settle_usd_kg": 0.362,
+      "volume": 2919
     },
     {
       "month": "2028-10",
       "label": "Oct 28",
-      "settle_cents_lb": 16.43,
-      "settle_usd_kg": 0.3622,
-      "volume": 1955
+      "settle_cents_lb": 16.39,
+      "settle_usd_kg": 0.3613,
+      "volume": 2664
     },
     {
       "month": "2029-03",
       "label": "Mar 29",
-      "settle_cents_lb": 16.82,
-      "settle_usd_kg": 0.3708,
-      "volume": 1654
+      "settle_cents_lb": 16.81,
+      "settle_usd_kg": 0.3706,
+      "volume": 2247
     },
     {
       "month": "2029-05",
       "label": "May 29",
-      "settle_cents_lb": 16.43,
-      "settle_usd_kg": 0.3622,
-      "volume": 1471
+      "settle_cents_lb": 16.42,
+      "settle_usd_kg": 0.362,
+      "volume": 1590
     },
     {
       "month": "2029-07",
       "label": "Jul 29",
-      "settle_cents_lb": 16.23,
-      "settle_usd_kg": 0.3578,
-      "volume": 1003
+      "settle_cents_lb": 16.3,
+      "settle_usd_kg": 0.3594,
+      "volume": 1032
     }
   ]
 }
