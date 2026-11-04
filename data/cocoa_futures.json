@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-04T20:51:58.500619Z",
+  "updated_at": "2026-11-04T21:16:09.881290Z",
   "trade_date": "2026-11-04",
   "count": 9,
   "data": [
@@ -36,14 +36,14 @@
       "label": "Sep 27",
       "settle_usd_mt": 5594.0,
       "settle_usd_lb": 2.5374,
-      "volume": 1958
+      "volume": 1955
     },
     {
       "month": "2027-12",
       "label": "Dec 27",
       "settle_usd_mt": 5537.0,
       "settle_usd_lb": 2.5115,
-      "volume": 1672
+      "volume": 1670
     },
     {
       "month": "2028-03",
@@ -57,7 +57,7 @@
       "label": "May 28",
       "settle_usd_mt": 5384.0,
       "settle_usd_lb": 2.4421,
-      "volume": 47
+      "volume": 42
     },
     {
       "month": "2028-07",
