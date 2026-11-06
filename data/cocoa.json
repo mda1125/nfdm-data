@@ -1,14 +1,9 @@
 {
-  "updated_at": "2026-11-05T21:19:45.691279Z",
-  "current_usd_mt": 5290.0,
-  "current_usd_lb": 2.3995,
+  "updated_at": "2026-11-06T13:10:59.595981Z",
+  "current_usd_mt": 5258.0,
+  "current_usd_lb": 2.385,
   "count": 1257,
   "data": [
-    {
-      "date": "2021-11-05",
-      "price_usd_mt": 2397.0,
-      "price_usd_lb": 1.0873
-    },
     {
       "date": "2021-11-08",
       "price_usd_mt": 2433.0,
@@ -6286,8 +6281,13 @@
     },
     {
       "date": "2026-11-05",
-      "price_usd_mt": 5290.0,
-      "price_usd_lb": 2.3995
+      "price_usd_mt": 5181.0,
+      "price_usd_lb": 2.3501
+    },
+    {
+      "date": "2026-11-06",
+      "price_usd_mt": 5258.0,
+      "price_usd_lb": 2.385
     }
   ]
 }
