@@ -10396,23 +10396,23 @@
     },
     {
       "trade_date": "2026-11-12",
-      "spot": 2.092,
+      "spot": 2.07,
       "contracts": [
         {
           "month": "2026-11",
-          "settle": 2.092
+          "settle": 2.07
         },
         {
           "month": "2026-12",
-          "settle": 1.99
+          "settle": 1.9712
         },
         {
           "month": "2027-01",
-          "settle": 1.9245
+          "settle": 1.9212
         },
         {
           "month": "2027-02",
-          "settle": 1.8875
+          "settle": 1.8838
         },
         {
           "month": "2027-03",
