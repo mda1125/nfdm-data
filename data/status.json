@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T21:20:19.048044Z",
+  "generated_at": "2026-11-12T21:30:14.926153Z",
   "sources": [
     {
       "key": "cme",
@@ -24,12 +24,12 @@
     {
       "key": "nass",
       "label": "NASS NDPSR",
-      "latest_date": "2026-10-31",
-      "age_days": 12.9,
+      "latest_date": "2026-11-07",
+      "age_days": 5.9,
       "expected_fresh_days": 9,
       "expected_stale_days": 13,
-      "fetch_ok_this_run": false,
-      "state": "error"
+      "fetch_ok_this_run": true,
+      "state": "fresh"
     },
     {
       "key": "class_iv",
@@ -38,8 +38,8 @@
       "age_days": 12.9,
       "expected_fresh_days": 40,
       "expected_stale_days": 50,
-      "fetch_ok_this_run": false,
-      "state": "error"
+      "fetch_ok_this_run": true,
+      "state": "fresh"
     },
     {
       "key": "futures",
