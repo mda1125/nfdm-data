@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T20:55:39.956937Z",
+  "generated_at": "2026-11-13T21:19:59.693401Z",
   "sources": [
     {
       "key": "cme",
@@ -28,8 +28,8 @@
       "age_days": 6.9,
       "expected_fresh_days": 9,
       "expected_stale_days": 13,
-      "fetch_ok_this_run": true,
-      "state": "fresh"
+      "fetch_ok_this_run": false,
+      "state": "error"
     },
     {
       "key": "class_iv",
@@ -38,8 +38,8 @@
       "age_days": 13.9,
       "expected_fresh_days": 40,
       "expected_stale_days": 50,
-      "fetch_ok_this_run": true,
-      "state": "fresh"
+      "fetch_ok_this_run": false,
+      "state": "error"
     },
     {
       "key": "futures",
