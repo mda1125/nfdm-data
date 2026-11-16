@@ -1,55 +1,55 @@
 {
-  "updated_at": "2026-11-13T21:19:53.802936Z",
-  "trade_date": "2026-11-13",
-  "spot": 2.0525,
+  "updated_at": "2026-11-16T13:10:30.212015Z",
+  "trade_date": "2026-11-16",
+  "spot": 2.0693,
   "count": 16,
   "data": [
     {
       "month": "2026-11",
       "label": "Nov 26",
-      "settle": 2.0525,
-      "volume": 55
+      "settle": 2.0693,
+      "volume": 1
     },
     {
       "month": "2026-12",
       "label": "Dec 26",
-      "settle": 1.9385,
-      "volume": 122
+      "settle": 1.9325,
+      "volume": 2
     },
     {
       "month": "2027-01",
       "label": "Jan 27",
       "settle": 1.8875,
-      "volume": 74
+      "volume": 2
     },
     {
       "month": "2027-02",
       "label": "Feb 27",
-      "settle": 1.8838,
+      "settle": 1.855,
       "volume": 10
     },
     {
       "month": "2027-03",
       "label": "Mar 27",
-      "settle": 1.85,
+      "settle": 1.8265,
       "volume": 2
     },
     {
       "month": "2027-04",
       "label": "Apr 27",
-      "settle": 1.8325,
+      "settle": 1.816,
       "volume": 9
     },
     {
       "month": "2027-05",
       "label": "May 27",
-      "settle": 1.83,
+      "settle": 1.805,
       "volume": 17
     },
     {
       "month": "2027-06",
       "label": "Jun 27",
-      "settle": 1.8225,
+      "settle": 1.7937,
       "volume": 106
     },
     {
@@ -61,25 +61,25 @@
     {
       "month": "2027-08",
       "label": "Aug 27",
-      "settle": 1.805,
-      "volume": 20
+      "settle": 1.7807,
+      "volume": 25
     },
     {
       "month": "2027-09",
       "label": "Sep 27",
-      "settle": 1.79,
+      "settle": 1.7743,
       "volume": 11
     },
     {
       "month": "2027-10",
       "label": "Oct 27",
-      "settle": 1.7765,
+      "settle": 1.7688,
       "volume": 3
     },
     {
       "month": "2027-11",
       "label": "Nov 27",
-      "settle": 1.77,
+      "settle": 1.7568,
       "volume": 3
     },
     {
@@ -91,7 +91,7 @@
     {
       "month": "2028-01",
       "label": "Jan 28",
-      "settle": 1.706,
+      "settle": 1.698,
       "volume": 1
     },
     {
