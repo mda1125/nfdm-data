@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-16T21:58:38.056928Z",
+  "updated_at": "2026-11-16T23:27:44.179629Z",
   "trade_date": "2026-11-16",
   "count": 10,
   "data": [
@@ -8,7 +8,7 @@
       "label": "Dec 26",
       "settle_usd_mt": 5061.0,
       "settle_usd_lb": 2.2956,
-      "volume": 7896
+      "volume": 7891
     },
     {
       "month": "2027-03",
