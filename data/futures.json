@@ -1,92 +1,92 @@
 {
-  "updated_at": "2026-11-24T15:24:18.816134Z",
+  "updated_at": "2026-11-24T21:17:50.235076Z",
   "trade_date": "2026-11-24",
-  "spot": 2.0728,
+  "spot": 2.075,
   "count": 16,
   "data": [
     {
       "month": "2026-11",
       "label": "Nov 26",
-      "settle": 2.0728,
-      "volume": 1
+      "settle": 2.075,
+      "volume": 6
     },
     {
       "month": "2026-12",
       "label": "Dec 26",
-      "settle": 1.9725,
-      "volume": 20
+      "settle": 1.9718,
+      "volume": 95
     },
     {
       "month": "2027-01",
       "label": "Jan 27",
-      "settle": 1.8757,
-      "volume": 12
+      "settle": 1.8862,
+      "volume": 168
     },
     {
       "month": "2027-02",
       "label": "Feb 27",
-      "settle": 1.8407,
-      "volume": 11
+      "settle": 1.8495,
+      "volume": 115
     },
     {
       "month": "2027-03",
       "label": "Mar 27",
-      "settle": 1.8257,
-      "volume": 7
+      "settle": 1.83,
+      "volume": 96
     },
     {
       "month": "2027-04",
       "label": "Apr 27",
-      "settle": 1.8025,
-      "volume": 12
+      "settle": 1.8103,
+      "volume": 40
     },
     {
       "month": "2027-05",
       "label": "May 27",
-      "settle": 1.7977,
-      "volume": 30
+      "settle": 1.7985,
+      "volume": 39
     },
     {
       "month": "2027-06",
       "label": "Jun 27",
-      "settle": 1.789,
-      "volume": 22
+      "settle": 1.8,
+      "volume": 33
     },
     {
       "month": "2027-07",
       "label": "Jul 27",
       "settle": 1.78,
-      "volume": 2
+      "volume": 11
     },
     {
       "month": "2027-08",
       "label": "Aug 27",
-      "settle": 1.7703,
-      "volume": 2
+      "settle": 1.775,
+      "volume": 9
     },
     {
       "month": "2027-09",
       "label": "Sep 27",
-      "settle": 1.76,
-      "volume": 1
+      "settle": 1.761,
+      "volume": 4
     },
     {
       "month": "2027-10",
       "label": "Oct 27",
       "settle": 1.7505,
-      "volume": 1
+      "volume": 2
     },
     {
       "month": "2027-11",
       "label": "Nov 27",
-      "settle": 1.7425,
-      "volume": 1
+      "settle": 1.7568,
+      "volume": 6
     },
     {
       "month": "2027-12",
       "label": "Dec 27",
       "settle": 1.735,
-      "volume": 3
+      "volume": 2
     },
     {
       "month": "2028-01",
