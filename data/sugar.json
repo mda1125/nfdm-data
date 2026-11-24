@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-11-24T13:07:29.281686Z",
-  "current_cents_lb": 17.63,
-  "current_usd_kg": 0.3887,
+  "updated_at": "2026-11-24T15:24:18.932081Z",
+  "current_cents_lb": 17.71,
+  "current_usd_kg": 0.3904,
   "count": 1258,
   "data": [
     {
@@ -6291,8 +6291,8 @@
     },
     {
       "date": "2026-11-24",
-      "price_cents_lb": 17.63,
-      "price_usd_kg": 0.3887
+      "price_cents_lb": 17.71,
+      "price_usd_kg": 0.3904
     }
   ]
 }
