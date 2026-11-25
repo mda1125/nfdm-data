@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-11-25T15:23:18.418995Z",
-  "count": 765,
+  "updated_at": "2026-11-25T21:15:18.723814Z",
+  "count": 766,
   "data": [
     {
       "date": "2012-03-03",
@@ -4572,24 +4572,30 @@
       "date": "2026-10-24",
       "price": 2.0522,
       "volume": 16705193.0,
-      "final": false
+      "final": true
     },
     {
       "date": "2026-10-31",
       "price": 2.1164,
-      "volume": 14119731.0,
+      "volume": 14121605.0,
       "final": false
     },
     {
       "date": "2026-11-07",
-      "price": 2.0711,
-      "volume": 13548810.0,
+      "price": 2.0719,
+      "volume": 13673370.0,
       "final": false
     },
     {
       "date": "2026-11-14",
-      "price": 2.0836,
-      "volume": 19176022.0,
+      "price": 2.0846,
+      "volume": 19341918.0,
+      "final": false
+    },
+    {
+      "date": "2026-11-21",
+      "price": 2.0606,
+      "volume": 16921426.0,
       "final": false
     }
   ]
