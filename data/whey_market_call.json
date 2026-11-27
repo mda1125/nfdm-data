@@ -357,20 +357,20 @@
       "target_quarter": "2027-Q2",
       "target_label": "Q2 2027",
       "weeks_out": 24,
-      "current_price": 9.5,
+      "current_price": 6.9,
       "methods": {
         "naive": {
-          "price": 4.9167,
+          "price": 1.8872,
           "weight": 0.2,
-          "note": "Straight-line extrapolation of the observed weekly move (-2.71%/wk) held constant for all 24 weeks to Q2 2027. Treats the whole trailing move as durable -- tends to overreact when the trailing window is short."
+          "note": "Straight-line extrapolation of the observed weekly move (-5.26%/wk) held constant for all 24 weeks to Q2 2027. Treats the whole trailing move as durable -- tends to overreact when the trailing window is short."
         },
         "dampened": {
-          "price": 8.5123,
+          "price": 5.5592,
           "weight": 0.6,
           "note": "Same weekly move applied for 4 more weeks, then held flat through Q2 2027 (20 weeks flat) -- assumes a short trend decelerates rather than continuing unchanged for months."
         },
         "nfdm_crosscheck": {
-          "price": 8.3592,
+          "price": 6.0714,
           "weight": 0.2,
           "note": "NFDM curve prices Q2 2027 at -12.0% vs current spot; applying that same move to WPC80's current price as a dairy-complex cross-check (loose proxy -- different raw stream than NFDM)."
         }
@@ -379,14 +379,14 @@
         "reallocation_active": true,
         "note": "WPC80 is moving opposite WPC34 and dry whey together -- the reallocation pattern USDA's Jun 2026 narrative described (manufacturers shift output between these off the same finite whey stream as WPC80 demand shifts). Documented, product-specific explanation, so this call leans more on WPC80's own trend and less on the generic NFDM cross-check."
       },
-      "blended": 7.7626,
+      "blended": 4.9272,
       "range": {
-        "low": 4.9167,
-        "high": 8.5123
+        "low": 1.8872,
+        "high": 6.0714
       }
     }
   ],
-  "updated_at": "2026-11-27T15:23:53.893311Z",
+  "updated_at": "2026-11-27T21:04:35.554745Z",
   "latest": {
     "as_of": "2026-11-27",
     "iso_week": "2026-W48",
@@ -394,20 +394,20 @@
     "target_quarter": "2027-Q2",
     "target_label": "Q2 2027",
     "weeks_out": 24,
-    "current_price": 9.5,
+    "current_price": 6.9,
     "methods": {
       "naive": {
-        "price": 4.9167,
+        "price": 1.8872,
         "weight": 0.2,
-        "note": "Straight-line extrapolation of the observed weekly move (-2.71%/wk) held constant for all 24 weeks to Q2 2027. Treats the whole trailing move as durable -- tends to overreact when the trailing window is short."
+        "note": "Straight-line extrapolation of the observed weekly move (-5.26%/wk) held constant for all 24 weeks to Q2 2027. Treats the whole trailing move as durable -- tends to overreact when the trailing window is short."
       },
       "dampened": {
-        "price": 8.5123,
+        "price": 5.5592,
         "weight": 0.6,
         "note": "Same weekly move applied for 4 more weeks, then held flat through Q2 2027 (20 weeks flat) -- assumes a short trend decelerates rather than continuing unchanged for months."
       },
       "nfdm_crosscheck": {
-        "price": 8.3592,
+        "price": 6.0714,
         "weight": 0.2,
         "note": "NFDM curve prices Q2 2027 at -12.0% vs current spot; applying that same move to WPC80's current price as a dairy-complex cross-check (loose proxy -- different raw stream than NFDM)."
       }
@@ -416,10 +416,10 @@
       "reallocation_active": true,
       "note": "WPC80 is moving opposite WPC34 and dry whey together -- the reallocation pattern USDA's Jun 2026 narrative described (manufacturers shift output between these off the same finite whey stream as WPC80 demand shifts). Documented, product-specific explanation, so this call leans more on WPC80's own trend and less on the generic NFDM cross-check."
     },
-    "blended": 7.7626,
+    "blended": 4.9272,
     "range": {
-      "low": 4.9167,
-      "high": 8.5123
+      "low": 1.8872,
+      "high": 6.0714
     }
   }
 }
